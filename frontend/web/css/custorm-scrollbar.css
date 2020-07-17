@@ -1,0 +1,52 @@
+@charset "UTF-8";
+.jspDrag {
+  /*position: absolute;
+  cursor: pointer;
+  right: 0;
+  top: 0;
+  height: 100%;*/
+  /*background: url(../images/scrollTrak.gif) repeat-y;  задаем фоновую картинку или просто цвет фона */
+}
+
+.jspVerticalBar {
+  width: 11px;
+  background: transparent !important;
+}
+
+.jspArrow.jspArrowUp {
+  background: url(/img/scroll/order/arrow_up.gif) no-repeat;
+  height: 17px;
+}
+
+.jspArrow.jspArrowDown {
+  background: url(/img/scroll/order/arrow_down.gif) 0 4px no-repeat;
+  height: 17px;
+}
+
+.jspDrag {
+  background: url(/img/scroll/order/scrollDrag.gif) repeat-y;
+}
+
+.jspTrack {
+  background: url(/img/scroll/order/scrollTrak.gif) repeat-y;
+}
+
+.jspDragTop {
+  background: url(/img/scroll/order/scrollDragTop.gif) no-repeat;
+  height: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 11px;
+}
+
+.jspDragBottom {
+  background: url(/img/scroll/order/scrollDragBot.gif) no-repeat;
+  height: 4px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 11px;
+}
+
+/*# sourceMappingURL=custorm-scrollbar.css.map */

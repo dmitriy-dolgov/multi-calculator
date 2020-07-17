@@ -1,0 +1,70 @@
+@import "mixins";
+@import "order-form";
+@import "order-info";
+@import "pizzeria-info";
+
+$main-color: #EEE !important;
+
+html {
+  /*height: 100vh;*/
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  color: $main-color;
+  background-color: #2d3436;
+  /*background-image: linear-gradient(315deg, #2d3436 0%, #000000 74%);*/
+}
+
+body {
+  color: $main-color;
+  padding: 0;
+  margin: 0;
+  /*height: 100%;*/
+  background-image: linear-gradient(315deg, #2d3436 0%, #000000 74%);
+  /*display: flex;
+  align-items: center;
+  justify-content: center;*/
+}
+
+/*.main-container {
+  height: 100%;
+}*/
+
+a {
+  color: $main-color;
+}
+
+#orderForm {
+  .modal-body {
+    height: calc(100vh - 195px);
+    margin: 0;
+    border: 0;
+    width: 100%;
+    overflow-x: hidden;
+    padding: 0;
+  }
+}
+
+.nav-separator {
+  width: 9px;
+
+  &:before {
+    content: "";
+    background-color: #AAA;
+    width: 1px;
+    height: 25px;
+    display: inline-block;
+    position: absolute;
+    left: 8px;
+    top: 16px;
+  }
+
+}
+
+.link-revert {
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

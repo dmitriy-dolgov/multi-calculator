@@ -1,0 +1,60 @@
+.link-for-menu {
+  margin-left: 6px;
+  margin-right: 6px;
+  color: black;
+  background-color: #CCC;
+  padding: 5px 10px;
+  border-radius: 2px;
+}
+.link-for-menu .icon {
+  margin-right: 0.4em;
+  font-size: larger;
+  color: black;
+}
+.link-for-menu a {
+  color: black;
+}
+.link-for-menu a:hover {
+  color: black;
+  text-decoration: underline;
+}
+
+.setup-default-index ul {
+  line-height: 2.3;
+}
+
+.hint-block {
+  margin-bottom: 10px;
+}
+
+.field-profile-map .control-label.map-label {
+  font-size: smaller;
+}
+@media screen and (max-width: 1200px) {
+  .field-profile-map .control-label.map-label {
+    text-align: left;
+  }
+}
+
+.text-red-menu span, .text-red-menu i {
+  color: #ffab20 !important;
+}
+
+.pg-link-to-embed .frame-example {
+  height: 400px;
+  width: 100%;
+  border: none;
+  background: none;
+  overflow: hidden;
+}
+
+#orderForm .modal-body {
+  height: calc(100vh - 120px);
+  margin: 0;
+  border: 0;
+  width: 100%;
+  overflow-x: hidden;
+  padding: 0;
+}
+
+/*# sourceMappingURL=setup.css.map */

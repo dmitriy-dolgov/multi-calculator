@@ -1,0 +1,95 @@
+#pane-welcome {
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#pane-welcome .main-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  /*height: 30vh;*/
+  padding: 30px;
+  margin: 0;
+  list-style-type: none;
+  /*.setup {
+    margin-left: $base-main-menu-size;
+  }*/
+  /*.sign-in {
+    right: $base-main-menu-size * 24.5;
+    top: $base-main-menu-size * 1.8;
+    font-size: $base-main-menu-size * 4;
+  }
+
+  .sign-up {
+    right: $base-main-menu-size * 18;
+    top: $base-main-menu-size * 2.4;
+    font-size: $base-main-menu-size * 2.5;
+  }
+
+  .exit {
+    right: $base-main-menu-size * 18;
+    top: $base-main-menu-size * 2.4;
+    font-size: $base-main-menu-size * 2.5;
+  }
+
+  .about {
+    right: $base-main-menu-size * 11;
+    top: $base-main-menu-size * 1.8;
+    font-size: $base-main-menu-size * 4;
+  }
+
+  .setup {
+    right: $base-main-menu-size;
+    top: $base-main-menu-size;
+    font-size: $base-main-menu-size * 7;
+  }
+
+  .contact {
+    right: $base-main-menu-size * 1.8;
+    top: $base-main-menu-size * 11;
+    font-size: $base-main-menu-size * 4;
+  }
+
+  .home {
+    right: $base-main-menu-size * 2.4;
+    top: $base-main-menu-size * 18;
+    font-size: $base-main-menu-size * 2.5;
+  }*/
+}
+#pane-welcome .main-menu .men-el {
+  /*position: absolute;*/
+  line-height: 0;
+  font-size: 30px;
+}
+#pane-welcome .main-menu .men-el a {
+  color: #F39C12;
+  -webkit-transition: color 0.5s, filter 0.4s;
+  transition: color 0.5s, filter 0.4s;
+  text-decoration: none;
+}
+#pane-welcome .main-menu .men-el a:hover {
+  color: #d50900;
+  -webkit-transition: color 0.2s, filter 0.2s;
+  transition: color 0.2s, filter 0.2s;
+  transition-timing-function: ease;
+  text-decoration: none;
+  filter: drop-shadow(3px 3px 2px #222);
+}
+#pane-welcome .main-menu .exit {
+  margin-left: auto;
+}
+#pane-welcome .main-menu .reg-in-up {
+  margin-left: auto;
+  display: flex;
+}
+#pane-welcome .main-menu .sign-in {
+  margin-right: 30px;
+}
+#pane-welcome .main-menu .about,
+#pane-welcome .main-menu .contact {
+  margin-left: 17.6470588235px;
+}
+
+/*# sourceMappingURL=welcome.css.map */

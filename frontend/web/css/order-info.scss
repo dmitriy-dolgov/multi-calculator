@@ -1,0 +1,262 @@
+$media-screen-size-1: 900px;
+
+#shop-order {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-bottom: 7vw;
+
+  .top-title {
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .order-info {
+    position: relative;
+    width: 100%;
+    margin-bottom: 2vw;
+    /*height: 75vw;*/
+    color: #fff;
+    /*text-shadow: 1px 1px #C48B2CEE;*/
+    /*background-color: transparent;
+    background-image: url("/img/order-desc.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top;*/
+
+    .o-img {
+      width: 100%;
+    }
+
+    .o-content {
+      position: relative;
+      width: 100%;
+      /*top: 39%;
+      left: 15%;*/
+      font-size: 23px;
+      font-weight: bold;
+      line-height: 2.2;
+
+      a {
+        color: inherit !important;
+      }
+
+      .status-hint {
+        font-size: 28px;
+        text-align: center;
+        color: white;
+
+        @media screen and (max-width: $media-screen-size-1) {
+          font-size: 3.3vw;
+        }
+      }
+
+      @media screen and (max-width: $media-screen-size-1) {
+        font-size: 2.8vw;
+      }
+    }
+  }
+
+  .order-components {
+    width: 100%;
+    min-height: 33vw;
+    position: relative;
+    margin: 6vw 0 0;
+
+    .bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse closest-side at center, #9994, #0000);
+      border-radius: 50%;
+    }
+
+    @media screen and (max-width: $media-screen-size-1) {
+      min-height: 38vw;
+      margin: 7vw 0 0;
+    }
+
+    .o-content {
+      padding: 10vw 8vw;
+      position: relative;
+
+
+      @media screen and (max-width: $media-screen-size-1) {
+        padding: 10vw 8vw 11vw;
+      }
+
+      .text-warning {
+        color: #ac141f;
+      }
+
+      .subheader {
+        text-align: center;
+        font-size: 55px;
+        font-weight: bold;
+        margin-bottom: 5vw;
+        line-height: 0;
+        color: #fdb526;
+
+        @media screen and (max-width: $media-screen-size-1) {
+          font-size: 6.5vw;
+          margin-bottom: 7vw;
+        }
+      }
+
+      .subelement {
+        display: flex;
+        font-size: 30px;
+        margin-bottom: 20px;
+        font-weight: 800;
+
+        @media screen and (max-width: $media-screen-size-1) {
+          font-size: 4.5vw;
+          margin-bottom: 1vw;
+        }
+
+        .title {
+          margin-right: 2vw;
+          white-space: nowrap;
+        }
+
+        .dots {
+          width: 100%;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+
+        .price {
+          white-space: nowrap;
+          color: #fdb526;
+          margin-left: 2vw;
+        }
+      }
+    }
+
+    .b-c-left-top,
+    .b-c-right-top,
+    .b-c-left-bottom,
+    .b-c-right-bottom {
+      position: absolute;
+      width: 18%;
+    }
+
+    .b-c-left-top {
+      left: 0;
+      top: 0;
+    }
+
+    .b-c-right-top {
+      right: 0;
+      top: 0;
+
+      /*
+      TODO: не работает - почему, потому что img а не div ?
+      &:after {
+        content: "";
+        background-color: #fdb526;
+        width: 7px;
+        height: 50px;
+        position: absolute;
+      }*/
+    }
+
+    .b-c-left-bottom {
+      left: 0;
+      bottom: 0;
+    }
+
+    .b-c-right-bottom {
+      right: 0;
+      bottom: 0;
+    }
+
+    .b-c-top-line,
+    .b-c-bottom-line,
+    .b-c-left-line,
+    .b-c-right-line {
+      position: absolute;
+      background-color: #fdb526;
+    }
+
+    .b-c-top-line {
+      width: 56%;
+      height: 4px;
+      left: 22%;
+      top: 1%;
+    }
+
+    .b-c-bottom-line {
+      width: 56%;
+      height: 4px;
+      left: 22%;
+      bottom: 1%;
+    }
+
+    .b-c-left-line {
+      display: none;
+      width: 4px;
+      left: 1%;
+    }
+
+    .b-c-right-line {
+      display: none;
+      width: 4px;
+      right: 1%;
+    }
+
+    @media screen and (max-width: $media-screen-size-1) {
+      .b-c-top-line,
+      .b-c-bottom-line {
+        height: 2px;
+      }
+
+      .b-c-left-line,
+      .b-c-right-line {
+        width: 2px;
+      }
+    }
+
+
+  }
+}
+
+.statuses {
+  .title {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: bold;
+    padding: 20px;
+  }
+
+  .info {
+    margin: 20px 0;
+    color: yellow;
+    margin: 20px 0;
+    font-size: 20px;
+  }
+
+  .decline-order {
+    background-color: red;
+    border: 0;
+    border-radius: 20px;
+    padding: 10px 30px;
+  }
+}
+
+.approved-pizzerias {
+  display: flex;
+  margin: 12px 0;
+  color: rgba(255, 255, 255, .8);
+  align-items: center;
+
+  .btn-approve-order {
+    margin-left: auto;
+  }
+}

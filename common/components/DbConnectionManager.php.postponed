@@ -1,0 +1,39 @@
+<?php
+
+class DbConnectionManager extends Component
+{
+    /** * @var \yii\db\Connection[] $connections */
+    private $connections = [];
+
+
+    public function getClientConnection($clientID)
+    {
+        if (!isset($this->connections[$clientID])) {
+            if (!$client = \Da\User\Model\User::findOne($clientID)) {
+                throw new Exception(Yii::t('app', 'User not found.'));
+            }
+            $connection = new \yii\db\Connection([
+                'dsn' => "{$this->dsn}_user_{$clientID}",
+                'username' => $client->username,
+                'password' => $client->password,
+            ]);
+            $connection->open();
+            $this->connections[$clientID] = $connection;
+        }
+        return $this->connections[$clientID];
+    }
+
+    public function closeClientConnection($clientID)
+    {
+        if (isset($this->connections[$clientID])) {
+            $this->connections[$clientID]->close();
+            unset($this->connections[$clientID]);
+        }
+    }
+
+    public function getCurrentClientConnection()
+    {
+        return $this->getClientConnection(\Yii::$app->user->id);
+    }
+
+}

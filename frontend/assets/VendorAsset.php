@@ -18,8 +18,8 @@ class VendorAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         'yii\jui\JuiAsset',
-        'app\assets\JtpAsset',
-        'app\assets\JplayerAsset',
+        'frontend\assets\JtpAsset',
+        'frontend\assets\JplayerAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         'rmrevin\yii\fontawesome\AssetBundle',
     ];

@@ -9,8 +9,6 @@ $params = array_merge(
     require __DIR__ . '/params-local.php'
 );
 
-Yii::setAlias('@root', dirname(__DIR__));
-
 return [
     'id' => 'multipurpose-calculator-creator-app-backend',
     'name' => 'Pizza Maya',

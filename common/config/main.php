@@ -1,4 +1,7 @@
 <?php
+
+Yii::setAlias('@root', dirname(dirname(__DIR__)));
+
 return [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',

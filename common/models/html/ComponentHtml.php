@@ -2,7 +2,7 @@
 
 namespace common\models\html;
 
-use app\helpers\Internationalization;
+use common\helpers\Internationalization;
 use common\models\db\Component;
 use yii\base\BaseObject;
 use yii\helpers\Html;

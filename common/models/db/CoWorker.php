@@ -2,7 +2,7 @@
 
 namespace common\models\db;
 
-use app\helpers\Setup;
+use common\helpers\Setup;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 

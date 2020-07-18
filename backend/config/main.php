@@ -57,10 +57,6 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                //'/vendor/get-order-form' => '/vendor/default/get-order-form',
-                'vendor/order/<uid:[\w_]+>' => 'vendor/default/order',
-                'vendor/<action:[\w\-]+>/<id:(.*?)>' => 'vendor/default/<action>/<id>',
-                'vendor/<action:[\w\-]+>' => 'vendor/default/<action>',
             ],
         ],
 

@@ -150,11 +150,11 @@ return [
 
             'controllerMap' => [
                 'settings' => 'backend\modules\setup\controllers\SettingsController',
-                /*'security' => [
-                    //'class' => \Da\User\Controller\SecurityController::class,
-                    'class' => 'app\controllers\SecurityController',
+                'security' => [
+                    'class' => \Da\User\Controller\SecurityController::class,
+                    //'class' => 'app\controllers\SecurityController',
                     'layout' => '@backend/views/layouts/registration',
-                ],*/
+                ],
                 'registration' => [
                     'class' => \Da\User\Controller\RegistrationController::class,
                     'layout' => '@backend/views/layouts/registration',

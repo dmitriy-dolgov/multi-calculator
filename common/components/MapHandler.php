@@ -3,7 +3,7 @@
 namespace common\components;
 
 use Yii;
-use app\models\db\User;
+use common\models\db\User;
 use yii\base\Component;
 use yii\web\BadRequestHttpException;
 

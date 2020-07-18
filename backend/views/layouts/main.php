@@ -160,8 +160,9 @@ CSS
         <?php if (!Yii::$app->user->isGuest): ?>
             <div id="right-wrapper">
                 <section id="pane-order-make" class="view-pane">
-                    <iframe class="total-frame"
-                            src="<?= Url::to(['/vendor/order']) ?>/<?= Yii::$app->user->identity->getOrderUid() ?>"></iframe>
+                    <!--<iframe class="total-frame"
+                            src="<?/*= Url::to(['/vendor/order']) */?>/<?/*= Yii::$app->user->identity->getOrderUid() */?>"></iframe>-->
+                    <iframe class="total-frame" src="http://pizza-customer.local/vendor/order"></iframe>
                     <i class="pane-switch icon-arrow-left-circle btn-wrap-order-make-form"
                        title="Развернуть панель"></i>
                 </section>

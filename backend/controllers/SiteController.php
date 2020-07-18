@@ -1,46 +1,16 @@
 <?php
+
 namespace backend\controllers;
 
+use common\models\ContactForm;
+use common\models\db\Component;
+use common\models\LoginForm;
 use Yii;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use common\models\LoginForm;
+use yii\web\Response;
 
-/**
- * Site controller
- */
 class SiteController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -49,6 +19,10 @@ class SiteController extends Controller
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
+            ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
     }
@@ -60,41 +34,49 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $components = Yii::$app->user->isGuest ? [] : $components = Yii::$app->user->identity->components;
+
+        return $this->render('index', [
+            'components' => $components,
+        ]);
     }
 
     /**
-     * Login action.
+     * Displays contact page.
      *
-     * @return string
+     * @return Response|string
      */
-    public function actionLogin()
+    public function actionContact()
     {
+        $this->layout = '@app/views/layouts/registration';
+
+        $model = new ContactForm();
+
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            $userName = Yii::$app->user->identity->profile->name;
+            $model->name = $userName ?: Yii::$app->user->identity->username;
+            $model->email = Yii::$app->user->identity->email;
         }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            $model->password = '';
+        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+            Yii::$app->session->setFlash('contactFormSubmitted');
 
-            return $this->render('login', [
-                'model' => $model,
-            ]);
+            return $this->refresh();
         }
+        return $this->render('contact', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Logout action.
+     * Displays about page.
      *
      * @return string
      */
-    public function actionLogout()
+    public function actionAbout()
     {
-        Yii::$app->user->logout();
+        $this->layout = '@app/views/layouts/registration';
 
-        return $this->goHome();
+        return $this->render('about');
     }
 }

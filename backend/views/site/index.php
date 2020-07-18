@@ -1,53 +1,56 @@
 <?php
 
+use yii\helpers\Html;
+
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = Yii::t('app', 'Main page');
+
+\hiqdev\assets\flagiconcss\FlagIconCssAsset::register($this);
+
+//Yii::$app->language = 'ru';
+/*$languageItem = new cetver\LanguageSelector\items\DropDownLanguageItem([
+    'languages' => [
+        'en' => '<span class="flag-icon flag-icon-us"></span>',
+        'ru' => '<span class="flag-icon flag-icon-ru"></span>',
+    ],
+    'options' => ['encode' => false],
+]);
+$languageItem = $languageItem->toArray();
+$languageDropdownItems = \yii\helpers\ArrayHelper::remove($languageItem, 'items');
+echo \yii\bootstrap\ButtonDropdown::widget([
+    'label' => $languageItem['label'],
+    'encodeLabel' => false,
+    'options' => [
+        'class' => 'btn-default',
+        'title' => Yii::t('app', 'Language'),
+    ],
+    'dropdown' => [
+        'items' => $languageDropdownItems,
+    ],
+]);*/
+
+$this->registerJs(<<<JS
+    $('#wrap').css('padding-top', $('.pane-mobile-switcher').height());
+JS
+);
+
 ?>
-<div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
-
-    </div>
+<?= Html::img(['/img/pizza-logo-white-border.png'], [
+    'alt' => Yii::$app->name,
+    'class' => 'main-logo',
+]) ?>
+<div class="main-background">
+    <h1 class="main-caption"><?= Yii::t('app', '{name} - Online Pizza Sales System',
+            ['name' => Yii::$app->name]) ?></h1>
+    <?= \common\widgets\Alert::widget() ?>
+    <ul>
+        <li>Зарегистрируйтесь в системе</li>
+        <li>Установите ингридиенты для пиццы</li>
+        <li>При необходимости, можете установить исполнителей</li>
+        <li>Встройте html код формы заказа на ваш сайт</li>
+        <li>Тестируйте и используйте форму заказа</li>
+        <li>Отслеживайте историю заказов</li>
+        <li>Оформите VIP-подписку чтобы убрать рекламу и получить 24/7 поддержку</li>
+    </ul>
 </div>

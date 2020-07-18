@@ -18,14 +18,6 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use corpsepk\DaData\SuggestionsWidget;
 
-//Yii::$app->modules->user->controllerMap->security->layout = '@frontend/views/layouts/registration';
-//Yii::$app->modules->user->controllerMap->registration->layout = '@frontend/views/layouts/registration';
-//Yii::$app->getModule('user')->controllerMap->registration->layout = '@frontend/views/layouts/registration';
-//Yii::$app->modules['user']->controllerMap['security']['layout'] = '@frontend/views/layouts/clean-simple';
-//Yii::$app->modules['user']->controllerMap['registration']['layout'] = '@frontend/views/layouts/clean-simple';
-//Yii::$app->getModule('user')->controllerMap['security']['layout'] = '@frontend/views/layouts/clean-simple';
-//Yii::$app->getModule('user')->controllerMap['registration']['layout'] = '@frontend/views/layouts/clean-simple';
-
 $this->getAssetManager()->appendTimestamp = true;
 
 $components = $components ?? [];
@@ -65,6 +57,13 @@ body:after{
 CSS
     );
 }
+
+$this->registerJs(<<<JS
+$('#logRegModal').on('shown.bs.modal', function() {
+    $('#logRegModal .frame-fill').attr('src', '/user/login');
+});
+JS
+);
 
 echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $uid, 'activeUsers' => $activeUsers]);
 
@@ -412,7 +411,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                 <h4 class="modal-title"><?= Yii::t('app', 'Вход в систему') ?></h4>
             </div>
             <div class="modal-body">
-                <iframe class="frame-fill" src="/user/login-customer-iframe"></iframe>
+                <iframe class="frame-fill" src=""></iframe>
             </div>
         </div>
 

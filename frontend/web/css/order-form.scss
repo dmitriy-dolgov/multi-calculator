@@ -921,7 +921,7 @@ $order-submit-bg-color: #2d3436;
 
 .registration-info {
   display: flex;
-  color: #1b1b1b;
+  color: #1b1b1b !important;
   align-items: center;
   font-weight: bold;
   font-style: italic;
@@ -933,4 +933,15 @@ $order-submit-bg-color: #2d3436;
     font-size: 23px;
     cursor: pointer;
   }
+
+  .icon-exit {
+    color: #1b1b1b !important;
+  }
 }
+
+.frame-fill {
+  width: 100%;
+  border: none;
+  height: 600px;
+}
+

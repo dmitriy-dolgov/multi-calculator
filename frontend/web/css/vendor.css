@@ -1266,3 +1266,13 @@ a {
 }
 
 /*# sourceMappingURL=vendor.css.map */
+
+.frame-fill {
+  width: 100%;
+  border: none;
+  height: 600px;
+}
+
+a.icon-exit {
+  color: #1b1b1b !important;
+}

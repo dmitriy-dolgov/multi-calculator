@@ -87,8 +87,16 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function actionOrder($uid)
+    public function actionOrder($uid = null)
     {
+        if (!$uid) {
+            if (Yii::$app->params['current_domain'] == 'pizza-customer.local') {
+                $uid = '2_e42c5272';
+            } else {
+                $uid = '2_e72d17a3';
+            }
+        }
+
         if (!$user = User::findByUid($uid)) {
             throw new NotFoundHttpException();
         }

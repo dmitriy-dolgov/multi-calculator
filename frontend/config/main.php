@@ -1,10 +1,15 @@
 <?php
+
+use yii\web\UserEvent;
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
     require __DIR__ . '/params.php',
     require __DIR__ . '/params-local.php'
 );
+
+Yii::setAlias('@root', dirname(__DIR__));
 
 return [
     'id' => 'multipurpose-calculator-creator-app-customer',
@@ -18,10 +23,9 @@ return [
             'csrfParam' => '_csrf-frontend',
         ],
         'mapHandler' => [
-            'class' => 'app\components\MapHandler',
+            'class' => 'common\components\MapHandler',
         ],
         'user' => [
-            //'identityClass' => 'common\models\User',
             'identityClass' => 'common\models\db\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
@@ -32,9 +36,9 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'dbConnectionManager' => [
-            'class' => 'app/components/DbConnectionManager',
-        ],
+        /*'dbConnectionManager' => [
+            'class' => 'common/components/DbConnectionManager',
+        ],*/
         'session' => [
             // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced-frontend',
@@ -56,9 +60,137 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                //'/vendor/get-order-form' => '/vendor/default/get-order-form',
+                'vendor/order/<uid:[\w_]+>' => 'vendor/default/order',
+                'vendor/<action:[\w\-]+>/<id:(.*?)>' => 'vendor/default/<action>/<id>',
+                'vendor/<action:[\w\-]+>' => 'vendor/default/<action>',
             ],
         ],
 
+        'i18n' => [
+            'translations' => [
+                'app' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@frontend/messages',
+                    //'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        //'app/error' => 'error.php',
+                    ],
+                ],
+                'app-alt-1' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@frontend/messages',
+                    'fileMap' => [
+                        'app-alt-1' => 'app-alt-1.php',
+                    ],
+                ],
+                'err' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@frontend/messages',
+                    'fileMap' => [
+                        'err' => 'err.php',
+                    ],
+                ],
+                'db' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@frontend/messages',
+                    'fileMap' => [
+                        'db' => 'db.php',
+                    ],
+                ],
+            ],
+        ],
+
+        'authManager' => [
+            'class' => 'Da\User\Component\AuthDbManagerComponent',
+        ],
+
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@Da/User/resources/views' => '@frontend/views/user'
+                ]
+            ]
+        ]
+
     ],
+
+    'modules' => [
+        'vendor' => [
+            'class' => 'frontend\modules\vendor\Module',
+        ],
+        'treemanager' => [
+            'class' => '\kartik\tree\Module',
+            // other module settings, refer detailed documentation
+        ],
+        'user' => [
+            'class' => \Da\User\Module::class,
+            // ...other configs from here: [Configuration Options](installation/configuration-options.md), e.g.
+            'administrators' => ['daiviz', 'Ladlen', 'Ruslan'], // this is required for accessing administrative actions
+            //'generatePasswords' => true,
+            //TODO: разобраться что это точно
+            'switchIdentitySessionKey' => 'ladlen_daiviz_undula',
+
+            'classMap' => [
+                'User' => \common\models\db\User::class,
+                'Profile' => \common\models\db\Profile::class,
+                'ResendForm' => \common\models\forms\ResendForm::class,
+            ],
+
+            //'layout' => '@backend/modules/setup/views/layouts/main',
+
+            'controllerMap' => [
+                //'settings' => 'backend\modules\setup\controllers\SettingsController',
+                'security' => [
+                    'class' => \Da\User\Controller\SecurityController::class,
+                    'layout' => '@frontend/views/layouts/registration',
+                ],
+                'registration' => [
+                    'class' => \Da\User\Controller\RegistrationController::class,
+                    'layout' => '@frontend/views/layouts/registration',
+                    /*'on ' . \Da\User\Event\FormEvent::EVENT_AFTER_REGISTER => function (\Da\User\Event\FormEvent $event
+                    ) {
+                        //TODO: postponed; see folder components.postponed (separate databases for each user)
+//                        if ($user = \Da\User\Model\User::findOne(['username' => $event->form->username])) {
+//                            $databaseName = 'pizza_user_' . $user->getPrimaryKey();
+//                        }
+                    },*/
+                    'on ' . \Da\User\Event\UserEvent::EVENT_AFTER_CONFIRMATION => function (
+                        \Da\User\Event\UserEvent $event
+                    ) {
+                        //TODO: при ручной активации аккаунта админом - вызывать
+                        $auth = \Yii::$app->authManager;
+                        $clientRole = $auth->getRole('client');
+                        $auth->assign($clientRole, $event->getUser()->getId());
+                    },
+                ],
+                /*'admin' => [
+                    'class' => \Da\User\Controller\AdminController::class,
+                    'layout' => '@backend/modules/admin/views/layouts/main',
+                ],
+                'role' => [
+                    'class' => \Da\User\Controller\RoleController::class,
+                    'layout' => '@backend/modules/admin/views/layouts/main',
+                ],
+                'permission' => [
+                    'class' => \Da\User\Controller\PermissionController::class,
+                    'layout' => '@backend/modules/admin/views/layouts/main',
+                ],
+                'rule' => [
+                    'class' => \Da\User\Controller\RuleController::class,
+                    'layout' => '@backend/modules/admin/views/layouts/main',
+                ],*/
+            ],
+        ],
+    ],
+    /*'container' => [
+        'definitions' => [
+            'corpsepk\DaData\SuggestionsWidget' => [
+                'token' => '3b0831fece6038806811a6eaef5843755d0ae9a4',
+            ],
+        ],
+    ],*/
+
     'params' => $params,
 ];

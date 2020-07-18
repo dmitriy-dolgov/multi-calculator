@@ -1,0 +1,9 @@
+Интеграция в БД файла fias_dbf.zip с сайта https://fias.nalog.ru/Updates на Jul.08.20
+
+
+https://github.com/hflabs/region/blob/master/region.csv - отсюда беру kladr_id региона (надеюсь правильно)
+
+г. Москва - 7700000000000
+московская обл. - 5000000000000
+г. Санкт-Петербург - 7800000000000
+

@@ -1,0 +1,15 @@
+1) Конструктор товаров на JS, позволяющий
+    - назначить изображение товара, название, описание, цену, цену со скидкой. Товары должны иметь признак удаления и включения
+    - тип шаблона, по которому товары складываются и рассчитываются
+
+http://pizza.local/vendor/order/2_e42c5272
+http://uid2018.hosting1.b-leader.ru/vendor/order/2_e72d17a3
+
+++++++++
+
+this.customerMarker - маркер положения пользователя
+this.markers - маркеры пиццерий
+gl.data.worldMap = new gl.functions.placesMap(placesMapId, initialMapParameters);
+
+worldMap.markers
+

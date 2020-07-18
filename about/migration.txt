@@ -1,0 +1,162 @@
+// Абстрактный адрес
+./yii migrate/create create_location_table --fields="region:string(255):comment('Регион -область-'),region_id:string(255):comment('Код региона -области-'),district:string(255):comment('Район'),district_id:string(255):comment('Код района'),city:string(255):comment('Город -населённый пункт-'),city_id:string(255):comment('Код города -населённого пункта-'),street:string(255):comment('Улица'),street_id:string(255):comment('Код улицы'),building:string(255):comment('Дом -строение-'),building_id:string(255):comment('Код дома -строения-'),appartment:string(255):comment('Помещение'),zip_code:string(255):comment('Почтовый индекс'),arbitrary_address:string(255):comment('Произвольная строка адреса'),deleted_at:datetime"
+
+// Категории
+./yii migrate/create create_category_table --fields="name:string(255),parent_category_id:integer:foreignKey('category'),description:string(255):comment('Подробное описание'),deleted_at:datetime"
+
+// Торговая точка
+./yii migrate/create create_shop_table --fields="name:string(255),location_id:integer:foreignKey(location),top_category_id:integer:foreignKey(category):comment('Указывает на коренную категорию через которую идет привязка более низовых категорий и компонентов'),deleted_at:datetime"
+
+//// Компонент "в вакууме", т. е. сам по себе
+//./yii migrate/create create_component_table --fields="name:string(255),category_id:integer:foreignKey('category'),description:string(255):comment('Подробное описание')"
+
+// Иерархическая связка компонентов (элемент компонента)
+//TODO: сделать привязку к разным категориям
+./yii migrate/create create_component_table --fields="name:string(255),short_name:string(255):comment('Короткая версия названия'),parent_component_id:integer:foreignKey(component):comment('Родительский элемент - если есть значит этот компонент может являться частью другого компонента'),category_id:integer:foreignKey(category),deleted_at:datetime"
+
+// Поскольку изображений может быть несколько - надо сделать отдельные таблицы
+./yii migrate/create create_component_image_table --fields="relative_path:string(255),component_id:integer:foreignKey(component),deleted_at:datetime"
+
+//// Связка торговых точек и категорий (связывается верхняя коренная категория)
+//./yii migrate/create create_shop_category_table --fields="shop_id:integer:foreignKey(shop),category_id:integer:foreignKey(category)"
+
+./yii migrate/create change_foreign_keys_for_nomenclature_item_categories
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+//(пока передумал удалять, может пригодиться)./yii migrate/create drop_parent_component_id_column_from_component_table --fields="parent_component_id:integer:foreignKey(component):comment('Родительский элемент - если есть значит этот компонент может являться частью другого компонента')"
+
+./yii migrate/create add_description_column_to_component_table --fields="description:text,short_description:text,price:decimal(8,2),price_discount:decimal(8,2)"
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+./yii migrate/create add_user_id_column_to_component_table --fields="user_id:integer:foreignKey('user')"
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+./yii migrate/create add_long_lat_column_to_user_table --fields="long_lat:string(40):after(""):comment('Широта долгота через точку с запятой')"
+
+//latitude, longitude
+
+./yii migrate/create add_login_lat_long_column_to_user_table --fields="login_lat_long:string(40):comment('Широта долгота при входе на сайт через точку с запятой')"
+
+./yii migrate/create add_company_lat_long_column_to_profile_table --fields="company_lat_long:string(40):comment('Широта долгота предприятия или пользователя через точку с запятой')"
+
+>>>>>>>>
+
+./yii migrate/create add_unique_index_for_website_column_of_profile_table;
+
+>>>>>>
+
+./yii migrate/create add_amount_column_to_component_table --fields="amount:integer:notNull:defaultValue(1)"
+
+--
+
+// Сотрудники
+./yii migrate/create create_co_worker_table --fields="user_id:integer:foreignKey('user'),name:string(255),birthday:datetime"
+
+// Таблица заказов
+./yii migrate/create create_shop_order_table --fields="user_id:integer:foreignKey('user'),created_at:datetime,
+deliver_address:text:comment('Куда доставить заказ'),deliver_customer_name:string(255),deliver_phone:string(40),deliver_email:string(255),deliver_comment:text,
+deliver_required_time_begin:datetime:comment('Время когда надо доставить заказ - начало'),
+deliver_required_time_end:datetime:comment('Время когда надо доставить заказ - конец')"
+
+// Статус заказа
+./yii migrate/create create_shop_order_status_table --fields="shop_order_id:integer:foreignKey('shop_order'),
+type:string(50):comment('Тип заказа - создан, принят к исполнению. отложен начал готовиться в процессе доставки отменен завершен и т. д.')
+accepted_at:datetime:comment('Время назначения статуса'),accepted_by:integer:foreignKey('co_worker'):comment('Сотрудник назначивший статус')"
+
+// Компоненты заказа c названием и ценой на момент принятия заказа
+./yii migrate/create create_shop_order_components_table --fields="shop_order_id:integer:foreignKey('shop_order'),
+component_id:integer:foreignKey('component'),name:string(255),short_name:string(255),
+order_price:decimal(8,2),order_price_discount:decimal(8,2)"
+
+--
+
+// Куда отправлять сигнал о получении заказа
+./yii migrate/create create_shop_order_signal_table --fields="user_id:integer:foreignKey('user'),emails:text:comment('JSON - список email куда сигналить о новом заказе'),phones:text:comment('JSON - список телефонов куда отправлять SMS о новом заказе')"
+
+
+--
+
+./yii migrate/create add_order_uid_column_to_user_table --fields="order_uid:string(50):comment('UID идентификатор формы заказа')"
+
+
+--
+
+./yii migrate/create add_language_column_to_user_table --fields="language:string(20):comment('Текущий язык')"
+
+--
+
+./yii migrate/create create_component_set_table --fields="name:string(255),description:text"
+//./yii migrate/create create_component_component_set_table --fields="component_id:integer:foreignKey(component),component_set_id:integer:foreignKey(component_set)"
+./yii migrate/create create_junction_table_for_component_and_component_set_tables --fields="created_at:dateTime"
+
+--
+./yii migrate/create add_order_uid_column_to_shop_order_table --fields="order_uid:string(50):after(user_id)"
+
+
+--
+
+./yii migrate/create add_disabled_column_to_component_table --fields="disabled:integer"
+
+--
+
+./yii migrate/create create_component_video_table --fields="relative_path:string(255),component_id:integer:foreignKey(component),mime_type:string(255),deleted_at:datetime"
+
+--
+
+./yii migrate/create create_unit_table --fields="name:string(255),short_name:string(20),symbol:string(10),symbol_pattern:string(40):comment('Шаблон демонстрирующий значение вместе со знаком единицы')"
+
+./yii migrate/create fill_unit_table
+
+--
+
+./yii migrate/create create_component_switch_group_table --fields="user_id:integer:foreignKey('user'),name:string(255),description:text"
+
+--
+
+./yii migrate/create add_unit_id_column_to_component_table --fields="unit_id:integer:foreignKey(unit):after('amount'),unit_value:double:after('unit_id'),unit_value_min:double:after('unit_value'),unit_value_max:double:after('unit_value_min'),unit_switch_group:integer:foreignKey(component_switch_group):after('unit_value_max')"
+
+./yii migrate/create fill_component_switch_group_table
+
+--
+
+./yii migrate/create fill_extend_unit_table
+
+--
+
+./yii migrate/create add_item_select_max_column_to_component_table --fields="item_select_min:integer:after('amount'):comment('Мин количество выбираемых компонентов'),item_select_max:integer:after('item_select_min'):comment('Макс количество выбираемых компонентов')"
+
+--
+
+./yii migrate/create add_status_column_to_profile_table --fields="status:string(40):comment('Статус активости')"
+
+--
+
+./yii migrate/create add_data_column_to_shop_order_status_table --fields="data:text:comment('Та или иная дополнительная информация'),description:text:comment('Описание которое возможно захочет добавить')"
+
+--
+
+./yii migrate/create create_junction_table_for_shop_order_and_user_tables --fields="created_at:dateTime"
+
+--
+
+./yii migrate/create add_user_id_column_to_shop_order_status_table --fields="user_id:integer:foreignKey('user'):after('shop_order_id')"
+
+--
+
+./yii migrate/create alter_type_column_to_shop_order_status_table
+
+//./yii migrate/create add_status_to_shop_order_table --fields="status:string(255)"
+
+--
+
+./yii migrate/create add_map_icon_column_to_profile_table --fields="icon_name:string(70):comment('Название изображения иконки в icomoon'),icon_color:string(255):comment('Цвет иконки'),icon_image_path:string(255):comment('Относительный путь к изображению иконки'),facility_image_path:string(255):comment('Относительный путь к изображению заведения'),schedule:text:comment('Расписание работы')"
+
+
+
+
+
+
+

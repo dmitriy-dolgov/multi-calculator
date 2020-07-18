@@ -48,7 +48,7 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
-        $this->layout = '@app/views/layouts/registration';
+        $this->layout = '@backend/views/layouts/registration';
 
         $model = new ContactForm();
 
@@ -75,7 +75,7 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
-        $this->layout = '@app/views/layouts/registration';
+        $this->layout = '@backend/views/layouts/registration';
 
         return $this->render('about');
     }

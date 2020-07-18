@@ -17,7 +17,7 @@ class Module extends \yii\base\Module
      */
     public $controllerNamespace = 'backend\modules\admin\controllers';
 
-    public $layout = '@app/modules/admin/views/layouts/main.php';
+    public $layout = '@backend/modules/admin/views/layouts/main.php';
 
     public function behaviors()
     {

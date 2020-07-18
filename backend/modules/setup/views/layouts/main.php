@@ -222,7 +222,7 @@ use yii\helpers\Html;
                         <li class="nav-separator"></li>
 
                         <li>
-                            <a href="/vendor/order/<?= Yii::$app->user->identity->getOrderUid() ?>" target="_blank" class="btn-show-order-form-new-window"
+                            <a href="/vendor/order/<?= (Yii::$app->user->identity ? Yii::$app->user->identity->getOrderUid() : '') ?>" target="_blank" class="btn-show-order-form-new-window"
                                title="<?= Yii::t('app', 'Show order form (in new window)') ?>">
                                 <i class="fa fa-arrow-circle-right"></i>
                             </a>
@@ -305,7 +305,7 @@ use yii\helpers\Html;
                 <h4 class="modal-title"><?= Yii::t('app', 'Order form') ?></h4>
             </div><?php
             ?>
-            <iframe class="modal-body" src="/vendor/order/<?= Yii::$app->user->identity->getOrderUid() ?>"></iframe><?php
+            <iframe class="modal-body" src="/vendor/order/<?= (Yii::$app->user->identity ? Yii::$app->user->identity->getOrderUid() : '') ?>"></iframe><?php
             ?>
         </div>
 

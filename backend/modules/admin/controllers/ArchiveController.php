@@ -27,7 +27,7 @@ class ArchiveController extends Controller
             $archiveResultFile = false;
             for (; ;) {
                 $currentDateTime = date('Y-m-d_H:i:s');
-                if (!is_file($archiveResultFile = Yii::getAlias('@app/data/archive/') . $currentDateTime . '.zip')) {
+                if (!is_file($archiveResultFile = Yii::getAlias('@common/data/archive/') . $currentDateTime . '.zip')) {
                     break;
                 }
                 sleep(1);
@@ -36,7 +36,7 @@ class ArchiveController extends Controller
             /** TODO: потом может пригодиться, пока будем архивировать в директори изображений
              * for (; ;) {
              * $currentDateTime = date('Y-m-d_H:i:s');
-             * if (!is_dir($archiveDirName = Yii::getAlias('@app/data/archive') . '/' . $currentDateTime)) {
+             * if (!is_dir($archiveDirName = Yii::getAlias('@common/data/archive') . '/' . $currentDateTime)) {
              * mkdir($archiveDirName);
              * break;
              * }

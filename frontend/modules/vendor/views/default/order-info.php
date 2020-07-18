@@ -1,12 +1,12 @@
 <?php
 
-use app\helpers\Internationalization;
+use common\helpers\Internationalization;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 
-/* @var $order \app\models\db\ShopOrder */
+/* @var $order \common\models\db\ShopOrder */
 
 $this->registerJs(<<<JS
 function recalcComponentContentFrame() {
@@ -88,7 +88,7 @@ $lastStatus = $order->shopOrderStatuses[count($order->shopOrderStatuses) - 1];
     //$mpData = Yii::$app->mapHandler->getStartPointParamsForUser();
     $mpMarksJs = json_encode(Yii::$app->mapHandler->getUserMarkers());
 
-    $userGeoPosition = (new \app\models\Geo())->getUserGeoPosition();
+    $userGeoPosition = (new \common\models\Geo())->getUserGeoPosition();
     $mpData['latitude'] = $userGeoPosition['lat'];
     $mpData['longitude'] = $userGeoPosition['lon'];
     $mpData['zoom'] = 10;

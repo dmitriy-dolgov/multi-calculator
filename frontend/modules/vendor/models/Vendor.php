@@ -1,9 +1,9 @@
 <?php
 
-namespace app\modules\vendor\models;
+namespace frontend\modules\vendor\models;
 
 use Yii;
-use app\models\db\Profile;
+use common\models\db\Profile;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 

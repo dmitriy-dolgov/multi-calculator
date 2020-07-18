@@ -1,16 +1,16 @@
 <?php
 
-namespace app\modules\vendor\controllers;
+namespace frontend\modules\vendor\controllers;
 
-use app\models\ContactForm;
-use app\models\db\ComponentSet;
-use app\models\db\Profile;
-use app\models\db\ShopOrder;
-use app\models\db\ShopOrderStatus;
-use app\models\db\User;
-use app\modules\vendor\models\ShopOrderForm;
-use app\modules\vendor\models\ShopOrderSignalService;
-use app\modules\vendor\models\Vendor;
+use common\models\ContactForm;
+use common\models\db\ComponentSet;
+use common\models\db\Profile;
+use common\models\db\ShopOrder;
+use common\models\db\ShopOrderStatus;
+use common\models\db\User;
+use frontend\modules\vendor\models\ShopOrderForm;
+use frontend\modules\vendor\models\ShopOrderSignalService;
+use frontend\modules\vendor\models\Vendor;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -173,14 +173,14 @@ class DefaultController extends Controller
 
     /*public function actionTestWindow()
     {
-        $this->layout = '@app/views/layouts/clean-simple';
+        $this->layout = '@frontend/views/layouts/clean-simple';
 
         return $this->render('test-frame');
     }*/
 
     /*public function actionOrder()
     {
-        $this->layout = '@app/views/layouts/clean-simple';
+        $this->layout = '@frontend/views/layouts/clean-simple';
 
         return $this->render('test-frame');
     }*/

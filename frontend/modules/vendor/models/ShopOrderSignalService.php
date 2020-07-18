@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\vendor\models;
+namespace frontend\modules\vendor\models;
 
 class ShopOrderSignalService
 {

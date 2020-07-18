@@ -1,12 +1,12 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\vendor\models\OrderForm */
+/* @var $model frontend\modules\vendor\models\OrderForm */
 
 /* @var $uid integer */
-/* @var $activeUsers app\models\db\User[] */
-/* @var $components app\models\db\Component[] */
-/* @var $componentSets app\models\db\ComponentSet[] */
+/* @var $activeUsers common\models\db\User[] */
+/* @var $components common\models\db\Component[] */
+/* @var $componentSets common\models\db\ComponentSet[] */
 
 ?>
 <main id="content">

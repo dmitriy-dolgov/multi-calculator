@@ -6,13 +6,13 @@
 
 /* @var $uid string */
 
-/* @var $activeUsers app\models\db\User[] */
+/* @var $activeUsers common\models\db\User[] */
 
 
-use app\helpers\Internationalization;
+use common\helpers\Internationalization;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use app\helpers\Js;
+use common\helpers\Js;
 use corpsepk\DaData\SuggestionsWidget;
 
 //use kartik\select2\Select2;
@@ -84,7 +84,7 @@ $jsStrings = [
     'frame-order-form_src' => Url::to(['/vendor/order-panel', 'uid' => $uid]),
 ];
 
-$userGeoPosition = (new \app\models\Geo())->getUserGeoPosition();
+$userGeoPosition = (new \common\models\Geo())->getUserGeoPosition();
 
 $jsCode = "var gl = {data:{}};\n"
     . Js::createJsDataStrings($jsStrings)
@@ -95,13 +95,13 @@ $jsCode = "var gl = {data:{}};\n"
     ]);
 
 $this->registerJs($jsCode, \yii\web\View::POS_HEAD);
-$this->registerJsFile(Url::to(['/js/vendor/order-form.js']), ['depends' => ['app\assets\VendorAsset']]);
-$this->registerJsFile(Url::to(['/js/leaflet/MovingMarker.js']), ['depends' => ['app\assets\VendorAsset']]);
+$this->registerJsFile(Url::to(['/js/vendor/order-form.js']), ['depends' => ['frontend\assets\VendorAsset']]);
+$this->registerJsFile(Url::to(['/js/leaflet/MovingMarker.js']), ['depends' => ['frontend\assets\VendorAsset']]);
 
-$this->registerJsFile(Url::to(['/js/leaflet/L.Icon.Pulse.js']), ['depends' => ['app\assets\VendorAsset']]);
+$this->registerJsFile(Url::to(['/js/leaflet/L.Icon.Pulse.js']), ['depends' => ['frontend\assets\VendorAsset']]);
 $this->registerCssFile(Url::to(['/js/leaflet/L.Icon.Pulse.css']));
 
-$cityList = (new \app\models\Geo())->getCityList();
+$cityList = (new \common\models\Geo())->getCityList();
 
 /*$cityListSelect = [];
 foreach ($cityList as $cityId => $cityData) {

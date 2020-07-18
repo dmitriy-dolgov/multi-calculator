@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\vendor;
+namespace frontend\modules\vendor;
 
 use yii\web\ErrorHandler;
 
@@ -12,9 +12,9 @@ class Module extends \yii\base\Module
     /**
      * {@inheritdoc}
      */
-    public $controllerNamespace = 'app\modules\vendor\controllers';
+    public $controllerNamespace = 'frontend\modules\vendor\controllers';
 
-    public $layout = '@app/modules/vendor/views/layouts/main.php';
+    public $layout = '@frontend/modules/vendor/views/layouts/main.php';
 
     /**
      * {@inheritdoc}

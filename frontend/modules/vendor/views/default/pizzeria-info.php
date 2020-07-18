@@ -1,12 +1,12 @@
 <?php
 
-use app\helpers\Internationalization;
+use common\helpers\Internationalization;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 
-/* @var $pizzeriaModel \app\models\db\User */
+/* @var $pizzeriaModel \common\models\db\User */
 
 $profile = $pizzeriaModel->profile;
 

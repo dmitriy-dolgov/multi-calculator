@@ -4,10 +4,10 @@
 
 /* @var $content string */
 
-use app\widgets\Alert;
+use common\widgets\Alert;
 use yii\helpers\Html;
 
-\app\assets\VendorAsset::register($this);
+\frontend\assets\VendorAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

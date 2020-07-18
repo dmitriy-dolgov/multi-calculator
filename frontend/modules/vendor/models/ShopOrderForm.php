@@ -1,14 +1,14 @@
 <?php
 
-namespace app\modules\vendor\models;
+namespace frontend\modules\vendor\models;
 
-use app\models\db\Component;
-use app\models\db\ComponentComponentSet;
-use app\models\db\ShopOrder;
-use app\models\db\ShopOrderComponents;
-use app\models\db\ShopOrderStatus;
-use app\models\db\ShopOrderUser;
-use app\models\db\User;
+use common\models\db\Component;
+use common\models\db\ComponentComponentSet;
+use common\models\db\ShopOrder;
+use common\models\db\ShopOrderComponents;
+use common\models\db\ShopOrderStatus;
+use common\models\db\ShopOrderUser;
+use common\models\db\User;
 use Yii;
 use yii\base\Model;
 
@@ -46,7 +46,7 @@ class ShopOrderForm extends Model
     /**
      * Gets query for [[Component]].
      *
-     * @return \yii\db\ActiveQuery|\app\models\db\Component
+     * @return \yii\db\ActiveQuery|\common\models\db\Component
      */
     public function getComponent()
     {

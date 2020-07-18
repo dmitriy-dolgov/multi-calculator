@@ -1,30 +1,30 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\vendor\models\ShopOrderForm */
+/* @var $model frontend\modules\vendor\models\ShopOrderForm */
 
 /* @var $uid string */
 
-/* @var $activeUsers app\models\db\User[] */
+/* @var $activeUsers common\models\db\User[] */
 
-/* @var $components app\models\db\Component[] */
+/* @var $components common\models\db\Component[] */
 
-/* @var $componentSets app\models\db\ComponentSet[] */
+/* @var $componentSets common\models\db\ComponentSet[] */
 
 
-use app\models\html\ComponentHtml;
+use common\models\html\ComponentHtml;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use corpsepk\DaData\SuggestionsWidget;
 
-//Yii::$app->modules->user->controllerMap->security->layout = '@app/views/layouts/registration';
-//Yii::$app->modules->user->controllerMap->registration->layout = '@app/views/layouts/registration';
-//Yii::$app->getModule('user')->controllerMap->registration->layout = '@app/views/layouts/registration';
-//Yii::$app->modules['user']->controllerMap['security']['layout'] = '@app/views/layouts/clean-simple';
-//Yii::$app->modules['user']->controllerMap['registration']['layout'] = '@app/views/layouts/clean-simple';
-//Yii::$app->getModule('user')->controllerMap['security']['layout'] = '@app/views/layouts/clean-simple';
-//Yii::$app->getModule('user')->controllerMap['registration']['layout'] = '@app/views/layouts/clean-simple';
+//Yii::$app->modules->user->controllerMap->security->layout = '@frontend/views/layouts/registration';
+//Yii::$app->modules->user->controllerMap->registration->layout = '@frontend/views/layouts/registration';
+//Yii::$app->getModule('user')->controllerMap->registration->layout = '@frontend/views/layouts/registration';
+//Yii::$app->modules['user']->controllerMap['security']['layout'] = '@frontend/views/layouts/clean-simple';
+//Yii::$app->modules['user']->controllerMap['registration']['layout'] = '@frontend/views/layouts/clean-simple';
+//Yii::$app->getModule('user')->controllerMap['security']['layout'] = '@frontend/views/layouts/clean-simple';
+//Yii::$app->getModule('user')->controllerMap['registration']['layout'] = '@frontend/views/layouts/clean-simple';
 
 $this->getAssetManager()->appendTimestamp = true;
 

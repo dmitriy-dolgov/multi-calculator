@@ -1,8 +1,6 @@
 <?php
 
-$paramsLocal = require __DIR__ . '/params_local.php';
-
-return array_merge([
+return [
     'adminEmail' => 'TwilightTower@mail.ru',
     'supportEmail' => 'TwilightTower@mail.ru',
     'senderEmail' => 'noreply@example.com',
@@ -51,4 +49,4 @@ return array_merge([
         'standardisation-secret-key'
     ],
 
-], $paramsLocal);
+];

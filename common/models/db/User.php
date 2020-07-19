@@ -79,6 +79,11 @@ class User extends BaseUser
 
     public static function findByUid($uid)
     {
+        // В первую очередь для пользователей типа set_<номер>
+        if ($user = User::findOne(['order_uid' => $uid])) {
+            return $user;
+        }
+
         $uidParts = explode('_', $uid);
 
         if (count($uidParts) != 2) {

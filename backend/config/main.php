@@ -17,15 +17,15 @@ return [
     'bootstrap' => ['log'],
     'language' => 'ru',
     'components' => [
+        'request' => [
+            'csrfParam' => '_csrf-backend',
+        ],
         'mapHandler' => [
             'class' => 'common\components\MapHandler',
         ],
         /*'dbConnectionManager' => [
             'class' => 'common/components/DbConnectionManager',
         ],*/
-        'request' => [
-            'csrfParam' => '_csrf-backend',
-        ],
         'user' => [
             'identityClass' => 'common\models\db\User',
             'enableAutoLogin' => true,

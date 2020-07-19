@@ -2,9 +2,7 @@
 
 namespace frontend\modules\vendor\controllers;
 
-use common\models\ContactForm;
 use common\models\db\ComponentSet;
-use common\models\db\Profile;
 use common\models\db\ShopOrder;
 use common\models\db\ShopOrderStatus;
 use common\models\db\User;
@@ -12,7 +10,6 @@ use frontend\modules\vendor\models\ShopOrderForm;
 use frontend\modules\vendor\models\ShopOrderSignalService;
 use frontend\modules\vendor\models\Vendor;
 use Yii;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
@@ -23,28 +20,6 @@ use yii\web\ServerErrorHttpException;
 class DefaultController extends Controller
 {
     protected $shopOrderSignalService;
-
-    /*public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::class,
-                'only' => ['index', 'order-info'],
-                'rules' => [
-                    [
-                        'actions' => ['index'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['order-info'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-        ];
-    }*/
 
     public function __construct($id, $module, ShopOrderSignalService $shopOrderSignalService, $config = [])
     {
@@ -65,33 +40,12 @@ class DefaultController extends Controller
         ];
     }
 
-    public function actionIndex($userUniqueId)
-    {
-        /*$form = new ShopOrderForm();
-
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
-            $orderId = $this->shopOrderSignalService->create($form);
-            return $this->redirect(['order-info', 'id' => 'order-id']);
-        }*/
-
-        $components = [];
-
-        if ($profile = (new Vendor())->getProfileForOrderPage($userUniqueId)) {
-            $components = $profile->user->getComponents()->forOrder()->all();
-        }
-
-        return $this->render('index', [
-            'uid' => $userUniqueId,
-            'components' => $components,
-            //'componentSets' => $componentSets,
-        ]);
-    }
-
-    public function actionOrder($uid = null)
+    public function actionIndex($uid = null)
     {
         if (!$uid) {
-            if (Yii::$app->params['current_domain'] == 'pizza-customer.local') {
-                $uid = '2_e42c5272';
+            if (Yii::$app->params['domain-customer'] == 'pizza-customer.local') {
+                //$uid = '2_e42c5272';
+                $uid = 'set_1';
             } else {
                 $uid = '2_e72d17a3';
             }
@@ -171,27 +125,6 @@ class DefaultController extends Controller
             'statusGlobal' => $statusGlobal,
         ]);
     }
-
-    /*public function actionTest()
-    {
-        return $this->render('index', [
-            'ifTest' => true,
-        ]);
-    }*/
-
-    /*public function actionTestWindow()
-    {
-        $this->layout = '@frontend/views/layouts/clean-simple';
-
-        return $this->render('test-frame');
-    }*/
-
-    /*public function actionOrder()
-    {
-        $this->layout = '@frontend/views/layouts/clean-simple';
-
-        return $this->render('test-frame');
-    }*/
 
     public function actionGetOrderForm($url, $test = false)
     {

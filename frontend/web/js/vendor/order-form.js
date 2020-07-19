@@ -28,6 +28,10 @@ gl.functions.resizeIframeHeight = function(obj) {
     obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
 };
 
+gl.functions.setLogged = function() {
+    location.reload();
+};
+
 gl.functions.correctGeolocation = function () {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {

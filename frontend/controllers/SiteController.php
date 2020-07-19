@@ -30,6 +30,39 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionSignalToParent($result)
+    {
+        if ($result == 'logged') {
+            $s = <<<STR
+<html>
+<head></head>
+<body>
+<script>
+function inIframe () {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+        return true;
+    }
+}
+if (inIframe () && parent && parent.gl.functions.setLogged) {
+    parent.gl.functions.setLogged(); 
+} else {
+    //window.location.href = '/';
+    document.write('You are logged in.');
+}
+</script>
+</body>
+</html>
+STR;
+            echo $s;
+
+            \Yii::$app->end();
+        }
+
+        throw new NotFoundHttpException();
+    }
+
     public function actionIndex($uid = null)
     {
         if (!$uid) {

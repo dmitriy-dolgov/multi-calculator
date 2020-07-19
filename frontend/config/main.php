@@ -141,6 +141,10 @@ return [
                 'security' => [
                     'class' => \Da\User\Controller\SecurityController::class,
                     'layout' => '@frontend/views/layouts/registration',
+                    'on ' . \Da\User\Event\FormEvent::EVENT_AFTER_LOGIN => function (\Da\User\Event\FormEvent $event) {
+                        \Yii::$app->controller->redirect(['/signal-to-parent', 'result' => 'logged']);
+                        \Yii::$app->end();
+                    },
                 ],
                 'registration' => [
                     'class' => \Da\User\Controller\RegistrationController::class,

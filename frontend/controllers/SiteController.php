@@ -87,10 +87,10 @@ function inIframe () {
         return true;
     }
 }
-if (inIframe () && window.parent && window.parent.location) {
-    window.parent.location.reload(); 
+if (inIframe () && parent && parent.gl.functions.setLogged) {
+    parent.gl.functions.setLogged(); 
 } else {
-    window.location.href = '/vendor/order';
+    window.location.href = '/vendor';
 }
 </script>
 </body>

@@ -183,5 +183,14 @@ TODO:
 51) Важность: 3
     /vendor/order-create-ajax - проверять на CSRF атаки (запрос из order-form.js)
 
-52) Важность: 1(0)
-    Избавиться от current_domain и вообще смотреть где используется
+52) Важность: 5
+    Разобраться с использованием классов типа "UserCustomer".
+    На данный момент решил пока использовать единую таблицу для пиццерий и пользователей т. к. запутался с
+    переопределением классов
+    'classMap' => [
+        'User' => \common\models\db\user\UserCustomer::class,
+        'Profile' => \common\models\db\user\ProfileСustomer::class,
+        'SocialNetworkAccount' => \common\models\db\user\SocialNetworkAccountCustomer::class,
+        'Token' => \common\models\db\user\TokenCustomer::class,
+        'ResendForm' => \common\models\forms\ResendForm::class,
+    ],

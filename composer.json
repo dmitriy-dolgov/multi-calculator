@@ -43,7 +43,8 @@
         "omnilight/yii2-sypexgeo": "*",
         "kartik-v/yii2-widget-select2": "dev-master",
         "wertex/yii2-fias": "dev-master",
-        "corpsepk/yii2-dadata-suggestions-widget": "~0.4"
+        "corpsepk/yii2-dadata-suggestions-widget": "~0.4",
+        "yiisoft/yii2-authclient": "~2.1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

@@ -24,7 +24,7 @@ return [
             'class' => 'common\components\MapHandler',
         ],
         'user' => [
-            'identityClass' => 'common\models\db\UserCustomer',
+            'identityClass' => 'common\models\db\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
         ],

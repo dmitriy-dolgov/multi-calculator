@@ -126,10 +126,8 @@ return [
             'switchIdentitySessionKey' => 'ladlen_daiviz_undula',
 
             'classMap' => [
-                'User' => \common\models\db\user\UserCustomer::class,
-                'Profile' => \common\models\db\user\ProfileCustomer::class,
-                'SocialNetworkAccount' => \common\models\db\user\SocialNetworkAccountCustomer::class,
-                'Token' => \common\models\db\user\TokenCustomer::class,
+                'User' => \common\models\db\User::class,
+                'Profile' => \common\models\db\Profile::class,
                 'ResendForm' => \common\models\forms\ResendForm::class,
             ],
 

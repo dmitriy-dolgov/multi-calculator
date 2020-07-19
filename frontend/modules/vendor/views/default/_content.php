@@ -59,9 +59,15 @@ CSS
 }
 
 $this->registerJs(<<<JS
-$('#logRegModal').on('shown.bs.modal', function() {
-    $('#logRegModal .frame-fill').attr('src', '/user/login');
+var logRegModalElem = $('#logRegModal');
+logRegModalElem.on('shown.bs.modal', function() {
+    logRegModalElem.find('.frame-content').html('<iframe class="frame-fill" src="/user/login"></iframe>');
 });
+
+/*gl.functions.setLogged = function() {
+    location.reload(); 
+};*/
+
 JS
 );
 
@@ -410,8 +416,8 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title"><?= Yii::t('app', 'Вход в систему') ?></h4>
             </div>
-            <div class="modal-body">
-                <iframe class="frame-fill" src=""></iframe>
+            <div class="modal-body frame-content">
+                <!--<iframe class="frame-fill" src=""></iframe>-->
             </div>
         </div>
 

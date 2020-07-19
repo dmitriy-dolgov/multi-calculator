@@ -203,11 +203,6 @@ function addComponentByData(data, append) {
         }, 0);
 
         elems['.components-selected-details'].find('[data-id=' + id + '] .image').tooltip();
-
-        /*$('#logRegModal').on('shown', function(){
-            $(this).find('.frame-fill').attr('src', '/user/login');
-        });*/
-
 }
 
     gl.functions.orderCalculatePrice();

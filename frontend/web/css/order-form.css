@@ -956,7 +956,7 @@
 
 .registration-info {
   display: flex;
-  color: #1b1b1b;
+  color: #1b1b1b !important;
   align-items: center;
   font-weight: bold;
   font-style: italic;
@@ -967,6 +967,15 @@
   margin-left: auto;
   font-size: 23px;
   cursor: pointer;
+}
+.registration-info .icon-exit {
+  color: #1b1b1b !important;
+}
+
+.frame-fill {
+  width: 100%;
+  border: none;
+  height: 70vh;
 }
 
 /*# sourceMappingURL=order-form.css.map */

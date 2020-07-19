@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\modules\vendor\models;
+namespace frontend\models;
 
 use Yii;
 use common\models\db\Profile;

@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\modules\vendor\models;
+namespace frontend\models;
 
 use common\models\db\Component;
 use common\models\db\ComponentComponentSet;

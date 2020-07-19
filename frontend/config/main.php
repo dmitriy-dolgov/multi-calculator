@@ -56,9 +56,12 @@ return [
             'showScriptName' => false,
             'rules' => [
                 //'/vendor/get-order-form' => '/vendor/default/get-order-form',
-                'vendor/order/<uid:[\w_]+>' => 'vendor/default/order',
+                /*'vendor/order/<uid:[\w_]+>' => 'vendor/default/order',
                 'vendor/<action:[\w\-]+>/<id:(.*?)>' => 'vendor/default/<action>/<id>',
-                'vendor/<action:[\w\-]+>' => 'vendor/default/<action>',
+                'vendor/<action:[\w\-]+>' => 'vendor/default/<action>',*/
+                'order/<uid:[\w_]+>' => 'site/order',
+                '<action:[\w\-]+>/<id:(.*?)>' => 'site/<action>/<id>',
+                '<action:[\w\-]+>' => 'site/<action>',
             ],
         ],
 
@@ -112,9 +115,9 @@ return [
     ],
 
     'modules' => [
-        'vendor' => [
+        /*'vendor' => [
             'class' => 'frontend\modules\vendor\Module',
-        ],
+        ],*/
         /*'treemanager' => [
             'class' => '\kartik\tree\Module',
             // other module settings, refer detailed documentation

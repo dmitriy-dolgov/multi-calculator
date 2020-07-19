@@ -11,7 +11,7 @@ AppAsset::register($this);
 
 $this->registerCss(<<<CSS
 body {
-    margin-top: 5vw;
+    padding-top: 5vw;
 }
 CSS
 );

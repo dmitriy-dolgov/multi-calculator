@@ -2,19 +2,12 @@
 
 namespace frontend\controllers;
 
-use frontend\models\ResendVerificationEmailForm;
-use frontend\models\VerifyEmailForm;
+use common\models\db\ComponentSet;
+use common\models\db\User;
+use frontend\models\ShopOrderForm;
 use Yii;
-use yii\base\InvalidArgumentException;
-use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use common\models\LoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\ContactForm;
+use yii\web\NotFoundHttpException;
 
 /**
  * Site controller
@@ -24,82 +17,64 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
-                'rules' => [
-                    [
-                        'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function actions()
     {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            'captcha' => [
+            /*'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
+            ],*/
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
-    public function actionIndex()
+    public function actionIndex($uid = null)
     {
-        $s = <<<STR
-<html>
-<head></head>
-<body>
-<script>
-function inIframe () {
-    try {
-        return window.self !== window.top;
-    } catch (e) {
-        return true;
-    }
-}
-if (inIframe () && parent && parent.gl.functions.setLogged) {
-    parent.gl.functions.setLogged(); 
-} else {
-    window.location.href = '/vendor';
-}
-</script>
-</body>
-</html>
-STR;
-        die($s);
+        if (!$uid) {
+            if (Yii::$app->params['domain-customer'] == 'pizza-customer.local') {
+                //$uid = '2_e42c5272';
+                $uid = 'set_1';
+            } else {
+                $uid = '2_e72d17a3';
+            }
+        }
 
-        //return $this->redirect('/vendor/order');
-        //return $this->render('index');
+        if (!$user = User::findByUid($uid)) {
+            throw new NotFoundHttpException();
+        }
+
+        /*        $sypexGeo = new \omnilight\sypexgeo\Sypexgeo([
+                    'database' => '@root/geo/SxGeoCity.dat',
+                ]);
+                $city = $sypexGeo->getCityFull($_SERVER['REMOTE_ADDR']);
+                $sypexGeo->getCity('185.174.210.231');*/
+        //$city = Yii::$app->sypexGeo->getCity($_SERVER['REMOTE_ADDR']);
+
+        $form = new ShopOrderForm();
+
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+            $orderId = $this->shopOrderSignalService->create($form);
+            return $this->redirect(['order-info', 'id' => $orderId]);
+        }
+
+        $components = [];
+
+        if ($profile = $user->profile) {
+            $components = $profile->user->getComponents()->forOrder()->all();
+        }
+
+        $componentSets = ComponentSet::find()->all();
+
+        $activeUsers = User::find()->activeAcceptOrders()->all();
+
+        return $this->render('index', [
+            'uid' => $uid,
+            'activeUsers' => $activeUsers,
+            'components' => $components,
+            'componentSets' => $componentSets,
+        ]);
     }
 
     /**
@@ -107,7 +82,7 @@ STR;
      *
      * @return mixed
      */
-    public function actionContact()
+    /*public function actionContact()
     {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -124,15 +99,15 @@ STR;
                 'model' => $model,
             ]);
         }
-    }
+    }*/
 
     /**
      * Displays about page.
      *
      * @return mixed
      */
-    public function actionAbout()
+    /*public function actionAbout()
     {
         return $this->render('about');
-    }
+    }*/
 }

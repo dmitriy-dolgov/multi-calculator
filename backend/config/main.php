@@ -100,7 +100,7 @@ return [
         'view' => [
             'theme' => [
                 'pathMap' => [
-                    '@Da/User/resources/views' => '@backend/views/user'
+                    '@Da/User/resources/views' => '@backend/views/user',
                 ]
             ]
         ],

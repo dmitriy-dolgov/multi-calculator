@@ -24,12 +24,9 @@ return [
             'class' => 'common\components\MapHandler',
         ],
         'user' => [
-            'identityClass' => 'common\models\db\User',
+            'identityClass' => 'common\models\db\UserCustomer',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
-            'on ' . \yii\web\User::EVENT_AFTER_LOGIN => function (UserEvent $event) {
-                Yii::$app->mapHandler->setupLoginLatLong($event->identity);
-            },
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -118,21 +115,21 @@ return [
         'vendor' => [
             'class' => 'frontend\modules\vendor\Module',
         ],
-        'treemanager' => [
+        /*'treemanager' => [
             'class' => '\kartik\tree\Module',
             // other module settings, refer detailed documentation
-        ],
+        ],*/
         'user' => [
             'class' => \Da\User\Module::class,
-            // ...other configs from here: [Configuration Options](installation/configuration-options.md), e.g.
-            'administrators' => ['daiviz', 'Ladlen', 'Ruslan'], // this is required for accessing administrative actions
             //'generatePasswords' => true,
             //TODO: разобраться что это точно
             'switchIdentitySessionKey' => 'ladlen_daiviz_undula',
 
             'classMap' => [
-                'User' => \common\models\db\User::class,
-                'Profile' => \common\models\db\Profile::class,
+                'User' => \common\models\db\user\UserCustomer::class,
+                'Profile' => \common\models\db\user\ProfileCustomer::class,
+                'SocialNetworkAccount' => \common\models\db\user\SocialNetworkAccountCustomer::class,
+                'Token' => \common\models\db\user\TokenCustomer::class,
                 'ResendForm' => \common\models\forms\ResendForm::class,
             ],
 
@@ -147,21 +144,6 @@ return [
                 'registration' => [
                     'class' => \Da\User\Controller\RegistrationController::class,
                     'layout' => '@frontend/views/layouts/registration',
-                    /*'on ' . \Da\User\Event\FormEvent::EVENT_AFTER_REGISTER => function (\Da\User\Event\FormEvent $event
-                    ) {
-                        //TODO: postponed; see folder components.postponed (separate databases for each user)
-//                        if ($user = \Da\User\Model\User::findOne(['username' => $event->form->username])) {
-//                            $databaseName = 'pizza_user_' . $user->getPrimaryKey();
-//                        }
-                    },*/
-                    'on ' . \Da\User\Event\UserEvent::EVENT_AFTER_CONFIRMATION => function (
-                        \Da\User\Event\UserEvent $event
-                    ) {
-                        //TODO: при ручной активации аккаунта админом - вызывать
-                        $auth = \Yii::$app->authManager;
-                        $clientRole = $auth->getRole('client');
-                        $auth->assign($clientRole, $event->getUser()->getId());
-                    },
                 ],
                 /*'admin' => [
                     'class' => \Da\User\Controller\AdminController::class,

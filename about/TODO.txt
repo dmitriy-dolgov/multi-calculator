@@ -196,5 +196,8 @@ TODO:
     ],
 
 53) Важность: 5
-    Проверять oauth Вконтакте (меняются версии): https://vk.com/dev/constant_version_updates
+    Проверять oauth Вконтакте (меняются версии, переменная $apiVersion): https://vk.com/dev/constant_version_updates
     См. также https://github.com/yiisoft/yii2-authclient/issues/276
+
+54) Важность: 3
+    Обрабатывать ошибки oauth (для генерации ошибки установи напр. $apiVersion в меньшую версию).

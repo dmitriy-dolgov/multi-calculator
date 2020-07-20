@@ -194,3 +194,7 @@ TODO:
         'Token' => \common\models\db\user\TokenCustomer::class,
         'ResendForm' => \common\models\forms\ResendForm::class,
     ],
+
+53) Важность: 5
+    Проверять oauth Вконтакте (меняются версии): https://vk.com/dev/constant_version_updates
+    См. также https://github.com/yiisoft/yii2-authclient/issues/276

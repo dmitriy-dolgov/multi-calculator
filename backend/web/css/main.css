@@ -196,6 +196,7 @@
     /*background-image: linear-gradient(to right, #232526 0%, #232526 51%, #414345 100%);*/
     transition: 0.5s;
     background-size: 200% auto;
+    text-transform: uppercase;
   }
   .pane-mobile-switcher .switch-elem .icon {
     margin-bottom: 8px;
@@ -208,6 +209,17 @@
   }
   .pane-mobile-switcher .switch-elem:hover {
     background-position: right center;
+    font-weight: bold;
+  }
+}
+@media screen and (max-width: 600px) {
+  .pane-mobile-switcher .switch-elem {
+    font-size: 10px;
+  }
+}
+@media screen and (max-width: 340px) {
+  .pane-mobile-switcher .switch-elem {
+    font-size: 8px;
   }
 }
 

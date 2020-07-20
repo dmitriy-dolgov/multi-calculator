@@ -7,6 +7,19 @@ $params = array_merge(
     require __DIR__ . '/params-local.php'
 );
 
+$oauthData = [];
+if (\common\helpers\Web::isLocal()) {
+    $oauthData['vkontakte'] = [
+        'clientId' => '7543832',
+        'clientSecret' => 'XO3ltkl3J0CoZ95vAoPB',
+    ];
+} else {
+    $oauthData['vkontakte'] = [
+        'clientId' => '7543540',
+        'clientSecret' => 'FjLhZ0rIej1LVmnBCAua',
+    ];
+}
+
 return [
     'id' => 'multipurpose-calculator-creator-app-customer',
     'name' => 'Pizza Maya',
@@ -120,10 +133,8 @@ return [
                 ],*/
                 'vkontakte' => [
                     'class' => 'Da\User\AuthClient\VKontakte',
-//                    'clientId' => '7543540',
-//                    'clientSecret' => 'FjLhZ0rIej1LVmnBCAua',
-                    'clientId' => '7543832',
-                    'clientSecret' => 'XO3ltkl3J0CoZ95vAoPB',
+                    'clientId' => $oauthData['vkontakte']['clientId'],
+                    'clientSecret' => $oauthData['vkontakte']['clientSecret'],
                 ],
             ],
         ],

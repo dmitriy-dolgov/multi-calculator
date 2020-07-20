@@ -1,7 +1,5 @@
 <?php
 
-use yii\web\UserEvent;
-
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -23,17 +21,17 @@ return [
         'mapHandler' => [
             'class' => 'common\components\MapHandler',
         ],
-        'user' => [
-            'identityClass' => 'common\models\db\User',
-            'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
-        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         /*'dbConnectionManager' => [
             'class' => 'common/components/DbConnectionManager',
         ],*/
+        'user' => [
+            'identityClass' => 'common\models\db\User',
+            'enableAutoLogin' => true,
+            'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
+        ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced-frontend',
@@ -59,9 +57,9 @@ return [
                 /*'vendor/order/<uid:[\w_]+>' => 'vendor/default/order',
                 'vendor/<action:[\w\-]+>/<id:(.*?)>' => 'vendor/default/<action>/<id>',
                 'vendor/<action:[\w\-]+>' => 'vendor/default/<action>',*/
-                'order/<uid:[\w_]+>' => 'site/order',
+                /*'order/<uid:[\w_]+>' => 'site/order',
                 '<action:[\w\-]+>/<id:(.*?)>' => 'site/<action>/<id>',
-                '<action:[\w\-]+>' => 'site/<action>',
+                '<action:[\w\-]+>' => 'site/<action>',*/
             ],
         ],
 
@@ -110,8 +108,25 @@ return [
                     '@Da/User/resources/views' => '@frontend/views/user'
                 ]
             ]
-        ]
+        ],
 
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                /*'facebook' => [
+                    'class' => 'Da\User\AuthClient\Facebook',
+                    'clientId' => 'facebook_client_id',
+                    'clientSecret' => 'facebook_client_secret',
+                ],*/
+                'vkontakte' => [
+                    'class' => 'Da\User\AuthClient\VKontakte',
+//                    'clientId' => '7543540',
+//                    'clientSecret' => 'FjLhZ0rIej1LVmnBCAua',
+                    'clientId' => '7543832',
+                    'clientSecret' => 'XO3ltkl3J0CoZ95vAoPB',
+                ],
+            ],
+        ],
     ],
 
     'modules' => [

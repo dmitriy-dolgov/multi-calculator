@@ -63,6 +63,44 @@ STR;
         throw new NotFoundHttpException();
     }
 
+    public function actionSignalToParentOpener($result)
+    {
+        if ($result == 'logged') {
+            $s = <<<STR
+<html>
+<head></head>
+<body>
+<script>
+function inIframe () {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+        return true;
+    }
+}
+if (inIframe () && parent && parent.gl.functions.setLogged) {
+    parent.gl.functions.setLogged(); 
+} else {
+    if (window.opener && !window.opener.closed) {
+        window.opener.location = '/site/signal-to-parent?result=logged';
+        window.opener.focus();
+        window.close();
+    } else {
+        window.location = '/';
+    }
+}
+</script>
+</body>
+</html>
+STR;
+            echo $s;
+
+            \Yii::$app->end();
+        }
+
+        throw new NotFoundHttpException();
+    }
+
     public function actionIndex($uid = null)
     {
         if (!$uid) {

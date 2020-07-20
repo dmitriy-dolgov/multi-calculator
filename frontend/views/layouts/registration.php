@@ -12,11 +12,10 @@ AppAsset::register($this);
 $this->registerCss(<<<CSS
 body {
     padding-top: 5vh;
-    padding-bottom: 7vh;
+    padding-bottom: 10vh;
 }
 .auth-clients {
     margin-top: 20px;
-    margin-bottom: 20px;
 }
 CSS
 );

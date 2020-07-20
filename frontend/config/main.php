@@ -168,7 +168,11 @@ return [
                     'class' => \Da\User\Controller\SecurityController::class,
                     'layout' => '@frontend/views/layouts/registration',
                     'on ' . \Da\User\Event\FormEvent::EVENT_AFTER_LOGIN => function (\Da\User\Event\FormEvent $event) {
-                        \Yii::$app->controller->redirect(['/signal-to-parent', 'result' => 'logged']);
+                        \Yii::$app->controller->redirect(['/site/signal-to-parent', 'result' => 'logged']);
+                        \Yii::$app->end();
+                    },
+                    'on ' . \Da\User\Event\SocialNetworkAuthEvent::EVENT_AFTER_AUTHENTICATE => function ($event) {
+                        \Yii::$app->controller->redirect(['/site/signal-to-parent-opener', 'result' => 'logged']);
                         \Yii::$app->end();
                     },
                 ],

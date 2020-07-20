@@ -201,3 +201,7 @@ TODO:
 
 54) Важность: 3
     Обрабатывать ошибки oauth (для генерации ошибки установи напр. $apiVersion в меньшую версию).
+
+55) Важность: 3
+    Сделать TODO в app\controllers\SecurityController в функции authenticate()
+

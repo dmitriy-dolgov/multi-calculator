@@ -166,7 +166,7 @@ return [
                 //'settings' => 'backend\modules\setup\controllers\SettingsController',
                 'security' => [
                     //'class' => \Da\User\Controller\SecurityController::class,
-                    'class' => 'app\controllers\SecurityController',
+                    'class' => 'common\controllers\SecurityController',
                     'layout' => '@frontend/views/layouts/registration',
                     'on ' . \Da\User\Event\FormEvent::EVENT_AFTER_LOGIN => function (\Da\User\Event\FormEvent $event) {
                         \Yii::$app->controller->redirect(['/site/signal-to-parent', 'result' => 'logged']);

@@ -1,7 +1,8 @@
 <?php
 
-namespace app\controllers;
+namespace common\controllers;
 
+use Da\User\Model\SocialNetworkAccount;
 use Da\User\Model\User;
 use Yii;
 use Da\User\Contracts\AuthClientInterface;
@@ -11,31 +12,73 @@ use yii\helpers\Url;
 
 class SecurityController extends BaseController
 {
-    public function authenticate(AuthClientInterface $client)
+    /*protected function snCreateAccount($client)
     {
-        $socialNetworkAuthenticateService = $this->make(SocialNetworkAuthenticateService::class, [$this, $this->action, $client]);
+        $data = $client->getUserAttributes();
 
-        //$socialNetworkAuthenticateService->run();
+        // @var SocialNetworkAccount $account
+        $account = $this->make(
+            SocialNetworkAccount::class,
+            [],
+            [
+                'provider' => $client->getId(),
+                'client_id' => $data['id'],
+                'data' => json_encode($data),
+                'username' => $client->getUserName(),
+                'email' => $client->getEmail(),
+            ]
+        );
 
-        $account = $this->socialNetworkAccountQuery->whereClient($this->client)->one();
+        $this->userQuery->whereEmail($account->email)->one();
+        if (($user = $this->getUser($account)) instanceof User) {
+            $account->user_id = $user->id;
+            $account->save(false);
+        }
+
+        return $account;
+    }*/
+
+    public function authenticateMod(AuthClientInterface $client)
+    {
+        $socialNetworkAuthenticateService = $this->make(SocialNetworkAuthenticateService::class,
+            [$this, $this->action, $client]);
+
+        $account = $this->socialNetworkAccountQuery->whereClient($client)->one();
         if ($account === null) {
-            $account = $socialNetworkAuthenticateService->createAccount();
+            $account = $this->snCreateAccount($client);
             if (!$account) {
                 Yii::$app->session->setFlash('danger', Yii::t('usuario', 'Unable to create an account.'));
-                $socialNetworkAuthenticateService->authAction->setSuccessUrl(Url::to(['/user/security/login']));
+                $this->action->setSuccessUrl(Url::to(['/user/security/login']));
 
                 return false;
             }
 
             $account->created_at = time();
 
-            if (!($account->user instanceof User)) {
-                $data = $socialNetworkAuthenticateService->client->getUserAttributes();
-                $account->user = new \common\models\db\User();
-                $account->user->username = $data['first_name'];
+            if (!$account->user_id) {
+                $data = $client->getUserAttributes();
+                //TODO: разобраться если email нет
+                $email = $client->getEmail();
+                $user = new \common\models\db\User();
+                //TODO: Это в профиль !!!
+                $user->username = trim($data['first_name'] . ' ' . $data['last_name']);
+                $user->email = $email;
+                //TODO: сделать
+                //$user->registration_ip = '';
+                $user->confirmed_at = time();
+                $user->created_at = time();
+                $user->last_login_at = time();
+                //TODO: сделать
+                //$user->last_login_ip
+                //TODO: сделать
+                //$user->login_lat_long
+                $user->save();
+                $account->user_id = $user->getPrimaryKey();
             }
 
             $account->save();
         }
+
+        $socialNetworkAuthenticateService->run();
     }
 }

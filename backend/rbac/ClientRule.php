@@ -3,7 +3,7 @@
 namespace backend\rbac;
 
 use yii\rbac\Rule;
-//use app\models\db\Component;
+//use common\models\db\Component;
 
 /**
  * Checks if authorID matches user passed via params

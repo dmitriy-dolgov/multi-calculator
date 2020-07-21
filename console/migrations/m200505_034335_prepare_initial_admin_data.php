@@ -29,7 +29,7 @@ class m200505_034335_prepare_initial_admin_data extends Migration
 
         // create setup user
         //$user = new \Da\User\Model\User([
-        $user = new \app\models\db\User([
+        $user = new \common\models\db\User([
             'scenario' => 'create',
             'email' => "TwilightTowerDU@gmail.com",
             'username' => "daiviz",

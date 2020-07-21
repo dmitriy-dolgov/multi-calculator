@@ -635,10 +635,18 @@
   }
 }
 .slick-container {
+  position: relative;
   overflow: hidden;
   height: 120px;
-  background: linear-gradient(90deg, #ffb44d 0 3%, #000 3% 97%, #ffb44d 97% 100%);
-  padding: 0 3%;
+  /*background: linear-gradient(90deg, #ffb44d 0 $csd-border-padding, #000 $csd-border-padding (100% - $csd-border-padding), #ffb44d (100% - $csd-border-padding) 100%);*/
+  /*padding: 0 $csd-border-padding;*/
+  padding: 0;
+}
+.slick-container .video-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #000000AA 0 2.8%, #ffb44d 2.8% 3%, #0000 3% 97%, #ffb44d 97% 97.2%, #000000AA 97.2% 100%);
 }
 
 .slick-pane-img {

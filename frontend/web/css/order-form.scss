@@ -556,10 +556,18 @@ $order-submit-bg-color: #2d3436;
 }
 
 .slick-container {
+  position: relative;
   overflow: hidden;
   height: $order-pane-height;
-  background: linear-gradient(90deg, #ffb44d 0 $csd-border-padding, #000 $csd-border-padding (100% - $csd-border-padding), #ffb44d (100% - $csd-border-padding) 100%);
-  padding: 0 $csd-border-padding;
+  /*background: linear-gradient(90deg, #ffb44d 0 $csd-border-padding, #000 $csd-border-padding (100% - $csd-border-padding), #ffb44d (100% - $csd-border-padding) 100%);*/
+  /*padding: 0 $csd-border-padding;*/
+  padding: 0;
+  .video-overlay {
+    position: absolute;pane-mobile-switcher
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #000000AA 0 2.8%, #ffb44d 2.8% 3%, #0000 3% 97%, #ffb44d 97% 97.2%, #000000AA 97.2% 100%);
+  }
 }
 
 .slick-pane-img {

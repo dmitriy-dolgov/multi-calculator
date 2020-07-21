@@ -209,6 +209,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                 <div class="video">
                     <!--<div id="video"></div>-->
                 </div>
+                <div class="video-overlay"></div>
             </div>
 
             <div class="menu">

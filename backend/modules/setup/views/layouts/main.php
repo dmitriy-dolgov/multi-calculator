@@ -221,6 +221,7 @@ use yii\helpers\Html;
 
                         <li class="nav-separator"></li>
 
+                        <?php /* ?>
                         <li>
                             <a href="/vendor/order/<?= (Yii::$app->user->identity ? Yii::$app->user->identity->getOrderUid() : '') ?>" target="_blank" class="btn-show-order-form-new-window"
                                title="<?= Yii::t('app', 'Show order form (in new window)') ?>">
@@ -234,6 +235,7 @@ use yii\helpers\Html;
                                 <i class="fa fa-caret-square-o-up"></i>
                             </a>
                         </li>
+                        <?php */ ?>
 
                     </ul>
                 </nav>
@@ -295,7 +297,7 @@ use yii\helpers\Html;
     <div id="notif-group" class="tabbed_notifications"></div>
 </div>
 <!-- /footer content -->
-
+<?php  /* ?>
 <div id="orderForm" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
 
@@ -311,7 +313,7 @@ use yii\helpers\Html;
 
     </div>
 </div>
-
+<?php  */ ?>
 <?php $this->endBody(); ?>
 </body>
 </html>

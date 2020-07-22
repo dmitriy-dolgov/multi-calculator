@@ -119,7 +119,7 @@ function addComponentByData(data, append) {
     var id = data['data-id'];
     var name = data['data-name'];
     var short_name = data['data-short_name'];
-    var image = data['data-image'];
+    var image = gl.data['domain-admin-schema'] + '://' + gl.data['domain-admin'] + data['data-image'];
     var video = data['data-video'];
     var price = parseFloat(data['data-price']);
     var priceStr = (price).toFixed(2);

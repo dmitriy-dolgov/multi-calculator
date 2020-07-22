@@ -82,6 +82,9 @@ $jsStrings = [
     'currency' => Internationalization::getCurrencySign(),
     'cant_add_so_many_of_component' => Yii::t('app', 'So much does not fit on pizza!'),
     'frame-order-form_src' => Url::to(['/vendor/order-panel', 'uid' => $uid]),
+
+    'domain-admin' => Yii::$app->params['domain-admin'],
+    'domain-admin-schema' => Yii::$app->params['domain-admin-schema'],
 ];
 
 $userGeoPosition = (new \common\models\Geo())->getUserGeoPosition();

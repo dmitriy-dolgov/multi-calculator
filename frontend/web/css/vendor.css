@@ -986,6 +986,11 @@
   height: 70vh;
 }
 
+.auth-clients {
+  margin-bottom: 0;
+  padding-bottom: 30px;
+}
+
 #shop-order {
   width: 100%;
   max-width: 800px;

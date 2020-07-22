@@ -9,8 +9,8 @@ class SetupAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/backend.css',
-        'css/setup.css',
+        'css/backend.css?ver=1.0',
+        'css/setup.css?ver=1.0',
     ];
     public $js = [
         'js/common.js',

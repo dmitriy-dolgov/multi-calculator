@@ -148,6 +148,38 @@ STR;
         ]);
     }
 
+    public function actionOrderCreateAjax()
+    {
+        $response = ['status' => 'error'];
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $users = [];
+        foreach (Yii::$app->request->post()['ShopOrderForm']['user_ids'] as $userId) {
+            if (!$aUser = User::findOne($userId)) {
+                $response['msg'] = 'User ' . $userId . ' not found';
+                return $response;
+            }
+            $users[] = $aUser;
+        }
+        if (!$users) {
+            $response['msg'] = 'Users not found';
+            return $response;
+        }
+
+        $model = new ShopOrderForm();
+        if ($model->load(Yii::$app->request->post()) && ($shopOrder = $model->save($users,
+                Yii::$app->request->post()['ShopOrderForm']))
+        ) {
+            $response['status'] = 'success';
+            $response['order_uid'] = $shopOrder->order_uid;
+        } else {
+            $response['msg'] = 'Unknown server error';
+        }
+
+        return $response;
+    }
+
     /**
      * Displays contact page.
      *

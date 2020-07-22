@@ -605,7 +605,7 @@ gl.functions.composeOrder = function () {
 
         var formData = elem.serialize();
 
-        $.post('/vendor/order-create-ajax', formData, function (result) {
+        $.post('/site/order-create-ajax', formData, function (result) {
             if (result.status == 'success') {
                 elem.find('.info-panel').html('<h3>' + gl.data['Order confirmed.'] + '</h3><div class="info-message red">'
                     + gl.data['Expect pizzeria notifications.'] + '</div>');
@@ -630,7 +630,7 @@ gl.functions.composeOrder = function () {
                     orderDataDataElem.animate({opacity: 1});
 
                     setInterval(function () {
-                        $.get('/setup/shop-order/order-status', {orderId: result.order_uid}, function (result) {
+                        $.get('/shop-order/order-status', {orderId: result.order_uid}, function (result) {
                             if (result.status == 'success' && result.data['order-status'] == 'offer-sent-to-customer') {
                                 for (var id in gl.functions.placesMap.prototype.allMovingMarkers) {
                                     gl.functions.placesMap.prototype.allMovingMarkers[id].removeFrom(gl.data.worldMap.map);

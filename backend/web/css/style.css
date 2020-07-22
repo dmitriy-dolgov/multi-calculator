@@ -526,11 +526,6 @@ body {
 .component .img-wrap {
   width: 11vw;
   height: 11vw;
-  /*background: no-repeat center center;
-  -webkit-background-size: contain;
-  -moz-background-size: contain;
-  -o-background-size: contain;
-  background-size: contain;*/
   background: no-repeat center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;

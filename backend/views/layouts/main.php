@@ -124,12 +124,14 @@ CSS
                 <div class="icon-wrench icon"></div>
                 <?= Yii::t('app', 'Настройки') ?>
             </div>
+            <?php /* ?>
             <div class="switch-elem<?= $currentPane == 'pane-order-make' ? ' selected' : '' ?>"
                  data-type="#pane-order-make">
                 <div class="icon-hammer icon"></div>
                 <?= Yii::t('app', 'Конструктор') ?>
             </div>
-            <div class="switch-elem<?= $currentPane == 'pane-order-watch' ? ' selected' : '' ?>"
+            <?php */ ?>
+            <div style="width: 50%" class="switch-elem<?= $currentPane == 'pane-order-watch' ? ' selected' : '' ?>"
                  data-type="#pane-order-watch">
                 <div class="icon-cart icon"></div>
                 <?= Yii::t('app', 'Заказы') ?>
@@ -159,13 +161,16 @@ CSS
         </div>
         <?php if (!Yii::$app->user->isGuest): ?>
             <div id="right-wrapper">
+                <?php if (0): ?>
                 <section id="pane-order-make" class="view-pane">
                     <!--<iframe class="total-frame"
-                            src="<?/*= Url::to(['/vendor/order']) */?>/<?/*= Yii::$app->user->identity->getOrderUid() */?>"></iframe>-->
-                    <iframe class="total-frame" src="<?= Yii::$app->params['domain-customer-schema'] ?>://<?= Yii::$app->params['domain-customer'] ?>"></iframe>
+                            src="<? /*= Url::to(['/vendor/order']) */ ?>/<? /*= Yii::$app->user->identity->getOrderUid() */ ?>"></iframe>-->
+                    <iframe class="total-frame"
+                            src="<?= Yii::$app->params['domain-customer-schema'] ?>://<?= Yii::$app->params['domain-customer'] ?>"></iframe>
                     <i class="pane-switch icon-arrow-left-circle btn-wrap-order-make-form"
                        title="Развернуть панель"></i>
                 </section>
+                <?php endif; ?>
                 <section id="pane-order-watch" class="view-pane">
                     <iframe class="total-frame" src="<?= Url::to(['/setup/shop-order/index']) ?>"></iframe>
                     <i class="pane-switch icon-arrow-up-circle btn-wrap-order-watch-form" title="Развернуть панель"></i>

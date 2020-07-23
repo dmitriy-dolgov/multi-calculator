@@ -239,28 +239,6 @@
   float: left;
 }
 
-@media screen and (max-width: 550px) {
-  .components-in-stock,
-.btn-order-container {
-    width: 35%;
-  }
-
-  #order-form {
-    width: 65%;
-    float: left;
-  }
-
-  .registration-info,
-.capt-price {
-    padding-left: 20px;
-  }
-}
-@media screen and (max-width: 1000px) {
-  .registration-info,
-.capt-price {
-    padding-left: 15px;
-  }
-}
 .jspContainer {
   overflow: visible !important;
 }
@@ -1036,6 +1014,64 @@
 .auth-clients {
   margin-bottom: 0;
   padding-bottom: 30px;
+}
+
+@media screen and (max-width: 1000px) {
+  .registration-info,
+.capt-price {
+    padding-left: 15px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .sidebar .components-selected-details .components-in-stock,
+.sidebar .components-selected-details .btn-order-container {
+    width: 30% !important;
+  }
+  .sidebar .components-selected-details #order-form {
+    width: 70%;
+    float: left;
+  }
+  .sidebar .components-selected-details .registration-info,
+.sidebar .components-selected-details .capt-price {
+    padding-left: 20px;
+  }
+  .sidebar .components-selected-details .added-component {
+    display: block;
+  }
+  .sidebar .components-selected-details .added-component .image {
+    width: 100%;
+    border-radius: 0;
+    /*border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    background-size:*/
+  }
+  .sidebar .components-selected-details .added-component .text-string {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+  .sidebar .components-selected-details .added-component .text-string .short_name {
+    width: 100%;
+  }
+  .sidebar .components-selected-details .added-component .text-string .price {
+    float: left;
+    margin-left: 0;
+  }
+  .sidebar .components-selected-details .added-component .dots {
+    display: none;
+  }
+  .sidebar .components-selected-details .added-component .btn-delete,
+.sidebar .components-selected-details .added-component .btn-switch-component {
+    position: absolute;
+    right: 0;
+    bottom: 3px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .registration-info,
+.capt-price {
+    padding-left: 25px;
+  }
 }
 
 /*# sourceMappingURL=order-form.css.map */

@@ -11,7 +11,7 @@ $order-pane-height: 120px;
 $order-pane-margin-height: 3px;
 $order-pane-common-height: $order-pane-height + $order-pane-margin-height;
 $components-pane-width: 25%;
-$components-pane-width-mob: 35%;
+$components-pane-width-mob: 30%;
 $video-elem-size: $order-pane-height; /* * 1.618;*/
 $csd-border-padding: 3%;
 
@@ -139,30 +139,6 @@ $order-submit-bg-color: #2d3436;
 #order-form {
   width: 100% - $components-pane-width;
   float: left;
-}
-
-@media screen and (max-width: 550px) {
-  .components-in-stock,
-  .btn-order-container {
-    width: $components-pane-width-mob;
-  }
-
-  #order-form {
-    width: 100% - $components-pane-width-mob;
-    float: left;
-  }
-
-  .registration-info,
-  .capt-price {
-    padding-left: 20px;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .registration-info,
-  .capt-price {
-    padding-left: 15px;
-  }
 }
 
 .jspContainer {
@@ -1012,4 +988,77 @@ $order-submit-bg-color: #2d3436;
 .auth-clients {
   margin-bottom: 0;
   padding-bottom: 30px;
+}
+
+@media screen and (max-width: 1000px) {
+  .registration-info,
+  .capt-price {
+    padding-left: 15px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .sidebar {
+    .components-selected-details {
+      .components-in-stock,
+      .btn-order-container {
+        width: $components-pane-width-mob !important;
+      }
+
+      #order-form {
+        width: 100% - $components-pane-width-mob;
+        float: left;
+      }
+
+      .registration-info,
+      .capt-price {
+        padding-left: 20px;
+      }
+
+      .added-component {
+        display: block;
+
+        .image {
+          width: 100%;
+          border-radius: 0;
+          /*border-top-left-radius: 50%;
+          border-top-right-radius: 50%;
+          background-size:*/
+        }
+
+        .text-string {
+          display: block;
+          width: 100%;
+          text-align: left;
+
+          .short_name {
+            width: 100%;
+          }
+
+          .price {
+            float: left;
+            margin-left: 0;
+          }
+        }
+
+        .dots {
+          display: none;
+        }
+
+        .btn-delete,
+        .btn-switch-component {
+          position: absolute;
+          right: 0;
+          bottom: 3px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .registration-info,
+  .capt-price {
+    padding-left: 25px;
+  }
 }

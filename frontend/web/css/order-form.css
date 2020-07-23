@@ -283,7 +283,6 @@
 .pizza-name {
   font-family: "Caveat", cursive;
   font-size: 35px;
-  /*font-weight: bold;*/
   color: #f5cc26;
   text-shadow: 1px 1px 6px #000, 1px 1px 6px #000, 1px 1px 6px #000;
   text-align: center;
@@ -300,19 +299,13 @@
   z-index: 1;
 }
 .component .img-wrap {
-  /*width: 11vw;*/
   width: 100%;
   height: 13vw;
-  /*background: no-repeat center center;
-  -webkit-background-size: contain;
-  -moz-background-size: contain;
-  -o-background-size: contain;
-  background-size: contain;*/
   background: no-repeat center center;
-  -webkit-background-size: contain;
-  -moz-background-size: contain;
-  -o-background-size: contain;
-  background-size: contain;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 .component .price-discount {
   text-decoration: line-through;
@@ -322,12 +315,9 @@
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  /*width: 80%;
-  margin: 0 auto;*/
 }
 .component .component-link .short-name {
   overflow-x: hidden;
-  /*display: inline-block;*/
   white-space: normal;
   text-align: center;
   width: 100%;
@@ -376,10 +366,7 @@
 .sidebar .capt-price {
   display: none;
   width: 100%;
-  /*margin: 40px 0 20px;*/
   position: relative;
-  /*top: 10px;
-  left: 108px;*/
   color: black;
   margin-top: 5px;
   margin-bottom: 20px;
@@ -676,7 +663,6 @@
 .standard-pizzas-panel .header {
   font-style: italic;
   font-weight: 600;
-  margin-bottom: 10px;
 }
 .standard-pizzas-panel.unwrap {
   /*width: 300px;
@@ -715,6 +701,12 @@
   width: 100%;
   overflow: hidden;
   line-height: 2.2;
+}
+.standard-pizzas-panel .pizzas-list .header-tip {
+  text-align: right;
+  color: yellow;
+  font-size: smaller;
+  line-height: 0;
 }
 .standard-pizzas-panel .pizzas-list .elem {
   cursor: pointer;

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .link-for-menu {
   margin-left: 6px;
   margin-right: 6px;
@@ -55,6 +56,19 @@
   width: 100%;
   overflow-x: hidden;
   padding: 0;
+}
+
+.kv-grid-container a.desc::after {
+  content: "";
+  font-weight: 900;
+  font-family: "FontAwesome";
+  padding-left: 5px;
+}
+.kv-grid-container a.asc::after {
+  content: "";
+  font-weight: 900;
+  font-family: "FontAwesome";
+  padding-left: 5px;
 }
 
 /*# sourceMappingURL=setup.css.map */

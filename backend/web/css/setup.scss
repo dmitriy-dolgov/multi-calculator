@@ -68,3 +68,19 @@
     padding: 0;
   }
 }
+
+.kv-grid-container {
+  a.desc::after {
+    content: "\f15d";
+    font-weight: 900;
+    font-family: 'FontAwesome';
+    padding-left: 5px;
+  }
+
+  a.asc::after {
+    content: "\f15e";
+    font-weight: 900;
+    font-family: 'FontAwesome';
+    padding-left: 5px;
+  }
+}

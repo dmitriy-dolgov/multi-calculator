@@ -64,9 +64,10 @@ logRegModalElem.on('shown.bs.modal', function() {
     logRegModalElem.find('.frame-content').html('<iframe class="frame-fill" src="/user/login" onload="gl.functions.resizeIframeHeight(this)"></iframe>');
 });
 
-/*gl.functions.setLogged = function() {
-    location.reload(); 
-};*/
+gl.functions.adjustComponentToSelectHeight();
+$(window).resize(function() {
+  gl.functions.adjustComponentToSelectHeight();
+});
 
 JS
 );
@@ -274,7 +275,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
         <div class="btn-head"><?= Yii::t('app', 'Pizzas') ?></div>
         <div class="pizzas-list">
             <div class="header"><?= Yii::t('app', 'Choose your pizza') ?></div>
-            <div class="header-tip"><?= Yii::t('app', 'Or create it yourself =>')?></div>
+            <div class="header-tip"><?= Yii::t('app', 'Or create it yourself =>') ?></div>
             <hr>
             <?php
             foreach ($componentSets as $cs) {

@@ -21,14 +21,22 @@ var elems = {
     '.component-holder': $('.component-holder'),
     '.video': $('.video'),
     '#elems-container': $('#elems-container'),
-    '#order-form-submit': $("#order-form-submit")
+    '#order-form-submit': $("#order-form-submit"),
+    '.vertical-pane .component': $('.vertical-pane .component'),
+    '.vertical-pane .component .img-wrap': $('.vertical-pane .component .img-wrap'),
 };
 
-gl.functions.resizeIframeHeight = function(obj) {
+gl.functions.adjustComponentToSelectHeight = function () {
+    var compElem = elems['.vertical-pane .component'];
+    var cw = compElem.width();
+    elems['.vertical-pane .component .img-wrap'].css({'height': cw + 'px'});
+};
+
+gl.functions.resizeIframeHeight = function (obj) {
     obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
 };
 
-gl.functions.setLogged = function() {
+gl.functions.setLogged = function () {
     location.reload();
 };
 
@@ -211,7 +219,7 @@ function addComponentByData(data, append) {
         }, 0);
 
         elems['.components-selected-details'].find('[data-id=' + id + '] .image').tooltip();
-}
+    }
 
     gl.functions.orderCalculatePrice();
 

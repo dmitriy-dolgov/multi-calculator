@@ -200,6 +200,10 @@ $order-submit-bg-color: #2d3436;
   .img-wrap {
     width: 100%;
     height: 13vw;
+    border-radius: 50%;
+    border-color: #ffb44d91;
+    border-style: solid;
+    border-width: calc(1px + .3vw);
     @include background-cover;
   }
 

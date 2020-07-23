@@ -274,6 +274,8 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
         <div class="btn-head"><?= Yii::t('app', 'Pizzas') ?></div>
         <div class="pizzas-list">
             <div class="header"><?= Yii::t('app', 'Choose your pizza') ?></div>
+            <div class="header-tip"><?= Yii::t('app', 'Or create it yourself =>')?></div>
+            <hr>
             <?php
             foreach ($componentSets as $cs) {
                 if ($cs->components) {

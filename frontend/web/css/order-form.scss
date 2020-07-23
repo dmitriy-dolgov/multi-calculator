@@ -11,6 +11,7 @@ $order-pane-height: 120px;
 $order-pane-margin-height: 3px;
 $order-pane-common-height: $order-pane-height + $order-pane-margin-height;
 $components-pane-width: 25%;
+$components-pane-width-mob: 35%;
 $video-elem-size: $order-pane-height; /* * 1.618;*/
 $csd-border-padding: 3%;
 
@@ -140,6 +141,30 @@ $order-submit-bg-color: #2d3436;
   float: left;
 }
 
+@media screen and (max-width: 550px) {
+  .components-in-stock,
+  .btn-order-container {
+    width: $components-pane-width-mob;
+  }
+
+  #order-form {
+    width: 100% - $components-pane-width-mob;
+    float: left;
+  }
+
+  .registration-info,
+  .capt-price {
+    padding-left: 20px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .registration-info,
+  .capt-price {
+    padding-left: 15px;
+  }
+}
+
 .jspContainer {
   overflow: visible !important;
 }
@@ -194,12 +219,20 @@ $order-submit-bg-color: #2d3436;
 
 .component {
   width: 100%;
-  padding: 0 0 2vw;
+  /*padding: 0 0 2vw;*/
   z-index: 1;
+
+  .filler-over {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
 
   .img-wrap {
     width: 100%;
-    height: 13vw;
+    height: 100%;
     border-radius: 50%;
     border-color: #ffb44d91;
     border-style: solid;
@@ -216,17 +249,39 @@ $order-submit-bg-color: #2d3436;
     flex-direction: column;
     align-items: center;
     text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 40px;
+
+    .filler {
+      width: 100%;
+    }
+
+    .comp-info {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      bottom: -24px;
+      text-shadow: 0 0 4px black, 0 0 5px black, 0 0 5px black, 0 0 6px black, 0 0 6px black;
+    }
 
     .short-name {
       overflow-x: hidden;
       white-space: normal;
       text-align: center;
       width: 100%;
+      font-size: larger;
+      line-height: 1;
+      margin-bottom: 3px;
     }
 
     .price {
       color: wheat;
       white-space: nowrap;
+      text-align: center;
+
+      .c-sign-in-price {
+        font-size: smaller;
+      }
     }
   }
 }
@@ -941,6 +996,10 @@ $order-submit-bg-color: #2d3436;
 
   .icon-exit {
     color: #1b1b1b !important;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 

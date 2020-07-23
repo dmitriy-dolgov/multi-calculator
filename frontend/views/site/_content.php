@@ -64,10 +64,10 @@ logRegModalElem.on('shown.bs.modal', function() {
     logRegModalElem.find('.frame-content').html('<iframe class="frame-fill" src="/user/login" onload="gl.functions.resizeIframeHeight(this)"></iframe>');
 });
 
-gl.functions.adjustComponentToSelectHeight();
+/*gl.functions.adjustComponentToSelectHeight();
 $(window).resize(function() {
   gl.functions.adjustComponentToSelectHeight();
-});
+});*/
 
 JS
 );
@@ -111,11 +111,16 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
 
                     $item = "<div class='component' data-id='" . $comp->id . "' $compStyle>";
 
-                    $html = '<div class="img-wrap" style="background-image: url(' . $comp->getImageUrl() . ')"></div>';
-                    $html .= '<div class="short-name" title="' . Html::encode($comp->short_description) . '">' . Html::encode($comp->short_name) . '</div>'
+                    $html = '<img class="filler" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">'
+                        . '<div class="filler-over">'
+                        . '<div class="img-wrap" style="background-image: url(' . $comp->getImageUrl() . ')"></div>'
+                        . '<div class="comp-info">'
+                        . '<div class="short-name" title="' . Html::encode($comp->short_description) . '">' . Html::encode($comp->short_name) . '</div>'
                         /*. '<div class="price-discount" title="' . Html::encode(Yii::t('app',
                             'Price without discount')) . '">' . (!empty($comp->price_discount) ? Html::encode($comp->price_discount . ' руб.') : '') . '</div>'*/
-                        . '<div class="price">' . ComponentHtml::getPriceCaption($comp) . '</div>';
+                        . '<div class="price">' . ComponentHtml::getPriceCaption($comp) . '</div>'
+                        . '</div>'
+                        . '</div>';
 
                     $item .= Html::a($html, '#', array_merge($comp->createHtmlDataParams(), [
                         'class' => 'component-link',

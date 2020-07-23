@@ -11,8 +11,8 @@ class ComponentHtml extends BaseObject
 {
     public static function getPriceCaption(Component $component)
     {
-        return Html::encode(!empty($component->price)
+        return !empty($component->price)
             ? Internationalization::getPriceCaption($component->price)
-            : \Yii::t('app', 'For free'));
+            : Html::encode(\Yii::t('app', 'For free'));
     }
 }

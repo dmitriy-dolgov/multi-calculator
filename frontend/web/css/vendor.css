@@ -239,6 +239,28 @@
   float: left;
 }
 
+@media screen and (max-width: 550px) {
+  .components-in-stock,
+.btn-order-container {
+    width: 35%;
+  }
+
+  #order-form {
+    width: 65%;
+    float: left;
+  }
+
+  .registration-info,
+.capt-price {
+    padding-left: 20px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .registration-info,
+.capt-price {
+    padding-left: 15px;
+  }
+}
 .jspContainer {
   overflow: visible !important;
 }
@@ -295,12 +317,19 @@
 
 .component {
   width: 100%;
-  padding: 0 0 2vw;
+  /*padding: 0 0 2vw;*/
   z-index: 1;
+}
+.component .filler-over {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 .component .img-wrap {
   width: 100%;
-  height: 13vw;
+  height: 100%;
   border-radius: 50%;
   border-color: #ffb44d91;
   border-style: solid;
@@ -319,16 +348,35 @@
   flex-direction: column;
   align-items: center;
   text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+.component .component-link .filler {
+  width: 100%;
+}
+.component .component-link .comp-info {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  bottom: -24px;
+  text-shadow: 0 0 4px black, 0 0 5px black, 0 0 5px black, 0 0 6px black, 0 0 6px black;
 }
 .component .component-link .short-name {
   overflow-x: hidden;
   white-space: normal;
   text-align: center;
   width: 100%;
+  font-size: larger;
+  line-height: 1;
+  margin-bottom: 3px;
 }
 .component .component-link .price {
   color: wheat;
   white-space: nowrap;
+  text-align: center;
+}
+.component .component-link .price .c-sign-in-price {
+  font-size: smaller;
 }
 
 .sidebar {
@@ -974,6 +1022,9 @@
 }
 .registration-info .icon-exit {
   color: #1b1b1b !important;
+}
+.registration-info .icon-exit:hover {
+  text-decoration: none;
 }
 
 .frame-fill {

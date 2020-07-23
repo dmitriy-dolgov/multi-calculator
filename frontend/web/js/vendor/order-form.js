@@ -26,11 +26,11 @@ var elems = {
     '.vertical-pane .component .img-wrap': $('.vertical-pane .component .img-wrap'),
 };
 
-gl.functions.adjustComponentToSelectHeight = function () {
+/*gl.functions.adjustComponentToSelectHeight = function () {
     var compElem = elems['.vertical-pane .component'];
     var cw = compElem.width();
     elems['.vertical-pane .component .img-wrap'].css({'height': cw + 'px'});
-};
+};*/
 
 gl.functions.resizeIframeHeight = function (obj) {
     obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';

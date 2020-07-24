@@ -90,7 +90,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
 
         <?php if ($components): ?>
 
-            <?php \nsept\jscrollpane\JScrollPaneWidget::widget([
+            <?php /*\nsept\jscrollpane\JScrollPaneWidget::widget([
                 'container' => '.vertical-pane',
                 'mousewheel' => true,
                 'settings' => [
@@ -98,7 +98,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                     'scrollbarWidth' => 18,
                     'showArrows' => true,
                 ]
-            ]); ?>
+            ]); */?>
 
             <div class="vertical-pane" style="overflow:auto">
                 <?php
@@ -111,9 +111,12 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
 
                     $item = "<div class='component' data-id='" . $comp->id . "' $compStyle>";
 
-                    $html = '<img class="filler" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">'
-                        . '<div class="filler-over">'
+                    $html = '<div class="filler-wrapper">'
+                        . '<img class="filler" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">'
                         . '<div class="img-wrap" style="background-image: url(' . $comp->getImageUrl() . ')"></div>'
+                        . '</div>'
+                        . '<div class="filler-over">'
+                        //. '<div class="img-wrap" style="background-image: url(' . $comp->getImageUrl() . ')"></div>'
                         . '<div class="comp-info">'
                         . '<div class="short-name" title="' . Html::encode($comp->short_description) . '">' . Html::encode($comp->short_name) . '</div>'
                         /*. '<div class="price-discount" title="' . Html::encode(Yii::t('app',
@@ -132,6 +135,16 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                     echo $item;
                 } ?>
             </div>
+
+            <?php \nsept\jscrollpane\JScrollPaneWidget::widget([
+                'container' => '.vertical-pane',
+                'mousewheel' => true,
+                'settings' => [
+                    // Plugin options (http://jscrollpane.kelvinluck.com/settings.html)
+                    'scrollbarWidth' => 18,
+                    'showArrows' => true,
+                ]
+            ]); ?>
         <?php else: ?>
             <?= Yii::t('app', 'There are no components! Please refer to “{url}” to add.',
                 //['url' => Url::to(['/setup/component'], true)])
@@ -280,7 +293,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
         <div class="btn-head"><?= Yii::t('app', 'Pizzas') ?></div>
         <div class="pizzas-list">
             <div class="header"><?= Yii::t('app', 'Choose your pizza') ?></div>
-            <div class="header-tip"><?= Yii::t('app', 'Or create it yourself =>') ?></div>
+            <div class="header-tip"><?= Yii::t('app', 'Or create it yourself ⇒') ?></div>
             <hr>
             <?php
             foreach ($componentSets as $cs) {

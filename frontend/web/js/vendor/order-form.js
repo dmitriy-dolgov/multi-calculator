@@ -178,9 +178,10 @@ function addComponentByData(data, append) {
         html = '<div class="added-component no-opacity ' + classSwitch + '" data-id="' + id + '" data-amount="1">'
             + '<div class="image" style="background-image:url(' + gl.escapeHtml(image) + ')"></div>'
 
-            + '<div class="image over" style="background-image:url(' + gl.escapeHtml(image)
+            //TODO: pz_comp
+            /*+ '<div class="image over" style="background-image:url(' + gl.escapeHtml(image)
             + ')" data-toggle="tooltip" data-placement="top" data-html="true" title="'
-            + gl.escapeHtml(name) + '<br>' + gl.escapeHtml(priceStr) + ' ' + gl.data['currency'] + '"></div>'
+            + gl.escapeHtml(name) + '<br>' + gl.escapeHtml(priceStr) + ' ' + gl.data['currency'] + '"></div>'*/
 
             + '<div class="text-string">'
             + '<div class="short_name">' + gl.escapeHtml(short_name) + '</div>'

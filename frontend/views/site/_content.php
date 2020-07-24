@@ -379,22 +379,22 @@ JS
                     $conHtml = Html::tag('div', '⌀20см', [
                             'class' => 'elem elem-pi',
                             //'style' => 'display:none',
-                            'data-id' => 5300,
-                            'data-name' => 'Тесто ⌀20см',
+                            'data-id' => $cs->id,
+                            'data-name' => $cs->name,
                             'data-components' => json_encode($pizza20Data),
                         ])
                         . Html::tag('div', '⌀25см', [
                             'class' => 'elem elem-pi',
                             //'style' => 'display:none',
-                            'data-id' => 5400,
-                            'data-name' => 'Тесто ⌀25см',
+                            'data-id' => $cs->id,
+                            'data-name' => $cs->name,
                             'data-components' => json_encode($pizza25Data),
                         ])
                         . Html::tag('div', '⌀27см', [
                             'class' => 'elem elem-pi',
                             //'style' => 'display:none',
-                            'data-id' => 5500,
-                            'data-name' => 'Тесто ⌀27см',
+                            'data-id' => $cs->id,
+                            'data-name' => $cs->name,
                             'data-components' => json_encode($pizza27Data),
                         ]);
 

@@ -972,12 +972,13 @@ $('.pizzas-list .elem').click(function () {
     $('.pizza-name').text(elem.data('name'));
     deleteAllComponents();
 
-    setTimeout(function() {
+    //TODO: дождаться удаления перед тем как класть
+    //setTimeout(function() {
         totalAddedElements = 0;
 
         var newComponents = elem.data('components');
         for (var id in newComponents) {
             addComponentByData(newComponents[id]);
         }
-    }, 500);
+    //}, 500);
 });

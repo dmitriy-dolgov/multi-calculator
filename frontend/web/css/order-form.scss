@@ -26,6 +26,13 @@ $order-submit-bg-color: #2d3436;
   font-size: 22px;
 }*/
 
+.white-shadow {
+  text-shadow: 0 0 4px white, 0 0 5px white, 0 0 5px white, 0 0 6px white, 0 0 6px white;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#FFF')";
+  filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#FFF')";
+  -webkit-filter: drop-shadow(0 0 4px #FFF);
+}
+
 #content {
   background: none;
 }
@@ -1028,6 +1035,8 @@ $order-submit-bg-color: #2d3436;
     .components-selected-details {
 
       .comp-amount {
+        left: auto;
+        bottom: auto;
         right: -5px;
         top: -5px;
       }
@@ -1074,7 +1083,7 @@ $order-submit-bg-color: #2d3436;
         .btn-switch-component {
           position: absolute;
           right: 0;
-          bottom: 10px;
+          bottom: 0;
           margin-left: 7px;
         }
       }

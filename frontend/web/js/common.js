@@ -57,7 +57,7 @@ gl.beautifyPrice = function (price, currency) {
     var dolCentArr = price.split('.');
     var result = dolCentArr[0] + '.<sup>' + dolCentArr[1] + '</sup>';
     if (currency) {
-        result += ' <span class="c-sign-in-price">' + currency + '</span>';
+        result += ' <span class="c-sign-in-price">' + gl.escapeHtml(currency) + '</span>';
     }
     return result;
 };

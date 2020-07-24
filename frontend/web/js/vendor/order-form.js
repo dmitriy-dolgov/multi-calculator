@@ -167,7 +167,7 @@ function addComponentByData(data, append) {
 
         $('.added-component[data-id=' + id + ']').tooltip();
 
-        var priceHtml = price ? (gl.escapeHtml(priceStr) + ' ' + gl.data['currency']) : gl.data['for-free'];
+        var priceHtml = price ? (gl.beautifyPrice(priceStr, gl.data['currency'])) : gl.data['for-free'];
 
         var classSwitch = '';
         if (unit_switch_group_id) {
@@ -187,10 +187,10 @@ function addComponentByData(data, append) {
             + '<div class="price">' + priceHtml + '</div>'
             + '</div>';
         if (!item_select_min) {
-            html += '<a href="#" class="btn-delete elem-manage" onclick="gl.functions.orderDeleteElem(this); return false;" title="' + gl.data['delete'] + '"></a>';
+            html += '<a href="#" class="btn-delete elem-manage white-shadow" onclick="gl.functions.orderDeleteElem(this); return false;" title="' + gl.data['delete'] + '"></a>';
         }
         if (unit_switch_group_id) {
-            html += '<a href="#" class="btn-switch-component elem-manage" data-toggle="modal" data-target="#switch-component-modal" title="' + gl.data['switch-component'] + '"></a>';
+            html += '<a href="#" class="btn-switch-component elem-manage white-shadow" data-toggle="modal" data-target="#switch-component-modal" title="' + gl.data['switch-component'] + '"></a>';
         }
         //var dataParameters = 'data-elem_index="' + totalAddedElements + '" data-amount="1" ';
         var dataParameters = 'data-elem_index="' + totalAddedElements + '"';

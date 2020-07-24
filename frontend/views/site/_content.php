@@ -98,7 +98,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                     'scrollbarWidth' => 18,
                     'showArrows' => true,
                 ]
-            ]); */?>
+            ]); */ ?>
 
             <div class="vertical-pane" style="overflow:auto">
                 <?php
@@ -296,17 +296,115 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
             <div class="header-tip"><?= Yii::t('app', 'Or create it yourself ⇒') ?></div>
             <hr>
             <?php
+            //TODO: pz_comp
+/*            $this->registerJs(<<<JS
+$('.ttt').click(function(e){
+    e.preventDefault();
+    gl.functions.unwrapBottom(this);
+    return false;
+});
+JS
+);*/
             foreach ($componentSets as $cs) {
                 if ($cs->components) {
                     $compsData = [];
                     foreach ($cs->components as $comp) {
                         $compsData[] = $comp->createHtmlDataParams();
                     }
+                    //TODO: pz_comp
                     echo Html::tag('div', $cs->name, [
-                        'class' => 'elem',
+                        //'class' => 'elem ttt',
+                        'class' => 'ttt',
                         'data-id' => $cs->id,
                         'data-name' => $cs->name,
                         'data-components' => json_encode($compsData),
+                        'onclick' => 'gl.functions.unwrapBottom(this);return false;',
+                    ]);
+
+                    //print_r($compsData);exit;
+                    $pizza20Data = array_merge([[
+                        'data-id' => 5300,
+                        'data-name' => 'Тесто ⌀20см',
+                        'data-short_name' => 'Тесто ⌀20см',
+                        'data-price' => 200.00,
+                        'data-price_discount' => 0,
+                        'data-image' => '/img/compo/5f1ae1a7cb2206.55427998.png',
+                        'data-video' => '/video/construct/default.gif',
+                        'data-item_select_min' => 1,
+                        'data-item_select_max' => '',
+                        'data-unit_name' => '',
+                        'data-unit_value' => '',
+                        'data-unit_value_min' => '',
+                        'data-unit_value_max' => '',
+                        'data-unit_switch_group_id' => 0,   //2,
+                        'data-unit_switch_group_name' => 'Size of pizza',
+                    ]], $compsData);
+
+                    $pizza25Data = array_merge([[
+                        'data-id' => 5400,
+                        'data-name' => 'Тесто ⌀25см',
+                        'data-short_name' => 'Тесто ⌀25см',
+                        'data-price' => 200.00,
+                        'data-price_discount' => 0,
+                        'data-image' => '/img/compo/5f1ae31992ef67.52069491.jpg',
+                        'data-video' => '/video/construct/default.gif',
+                        'data-item_select_min' => 1,
+                        'data-item_select_max' => '',
+                        'data-unit_name' => '',
+                        'data-unit_value' => '',
+                        'data-unit_value_min' => '',
+                        'data-unit_value_max' => '',
+                        'data-unit_switch_group_id' => 0,   //2,
+                        'data-unit_switch_group_name' => 'Size of pizza',
+                    ]], $compsData);
+
+                    $pizza27Data = array_merge([[
+                        'data-id' => 5500,
+                        'data-name' => 'Тесто ⌀27см',
+                        'data-short_name' => 'Тесто ⌀27см',
+                        'data-price' => 200.00,
+                        'data-price_discount' => 0,
+                        'data-image' => '/img/compo/5f1ae3635dfcf4.85958722.jpg',
+                        'data-video' => '/video/construct/default.gif',
+                        'data-item_select_min' => 1,
+                        'data-item_select_max' => '',
+                        'data-unit_name' => '',
+                        'data-unit_value' => '',
+                        'data-unit_value_min' => '',
+                        'data-unit_value_max' => '',
+                        'data-unit_switch_group_id' => 0,   //2,
+                        'data-unit_switch_group_name' => 'Size of pizza',
+                    ]], $compsData);
+
+                    $conHtml = Html::tag('div', '⌀20см', [
+                            'class' => 'elem elem-pi',
+                            //'style' => 'display:none',
+                            'data-id' => 5300,
+                            'data-name' => 'Тесто ⌀20см',
+                            'data-components' => json_encode($pizza20Data),
+                        ])
+                        . Html::tag('div', '⌀25см', [
+                            'class' => 'elem elem-pi',
+                            //'style' => 'display:none',
+                            'data-id' => 5400,
+                            'data-name' => 'Тесто ⌀25см',
+                            'data-components' => json_encode($pizza25Data),
+                        ])
+                        . Html::tag('div', '⌀27см', [
+                            'class' => 'elem elem-pi',
+                            //'style' => 'display:none',
+                            'data-id' => 5500,
+                            'data-name' => 'Тесто ⌀27см',
+                            'data-components' => json_encode($pizza27Data),
+                        ]);
+
+                    echo Html::tag('div', $conHtml, [
+                        'class' => 'elem',
+                        'style' => 'background-color: #686666;display:none',
+                        //'data-id' => $cs->id,
+                        //'data-name' => $cs->name,
+                        //'data-components' => json_encode($compsData),
+                        'onclick' => 'return false;',
                     ]);
                 }
             }

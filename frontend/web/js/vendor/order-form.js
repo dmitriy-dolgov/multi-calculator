@@ -154,6 +154,7 @@ function addComponentByData(data, append) {
 
     //var addResult = addSameComponent(elem);
     var addResult = addSameComponent(id, item_select_max, unit_switch_group_id);
+    gl.log("name: " + name + "; addResult: " + addResult);
     if (addResult === 'no-add') {
         return true;
     }
@@ -970,10 +971,12 @@ $('.pizzas-list .elem').click(function () {
     $('.pizza-name').text(elem.data('name'));
     deleteAllComponents();
 
-    totalAddedElements = 0;
+    setTimeout(function() {
+        totalAddedElements = 0;
 
-    var newComponents = elem.data('components');
-    for (var id in newComponents) {
-        addComponentByData(newComponents[id]);
-    }
+        var newComponents = elem.data('components');
+        for (var id in newComponents) {
+            addComponentByData(newComponents[id]);
+        }
+    }, 500);
 });

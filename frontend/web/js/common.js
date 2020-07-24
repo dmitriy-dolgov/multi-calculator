@@ -61,3 +61,7 @@ gl.beautifyPrice = function (price, currency) {
     }
     return result;
 };
+
+gl.functions.unwrapBottom = function (elem) {
+    $(elem).next().toggle();
+};

@@ -62,6 +62,7 @@ gl.beautifyPrice = function (price, currency) {
     return result;
 };
 
+//TODO: pz_comp ?
 gl.functions.unwrapBottom = function (elem) {
     $(elem).next().toggle();
 };

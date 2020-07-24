@@ -1,9 +1,12 @@
 <?php
 
+use common\models\db\ComponentSwitchGroup;
+use common\models\db\Unit;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use kartik\number\NumberControl;
+use kartik\field\FieldRange;
 
 /* @var $this yii\web\View */
 /* @var $form yii\widgets\ActiveForm */
@@ -11,6 +14,23 @@ use kartik\number\NumberControl;
 /* @var $modelComponentSet common\models\db\ComponentSet[] */
 /* @var $uploadImageForm common\models\UploadComponentImageForm */
 /* @var $uploadVideoForm common\models\UploadComponentVideoForm */
+
+//TODO: в контроллер
+$modelUnits = Unit::find()->all();
+
+$unitItems = \yii\helpers\ArrayHelper::map($modelUnits, 'id', 'name');
+array_walk($unitItems, function (&$name) {
+    $name = Yii::t('db', $name);
+});
+
+//TODO: в контроллер
+$modelComponentSwitchGroups = ComponentSwitchGroup::find()->all();
+
+$componentSwitchGroupsItems = \yii\helpers\ArrayHelper::map($modelComponentSwitchGroups, 'id', 'name');
+array_walk($componentSwitchGroupsItems, function (&$name) {
+    $name = Yii::t('db', $name);
+});
+
 ?>
 
 <div class="component-form">
@@ -54,6 +74,46 @@ use kartik\number\NumberControl;
 
     <?= $form->field($model, 'amount')->hint(Yii::t('app',
         'The information field, for now, can only be changed manually.')) ?>
+
+    <hr>
+
+    <?php /*FieldRange::widget([
+        'form' => $form,
+        'model' => $model,
+        'label' => Yii::t('app', 'Valid range of components for selection'),
+        'attribute1' => 'item_select_min',
+        'attribute2' => 'item_select_max',
+        'type' => FieldRange::INPUT_SPIN,
+    ])*/ ?>
+
+    <hr>
+
+    <?= $form->field($model, 'unit_id')->dropDownList($unitItems,
+        ['prompt' => Yii::t('app', ' - Not selected - ')])->label(Yii::t('app', 'Unit')) ?>
+
+    <?= $form->field($model, 'unit_value')->widget(NumberControl::class, [
+        'maskedInputOptions' => [
+            'allowMinus' => false,
+            'rightAlign' => false,
+        ],
+        'displayOptions' => ['class' => 'form-control kv-monospace'],
+    ])->label(Yii::t('app', 'The number of units in one component'));
+    ?>
+
+    <?php /*= FieldRange::widget([
+        'form' => $form,
+        'model' => $model,
+        'label' => Yii::t('app', 'Range of allowable units'),
+        'attribute1' => 'unit_value_min',
+        'attribute2' => 'unit_value_max',
+        'type' => FieldRange::INPUT_SPIN,
+    ]) */ ?>
+
+    <?= $form->field($model, 'unit_switch_group')->dropDownList($componentSwitchGroupsItems,
+        ['prompt' => Yii::t('app', ' - Not selected - ')])->label(Yii::t('app',
+        'Alternative component group')) ?>
+
+    <hr>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 

@@ -9,6 +9,7 @@
 .jspVerticalBar {
   width: 11px;
   background: transparent !important;
+  z-index: 1;
 }
 .jspArrow.jspArrowUp {
   background: url(/img/scroll/order/arrow_up.gif) no-repeat;

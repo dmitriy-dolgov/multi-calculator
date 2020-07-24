@@ -11,6 +11,7 @@
 .jspVerticalBar {
   width: 11px;
   background: transparent !important;
+  z-index: 1;
 }
 
 .jspArrow.jspArrowUp {

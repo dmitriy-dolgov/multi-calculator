@@ -322,7 +322,7 @@ gl.functions.orderCalculatePrice = function () {
     } else {
         price = price.toFixed(2);
         elems['.total-price'].data('total_price', price);
-        elems['.total-price'].text(price + ' ' + gl.data['currency']);
+        elems['.total-price'].html(gl.beautifyPrice(price, gl.data['currency']));
         elems['.btn-order'].prop('disabled', false);
     }
 };
@@ -363,11 +363,17 @@ $(window).bind('resize',
             function () {
                 elems['.vertical-pane'].data('jsp').reinitialise();
                 //elems['.vertical-pane'].css('overflow', 'visible');
-            }, 20
+            }, 50
         );
     }
 );
 
+/*setTimeout(
+    function () {
+        elems['.vertical-pane'].data('jsp').reinitialise();
+        //elems['.vertical-pane'].css('overflow', 'visible');
+    }, 5000
+);*/
 
 // drag and drop
 $('.component').draggable({revert: true, revertDuration: 0});

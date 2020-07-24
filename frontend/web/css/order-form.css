@@ -94,6 +94,7 @@
 .jspContainer .jspVerticalBar {
   width: 11px;
   background: transparent !important;
+  z-index: 1;
 }
 .jspContainer .jspArrow.jspArrowUp {
   background: url(/img/scroll/order/arrow_up.gif) no-repeat;
@@ -304,9 +305,8 @@
 .component .filler-over {
   position: absolute;
   left: 0;
-  top: 0;
+  bottom: 40px;
   width: 100%;
-  height: 100%;
 }
 .component .img-wrap {
   position: absolute;
@@ -361,7 +361,8 @@
   white-space: nowrap;
   text-align: center;
 }
-.component .component-link .price .c-sign-in-price {
+
+.c-sign-in-price {
   font-size: smaller;
 }
 
@@ -409,6 +410,7 @@
   margin-top: 5px;
   margin-bottom: 20px;
   text-align: left;
+  font-weight: bold;
 }
 .sidebar .capt-price .caption {
   float: left;
@@ -452,22 +454,28 @@
   position: relative;
   display: flex;
   color: black;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 .sidebar .components-selected-details .added-component .text-string {
   display: flex;
   align-items: center;
   width: calc(100% - 95px);
+  font-weight: bold;
+  font-size: larger;
+  text-shadow: 0 0 4px white, 0 0 5px white, 0 0 5px white, 0 0 6px white, 0 0 6px white;
 }
 .sidebar .components-selected-details .added-component .text-string .short_name {
   white-space: nowrap;
   /*overflow: hidden;*/
   margin-right: 7px;
+  line-height: 1;
+  color: #353531;
 }
 .sidebar .components-selected-details .added-component .text-string .price {
   white-space: nowrap;
   color: #663399;
   margin-left: 7px;
+  font-size: smaller;
 }
 .sidebar .components-selected-details .added-component .text-string .dots {
   white-space: nowrap;
@@ -479,7 +487,7 @@
 }
 .sidebar .components-selected-details .added-component .image {
   width: 40px;
-  height: 40px;
+  height: 50px;
   border-radius: 50%;
   background: no-repeat center center;
   -webkit-background-size: contain;
@@ -769,6 +777,7 @@
   height: 28px;
   color: white;
   top: 20px;
+  border: 1px #FFFFFF99 solid;
 }
 
 .switch-component-modal {
@@ -1031,13 +1040,19 @@
   }
 }
 @media screen and (max-width: 550px) {
-  .sidebar .components-selected-details .components-in-stock,
-.sidebar .components-selected-details .btn-order-container {
+  .components-in-stock,
+.btn-order-container {
     width: 30% !important;
   }
-  .sidebar .components-selected-details #order-form {
+
+  #order-form {
     width: 70%;
     float: left;
+  }
+
+  .sidebar .components-selected-details .comp-amount {
+    right: -5px;
+    top: -5px;
   }
   .sidebar .components-selected-details .registration-info,
 .sidebar .components-selected-details .capt-price {
@@ -1045,6 +1060,7 @@
   }
   .sidebar .components-selected-details .added-component {
     display: block;
+    height: 70px;
   }
   .sidebar .components-selected-details .added-component .image {
     width: 100%;
@@ -1057,6 +1073,8 @@
     display: block;
     width: 100%;
     text-align: left;
+    position: relative;
+    top: -25px;
   }
   .sidebar .components-selected-details .added-component .text-string .short_name {
     width: 100%;
@@ -1072,7 +1090,8 @@
 .sidebar .components-selected-details .added-component .btn-switch-component {
     position: absolute;
     right: 0;
-    bottom: 3px;
+    bottom: 10px;
+    margin-left: 7px;
   }
 }
 @media screen and (max-width: 450px) {

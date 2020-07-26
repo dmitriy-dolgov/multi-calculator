@@ -924,7 +924,7 @@
     left: auto;
     bottom: auto;
     right: -5px;
-    top: -5px;
+    top: 10px;
   }
   .sidebar .components-selected-details .registration-info,
 .sidebar .components-selected-details .capt-price {
@@ -932,11 +932,17 @@
   }
   .sidebar .components-selected-details .added-component {
     display: block;
-    height: 70px;
+    /*height: 70px;*/
+    height: 95px;
+    margin-bottom: 0;
+    border-bottom: 1px solid #EEE;
   }
   .sidebar .components-selected-details .added-component .image {
-    width: 100%;
-    border-radius: 0;
+    /*width: 100%;*/
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin: 0 calc(50% - 45px);
     position: absolute;
     top: 0;
     left: 0;
@@ -951,6 +957,8 @@
   }
   .sidebar .components-selected-details .added-component .text-string .short_name {
     width: 100%;
+    top: -22px;
+    position: relative;
   }
   .sidebar .components-selected-details .added-component .text-string .price {
     float: left;
@@ -963,7 +971,7 @@
 .sidebar .components-selected-details .added-component .btn-switch-component {
     position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: 15px;
     margin-left: 7px;
   }
 }

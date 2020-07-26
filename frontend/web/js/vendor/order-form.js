@@ -122,6 +122,8 @@ function addComponentByData(data, append) {
         return false;
     }
 
+    //gl.orderFormHistory.saveState(data, append);
+
     append = typeof append !== 'undefined' ? append : false;
 
     var id = data['data-id'];
@@ -974,10 +976,12 @@ function deleteAllComponents() {
     });
 }
 
-$('.pizzas-list .elem').click(function () {
+$('.pizzas-list .elem-pi').click(function () {
     var elem = $(this);
     $('.pizza-name').text(elem.data('name'));
     deleteAllComponents();
+
+    $('.standard-pizzas-panel').toggleClass('unwrap');
 
     //TODO: pz_comp ?
     //TODO: дождаться удаления перед тем как класть

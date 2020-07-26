@@ -279,6 +279,14 @@ $order-submit-bg-color: #2d3436;
         margin-right: 15px;
         transition: 3s;
 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .image-text {
+          text-shadow: 0 0 4px white, 0 0 5px white, 0 0 5px white, 0 0 6px white, 0 0 6px white;
+        }
+
         &.over {
           position: absolute;
           left: 0;

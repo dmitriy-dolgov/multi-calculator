@@ -131,6 +131,7 @@ function addComponentByData(data, append) {
     //TODO: test_temp
     //var image = gl.data['domain-admin-schema'] + '://' + gl.data['domain-admin'] + data['data-image'];
     var image = data['data-image'];
+    var image_text = data['data-image-text'] ?? '';
 
     var video = data['data-video'];
     var price = parseFloat(data['data-price']);
@@ -179,8 +180,10 @@ function addComponentByData(data, append) {
             classSwitch = 'switched';
         }
 
+        var imageTextHtml = image_text ? ('<div class="image-text">' + image_text + '</div>') : '';
+
         html = '<div class="added-component no-opacity ' + classSwitch + '" data-id="' + id + '" data-amount="1">'
-            + '<div class="image" style="background-image:url(' + gl.escapeHtml(image) + ')"></div>'
+            + '<div class="image" style="background-image:url(' + gl.escapeHtml(image) + ')">' + imageTextHtml + '</div>'
 
             //TODO: pz_comp
             /*+ '<div class="image over" style="background-image:url(' + gl.escapeHtml(image)

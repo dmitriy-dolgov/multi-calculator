@@ -131,7 +131,7 @@ function addComponentByData(data, append) {
     //TODO: test_temp
     //var image = gl.data['domain-admin-schema'] + '://' + gl.data['domain-admin'] + data['data-image'];
     var image = data['data-image'];
-    var image_text = data['data-image-text'] ?? '';
+    var image_text = data['data-image-text'] ? data['data-image-text'] : '';
 
     var video = data['data-video'];
     var price = parseFloat(data['data-price']);

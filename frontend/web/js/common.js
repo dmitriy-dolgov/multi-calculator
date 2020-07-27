@@ -72,12 +72,31 @@ gl.functions.unwrapBottom = function (elem) {
     $(elem).next().toggle();
 };
 
+//localStorage.removeItem('orderFormState');
+
 gl.orderFormHistory = {
     //components: [],
     /*addComponent: function (data, append) {
         gl.history.components.push({data:data, append:append});
     }*/
-    addComponent: function (data, append) {
+    restoreFromStore:  function () {
+        var orderFormStateJson = localStorage.getItem('orderFormState');
+        if (!orderFormStateJson) {
+            return;
+        }
+
+        var orderFormState = JSON.parse(orderFormStateJson);
+        if (!orderFormState) {
+            //TODO: handle such error (wrong JSON)
+            localStorage.removeItem('orderFormState');
+            return;
+        }
+
+        for (var id in orderFormState) {
+            gl.functions.addComponentByData(orderFormState[id]['data'], orderFormState[id]['append']);
+        }
+    },
+    addComponentByData: function (data, append) {
         /*var orderFormState = [];
         $('.component-holder .added-component').each(function () {
             var component = $(this);
@@ -157,7 +176,10 @@ gl.orderFormHistory = {
         }
 
         for (var id in orderFormState) {
-            if (orderFormState[id]['data-id'] == componentId) {
+            gl.log("orderFormState[id]: ");
+            gl.log(orderFormState[id]);
+            gl.log("orderFormState[id]['data-id']: " + orderFormState[id]['data']['data-id']);
+            if (orderFormState[id]['data']['data-id'] == componentId) {
                 orderFormState.splice(id, 1);
                 localStorage.setItem('orderFormState', JSON.stringify(orderFormState));
                 if (!completely) {

@@ -120,11 +120,15 @@ function addSameComponent(id, item_select_max, unit_switch_group_id) {
 }
 
 function addComponentByData(data, append) {
+    gl.functions.addComponentByData(data, append);
+}
+
+gl.functions.addComponentByData(data, append) {
     if (!data) {
         return false;
     }
 
-    gl.orderFormHistory.addComponent(data, append);
+    gl.orderFormHistory.addComponentByData(data, append);
 
     append = typeof append !== 'undefined' ? append : false;
 

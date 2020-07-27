@@ -185,11 +185,6 @@
   text-shadow: 1px 1px 6px #000, 1px 1px 6px #000, 1px 1px 6px #000;
   text-align: center;
 }
-@media screen and (max-width: 460px) {
-  .create-pizza {
-    font-size: 35px;
-  }
-}
 
 .pizza-name {
   font-family: "Caveat", cursive;
@@ -197,11 +192,6 @@
   color: #f5cc26;
   text-shadow: 1px 1px 6px #000, 1px 1px 6px #000, 1px 1px 6px #000;
   text-align: center;
-}
-@media screen and (max-width: 460px) {
-  .pizza-name {
-    font-size: 25px;
-  }
 }
 
 .component {
@@ -892,6 +882,19 @@
   padding-bottom: 30px;
 }
 
+.elem-pi {
+  width: 30%;
+  background-color: #1d1d1d;
+  border-left: 1px solid black;
+  float: right;
+  text-align: center;
+}
+
+.elem-pi:hover {
+  background-color: #e8e8e8;
+  color: black;
+}
+
 @media screen and (max-width: 1000px) {
   .registration-info,
 .capt-price {
@@ -975,25 +978,25 @@
     margin-left: 7px;
   }
 }
+@media screen and (max-width: 460px) {
+  .create-pizza {
+    font-size: 35px;
+  }
+
+  .pizza-name {
+    font-size: 25px;
+  }
+
+  .ingredients {
+    font-size: 14px;
+  }
+}
 @media screen and (max-width: 450px) {
   .registration-info,
 .capt-price {
     padding-left: 25px;
   }
 }
-.elem-pi {
-  width: 30%;
-  background-color: #1d1d1d;
-  border-left: 1px solid black;
-  float: right;
-  text-align: center;
-}
-
-.elem-pi:hover {
-  background-color: #e8e8e8;
-  color: black;
-}
-
 #shop-order {
   width: 100%;
   max-width: 800px;

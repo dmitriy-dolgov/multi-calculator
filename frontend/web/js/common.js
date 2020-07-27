@@ -1,3 +1,8 @@
+'use strict';
+/*(function () {
+    'use strict';
+}());*/
+
 if (!window.gl) {
     var gl = {};
 }
@@ -65,4 +70,44 @@ gl.beautifyPrice = function (price, currency) {
 //TODO: pz_comp ?
 gl.functions.unwrapBottom = function (elem) {
     $(elem).next().toggle();
+};
+
+gl.orderFormHistory = {
+    components: [],
+    /*addComponent: function (data, append) {
+        gl.history.components.push({data:data, append:append});
+    }*/
+    saveState: function (data, append) {
+        /*var orderFormState = [];
+        $('.component-holder .added-component').each(function () {
+            var component = $(this);
+            var dataContainer = component.find('.data-container');
+            var data = {};
+            data['data-id'] = component.data('id');data-container
+            data['data-amount'] = component.data('amount');
+            data['data-name'] = dataContainer.data('name');
+            data['data-short_name'] = dataContainer.data('short_name');
+            data['data-image'] = dataContainer.data('image');
+            data['data-video'] = dataContainer.data('video');
+            data['data-price'] = dataContainer.data('price');
+            data['data-price_discount'] = dataContainer.data('price_discount');
+            data['data-item_select_min'] = dataContainer.data('item_select_min');
+            data['data-item_select_max'] = dataContainer.data('item_select_max');
+            data['data-unit_name'] = dataContainer.data('unit_name');
+            data['data-unit_value'] = dataContainer.data('unit_value');
+            data['data-unit_value_min'] = dataContainer.data('unit_value_min');
+            data['data-unit_value_max'] = dataContainer.data('unit_value_max');
+            data['data-unit_switch_group_id'] = dataContainer.data('unit_switch_group_id');
+            data['data-unit_switch_group_name'] = dataContainer.data('unit_switch_group_name');
+
+            orderFormState.push(data);
+        });*/
+
+        this.components.push({
+            'data': data,
+            'append': append
+        });
+
+        Cookies.set('orderFormState', this.components);
+    }
 };

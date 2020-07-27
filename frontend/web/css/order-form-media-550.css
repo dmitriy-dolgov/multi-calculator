@@ -1,9 +1,9 @@
 /* Error: Undefined variable.
  *    ,
- * 10 |     width: $components-pane-width-mob !important;
+ * 12 |     width: $components-pane-width-mob !important;
  *    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
  *    '
- *   order-form-media-550.scss 10:12  root stylesheet */
+ *   order-form-media-550.scss 12:12  root stylesheet */
 
 body::before {
   font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
@@ -13,5 +13,5 @@ body::before {
   padding: 1em;
   margin-bottom: 1em;
   border-bottom: 2px solid black;
-  content: "Error: Undefined variable.\a    \2577 \a 10 \2502      width: $components-pane-width-mob !important;\d\a    \2502             ^^^^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   order-form-media-550.scss 10:12  root stylesheet";
+  content: "Error: Undefined variable.\a    \2577 \a 12 \2502      width: $components-pane-width-mob !important;\d\a    \2502             ^^^^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   order-form-media-550.scss 12:12  root stylesheet";
 }

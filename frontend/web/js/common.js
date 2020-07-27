@@ -79,6 +79,24 @@ gl.orderFormHistory = {
     /*addComponent: function (data, append) {
         gl.history.components.push({data:data, append:append});
     }*/
+    ifSomethingInStore:  function () {
+        var orderFormStateJson = localStorage.getItem('orderFormState');
+        if (!orderFormStateJson) {
+            return false;
+        }
+
+        var orderFormState = JSON.parse(orderFormStateJson);
+        if (!orderFormState) {
+            //TODO: handle such error (wrong JSON)
+            localStorage.removeItem('orderFormState');
+            return false;
+        }
+
+        return orderFormState.length;
+    },
+    cleanStore:  function () {
+        localStorage.removeItem('orderFormState');
+    },
     restoreFromStore:  function () {
         var orderFormStateJson = localStorage.getItem('orderFormState');
         if (!orderFormStateJson) {
@@ -93,7 +111,7 @@ gl.orderFormHistory = {
         }
 
         for (var id in orderFormState) {
-            gl.functions.addComponentByData(orderFormState[id]['data'], orderFormState[id]['append']);
+            gl.functions.addComponentByData(orderFormState[id]['data'], orderFormState[id]['append'], true);
         }
     },
     addComponentByData: function (data, append) {

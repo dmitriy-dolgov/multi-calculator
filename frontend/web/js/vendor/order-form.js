@@ -123,12 +123,14 @@ function addComponentByData(data, append) {
     gl.functions.addComponentByData(data, append);
 }
 
-gl.functions.addComponentByData(data, append) {
+gl.functions.addComponentByData = function (data, append, noHistory) {
     if (!data) {
         return false;
     }
 
-    gl.orderFormHistory.addComponentByData(data, append);
+    if (!noHistory) {
+        gl.orderFormHistory.addComponentByData(data, append);
+    }
 
     append = typeof append !== 'undefined' ? append : false;
 
@@ -250,7 +252,7 @@ gl.functions.addComponentByData(data, append) {
     }, 0);
 
     return true;
-}
+};
 
 function addComponent(elem, append) {
     if (!elem) {
@@ -976,8 +978,11 @@ $('.switch-component').click(function () {
     addComponent(elem, true);
 });
 
-
-eval(gl.data.initialJSCode);
+if (gl.orderFormHistory.ifSomethingInStore) {
+    gl.orderFormHistory.restoreFromStore();
+} else {
+    eval(gl.data.initialJSCode);
+}
 
 
 gl.functions.orderCalculatePrice();
@@ -996,6 +1001,7 @@ if (getAddedComponentsCount()) {
 }
 
 function deleteAllComponents() {
+    gl.orderFormHistory.cleanStore();
     elems['#order-form .components-selected-details'].find('.added-component').each(function () {
         gl.functions.orderDeleteElem($(this), true);
     });

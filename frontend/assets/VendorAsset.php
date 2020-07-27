@@ -22,5 +22,6 @@ class VendorAsset extends AssetBundle
         'frontend\assets\JplayerAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         'rmrevin\yii\fontawesome\AssetBundle',
+        //'common\assets\CookiesAsset',
     ];
 }

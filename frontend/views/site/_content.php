@@ -18,8 +18,6 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use corpsepk\DaData\SuggestionsWidget;
 
-\common\assets\CookiesAsset::register($this);
-
 $this->getAssetManager()->appendTimestamp = true;
 
 $components = $components ?? [];

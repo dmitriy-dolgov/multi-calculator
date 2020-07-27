@@ -1,3 +1,5 @@
+'use strict';
+
 var totalAddedElements = 0;
 
 var currentDragElement = null;
@@ -79,7 +81,9 @@ gl.functions.SelectProviders = {
 };
 
 function getAddedComponentsCount() {
-    return elems['#order-form .components-selected-details'].find('.added-component').length;
+    var length = elems['#order-form .components-selected-details'].find('.added-component').length;
+    gl.log('getAddedComponentsCount(): ' + length);
+    return length;
 }
 
 function addSameComponent(id, item_select_max, unit_switch_group_id) {
@@ -163,6 +167,9 @@ function addComponentByData(data, append) {
     var addResult = addSameComponent(id, item_select_max, unit_switch_group_id);
     gl.log("name: " + name + "; addResult: " + addResult);
     if (addResult === 'no-add') {
+        setTimeout(function () {
+            gl.functions.handleComponetsCount();
+        }, 0);
         return true;
     }
 
@@ -185,7 +192,10 @@ function addComponentByData(data, append) {
         var imageTextHtml = image_text ? ('<div class="image-text">' + image_text + '</div>') : '';
 
         html = '<div class="added-component no-opacity ' + classSwitch + '" data-id="' + id + '" data-amount="1">'
+            //+ '<div class="image-wrapper">'
+            + '<div class="nice-line"></div>'
             + '<div class="image" style="background-image:url(' + gl.escapeHtml(image) + ')">' + imageTextHtml + '</div>'
+            //+ '</div>'
 
             //TODO: pz_comp
             /*+ '<div class="image over" style="background-image:url(' + gl.escapeHtml(image)
@@ -234,6 +244,10 @@ function addComponentByData(data, append) {
 
     gl.functions.orderCalculatePrice();
 
+    setTimeout(function () {
+        gl.functions.handleComponetsCount();
+    }, 0);
+
     return true;
 }
 
@@ -261,6 +275,12 @@ function addComponent(elem, append) {
         'data-unit_switch_group_id': elem.data('unit_switch_group_id'),
         'data-unit_switch_group_name': elem.data('unit_switch_group_name')
     };
+
+    //var result = addComponentByData(data, append);
+
+    /*setTimeout(function () {
+        gl.functions.handleComponetsCount();
+    }, 0);*/
 
     return addComponentByData(data, append);
 }
@@ -300,7 +320,9 @@ gl.functions.orderDeleteElem = function (elem, completely) {
 
         gl.functions.orderCalculatePrice();
 
-        if (getAddedComponentsCount()) {
+        gl.functions.handleComponetsCount();
+
+        /*if (getAddedComponentsCount()) {
             elems['.no-components-pane'].fadeOut(componentPresenceFadeInOutTime, function () {
                 elems['.capt-price'].fadeIn(componentPresenceFadeInOutTime, function () {
                     elems['.capt-price'].css('display', 'inline-block');
@@ -310,8 +332,22 @@ gl.functions.orderDeleteElem = function (elem, completely) {
             elems['.capt-price'].fadeOut(componentPresenceFadeInOutTime, function () {
                 elems['.no-components-pane'].fadeIn(componentPresenceFadeInOutTime);
             });
-        }
+        }*/
     });
+};
+
+gl.functions.handleComponetsCount = function () {
+    if (getAddedComponentsCount()) {
+        elems['.no-components-pane'].fadeOut(componentPresenceFadeInOutTime, function () {
+            elems['.capt-price'].fadeIn(componentPresenceFadeInOutTime, function () {
+                elems['.capt-price'].css('display', 'inline-block');
+            });
+        });
+    } else {
+        elems['.capt-price'].fadeOut(componentPresenceFadeInOutTime, function () {
+            elems['.no-components-pane'].fadeIn(componentPresenceFadeInOutTime);
+        });
+    }
 };
 
 gl.functions.orderCalculatePrice = function () {
@@ -985,7 +1021,7 @@ $('.pizzas-list .elem-pi').click(function () {
 
     //TODO: pz_comp ?
     //TODO: дождаться удаления перед тем как класть
-    setTimeout(function() {
+    setTimeout(function () {
         totalAddedElements = 0;
 
         var newComponents = elem.data('components');

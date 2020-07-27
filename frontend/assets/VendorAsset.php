@@ -9,10 +9,10 @@ class VendorAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/vendor.css?v=1.9',
+        'css/vendor.css?v=1.91',
     ];
     public $js = [
-        'js/common.js?v=1.1',
+        'js/common.js?v=1.2',
         //'js/jquery.ui.touch-punch.min.js',
     ];
     public $depends = [

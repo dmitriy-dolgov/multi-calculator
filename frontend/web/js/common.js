@@ -73,11 +73,11 @@ gl.functions.unwrapBottom = function (elem) {
 };
 
 gl.orderFormHistory = {
-    components: [],
+    //components: [],
     /*addComponent: function (data, append) {
         gl.history.components.push({data:data, append:append});
     }*/
-    saveState: function (data, append) {
+    addComponent: function (data, append) {
         /*var orderFormState = [];
         $('.component-holder .added-component').each(function () {
             var component = $(this);
@@ -103,11 +103,69 @@ gl.orderFormHistory = {
             orderFormState.push(data);
         });*/
 
-        this.components.push({
+
+        /*this.components.push({
             'data': data,
             'append': append
         });
 
-        Cookies.set('orderFormState', this.components);
+        gl.log('this.components.length: ' + this.components.length);*/
+
+        // Cookies is too small and get web traffic
+        // Cookies.set('orderFormState', this.components);
+
+        var orderFormStateJson = localStorage.getItem('orderFormState');
+        if (!orderFormStateJson) {
+            localStorage.setItem('orderFormState', JSON.stringify([]));
+            orderFormStateJson = localStorage.getItem('orderFormState');
+        }
+
+        var orderFormState = JSON.parse(orderFormStateJson);
+        if (!orderFormState) {
+            //TODO: handle such error (wrong JSON)
+            localStorage.removeItem('orderFormState');
+            this.addComponent(data, append);
+            return;
+        }
+
+        //gl.log('orderFormState: ' + orderFormState);
+
+        orderFormState.push({
+            'data': data,
+            'append': append
+        });
+
+        localStorage.setItem('orderFormState', JSON.stringify(orderFormState));
+
+        gl.log('ADD: localStorage.orderFormState: ' + JSON.parse(localStorage.orderFormState).length);
+    },
+    removeComponentById: function (componentId, completely) {
+        completely = typeof completely !== 'undefined' ? completely : false;
+
+        gl.log('componentId: ' + componentId);
+
+        var orderFormStateJson = localStorage.getItem('orderFormState');
+        if (!orderFormStateJson) {
+            return;
+        }
+
+        var orderFormState = JSON.parse(orderFormStateJson);
+        if (!orderFormState) {
+            //TODO: handle such error (wrong JSON)
+            localStorage.removeItem('orderFormState');
+            return;
+        }
+
+        for (var id in orderFormState) {
+            if (orderFormState[id]['data-id'] == componentId) {
+                orderFormState.splice(id, 1);
+                localStorage.setItem('orderFormState', JSON.stringify(orderFormState));
+                if (!completely) {
+                    break;
+                }
+            }
+        }
+
+        gl.log('REM: localStorage.orderFormState: ' + JSON.parse(localStorage.orderFormState).length);
     }
 };

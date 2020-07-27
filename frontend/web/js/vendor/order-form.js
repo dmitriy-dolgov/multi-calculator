@@ -81,9 +81,7 @@ gl.functions.SelectProviders = {
 };
 
 function getAddedComponentsCount() {
-    var length = elems['#order-form .components-selected-details'].find('.added-component').length;
-    gl.log('getAddedComponentsCount(): ' + length);
-    return length;
+    return elems['#order-form .components-selected-details'].find('.added-component').length;
 }
 
 function addSameComponent(id, item_select_max, unit_switch_group_id) {
@@ -126,7 +124,7 @@ function addComponentByData(data, append) {
         return false;
     }
 
-    //gl.orderFormHistory.saveState(data, append);
+    gl.orderFormHistory.addComponent(data, append);
 
     append = typeof append !== 'undefined' ? append : false;
 
@@ -165,7 +163,6 @@ function addComponentByData(data, append) {
 
     //var addResult = addSameComponent(elem);
     var addResult = addSameComponent(id, item_select_max, unit_switch_group_id);
-    gl.log("name: " + name + "; addResult: " + addResult);
     if (addResult === 'no-add') {
         setTimeout(function () {
             gl.functions.handleComponetsCount();
@@ -298,6 +295,8 @@ gl.functions.orderDeleteElem = function (elem, completely) {
     var currentElemid = componentContainer.data('id');
     var amount = parseInt(componentContainer.data('amount'));
 
+    gl.orderFormHistory.removeComponentById(currentElemid, completely);
+
     if (!completely) {
         --amount;
         componentContainer.data('amount', amount);
@@ -319,20 +318,7 @@ gl.functions.orderDeleteElem = function (elem, completely) {
         componentContainer.remove();
 
         gl.functions.orderCalculatePrice();
-
         gl.functions.handleComponetsCount();
-
-        /*if (getAddedComponentsCount()) {
-            elems['.no-components-pane'].fadeOut(componentPresenceFadeInOutTime, function () {
-                elems['.capt-price'].fadeIn(componentPresenceFadeInOutTime, function () {
-                    elems['.capt-price'].css('display', 'inline-block');
-                });
-            });
-        } else {
-            elems['.capt-price'].fadeOut(componentPresenceFadeInOutTime, function () {
-                elems['.no-components-pane'].fadeIn(componentPresenceFadeInOutTime);
-            });
-        }*/
     });
 };
 
@@ -548,7 +534,6 @@ gl.functions.composeOrder = function () {
     //+ '<fieldset><legend>' + gl.data['Pizzerias'] + '</legend>';
     var firstCycle = true;
     for (var upId in userProfiles) {
-        //gl.log("userProfiles[upId].icon_image_path: " + userProfiles[upId].icon_image_path);
         if (userProfiles[upId].company_lat_long) {
             var latLong = userProfiles[upId].company_lat_long.split(';');
             var icon = null;

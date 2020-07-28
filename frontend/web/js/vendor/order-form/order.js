@@ -203,6 +203,7 @@ gl.functions.composeOrder = function () {
                     deliver_email: deliver_email,
                     deliver_comment: deliver_comment
                 });
+                gl.functions.addOrderToPanel();
             } else {
                 alert(result.msg ? result.msg : 'Unknown error');
             }

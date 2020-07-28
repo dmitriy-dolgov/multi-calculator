@@ -57,7 +57,7 @@ $('.standard-orders-panel .btn-head').click(function () {
     $('.standard-orders-panel').toggleClass('unwrap');
 });
 
-gl.functions.minimizeOrderPanel = function () {
+gl.functions.addOrderToPanel = function () {
     var orderInfoJson = $('#order-info').val();
     var orderInfo = JSON.parse(orderInfoJson);
 
@@ -67,9 +67,11 @@ gl.functions.minimizeOrderPanel = function () {
         '" onclick="gl.functions.showOrderPanel(this);return false;" class="">' + gl.escapeHtml($('.pizza-name').text()) + '</div>';
     elems['.standard-orders-panel'].find('.orders-container').append(btnHtml);
     elems['.standard-orders-panel'].show();
+};
 
+gl.functions.minimizeOrderPanel = function () {
     $('#popup-compose-form').modal('hide');
-    gl.functions.restoreOrderPanel();
+    //gl.functions.restoreOrderPanel();
 };
 
 gl.functions.showOrderPanel = function (elem) {

@@ -64,6 +64,7 @@ $jsStrings = [
     'Pizzerias' => Yii::t('app', 'Pizzerias'),
     'info' => Yii::t('app', 'Info'),
     'for-free' => Yii::t('app', 'For free'),
+    'Confirm order' => Yii::t('app', 'Confirm order'),
 
     'please-enter' => Yii::t('app', 'Please, enter:'),
     'delivery-address' => Yii::t('app', 'Delivery address'),

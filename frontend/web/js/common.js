@@ -194,9 +194,9 @@ gl.orderFormHistory = {
         }
 
         for (var id in orderFormState) {
-            gl.log("orderFormState[id]: ");
-            gl.log(orderFormState[id]);
-            gl.log("orderFormState[id]['data-id']: " + orderFormState[id]['data']['data-id']);
+            //gl.log("orderFormState[id]: ");
+            //gl.log(orderFormState[id]);
+            //gl.log("orderFormState[id]['data-id']: " + orderFormState[id]['data']['data-id']);
             if (orderFormState[id]['data']['data-id'] == componentId) {
                 orderFormState.splice(id, 1);
                 localStorage.setItem('orderFormState', JSON.stringify(orderFormState));

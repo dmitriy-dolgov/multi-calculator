@@ -79,9 +79,9 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
 
     <div class="btn-order-container">
         <button type="submit" class="btn-order">
-            <img class="oven-order" alt="<? /*= Yii::t('app', 'Order') */ ?>" src="/img/order-btn-sm.png">
+            <img class="oven-order" alt="<?= Yii::t('app', 'Order') ?>" src="/img/order-btn-sm.png">
             <div class="flame-wrapper">
-                <img class="oven-flame" alt="<? /*= Yii::t('app', 'Flame') */ ?>" src="/img/flame.gif">
+                <img class="oven-flame" alt="<?= Yii::t('app', 'Flame') ?>" src="/img/flame-50.gif">
             </div>
         </button>
     </div>

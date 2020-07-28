@@ -85,8 +85,10 @@ gl.functions.showOrderPanel = function (elem) {
 
 //TODO: !!! to FIX this hach
 gl.functions.restoreOrderPanel = function () {
-    $('.order-data-container.info-panel').html('Проверьте данные и подтвердите заказ.<br>\n' +
+    var form = $('#order-form-submit');
+
+    form.find('.order-data-container.info-panel').html('Проверьте данные и подтвердите заказ.<br>\n' +
         '<div class="info-message">Заказ будет принят ближайшей пиццерией, о чём вам придет уведомление.</div>\n');
 
-    $('.btn-submit-order').text('Подтвердить заказ');
+    form.find('.btn-submit-order').text(gl.data['Confirm order']).removeAttr('onclick');
 };

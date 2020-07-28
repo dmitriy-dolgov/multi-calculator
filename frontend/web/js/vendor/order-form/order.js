@@ -19,6 +19,8 @@ gl.functions.composeOrder = function () {
 
     var orderDataContainerId = 'order-data-container-' + this.serialNumber;
 
+    gl.functions.restoreOrderPanel();
+
     html += '<div id="' + orderDataContainerId + '">'
         + elems['#elems-container'].find('.order-data-container-wrp').html()
         + '<div class="order-data-container">'

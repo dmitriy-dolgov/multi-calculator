@@ -550,7 +550,8 @@
   margin: 5% auto;
 }
 
-.standard-pizzas-panel {
+.standard-pizzas-panel,
+.standard-orders-panel {
   position: absolute;
   top: 123px;
   left: 0;
@@ -559,21 +560,25 @@
   transition: 0.3s;
   z-index: 2;
 }
-.standard-pizzas-panel .header {
+.standard-pizzas-panel .header,
+.standard-orders-panel .header {
   font-style: italic;
   font-weight: 600;
 }
-.standard-pizzas-panel.unwrap {
+.standard-pizzas-panel.unwrap,
+.standard-orders-panel.unwrap {
   width: calc(100% - 31px);
   max-width: 400px;
   transition: 0.3s;
   padding: 10px;
 }
-.standard-pizzas-panel.unwrap .btn-head {
+.standard-pizzas-panel.unwrap .btn-head,
+.standard-orders-panel.unwrap .btn-head {
   left: 100%;
   transition: 0.3s;
 }
-.standard-pizzas-panel .btn-head {
+.standard-pizzas-panel .btn-head,
+.standard-orders-panel .btn-head {
   cursor: pointer;
   text-align: center;
   background-color: gray;
@@ -591,22 +596,30 @@
   padding: 20px 6px;
   letter-spacing: 3px;
 }
-.standard-pizzas-panel .pizzas-list {
+.standard-pizzas-panel .pizzas-list,
+.standard-orders-panel .pizzas-list {
   width: 100%;
   overflow: hidden;
   line-height: 2.2;
 }
-.standard-pizzas-panel .pizzas-list .header-tip {
+.standard-pizzas-panel .pizzas-list .header-tip,
+.standard-orders-panel .pizzas-list .header-tip {
   text-align: right;
   color: yellow;
   font-size: smaller;
   line-height: 0;
 }
-.standard-pizzas-panel .pizzas-list .elem {
+.standard-pizzas-panel .pizzas-list .elem,
+.standard-orders-panel .pizzas-list .elem {
   cursor: pointer;
 }
-.standard-pizzas-panel .pizzas-list .elem:hover {
+.standard-pizzas-panel .pizzas-list .elem:hover,
+.standard-orders-panel .pizzas-list .elem:hover {
   background-color: #999999;
+}
+
+.standard-orders-panel {
+  top: 0;
 }
 
 .brick-wall {

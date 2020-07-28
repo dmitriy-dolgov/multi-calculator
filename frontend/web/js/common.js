@@ -174,12 +174,12 @@ gl.orderFormHistory = {
 
         localStorage.setItem('orderFormState', JSON.stringify(orderFormState));
 
-        gl.log('ADD: localStorage.orderFormState: ' + JSON.parse(localStorage.orderFormState).length);
+        //gl.log('ADD: localStorage.orderFormState: ' + JSON.parse(localStorage.orderFormState).length);
     },
     removeComponentById: function (componentId, completely) {
         completely = typeof completely !== 'undefined' ? completely : false;
 
-        gl.log('componentId: ' + componentId);
+        //gl.log('componentId: ' + componentId);
 
         var orderFormStateJson = localStorage.getItem('orderFormState');
         if (!orderFormStateJson) {

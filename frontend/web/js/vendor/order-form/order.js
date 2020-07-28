@@ -194,43 +194,12 @@ gl.functions.composeOrder = function () {
 
         $.post('/site/order-create-ajax', formData, function (result) {
             if (result.status == 'success') {
-                elem.find('.info-panel').html('<h3>' + gl.data['Order confirmed.'] + '</h3><div class="info-message red">'
-                    + gl.data['Expect pizzeria notifications.'] + '</div>');
-                elem.find('.btn-submit-order').text(gl.data['Minimize the order panel']).attr('onclick', 'alert("В разработке");return false;');
-                var orderDataDataElem = elem.find('.order-data-data');
-                orderDataDataElem.animate({opacity: 0}, function () {
-                    //TODO: mark_1
-                    var html = gl.data['Recipient:'] + ' ' + gl.escapeHtml(deliver_customer_name) + '<br>'
-                        + gl.data['Delivery address:'] + ' ' + gl.escapeHtml(elem.find('[name="ShopOrderForm[deliver_city_id]"]').val())
-                        + ', ' + gl.escapeHtml(deliver_address) + '<br>';
-                    if (deliver_phone) {
-                        html += gl.data['Phone:'] + ' ' + gl.escapeHtml(deliver_phone) + '<br>';
-                    }
-                    if (deliver_email) {
-                        html += 'Email: ' + gl.escapeHtml(deliver_email) + '<br>';
-                    }
-                    if (deliver_comment) {
-                        html += gl.data['Your comment:'] + ' ' + gl.escapeHtml(deliver_comment) + '<br>';
-                    }
-                    html += gl.data['Order ID:'] + ' ' + gl.escapeHtml(result.order_uid);
-                    orderDataDataElem.html(html);
-                    orderDataDataElem.animate({opacity: 1});
-
-                    setInterval(function () {
-                        $.get('/shop-order/order-status', {orderId: result.order_uid}, function (result) {
-                            if (result.status == 'success' && result.data['order-status'] == 'offer-sent-to-customer') {
-                                for (var id in gl.functions.placesMap.prototype.allMovingMarkers) {
-                                    gl.functions.placesMap.prototype.allMovingMarkers[id].removeFrom(gl.data.worldMap.map);
-                                }
-                                gl.functions.placesMap.prototype.allMovingMarkers = [];
-
-                                for (id in gl.functions.placesMap.prototype.allPolylines) {
-                                    gl.functions.placesMap.prototype.allPolylines[id].removeFrom(gl.data.worldMap.map);
-                                }
-                                gl.functions.placesMap.prototype.allPolylines = [];
-                            }
-                        });
-                    }, 5000);
+                gl.functions.fillOrderInfo(result, {
+                    deliver_customer_name: deliver_customer_name,
+                    deliver_address: deliver_address,
+                    deliver_phone: deliver_phone,
+                    deliver_email: deliver_email,
+                    deliver_comment: deliver_comment
                 });
             } else {
                 alert(result.msg ? result.msg : 'Unknown error');
@@ -312,6 +281,69 @@ gl.functions.doOrder = function () {
         }, 1500);
     }, 0);
 };
+
+gl.functions.fillOrderInfo = function (result, formData) {
+    var elem = elems['#order-form-submit'];
+
+    var deliver_customer_name = formData.deliver_customer_name;
+    var deliver_address = formData.deliver_address;
+    var deliver_phone = formData.deliver_phone;
+    var deliver_email = formData.deliver_email;
+    var deliver_comment = formData.deliver_comment;
+
+    elem.find('#order-id').val(result.order_uid);
+    elem.find('#order-info').val(JSON.stringify({
+        result: result,
+        //TODO: брать из result
+        formData: {
+            deliver_customer_name: deliver_customer_name,
+            deliver_address: deliver_address,
+            deliver_phone: deliver_phone,
+            deliver_email: deliver_email,
+            deliver_comment: deliver_comment
+        }
+    }));
+
+    elem.find('.info-panel').html('<h3>' + gl.data['Order confirmed.'] + '</h3><div class="info-message red">'
+        + gl.data['Expect pizzeria notifications.'] + '</div>');
+    elem.find('.btn-submit-order').text(gl.data['Minimize the order panel']).attr('onclick', 'gl.functions.minimizeOrderPanel();return false;');
+    var orderDataDataElem = elem.find('.order-data-data');
+    orderDataDataElem.animate({opacity: 0}, function () {
+        //TODO: mark_1
+        var html = gl.data['Recipient:'] + ' ' + gl.escapeHtml(deliver_customer_name) + '<br>'
+            + gl.data['Delivery address:'] + ' ' + gl.escapeHtml(elem.find('[name="ShopOrderForm[deliver_city_id]"]').val())
+            + ', ' + gl.escapeHtml(deliver_address) + '<br>';
+        if (deliver_phone) {
+            html += gl.data['Phone:'] + ' ' + gl.escapeHtml(deliver_phone) + '<br>';
+        }
+        if (deliver_email) {
+            html += 'Email: ' + gl.escapeHtml(deliver_email) + '<br>';
+        }
+        if (deliver_comment) {
+            html += gl.data['Your comment:'] + ' ' + gl.escapeHtml(deliver_comment) + '<br>';
+        }
+        html += gl.data['Order ID:'] + ' ' + gl.escapeHtml(result.order_uid);
+        orderDataDataElem.html(html);
+        orderDataDataElem.animate({opacity: 1});
+
+        setInterval(function () {
+            $.get('/shop-order/order-status', {orderId: result.order_uid}, function (result) {
+                if (result.status == 'success' && result.data['order-status'] == 'offer-sent-to-customer') {
+                    for (var id in gl.functions.placesMap.prototype.allMovingMarkers) {
+                        gl.functions.placesMap.prototype.allMovingMarkers[id].removeFrom(gl.data.worldMap.map);
+                    }
+                    gl.functions.placesMap.prototype.allMovingMarkers = [];
+
+                    for (id in gl.functions.placesMap.prototype.allPolylines) {
+                        gl.functions.placesMap.prototype.allPolylines[id].removeFrom(gl.data.worldMap.map);
+                    }
+                    gl.functions.placesMap.prototype.allPolylines = [];
+                }
+            });
+        }, 5000);
+    });
+};
+
 
 if (gl.orderFormHistory.ifSomethingInStore) {
     gl.orderFormHistory.restoreFromStore();

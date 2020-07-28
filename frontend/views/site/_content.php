@@ -289,6 +289,16 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
         <div id="video"></div>
     </div>-->
 
+    <div class="standard-orders-panel" style="display: none">
+        <div class="btn-head"><?= Yii::t('app', 'Orders') ?></div>
+        <div class="pizzas-list">
+            <div class="header"><?= Yii::t('app', 'Your active orders') ?></div>
+            <hr>
+            <div class="orders-container">
+            </div>
+        </div>
+    </div>
+
     <div class="standard-pizzas-panel">
         <div class="btn-head"><?= Yii::t('app', 'Pizzas') ?></div>
         <div class="pizzas-list">
@@ -488,6 +498,8 @@ JS
                     ); ?>
 
                     <input type="hidden" name="user_uid" value="<?= Html::encode($uid) ?>">
+                    <input type="hidden" id="order-id">
+                    <input type="hidden" id="order-info">
 
                     <div style="display: none">
                         <?= SuggestionsWidget::widget([

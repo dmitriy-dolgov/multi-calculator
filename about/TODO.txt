@@ -241,3 +241,8 @@ TODO:
 62) Важность: 5
     Убрать из глобальной области видимости totalAddedElements, elems и пр. переменные (order-form.js).
     И разобраться со склейкой файлов.
+
+63) Важность: 3
+    gl.functions.restoreOrderPanel()
+    //TODO: !!! to FIX this hach
+    сделать норм. функционал, с переводами также, в одно место весь html

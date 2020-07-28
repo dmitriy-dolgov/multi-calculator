@@ -620,6 +620,7 @@
 
 .standard-orders-panel {
   top: 0;
+  z-index: 3;
 }
 
 .brick-wall {

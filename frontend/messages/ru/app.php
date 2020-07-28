@@ -194,6 +194,7 @@ return [
     'Order list' => 'Список заказов',
     'Order List' => 'Список заказов',
     'Order UID' => 'UID заказа',
+    'Order ID:' => 'ID заказа:',
     'Delivery Address' => 'Адрес доставки',
     'Delivery address' => 'Адрес доставки',
     'Delivery Customer Name' => 'Имя клиента доставки',

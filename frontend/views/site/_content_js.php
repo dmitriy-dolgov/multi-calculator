@@ -78,6 +78,7 @@ $jsStrings = [
     'Delivery address:' => Yii::t('app', 'Delivery address:'),
     'Phone:' => Yii::t('app', 'Phone:'),
     'Your comment:' => Yii::t('app', 'Your comment:'),
+    'Order ID:' => Yii::t('app', 'Order ID:'),
 
     'currency' => Internationalization::getCurrencySign(),
     'cant_add_so_many_of_component' => Yii::t('app', 'So much does not fit on pizza!'),
@@ -95,12 +96,19 @@ $jsCode = "var gl = {data:{}};\n"
         'activeUserProfilesJs' => $activeUserProfiles,
         'initialJSCode' => $initialJSCode,
         'userGeoPosition' => $userGeoPosition,
+        'isWebLocal' => \common\helpers\Web::isLocal(),
     ]);
 
 $this->registerJs($jsCode, \yii\web\View::POS_HEAD);
 $this->registerJsFile(Url::to(['/js/vendor/order-form.js']), ['depends' => ['frontend\assets\VendorAsset']]);
-$this->registerJsFile(Url::to(['/js/leaflet/MovingMarker.js']), ['depends' => ['frontend\assets\VendorAsset']]);
+$this->registerJsFile(Url::to(['/js/vendor/order-form/component.drag-n-drop.js']), ['depends' => ['frontend\assets\VendorAsset']]);
+$this->registerJsFile(Url::to(['/js/vendor/order-form/scrollbar.js']), ['depends' => ['frontend\assets\VendorAsset']]);
+$this->registerJsFile(Url::to(['/js/vendor/order-form/positioning.js']), ['depends' => ['frontend\assets\VendorAsset']]);
+$this->registerJsFile(Url::to(['/js/vendor/order-form/geo.js']), ['depends' => ['frontend\assets\VendorAsset']]);
+$this->registerJsFile(Url::to(['/js/vendor/order-form/components.js']), ['depends' => ['frontend\assets\VendorAsset']]);
+$this->registerJsFile(Url::to(['/js/vendor/order-form/order.js']), ['depends' => ['frontend\assets\VendorAsset']]);
 
+$this->registerJsFile(Url::to(['/js/leaflet/MovingMarker.js']), ['depends' => ['frontend\assets\VendorAsset']]);
 $this->registerJsFile(Url::to(['/js/leaflet/L.Icon.Pulse.js']), ['depends' => ['frontend\assets\VendorAsset']]);
 $this->registerCssFile(Url::to(['/js/leaflet/L.Icon.Pulse.css']));
 

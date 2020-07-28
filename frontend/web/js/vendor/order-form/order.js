@@ -196,13 +196,25 @@ gl.functions.composeOrder = function () {
 
         $.post('/site/order-create-ajax', formData, function (result) {
             if (result.status == 'success') {
-                gl.functions.fillOrderInfo(result, {
+                /*gl.functions.fillOrderInfo(result, {
                     deliver_customer_name: deliver_customer_name,
                     deliver_address: deliver_address,
                     deliver_phone: deliver_phone,
                     deliver_email: deliver_email,
                     deliver_comment: deliver_comment
+                });*/
+                var formDataArr = elem.serializeArray();
+                var formDataArrIndexed = {};
+                $.map(formDataArr, function(n, i){
+                    formDataArrIndexed[n['name']] = n['value'];
                 });
+
+                gl.log('formDataArrIndexed:');
+                gl.log(formDataArrIndexed);
+
+                formDataArrIndexed.deliverCityName = elem.find('[name="ShopOrderForm[deliver_city_id]"]').val();
+
+                gl.functions.fillOrderInfo(result, formDataArrIndexed);
                 gl.functions.addOrderToPanel();
             } else {
                 alert(result.msg ? result.msg : 'Unknown error');
@@ -288,23 +300,10 @@ gl.functions.doOrder = function () {
 gl.functions.fillOrderInfo = function (result, formData) {
     var elem = elems['#order-form-submit'];
 
-    var deliver_customer_name = formData.deliver_customer_name;
-    var deliver_address = formData.deliver_address;
-    var deliver_phone = formData.deliver_phone;
-    var deliver_email = formData.deliver_email;
-    var deliver_comment = formData.deliver_comment;
-
     elem.find('#order-id').val(result.order_uid);
     elem.find('#order-info').val(JSON.stringify({
         result: result,
-        //TODO: брать из result
-        formData: {
-            deliver_customer_name: deliver_customer_name,
-            deliver_address: deliver_address,
-            deliver_phone: deliver_phone,
-            deliver_email: deliver_email,
-            deliver_comment: deliver_comment
-        }
+        formData: formData
     }));
 
     elem.find('.info-panel').html('<h3>' + gl.data['Order confirmed.'] + '</h3><div class="info-message red">'
@@ -313,17 +312,17 @@ gl.functions.fillOrderInfo = function (result, formData) {
     var orderDataDataElem = elem.find('.order-data-data');
     orderDataDataElem.animate({opacity: 0}, function () {
         //TODO: mark_1
-        var html = gl.data['Recipient:'] + ' ' + gl.escapeHtml(deliver_customer_name) + '<br>'
-            + gl.data['Delivery address:'] + ' ' + gl.escapeHtml(elem.find('[name="ShopOrderForm[deliver_city_id]"]').val())
-            + ', ' + gl.escapeHtml(deliver_address) + '<br>';
-        if (deliver_phone) {
-            html += gl.data['Phone:'] + ' ' + gl.escapeHtml(deliver_phone) + '<br>';
+        var html = gl.data['Recipient:'] + ' ' + gl.escapeHtml(formData['ShopOrderForm[deliver_customer_name]']) + '<br>'
+            + gl.data['Delivery address:'] + ' ' + gl.escapeHtml(formData.deliverCityName)
+            + ', ' + gl.escapeHtml(formData['ShopOrderForm[deliver_address]']) + '<br>';
+        if (formData['ShopOrderForm[deliver_phone]']) {
+            html += gl.data['Phone:'] + ' ' + gl.escapeHtml(formData['ShopOrderForm[deliver_phone]']) + '<br>';
         }
-        if (deliver_email) {
-            html += 'Email: ' + gl.escapeHtml(deliver_email) + '<br>';
+        if (formData['ShopOrderForm[deliver_email]']) {
+            html += 'Email: ' + gl.escapeHtml(formData['ShopOrderForm[deliver_email]']) + '<br>';
         }
-        if (deliver_comment) {
-            html += gl.data['Your comment:'] + ' ' + gl.escapeHtml(deliver_comment) + '<br>';
+        if (formData['ShopOrderForm[deliver_comment]']) {
+            html += gl.data['Your comment:'] + ' ' + gl.escapeHtml(formData['ShopOrderForm[deliver_comment]']) + '<br>';
         }
         html += gl.data['Order ID:'] + ' ' + gl.escapeHtml(result.order_uid);
         orderDataDataElem.html(html);

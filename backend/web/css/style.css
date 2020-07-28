@@ -3,8 +3,12 @@ html,
 body {
   height: 100%;
   width: 100%;
-  background-color: #222;
+  background-color: #2b3c22;
   color: white;
+}
+
+.navbar-inverse {
+  background-color: #171e13 !important;
 }
 
 .main-logo {

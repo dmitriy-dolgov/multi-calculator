@@ -299,7 +299,12 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
     <div class="categories-panel wrp-pane">
         <div class="btn-head"><?= Yii::t('app', 'Catalog') ?></div>
         <div class="panel-elements-list">
-            <div class="elem">12345</div>
+            <?php
+            $categories = \common\models\db\Category::find()->all();
+            foreach ($categories as $categ) {
+                echo '<div class="elem">' . Html::encode($categ->name) . '</div>';
+            }
+            ?>
         </div>
     </div>
 

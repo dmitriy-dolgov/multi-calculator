@@ -1,17 +1,87 @@
-/* Error: Undefined variable.
- *    ,
- * 12 |     width: $components-pane-width-mob !important;
- *    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
- *    '
- *   order-form-media-550.scss 12:12  root stylesheet */
+@media screen and (max-width: 550px) {
+  .component {
+    width: 100%;
+    margin: 12px auto 5px;
+  }
 
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Undefined variable.\a    \2577 \a 12 \2502      width: $components-pane-width-mob !important;\d\a    \2502             ^^^^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   order-form-media-550.scss 12:12  root stylesheet";
+  .components-in-stock,
+.btn-order-container {
+    width: 30% !important;
+  }
+
+  #order-form {
+    width: 70%;
+    float: left;
+  }
+
+  .sidebar .components-selected-details .comp-amount {
+    left: auto;
+    bottom: auto;
+    right: -2px;
+    top: 17px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 23px;
+    height: 23px;
+  }
+  .sidebar .components-selected-details .registration-info,
+.sidebar .components-selected-details .capt-price {
+    padding-left: 20px;
+  }
+  .sidebar .components-selected-details .added-component {
+    display: block;
+    height: 95px;
+    margin-bottom: 10px;
+    /*border-bottom: 1px solid #EEE;*/
+  }
+  .sidebar .components-selected-details .added-component .image {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin: 0 calc(50% - 45px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 0 0 0 3px #FFF, 0 0 0 5px #000, 0 0 0 8px #FFF;
+  }
+  .sidebar .components-selected-details .added-component .nice-line {
+    display: block;
+    height: 2px;
+    background-color: #000;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: calc(50% - 4px);
+  }
+  .sidebar .components-selected-details .added-component .text-string {
+    display: block;
+    width: 100%;
+    text-align: left;
+    position: relative;
+    /*top: -25px;*/
+    top: 33px;
+  }
+  .sidebar .components-selected-details .added-component .text-string .short_name {
+    width: 100%;
+    top: -11px;
+    position: relative;
+  }
+  .sidebar .components-selected-details .added-component .text-string .price {
+    float: left;
+    margin-left: 0;
+  }
+  .sidebar .components-selected-details .added-component .dots {
+    display: none;
+  }
+  .sidebar .components-selected-details .added-component .btn-delete,
+.sidebar .components-selected-details .added-component .btn-switch-component {
+    position: absolute;
+    right: 0;
+    bottom: 17px;
+    margin-left: 7px;
+  }
 }
+
+/*# sourceMappingURL=order-form-media-550.css.map */

@@ -11,7 +11,6 @@ $order-pane-height: 120px;
 $order-pane-margin-height: 3px;
 $order-pane-common-height: $order-pane-height + $order-pane-margin-height;
 $components-pane-width: 25%;
-$components-pane-width-mob: 30%;
 $video-elem-size: $order-pane-height; /* * 1.618;*/
 $csd-border-padding: 3%;
 
@@ -208,6 +207,7 @@ $order-submit-bg-color: #2d3436;
     overflow-y: auto;
     overflow-x: hidden;
     background: linear-gradient(90deg, #ffb44d 0 $csd-border-padding, #fff $csd-border-padding (100% - $csd-border-padding), #ffb44d (100% - $csd-border-padding) 100%);
+    background-attachment: local;
 
     position: relative;
     text-align: center;
@@ -228,10 +228,19 @@ $order-submit-bg-color: #2d3436;
       color: black;
       margin-bottom: 15px;
 
+      /*& > * {
+        display: inline-block;
+      }*/
+
+      .nice-line,
+      .data-container {
+        display: none;
+      }
+
       .text-string {
         display: flex;
         align-items: center;
-        width: calc(100% - 95px);
+        width: calc(100% - 92px);
         font-weight: bold;
         font-size: larger;
         text-shadow: 0 0 4px white, 0 0 5px white, 0 0 5px white, 0 0 6px white, 0 0 6px white;
@@ -258,17 +267,13 @@ $order-submit-bg-color: #2d3436;
         }
       }
 
-      & > * {
-        display: inline-block;
-      }
-
       .image {
-        width: 40px;
+        width: 50px;
         height: 50px;
         border-radius: 50%;
         @include background-contain;
         background-size: cover;
-        margin-right: 15px;
+        margin-right: 10px;
         transition: 3s;
 
         display: flex;
@@ -292,8 +297,8 @@ $order-submit-bg-color: #2d3436;
       }
 
       .elem-manage {
-        margin-left: 20px;
-        margin-top: 5px;
+        margin-left: auto;
+        margin-top: 13px;
         width: 20px;
         height: 30px;
       }
@@ -550,14 +555,14 @@ $order-submit-bg-color: #2d3436;
 
 .comp-amount {
   position: absolute;
-  left: 20px;
+  left: 25px;
+  top: 25px;
   font-size: 20px;
   background-color: black;
   border-radius: 50%;
   width: 28px;
   height: 28px;
   color: white;
-  top: 20px;
   border: 1px #FFFFFF99 solid;
   line-height: 1.35;
 }

@@ -346,9 +346,13 @@ $catalog-name_height: 25px;
     outline: none;
 
     position: absolute;
-    margin: 20px auto;
+    margin: 0;
+    padding: 0;
+    /*margin: 20px auto;
     width: 99px;
-    height: 80px;
+    height: 80px;*/
+    left: 0;
+    top: 0;
   }
 }
 
@@ -377,7 +381,8 @@ $catalog-name_height: 25px;
   position: absolute;
   top: 0;
   left: 0;
-  height: 80px;
+  /*height: 80px;*/
+  height: $order-pane-height;
 }
 
 .flame-wrapper {

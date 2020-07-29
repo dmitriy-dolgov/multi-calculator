@@ -431,9 +431,13 @@
   background: none;
   outline: none;
   position: absolute;
-  margin: 20px auto;
+  margin: 0;
+  padding: 0;
+  /*margin: 20px auto;
   width: 99px;
-  height: 80px;
+  height: 80px;*/
+  left: 0;
+  top: 0;
 }
 
 .added-component {
@@ -460,7 +464,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 80px;
+  /*height: 80px;*/
+  height: 120px;
 }
 
 .flame-wrapper {

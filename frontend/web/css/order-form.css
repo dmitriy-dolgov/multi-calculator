@@ -601,25 +601,25 @@
   padding: 20px 6px;
   letter-spacing: 3px;
 }
-.standard-pizzas-panel .pizzas-list,
-.customer-orders-panel .pizzas-list {
+.standard-pizzas-panel .panel-elements-list,
+.customer-orders-panel .panel-elements-list {
   width: 100%;
   overflow: hidden;
   line-height: 2.2;
 }
-.standard-pizzas-panel .pizzas-list .header-tip,
-.customer-orders-panel .pizzas-list .header-tip {
+.standard-pizzas-panel .panel-elements-list .header-tip,
+.customer-orders-panel .panel-elements-list .header-tip {
   text-align: right;
   color: yellow;
   font-size: smaller;
   line-height: 0;
 }
-.standard-pizzas-panel .pizzas-list .elem,
-.customer-orders-panel .pizzas-list .elem {
+.standard-pizzas-panel .panel-elements-list .elem,
+.customer-orders-panel .panel-elements-list .elem {
   cursor: pointer;
 }
-.standard-pizzas-panel .pizzas-list .elem:hover,
-.customer-orders-panel .pizzas-list .elem:hover {
+.standard-pizzas-panel .panel-elements-list .elem:hover,
+.customer-orders-panel .panel-elements-list .elem:hover {
   background-color: #999999;
 }
 

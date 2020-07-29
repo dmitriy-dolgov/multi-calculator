@@ -244,4 +244,5 @@ return [
     'Sign In/Sign Up' => 'Войти/зарегистрироваться',
     'You are not logged in.' => 'Вы не вошли в систему.',
     'Your active orders' => 'Активные заказы',
+    'Catalog' => 'Каталог',
 ];

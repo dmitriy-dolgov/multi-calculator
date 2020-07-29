@@ -330,7 +330,7 @@ function deleteAllComponents() {
     });
 }
 
-$('.pizzas-list .elem-pi').click(function () {
+$('.panel-elements-list .elem-pi').click(function () {
     var elem = $(this);
     $('.pizza-name').text(elem.data('name'));
     deleteAllComponents();

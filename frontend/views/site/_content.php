@@ -291,19 +291,15 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
     </div>
     <?php */ ?>
 
-    <!--<div class="customer-orders-panel wrp-pane" style="display: none">
-        <div class="btn-head"><?/*= Yii::t('app', 'Orders') */?></div>
-        <div class="pizzas-list">
-            <div class="header"><?/*= Yii::t('app', 'Your active orders') */?></div>
-            <hr>
-            <div class="orders-container">
-            </div>
+    <!--<div class="categories-panel wrp-pane">
+        <div class="btn-head"><?/*= Yii::t('app', 'Catalog') */?></div>
+        <div class="panel-elements-list">
         </div>
     </div>-->
 
     <div class="customer-orders-panel wrp-pane" style="display: none">
         <div class="btn-head"><?= Yii::t('app', 'Orders') ?></div>
-        <div class="pizzas-list">
+        <div class="panel-elements-list">
             <div class="header"><?= Yii::t('app', 'Your active orders') ?></div>
             <hr>
             <div class="orders-container">
@@ -313,7 +309,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
 
     <div class="standard-pizzas-panel wrp-pane">
         <div class="btn-head"><?= Yii::t('app', 'Pizzas') ?></div>
-        <div class="pizzas-list">
+        <div class="panel-elements-list">
             <div class="header"><?= Yii::t('app', 'Choose your pizza') ?></div>
             <div class="header-tip"><?= Yii::t('app', 'Or create it yourself ⇒') ?></div>
             <hr>

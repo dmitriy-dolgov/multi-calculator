@@ -74,6 +74,11 @@ CSS
                             [
                                 'items' => [
                                     [
+                                        'label' => Yii::t('app', 'Categories'),
+                                        'url' => ['/admin/category'],
+                                        'icon' => 'code-fork',
+                                    ],
+                                    [
                                         'label' => Yii::t('app', 'Component sets'),
                                         'url' => ['/admin/component-set'],
                                         'icon' => 'sitemap',

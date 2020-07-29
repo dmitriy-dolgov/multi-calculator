@@ -291,11 +291,12 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
     </div>
     <?php */ ?>
 
-    <!--<div class="categories-panel wrp-pane">
-        <div class="btn-head"><?/*= Yii::t('app', 'Catalog') */?></div>
+    <div class="categories-panel wrp-pane">
+        <div class="btn-head"><?= Yii::t('app', 'Catalog') ?></div>
         <div class="panel-elements-list">
+            <div class="elem">12345</div>
         </div>
-    </div>-->
+    </div>
 
     <div class="customer-orders-panel wrp-pane" style="display: none">
         <div class="btn-head"><?= Yii::t('app', 'Orders') ?></div>

@@ -46,15 +46,16 @@ $('.component-link').mousedown(function (e) {
     //return false;
 });
 
-$('.standard-pizzas-panel .btn-head').click(function () {
-    //TODO: wrp-pane - если выплывающих панелей станет много, сделать универсальное из закрытие
-    //$('.wrp-pane').removeClass('unwrap');
-    $('.customer-orders-panel').removeClass('unwrap');
-    $('.standard-pizzas-panel').toggleClass('unwrap');
-});
-$('.customer-orders-panel .btn-head').click(function () {
-    $('.standard-pizzas-panel').removeClass('unwrap');
-    $('.customer-orders-panel').toggleClass('unwrap');
+$('.wrp-pane .btn-head').click(function () {
+    var btnElem = $(this);
+
+    $('.wrp-pane .btn-head').each(function () {
+        if (!$(this).is(btnElem)) {
+            $(this).parent().removeClass('unwrap');
+        }
+    });
+
+    btnElem.parent().toggleClass('unwrap');
 });
 
 gl.functions.addOrderToPanel = function () {

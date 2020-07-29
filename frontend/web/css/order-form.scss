@@ -474,7 +474,8 @@ $order-submit-bg-color: #2d3436;
 }
 
 .standard-pizzas-panel,
-.customer-orders-panel {
+.customer-orders-panel,
+.categories-panel {
   position: absolute;
   top: $order-pane-common-height;
   left: 0;
@@ -542,9 +543,29 @@ $order-submit-bg-color: #2d3436;
 
 }
 
-.customer-orders-panel {
+.customer-orders-panel,
+.categories-panel {
   top: 0;
   z-index: 3;
+}
+
+.categories-panel {
+  left: auto;
+  right: 0;
+
+  .btn-head {
+    right: 0;
+    left: auto;
+    height: $order-pane-height;
+    writing-mode: sideways-lr;
+  }
+
+  &.unwrap {
+    .btn-head {
+      right: 100%;
+      left: auto;
+    }
+  }
 }
 
 .brick-wall {

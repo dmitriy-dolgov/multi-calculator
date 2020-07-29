@@ -556,7 +556,8 @@
 }
 
 .standard-pizzas-panel,
-.customer-orders-panel {
+.customer-orders-panel,
+.categories-panel {
   position: absolute;
   top: 123px;
   left: 0;
@@ -567,23 +568,27 @@
   max-width: 400px;
 }
 .standard-pizzas-panel .header,
-.customer-orders-panel .header {
+.customer-orders-panel .header,
+.categories-panel .header {
   font-style: italic;
   font-weight: 600;
 }
 .standard-pizzas-panel.unwrap,
-.customer-orders-panel.unwrap {
+.customer-orders-panel.unwrap,
+.categories-panel.unwrap {
   width: calc(100% - 31px);
   transition: 0.3s;
   padding: 10px;
 }
 .standard-pizzas-panel.unwrap .btn-head,
-.customer-orders-panel.unwrap .btn-head {
+.customer-orders-panel.unwrap .btn-head,
+.categories-panel.unwrap .btn-head {
   left: 100%;
   transition: 0.3s;
 }
 .standard-pizzas-panel .btn-head,
-.customer-orders-panel .btn-head {
+.customer-orders-panel .btn-head,
+.categories-panel .btn-head {
   cursor: pointer;
   text-align: center;
   background-color: gray;
@@ -602,30 +607,50 @@
   letter-spacing: 3px;
 }
 .standard-pizzas-panel .panel-elements-list,
-.customer-orders-panel .panel-elements-list {
+.customer-orders-panel .panel-elements-list,
+.categories-panel .panel-elements-list {
   width: 100%;
   overflow: hidden;
   line-height: 2.2;
 }
 .standard-pizzas-panel .panel-elements-list .header-tip,
-.customer-orders-panel .panel-elements-list .header-tip {
+.customer-orders-panel .panel-elements-list .header-tip,
+.categories-panel .panel-elements-list .header-tip {
   text-align: right;
   color: yellow;
   font-size: smaller;
   line-height: 0;
 }
 .standard-pizzas-panel .panel-elements-list .elem,
-.customer-orders-panel .panel-elements-list .elem {
+.customer-orders-panel .panel-elements-list .elem,
+.categories-panel .panel-elements-list .elem {
   cursor: pointer;
 }
 .standard-pizzas-panel .panel-elements-list .elem:hover,
-.customer-orders-panel .panel-elements-list .elem:hover {
+.customer-orders-panel .panel-elements-list .elem:hover,
+.categories-panel .panel-elements-list .elem:hover {
   background-color: #999999;
 }
 
-.customer-orders-panel {
+.customer-orders-panel,
+.categories-panel {
   top: 0;
   z-index: 3;
+}
+
+.categories-panel {
+  left: auto;
+  right: 0;
+}
+.categories-panel .btn-head {
+  right: 0;
+  left: auto;
+  height: 120px;
+  writing-mode: sideways-lr;
+}
+.categories-panel.unwrap .btn-head {
+  right: 100%;
+  left: auto;
 }
 
 .brick-wall {

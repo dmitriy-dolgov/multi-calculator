@@ -556,7 +556,7 @@
 }
 
 .standard-pizzas-panel,
-.standard-orders-panel {
+.customer-orders-panel {
   position: absolute;
   top: 123px;
   left: 0;
@@ -567,23 +567,23 @@
   max-width: 400px;
 }
 .standard-pizzas-panel .header,
-.standard-orders-panel .header {
+.customer-orders-panel .header {
   font-style: italic;
   font-weight: 600;
 }
 .standard-pizzas-panel.unwrap,
-.standard-orders-panel.unwrap {
+.customer-orders-panel.unwrap {
   width: calc(100% - 31px);
   transition: 0.3s;
   padding: 10px;
 }
 .standard-pizzas-panel.unwrap .btn-head,
-.standard-orders-panel.unwrap .btn-head {
+.customer-orders-panel.unwrap .btn-head {
   left: 100%;
   transition: 0.3s;
 }
 .standard-pizzas-panel .btn-head,
-.standard-orders-panel .btn-head {
+.customer-orders-panel .btn-head {
   cursor: pointer;
   text-align: center;
   background-color: gray;
@@ -602,28 +602,28 @@
   letter-spacing: 3px;
 }
 .standard-pizzas-panel .pizzas-list,
-.standard-orders-panel .pizzas-list {
+.customer-orders-panel .pizzas-list {
   width: 100%;
   overflow: hidden;
   line-height: 2.2;
 }
 .standard-pizzas-panel .pizzas-list .header-tip,
-.standard-orders-panel .pizzas-list .header-tip {
+.customer-orders-panel .pizzas-list .header-tip {
   text-align: right;
   color: yellow;
   font-size: smaller;
   line-height: 0;
 }
 .standard-pizzas-panel .pizzas-list .elem,
-.standard-orders-panel .pizzas-list .elem {
+.customer-orders-panel .pizzas-list .elem {
   cursor: pointer;
 }
 .standard-pizzas-panel .pizzas-list .elem:hover,
-.standard-orders-panel .pizzas-list .elem:hover {
+.customer-orders-panel .pizzas-list .elem:hover {
   background-color: #999999;
 }
 
-.standard-orders-panel {
+.customer-orders-panel {
   top: 0;
   z-index: 3;
 }

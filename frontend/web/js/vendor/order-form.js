@@ -26,7 +26,7 @@ var elems = {
     '#order-form-submit': $("#order-form-submit"),
     '.vertical-pane .component': $('.vertical-pane .component'),
     '.vertical-pane .component .img-wrap': $('.vertical-pane .component .img-wrap'),
-    '.standard-orders-panel': $('.standard-orders-panel')
+    '.customer-orders-panel': $('.customer-orders-panel')
 };
 
 gl.functions.setLogged = function () {

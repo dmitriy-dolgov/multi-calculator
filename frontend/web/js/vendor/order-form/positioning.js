@@ -49,12 +49,12 @@ $('.component-link').mousedown(function (e) {
 $('.standard-pizzas-panel .btn-head').click(function () {
     //TODO: wrp-pane - если выплывающих панелей станет много, сделать универсальное из закрытие
     //$('.wrp-pane').removeClass('unwrap');
-    $('.standard-orders-panel').removeClass('unwrap');
+    $('.customer-orders-panel').removeClass('unwrap');
     $('.standard-pizzas-panel').toggleClass('unwrap');
 });
-$('.standard-orders-panel .btn-head').click(function () {
+$('.customer-orders-panel .btn-head').click(function () {
     $('.standard-pizzas-panel').removeClass('unwrap');
-    $('.standard-orders-panel').toggleClass('unwrap');
+    $('.customer-orders-panel').toggleClass('unwrap');
 });
 
 gl.functions.addOrderToPanel = function () {
@@ -65,8 +65,8 @@ gl.functions.addOrderToPanel = function () {
     var btnHtml = '<div class="elem" data-order-id="' + gl.escapeHtml(orderInfo.result.order_uid)
         + '" data-order-info="' + gl.escapeHtml(orderInfoJson) +
         '" onclick="gl.functions.showOrderPanel(this);return false;" class="">' + gl.escapeHtml($('.pizza-name').text()) + '</div>';
-    elems['.standard-orders-panel'].find('.orders-container').append(btnHtml);
-    elems['.standard-orders-panel'].show();
+    elems['.customer-orders-panel'].find('.orders-container').append(btnHtml);
+    elems['.customer-orders-panel'].show();
 };
 
 gl.functions.minimizeOrderPanel = function () {
@@ -77,7 +77,7 @@ gl.functions.minimizeOrderPanel = function () {
 gl.functions.showOrderPanel = function (elem) {
     var jqElem = $(elem);
 
-    $('.standard-orders-panel').toggleClass('unwrap');
+    $('.customer-orders-panel').toggleClass('unwrap');
 
     var orderInfo = jqElem.data('order-info');
     gl.functions.fillOrderInfo(orderInfo.result, orderInfo.formData);

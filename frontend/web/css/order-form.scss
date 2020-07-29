@@ -474,7 +474,7 @@ $order-submit-bg-color: #2d3436;
 }
 
 .standard-pizzas-panel,
-.standard-orders-panel {
+.customer-orders-panel {
   position: absolute;
   top: $order-pane-common-height;
   left: 0;
@@ -542,7 +542,7 @@ $order-submit-bg-color: #2d3436;
 
 }
 
-.standard-orders-panel {
+.customer-orders-panel {
   top: 0;
   z-index: 3;
 }

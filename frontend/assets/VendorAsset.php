@@ -9,7 +9,7 @@ class VendorAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/vendor.css?v=1.92',
+        'css/vendor.css?v=1.93',
     ];
     public $js = [
         'js/common.js?v=1.2',

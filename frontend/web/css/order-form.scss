@@ -20,6 +20,8 @@ $top-offset: $order-pane-height + $order-pane-margin-height;
 
 $order-submit-bg-color: #2d3436;
 
+$catalog-name_height: 25px;
+
 /*body {
   font-family: 'Caveat', cursive;
   font-size: 22px;
@@ -49,6 +51,16 @@ $order-submit-bg-color: #2d3436;
   right: 0;
   height: calc(100vh - #{$top-offset});
   position: absolute;
+
+  .catalog-name {
+    height: $catalog-name_height;
+    background-color: #6b9163;
+    border-right: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+  }
 }
 
 #order-form {
@@ -65,7 +77,7 @@ $order-submit-bg-color: #2d3436;
   position: absolute;
   width: 100%;
   left: 0;
-  top: 0;
+  top: $catalog-name_height + $order-pane-margin-height;
   bottom: 0;
   background-image: url(/img/pizza-bg-sm.png);
 }

@@ -88,6 +88,8 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
 
     <section class="components-in-stock">
 
+        <div class="catalog-name"><?= Html::encode(Yii::t('app', 'Popular')) ?></div>
+
         <?php if ($components): ?>
 
             <?php /*\nsept\jscrollpane\JScrollPaneWidget::widget([

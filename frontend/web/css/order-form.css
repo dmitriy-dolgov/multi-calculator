@@ -157,6 +157,15 @@
   height: calc(100vh - 123px);
   position: absolute;
 }
+.components-in-stock .catalog-name {
+  height: 25px;
+  background-color: #6b9163;
+  border-right: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: italic;
+}
 
 #order-form {
   width: 75%;
@@ -172,7 +181,7 @@
   position: absolute;
   width: 100%;
   left: 0;
-  top: 0;
+  top: 28px;
   bottom: 0;
   background-image: url(/img/pizza-bg-sm.png);
 }

@@ -477,6 +477,7 @@ $order-submit-bg-color: #2d3436;
   background-color: #2C4257;
   transition: 0.3s;
   z-index: 2;
+  max-width: 400px;
 
   .header {
     font-style: italic;
@@ -485,7 +486,6 @@ $order-submit-bg-color: #2d3436;
 
   &.unwrap {
     width: calc(100% - 31px);
-    max-width: 400px;
     transition: 0.3s;
     padding: 10px;
 

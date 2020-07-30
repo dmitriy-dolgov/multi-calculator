@@ -8,6 +8,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
 
 $order-pane-height: 120px;
+
+/*$wrapping-panel-height: 33px;*/
+$wrapping-panel_color: yellow;
+$wrapping-panel_bgColor: #098009;
+
 $order-pane-margin-height: 3px;
 $order-pane-common-height: $order-pane-height + $order-pane-margin-height;
 $components-pane-width: 25%;
@@ -521,8 +526,8 @@ $catalog-name_height: 25px;
   .btn-head {
     cursor: pointer;
     text-align: center;
-    background-color: gray;
-    color: white;
+    color: $wrapping-panel_color;
+    background-color: $wrapping-panel_bgColor;
     font-weight: bold;
     /*transform: rotate(90deg);
     transform-origin: 0 0;*/
@@ -564,7 +569,12 @@ $catalog-name_height: 25px;
 .categories-panel {
   top: 0;
   z-index: 3;
+
+  .btn-head {
+    height: $order-pane-height;
+  }
 }
+
 
 .categories-panel {
   left: auto;
@@ -573,7 +583,6 @@ $catalog-name_height: 25px;
   .btn-head {
     right: 0;
     left: auto;
-    height: $order-pane-height;
     writing-mode: sideways-lr;
   }
 
@@ -581,6 +590,38 @@ $catalog-name_height: 25px;
     .btn-head {
       right: 100%;
       left: auto;
+    }
+  }
+}
+
+.categories-panel {
+  &.btn-head {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    cursor: pointer;
+    text-align: center;
+    color: $wrapping-panel_color;
+    background-color: $wrapping-panel_bgColor;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: 0.3s;
+    padding: 6px 20px;
+    letter-spacing: 2px;
+  }
+
+  &.panel-elements-list {
+    &.unwrap {
+      width: calc(100% - 31px);
+      transition: 0.3s;
+      padding: 10px;
+
+      .btn-head {
+        left: 100%;
+        transition: 0.3s;
+      }
     }
   }
 }
@@ -898,7 +939,7 @@ $catalog-name_height: 25px;
 }
 
 .elem-pi {
-  width:30%;
+  width: 30%;
   background-color: #1d1d1d;
   border-left: 1px solid black;
   float: right;

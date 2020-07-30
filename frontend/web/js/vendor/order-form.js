@@ -27,7 +27,9 @@ var elems = {
     '.vertical-pane .component': $('.vertical-pane .component'),
     '.vertical-pane .component .img-wrap': $('.vertical-pane .component .img-wrap'),
     '.customer-orders-panel': $('.customer-orders-panel'),
-    //'.categories-panel': $('.categories-panel'),
+    '.wrp-pane .btn-head': $('.wrp-pane .btn-head'),
+    '.categories-panel.btn-head': $('.categories-panel.btn-head'),
+    '.categories-panel.panel-elements-list': $('.categories-panel.panel-elements-list')
 };
 
 gl.functions.setLogged = function () {

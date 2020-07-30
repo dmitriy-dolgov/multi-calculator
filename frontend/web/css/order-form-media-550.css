@@ -82,6 +82,13 @@
     bottom: 17px;
     margin-left: 7px;
   }
+
+  /*.categories-panel {
+
+    .btn-head {
+      width: $components-pane-width-mob;
+    }
+  }*/
 }
 
 /*# sourceMappingURL=order-form-media-550.css.map */

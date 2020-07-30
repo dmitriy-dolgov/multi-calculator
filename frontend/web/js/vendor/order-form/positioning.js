@@ -46,16 +46,26 @@ $('.component-link').mousedown(function (e) {
     //return false;
 });
 
-$('.wrp-pane .btn-head').click(function () {
+elems['.wrp-pane .btn-head'].click(function () {
     var btnElem = $(this);
 
-    $('.wrp-pane .btn-head').each(function () {
+    elems['.wrp-pane .btn-head'].each(function () {
         if (!$(this).is(btnElem)) {
             $(this).parent().removeClass('unwrap');
         }
     });
 
     btnElem.parent().toggleClass('unwrap');
+});
+
+elems['.categories-panel.btn-head'].click(function () {
+    var btnElem = $(this);
+
+    elems['.wrp-pane .btn-head'].each(function () {
+        $(this).parent().removeClass('unwrap');
+    });
+
+    elems['.categories-panel.panel-elements-list'].toggleClass('unwrap');
 });
 
 gl.functions.addOrderToPanel = function () {

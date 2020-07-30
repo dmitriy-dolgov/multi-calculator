@@ -87,6 +87,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
             </div>
             <?php */ ?>
         </button>
+        <div class="categories-panel btn-head"><?= Yii::t('app', 'Catalog') ?></div>
     </div>
 
     <section class="components-in-stock">
@@ -296,6 +297,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
     </div>
     <?php */ ?>
 
+    <?php /* ?>
     <div class="categories-panel wrp-pane">
         <div class="btn-head"><?= Yii::t('app', 'Catalog') ?></div>
         <div class="panel-elements-list">
@@ -306,6 +308,16 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
             }
             ?>
         </div>
+    </div>
+    <?php */ ?>
+
+    <div class="categories-panel panel-elements-list">
+        <?php
+        $categories = \common\models\db\Category::find()->all();
+        foreach ($categories as $categ) {
+            echo '<div class="elem">' . Html::encode($categ->name) . '</div>';
+        }
+        ?>
     </div>
 
     <div class="customer-orders-panel wrp-pane" style="display: none">

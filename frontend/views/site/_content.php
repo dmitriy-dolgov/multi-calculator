@@ -347,7 +347,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                         'data-category_id' => $categ->id,
                     ],
                     'pluginOptions' => ['threeState' => false],
-                ]) . '<label class="cbx-label" for="ct-sel-' . $key . '">' . Html::encode($categ->name) . '</label>';
+                ]) . '<label class="cbx-label" for="ct-sel-' . $key . '">' . Html::encode($categ->name) . '</label></div>';
         }
         ?>
     </div>

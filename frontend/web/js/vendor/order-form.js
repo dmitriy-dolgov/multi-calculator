@@ -29,7 +29,8 @@ var elems = {
     '.customer-orders-panel': $('.customer-orders-panel'),
     '.wrp-pane .btn-head': $('.wrp-pane .btn-head'),
     '.categories-panel.btn-head': $('.categories-panel.btn-head'),
-    '.categories-panel.panel-elements-list': $('.categories-panel.panel-elements-list')
+    '.categories-panel.panel-elements-list': $('.categories-panel.panel-elements-list'),
+    '.components-in-stock': $('.components-in-stock'),
 };
 
 gl.functions.setLogged = function () {

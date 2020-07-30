@@ -116,7 +116,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                         $compStyle = 'style="display:none"';
                     }
 
-                    $item = "<div class='component' data-id='" . $comp->id . "' $compStyle>";
+                    $item = "<div class='component' data-category_id='" . $comp->category_id . "' data-id='" . $comp->id . "' $compStyle>";
 
                     $html = '<div class="filler-wrapper">'
                         . '<img class="filler" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">'
@@ -315,8 +315,8 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
     <div class="categories-panel panel-elements-list">
         <div class="header"><?= Yii::t('app', 'Select categories') ?></div>
         <hr>
-        <div class="elem">
-            <?= CheckboxX::widget([
+        <!--<div class="elem">
+            <?/*= CheckboxX::widget([
                 'name' => 'ct-sel-all',
                 'options' => [
                     'id' => 'ct-sel-all',
@@ -332,17 +332,19 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                 ],
                 'pluginOptions' => ['threeState' => false],
             ]) . '<label class="cbx-label" for="ct-sel-popular">' . Yii::t('app', 'Popular') . '</label>'
-            ?>
-        </div>
+            */?>
+        </div>-->
         <?php
         $categories = \common\models\db\Category::find()->all();
         foreach ($categories as $key => $categ) {
             echo '<div class="elem">' .
                 CheckboxX::widget([
                     'name' => 'ct-sel-' . $key,
+                    'value' => 1,
                     'options' => [
                         'id' => 'ct-sel-' . $key,
                         'class' => 'ct-sel-elem',
+                        'data-category_id' => $categ->id,
                     ],
                     'pluginOptions' => ['threeState' => false],
                 ]) . '<label class="cbx-label" for="ct-sel-' . $key . '">' . Html::encode($categ->name) . '</label>';

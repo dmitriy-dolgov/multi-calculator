@@ -17,6 +17,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use corpsepk\DaData\SuggestionsWidget;
+use kartik\checkbox\CheckboxX;
 
 $this->getAssetManager()->appendTimestamp = true;
 
@@ -314,11 +315,37 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
     <div class="categories-panel panel-elements-list">
         <div class="header"><?= Yii::t('app', 'Select categories') ?></div>
         <hr>
-        <div class="elem"><?= Yii::t('app', 'All') ?></div>
+        <div class="elem">
+            <?= CheckboxX::widget([
+                'name' => 'ct-sel-all',
+                'options' => [
+                    'id' => 'ct-sel-all',
+                    'class' => 'ct-sel-elem',
+                ],
+                'pluginOptions' => ['threeState' => false],
+            ]) . '<label class="cbx-label" for="ct-sel-all">' . Yii::t('app', 'All') . '</label>'
+            . CheckboxX::widget([
+                'name' => 'ct-sel-popular',
+                'options' => [
+                    'id' => 'ct-sel-popular',
+                    'class' => 'ct-sel-elem',
+                ],
+                'pluginOptions' => ['threeState' => false],
+            ]) . '<label class="cbx-label" for="ct-sel-popular">' . Yii::t('app', 'Popular') . '</label>'
+            ?>
+        </div>
         <?php
         $categories = \common\models\db\Category::find()->all();
-        foreach ($categories as $categ) {
-            echo '<div class="elem">' . Html::encode($categ->name) . '</div>';
+        foreach ($categories as $key => $categ) {
+            echo '<div class="elem">' .
+                CheckboxX::widget([
+                    'name' => 'ct-sel-' . $key,
+                    'options' => [
+                        'id' => 'ct-sel-' . $key,
+                        'class' => 'ct-sel-elem',
+                    ],
+                    'pluginOptions' => ['threeState' => false],
+                ]) . '<label class="cbx-label" for="ct-sel-' . $key . '">' . Html::encode($categ->name) . '</label>';
         }
         ?>
     </div>

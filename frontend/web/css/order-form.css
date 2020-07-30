@@ -671,6 +671,9 @@
   left: auto;
 }
 
+.categories-panel .elem {
+  margin-top: 7px;
+}
 .categories-panel.btn-head {
   position: absolute;
   width: 100%;
@@ -694,7 +697,8 @@
   width: calc(100% - 25% - 3px);
   height: 0;
   transition: 0.3s;
-  padding: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 .categories-panel.panel-elements-list.unwrap {
   height: auto;
@@ -985,6 +989,10 @@
 .elem-pi:hover {
   background-color: #e8e8e8;
   color: black;
+}
+
+.cbx-icon {
+  color: #EEE;
 }
 
 /*# sourceMappingURL=order-form.css.map */

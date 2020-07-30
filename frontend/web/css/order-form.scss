@@ -595,6 +595,10 @@ $catalog-name_height: 25px;
 }
 
 .categories-panel {
+  .elem {
+    margin-top: 7px;
+  }
+
   &.btn-head {
     position: absolute;
     width: 100%;
@@ -619,7 +623,8 @@ $catalog-name_height: 25px;
     width: calc(100% - #{$components-pane-width} - #{$order-pane-margin-height});
     height: 0;
     transition: 0.3s;
-    padding: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
 
     &.unwrap {
       height: auto;
@@ -951,4 +956,8 @@ $catalog-name_height: 25px;
 .elem-pi:hover {
   background-color: #e8e8e8;
   color: black;
+}
+
+.cbx-icon {
+  color: #EEE;
 }

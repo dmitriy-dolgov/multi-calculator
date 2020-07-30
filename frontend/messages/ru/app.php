@@ -247,4 +247,5 @@ return [
     'Catalog' => 'Каталог',
     'Popular' => 'Популярные',
     'Select categories' => 'Выберите категории',
+    'All' => 'Все',
 ];

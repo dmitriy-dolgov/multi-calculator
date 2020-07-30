@@ -117,6 +117,8 @@ class Component extends \yii\db\ActiveRecord
             'unit_value_max' => Yii::t('app', 'Unit Value Max'),
             'unit_switch_group' => Yii::t('app', 'Unit Switch Group'),
             'disabled' => Yii::t('app', 'Disabled'),
+
+            'category' => Yii::t('app','Category'),
         ];
     }
 

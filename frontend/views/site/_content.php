@@ -312,6 +312,9 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
     <?php */ ?>
 
     <div class="categories-panel panel-elements-list">
+        <div class="header"><?= Yii::t('app', 'Select categories') ?></div>
+        <hr>
+        <div class="elem"><?= Yii::t('app', 'All') ?></div>
         <?php
         $categories = \common\models\db\Category::find()->all();
         foreach ($categories as $categ) {

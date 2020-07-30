@@ -607,21 +607,23 @@ $catalog-name_height: 25px;
     background-color: $wrapping-panel_bgColor;
     font-weight: bold;
     text-transform: uppercase;
-    transition: 0.3s;
     padding: 6px 20px;
     letter-spacing: 2px;
+    transition: 0.3s;
   }
 
   &.panel-elements-list {
-    &.unwrap {
-      width: calc(100% - 31px);
-      transition: 0.3s;
-      padding: 10px;
+    right: calc(#{$components-pane-width} + #{$order-pane-margin-height});
+    top: 0;
+    overflow: hidden;
+    width: calc(100% - #{$components-pane-width} - #{$order-pane-margin-height});
+    height: 0;
+    transition: 0.3s;
+    padding: 10px;
 
-      .btn-head {
-        left: 100%;
-        transition: 0.3s;
-      }
+    &.unwrap {
+      height: auto;
+      transition: 0.3s;
     }
   }
 }

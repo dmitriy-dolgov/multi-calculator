@@ -38,7 +38,23 @@ $this->params['breadcrumbs'][] = $this->title;
             //'description:ntext',
             //'short_description:ntext',
             'price',
-            'price_discount',
+            [
+                'label' => Yii::t('app', 'Category'),
+                'format' => 'raw',
+                'value' => function (Component $model) {
+                    return $model->category ? $model->category->name : Yii::$app->formatter->nullDisplay;
+                },
+            ],
+            /*[
+                'label' => Yii::t('app', 'Category'),
+                'format' => 'raw',
+                'value' => function (Component $model) {
+                    return $model->disabled
+                        ? ('<span class="text-danger">' . Yii::t('app', 'Disabled') . '</span>')
+                        : Yii::t('app', 'Active');
+                },
+            ],*/
+            //'price_discount',
             [
                 'label' => Yii::t('app', 'Is active'),
                 'format' => 'raw',

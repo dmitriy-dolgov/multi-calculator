@@ -44,7 +44,8 @@
         "kartik-v/yii2-widget-select2": "dev-master",
         "wertex/yii2-fias": "dev-master",
         "corpsepk/yii2-dadata-suggestions-widget": "~0.4",
-        "yiisoft/yii2-authclient": "^2.0@dev"
+        "yiisoft/yii2-authclient": "^2.0@dev",
+        "kartik-v/yii2-checkbox-x": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

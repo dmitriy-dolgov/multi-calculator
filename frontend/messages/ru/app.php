@@ -246,4 +246,5 @@ return [
     'Your active orders' => 'Активные заказы',
     'Catalog' => 'Каталог',
     'Popular' => 'Популярные',
+    'Select categories' => 'Выберите категории',
 ];

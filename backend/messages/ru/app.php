@@ -241,4 +241,5 @@ return [
     'Payment type:' => 'Тип оплаты:',
     'Sign In/Sign Up' => 'Войти/зарегистрироваться',
     'You are not logged in.' => 'Вы не вошли в систему.',
+    'Category' => 'Категория',
 ];

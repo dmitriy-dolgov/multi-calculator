@@ -44,6 +44,11 @@ CSS
             'name',
             'short_name',
             [
+                'label' => Yii::t('app', 'Category'),
+                'format' => 'raw',
+                'value' => $model->category ? Html::encode($model->category->name) : Yii::$app->formatter->nullDisplay,
+            ],
+            [
                 'label' => Yii::t('app', 'Is active'),
                 'format' => 'raw',
                 'value' => $model->disabled

@@ -31,6 +31,7 @@ var elems = {
     '.categories-panel.btn-head': $('.categories-panel.btn-head'),
     '.categories-panel.panel-elements-list': $('.categories-panel.panel-elements-list'),
     '.components-in-stock': $('.components-in-stock'),
+    '.components-in-stock .collapse-content': $('.components-in-stock .collapse-content')
 };
 
 gl.functions.setLogged = function () {

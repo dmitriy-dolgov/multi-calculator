@@ -1,0 +1,21 @@
+.components-in-stock {
+  .collapse-head {
+    padding: 7px;
+    background-color: #00c000;
+    color: #ffe16a;
+    font-weight: bold;
+    border-bottom: black 2px inset;
+    cursor: pointer;
+  }
+
+  .collapse-content {
+    height: 0;
+    overflow: hidden;
+    transition: 1s;
+
+    &.unwrap {
+      height: auto;
+      transition: 1s;
+    }
+  }
+}

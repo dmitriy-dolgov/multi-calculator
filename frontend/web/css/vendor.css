@@ -82,6 +82,24 @@
   content: "";
 }
 
+.components-in-stock .collapse-head {
+  padding: 7px;
+  background-color: #00c000;
+  color: #ffe16a;
+  font-weight: bold;
+  border-bottom: black 2px inset;
+  cursor: pointer;
+}
+.components-in-stock .collapse-content {
+  height: 0;
+  overflow: hidden;
+  transition: 1s;
+}
+.components-in-stock .collapse-content.unwrap {
+  height: auto;
+  transition: 1s;
+}
+
 /*@import "fonts";*/
 .jspContainer .jspDrag {
   /*position: absolute;

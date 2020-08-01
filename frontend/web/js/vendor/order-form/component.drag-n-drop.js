@@ -25,11 +25,13 @@ $('.components-selected-details').droppable({
                 });
 
                 elems['.vertical-pane'].css('overflow', 'hidden');
+                elems['.components-in-stock .collapse-content'].css('overflow', 'hidden');
                 addComponent(currentDragElement);
                 currentDragElement = null;
             });
         } else {
             elems['.vertical-pane'].css('overflow', 'hidden');
+            elems['.components-in-stock .collapse-content'].css('overflow', 'hidden');
             addComponent(currentDragElement);
             currentDragElement = null;
         }

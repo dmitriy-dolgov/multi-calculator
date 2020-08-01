@@ -18,6 +18,7 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use corpsepk\DaData\SuggestionsWidget;
 use kartik\checkbox\CheckboxX;
+use common\models\db\Category;
 
 $this->getAssetManager()->appendTimestamp = true;
 
@@ -70,6 +71,18 @@ $(window).resize(function() {
   gl.functions.adjustComponentToSelectHeight();
 });*/
 
+$('.components-in-stock .collapse-head').click(function() {
+  //$(this).parent().find('.collapse-content').toggleClass('unwrap');
+  $(this).next('.collapse-content').toggleClass('unwrap');
+  
+  setTimeout(
+    function () {
+        elems['.vertical-pane'].data('jsp').reinitialise();
+        //elems['.vertical-pane'].css('overflow', 'visible');
+    }, 50
+  );
+});
+
 JS
 );
 
@@ -93,7 +106,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
 
     <section class="components-in-stock">
 
-        <div class="catalog-name"><?= Html::encode(Yii::t('app', 'Popular')) ?></div>
+        <!--<div class="catalog-name"><? /*= Html::encode(Yii::t('app', 'Popular')) */ ?></div>-->
 
         <?php if ($components): ?>
 
@@ -109,38 +122,65 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
 
             <div class="vertical-pane" style="overflow:auto">
                 <?php
-                //$componentItems = [];
+                $collapsedComponents = [];
                 foreach ($components as $comp) {
-                    $compStyle = '';
-                    if (!empty($comp->item_select_min)) {
-                        $compStyle = 'style="display:none"';
+                    $categoryId = 0;
+                    if (empty($collapsedComponents[$comp->category_id])) {
+                        if ($comp->category_id) {
+                            $categoryId = $comp->category_id;
+                            $collapsedComponents[$categoryId] = [
+                                'name' => Category::findOne($categoryId)->short_name,
+                                'elems' => [],
+                            ];
+                        } else {
+                            $collapsedComponents[0] = [
+                                'name' => Yii::t('app', 'Popular'),
+                                'elems' => [],
+                            ];
+                        }
+                    }
+                    $collapsedComponents[$categoryId]['elems'][] = $comp;
+                }
+
+                foreach ($collapsedComponents as $collElem) {
+                    echo '<div class="collapse-head">' . Html::encode($collElem['name']) . '</div>'
+                        . '<div class="collapse-content">';
+
+                    foreach ($collElem['elems'] as $comp) {
+                        $compStyle = '';
+                        /*if (!empty($comp->item_select_min)) {
+                            $compStyle = 'style="display:none"';
+                        }*/
+
+                        $item = "<div class='component' data-category_id='" . $comp->category_id . "' data-id='" . $comp->id . "' $compStyle>";
+
+                        $html = '<div class="filler-wrapper">'
+                            . '<img class="filler" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">'
+                            . '<div class="img-wrap" style="background-image: url(' . $comp->getImageUrl() . ')"></div>'
+                            . '</div>'
+                            . '<div class="filler-over">'
+                            //. '<div class="img-wrap" style="background-image: url(' . $comp->getImageUrl() . ')"></div>'
+                            . '<div class="comp-info">'
+                            . '<div class="short-name" title="' . Html::encode($comp->short_description) . '">' . Html::encode($comp->short_name) . '</div>'
+                            /*. '<div class="price-discount" title="' . Html::encode(Yii::t('app',
+                                'Price without discount')) . '">' . (!empty($comp->price_discount) ? Html::encode($comp->price_discount . ' руб.') : '') . '</div>'*/
+                            . '<div class="price">' . ComponentHtml::getPriceCaption($comp) . '</div>'
+                            . '</div>'
+                            . '</div>';
+
+                        $item .= Html::a($html, '#', array_merge($comp->createHtmlDataParams(), [
+                            'class' => 'component-link',
+                        ]));
+
+                        $item .= '</div>';
+
+                        //$componentItems[] = $item;
+                        echo $item;
                     }
 
-                    $item = "<div class='component' data-category_id='" . $comp->category_id . "' data-id='" . $comp->id . "' $compStyle>";
-
-                    $html = '<div class="filler-wrapper">'
-                        . '<img class="filler" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">'
-                        . '<div class="img-wrap" style="background-image: url(' . $comp->getImageUrl() . ')"></div>'
-                        . '</div>'
-                        . '<div class="filler-over">'
-                        //. '<div class="img-wrap" style="background-image: url(' . $comp->getImageUrl() . ')"></div>'
-                        . '<div class="comp-info">'
-                        . '<div class="short-name" title="' . Html::encode($comp->short_description) . '">' . Html::encode($comp->short_name) . '</div>'
-                        /*. '<div class="price-discount" title="' . Html::encode(Yii::t('app',
-                            'Price without discount')) . '">' . (!empty($comp->price_discount) ? Html::encode($comp->price_discount . ' руб.') : '') . '</div>'*/
-                        . '<div class="price">' . ComponentHtml::getPriceCaption($comp) . '</div>'
-                        . '</div>'
-                        . '</div>';
-
-                    $item .= Html::a($html, '#', array_merge($comp->createHtmlDataParams(), [
-                        'class' => 'component-link',
-                    ]));
-
-                    $item .= '</div>';
-
-                    //$componentItems[] = $item;
-                    echo $item;
-                } ?>
+                    echo '</div>';
+                }
+                ?>
             </div>
 
             <?php \nsept\jscrollpane\JScrollPaneWidget::widget([
@@ -316,7 +356,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
         <div class="header"><?= Yii::t('app', 'Select categories') ?></div>
         <hr>
         <!--<div class="elem">
-            <?/*= CheckboxX::widget([
+            <? /*= CheckboxX::widget([
                 'name' => 'ct-sel-all',
                 'options' => [
                     'id' => 'ct-sel-all',
@@ -332,7 +372,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                 ],
                 'pluginOptions' => ['threeState' => false],
             ]) . '<label class="cbx-label" for="ct-sel-popular">' . Yii::t('app', 'Popular') . '</label>'
-            */?>
+            */ ?>
         </div>-->
         <?php
         $categories = \common\models\db\Category::find()->all();

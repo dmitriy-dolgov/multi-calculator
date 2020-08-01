@@ -36,6 +36,7 @@ $('.component-link').mousedown(function (e) {
     //e.preventDefault();
 
     elems['.vertical-pane'].css('overflow', 'visible');
+    elems['.components-in-stock .collapse-content'].css('overflow', 'visible');
     currentDragElement = $(this);
 
     /*var elem = $(this);

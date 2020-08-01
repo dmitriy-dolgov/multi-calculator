@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\db\Component;
 use common\models\db\ComponentSet;
 use common\models\db\User;
 use frontend\models\ShopOrderForm;
@@ -132,9 +133,11 @@ STR;
 
         $components = [];
 
-        if ($profile = $user->profile) {
+        $components = Component::findAll(['user_id' => null]);
+
+        /*if ($profile = $user->profile) {
             $components = $profile->user->getComponents()->forOrder()->all();
-        }
+        }*/
 
         $componentSets = ComponentSet::find()->all();
 

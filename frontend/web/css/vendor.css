@@ -91,12 +91,12 @@
   cursor: pointer;
 }
 .components-in-stock .collapse-content {
-  height: 0;
+  max-height: 0;
   overflow: hidden;
   transition: 1s;
 }
 .components-in-stock .collapse-content.unwrap {
-  height: auto;
+  max-height: 10000px;
   transition: 1s;
 }
 

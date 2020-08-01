@@ -9,12 +9,12 @@
   }
 
   .collapse-content {
-    height: 0;
+    max-height: 0;
     overflow: hidden;
     transition: 1s;
 
     &.unwrap {
-      height: auto;
+      max-height: 10000px;
       transition: 1s;
     }
   }

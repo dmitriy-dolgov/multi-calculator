@@ -3,7 +3,9 @@ gl.functions.correctGeolocation = function () {
         navigator.geolocation.getCurrentPosition(function (position) {
             var lat = position.coords.latitude;
             var lng = position.coords.longitude;
-            gl.data.worldMap.flyTo([lat, lng]);
+            if (gl.data.worldMap) {
+                gl.data.worldMap.flyTo([lat, lng]);
+            }
         });
     } else {
         alert(gl.data['geolocation-is-not-accessible']);

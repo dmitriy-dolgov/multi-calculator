@@ -73,6 +73,7 @@ $(window).resize(function() {
 
 $('.components-in-stock .collapse-head').click(function() {
   //$(this).parent().find('.collapse-content').toggleClass('unwrap');
+  elems['.components-in-stock'].find('.collapse-content.unwrap').toggleClass('unwrap');
   $(this).next('.collapse-content').toggleClass('unwrap');
   
   setTimeout(

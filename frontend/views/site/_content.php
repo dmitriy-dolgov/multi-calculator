@@ -588,8 +588,8 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                 <h4 class="modal-title"><?= Yii::t('app', 'Set up your order') ?></h4>
             </div>
             <div class="modal-body">
-                <iframe class="popup-iframe" id="frame-order-form"
-                        src="<?= Url::to(['/vendor/order-panel', 'uid' => $uid]) ?>"></iframe>
+                <!--<iframe class="popup-iframe" id="frame-order-form"
+                        src="<?/*= Url::to(['/vendor/order-panel', 'uid' => $uid]) */?>"></iframe>-->
                 <!--<iframe id="frame-order-form" src=""></iframe>-->
             </div>
         </div>
@@ -612,7 +612,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                     <?php $form = ActiveForm::begin(
                         [
                             'id' => 'order-form-submit',
-                            'action' => Url::to(['/vendor/order-create']),
+                            //'action' => Url::to(['/vendor/order-create']),
                         ]
                     ); ?>
 

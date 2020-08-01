@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function (Component $model) {
                     $result = Yii::$app->formatter->nullDisplay;
-                    if (empty($model->componentSets)) {
+                    if (!empty($model->componentSets)) {
                         $result = [];
                         foreach ($model->componentSets as $compSet) {
                             $result[] = Html::encode($compSet->name);

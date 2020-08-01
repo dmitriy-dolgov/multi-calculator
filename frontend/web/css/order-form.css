@@ -93,11 +93,12 @@
 .components-in-stock .collapse-content {
   max-height: 0;
   overflow: hidden;
-  transition: 1s;
+  /*transition: 1s;*/
 }
 .components-in-stock .collapse-content.unwrap {
+  overflow: visible;
   max-height: 10000px;
-  transition: 1s;
+  /*transition: 1s;*/
 }
 
 /*@import "fonts";*/

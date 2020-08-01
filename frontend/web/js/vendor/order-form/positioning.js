@@ -36,7 +36,7 @@ $('.component-link').mousedown(function (e) {
     //e.preventDefault();
 
     elems['.vertical-pane'].css('overflow', 'visible');
-    elems['.components-in-stock .collapse-content'].css('overflow', 'visible');
+    //elems['.components-in-stock .collapse-content'].css('overflow', 'visible');
     currentDragElement = $(this);
 
     /*var elem = $(this);
@@ -46,6 +46,12 @@ $('.component-link').mousedown(function (e) {
 
     //return false;
 });
+
+/*$('.component-link').mouseup(function (e) {
+    elems['.vertical-pane'].css('overflow', 'hidden');
+    elems['.components-in-stock .collapse-content'].css('overflow', 'hidden');
+    currentDragElement = false;
+});*/
 
 elems['.wrp-pane .btn-head'].click(function () {
     var btnElem = $(this);

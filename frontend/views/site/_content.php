@@ -72,15 +72,19 @@ $(window).resize(function() {
 });*/
 
 $('.components-in-stock .collapse-head').click(function() {
-  //$(this).parent().find('.collapse-content').toggleClass('unwrap');
-  elems['.components-in-stock'].find('.collapse-content.unwrap').toggleClass('unwrap');
-  $(this).next('.collapse-content').toggleClass('unwrap');
+  var currentWrapComponent = $(this).next('.collapse-content');
+  elems['.components-in-stock'].find('.collapse-content').each(function () {
+      if (!$(this).is(currentWrapComponent)) {
+          $(this).removeClass('unwrap');
+      }
+  });
+  currentWrapComponent.toggleClass('unwrap');
   
   setTimeout(
     function () {
         elems['.vertical-pane'].data('jsp').reinitialise();
         //elems['.vertical-pane'].css('overflow', 'visible');
-    }, 1500
+    }, 50
   );
 });
 
@@ -125,17 +129,17 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                 <?php
                 $collapsedComponents = [];
                 foreach ($components as $comp) {
-                    $categoryId = 0;
+                    $categoryId = $comp->category_id ?? 0;
                     if (empty($collapsedComponents[$comp->category_id])) {
                         if ($comp->category_id) {
-                            $categoryId = $comp->category_id;
+                            //$categoryId = $comp->category_id;
                             $collapsedComponents[$categoryId] = [
                                 'name' => Category::findOne($categoryId)->short_name,
                                 'elems' => [],
                             ];
                         } else {
                             $collapsedComponents[0] = [
-                                'name' => Yii::t('app', 'Popular'),
+                                'name' => Yii::t('app', 'Not in categories'),
                                 'elems' => [],
                             ];
                         }
@@ -143,7 +147,10 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                     $collapsedComponents[$categoryId]['elems'][] = $comp;
                 }
 
-                foreach ($collapsedComponents as $collElem) {
+                foreach ($collapsedComponents as $key => $collElem) {
+                    if (!$key) {
+                        continue;
+                    }
                     echo '<div class="collapse-head">' . Html::encode($collElem['name']) . '</div>'
                         . '<div class="collapse-content">';
 

@@ -226,12 +226,14 @@ class ComponentController extends Controller
 
             ComponentComponentSet::deleteAll('component_id = :id', [':id' => $id]);
             $componentSetId = Yii::$app->request->post()['Component']['componentSets'];
-            if ($componentSet = ComponentSet::findOne($componentSetId)) {
-                $componentComponentSet = new ComponentComponentSet();
-                //$componentComponentSet->link('componentSet', $componentSet, ['component' => $model]);
-                //TODO: разобраться что здесь не так, почему верхний код не работает
-                $componentComponentSet->component_id = $id;
-                $componentComponentSet->link('componentSet', $componentSet);
+            if ($componentSets = ComponentSet::findAll($componentSetId)) {
+                foreach ($componentSets as $compSet) {
+                    $componentComponentSet = new ComponentComponentSet();
+                    //$componentComponentSet->link('componentSet', $componentSet, ['component' => $model]);
+                    //TODO: разобраться что здесь не так, почему верхний код не работает
+                    $componentComponentSet->component_id = $id;
+                    $componentComponentSet->link('componentSet', $compSet);
+                }
             } else {
                 //TODO: обработать ошибку (хотя со временем можем и отказаться от возможности НЕ иметь набор - тогда все нормально)
             }

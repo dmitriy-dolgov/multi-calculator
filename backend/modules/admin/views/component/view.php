@@ -21,6 +21,16 @@ $this->registerCss(<<<CSS
 CSS
 );
 
+$componentSets = Yii::$app->formatter->nullDisplay;
+if (!empty($model->componentSets)) {
+    $componentSets = [];
+    foreach ($model->componentSets as $compSet) {
+        $componentSets[] = Html::encode($compSet->name);
+    }
+    $componentSets = implode('<br>', $componentSets);
+}
+
+
 ?>
 <div class="component-view">
 
@@ -42,8 +52,9 @@ CSS
         'attributes' => [
             'id',
             [
-                'label' => Yii::t('app', 'Component set'),
-                'value' => isset($model->componentSets[0]) ? $model->componentSets[0]->name : '-',
+                'label' => Yii::t('app', 'Component sets'),
+                'format' => 'raw',
+                'value' => $componentSets,
             ],
             [
                 'label' => Yii::t('app', 'Category'),

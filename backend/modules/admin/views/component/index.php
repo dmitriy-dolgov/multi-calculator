@@ -38,9 +38,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             [
-                'label' => Yii::t('app', 'Component set'),
+                'label' => Yii::t('app', 'Component sets'),
+                'format' => 'raw',
                 'value' => function (Component $model) {
-                    return !empty($model->componentSets[0]) ? $model->componentSets[0]->name : '-';
+                    $result = Yii::$app->formatter->nullDisplay;
+                    if (empty($model->componentSets)) {
+                        $result = [];
+                        foreach ($model->componentSets as $compSet) {
+                            $result[] = Html::encode($compSet->name);
+                        }
+                        $result = implode('<br>', $result);
+                    }
+                    return $result;
                 },
             ],
             [

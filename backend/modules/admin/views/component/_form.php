@@ -40,8 +40,17 @@ $categoryList = \yii\helpers\ArrayHelper::map($categories, 'id', 'name');
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
-    <?= $form->field($model, 'componentSets')->dropDownList(\yii\helpers\ArrayHelper::map($modelComponentSet,
-        'id', 'name'))->label(Yii::t('app', 'Component set')) ?>
+    <?php /*=$form->field($model, 'componentSets')->dropDownList(\yii\helpers\ArrayHelper::map($modelComponentSet,
+        'id', 'name'))->label(Yii::t('app', 'Component set'))*/ ?>
+
+    <?= $form->field($model, 'componentSets')->widget(\kartik\select2\Select2::classname(), [
+        'data' => \yii\helpers\ArrayHelper::map($modelComponentSet, 'id', 'name'),
+        'options' => ['placeholder' => 'Select a set ...'],
+        'pluginOptions' => [
+            //'placeholder' => 'Select provinces ...',
+            'multiple' => true,
+        ],
+    ])->label('Component sets') ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

@@ -101,7 +101,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
             </div>
             <?php */ ?>
         </button>
-        <div class="categories-panel btn-head"><?= Yii::t('app', 'Catalog') ?></div>
+        <!--<div class="categories-panel btn-head"><?/*= Yii::t('app', 'Catalog') */?></div>-->
     </div>
 
     <section class="components-in-stock">
@@ -352,11 +352,12 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
     </div>
     <?php */ ?>
 
+    <?php /* ?>
     <div class="categories-panel panel-elements-list">
         <div class="header"><?= Yii::t('app', 'Select categories') ?></div>
         <hr>
-        <!--<div class="elem">
-            <? /*= CheckboxX::widget([
+        <div class="elem">
+            <?= CheckboxX::widget([
                 'name' => 'ct-sel-all',
                 'options' => [
                     'id' => 'ct-sel-all',
@@ -372,8 +373,8 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                 ],
                 'pluginOptions' => ['threeState' => false],
             ]) . '<label class="cbx-label" for="ct-sel-popular">' . Yii::t('app', 'Popular') . '</label>'
-            */ ?>
-        </div>-->
+            ?>
+        </div>
         <?php
         $categories = \common\models\db\Category::find()->all();
         foreach ($categories as $key => $categ) {
@@ -391,6 +392,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
         }
         ?>
     </div>
+    <?php */ ?>
 
     <div class="customer-orders-panel wrp-pane" style="display: none">
         <div class="btn-head"><?= Yii::t('app', 'Orders') ?></div>

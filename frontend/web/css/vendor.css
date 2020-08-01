@@ -665,64 +665,71 @@
   background-color: #999999;
 }
 
-.customer-orders-panel,
-.categories-panel {
+.customer-orders-panel {
+  /*.categories-panel {*/
   top: 0;
   z-index: 3;
 }
-.customer-orders-panel .btn-head,
-.categories-panel .btn-head {
+.customer-orders-panel .btn-head {
   height: 120px;
 }
 
+/*.categories-panel {
+  left: auto;
+  right: 0;
+
+  .btn-head {
+    right: 0;
+    left: auto;
+    writing-mode: sideways-lr;
+  }
+
+  &.unwrap {
+    .btn-head {
+      right: 100%;
+      left: auto;
+    }
+  }
+}
+
 .categories-panel {
-  left: auto;
-  right: 0;
-}
-.categories-panel .btn-head {
-  right: 0;
-  left: auto;
-  writing-mode: sideways-lr;
-}
-.categories-panel.unwrap .btn-head {
-  right: 100%;
-  left: auto;
-}
+  .elem {
+    margin-top: 7px;
+  }
 
-.categories-panel .elem {
-  margin-top: 7px;
-}
-.categories-panel.btn-head {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  top: auto;
-  left: 0;
-  cursor: pointer;
-  text-align: center;
-  color: yellow;
-  background-color: #098009;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 6px 20px;
-  letter-spacing: 2px;
-  transition: 0.3s;
-}
-.categories-panel.panel-elements-list {
-  right: calc(25% + 3px);
-  top: 0;
-  overflow: hidden;
-  width: calc(100% - 25% - 3px);
-  height: 0;
-  transition: 0.3s;
-  padding-right: 10px;
-  padding-left: 10px;
-}
-.categories-panel.panel-elements-list.unwrap {
-  height: auto;
-  transition: 0.3s;
-}
+  &.btn-head {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    cursor: pointer;
+    text-align: center;
+    color: $wrapping-panel_color;
+    background-color: $wrapping-panel_bgColor;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 6px 20px;
+    letter-spacing: 2px;
+    transition: 0.3s;
+  }
 
+  &.panel-elements-list {
+    right: calc(25% + 3px);
+    top: 0;
+    overflow: hidden;
+    width: calc(100% - 25% - 3px);
+    height: 0;
+    transition: 0.3s;
+    padding-right: 10px;
+    padding-left: 10px;
+
+    &.unwrap {
+      height: auto;
+      transition: 0.3s;
+    }
+  }
+}*/
 .brick-wall {
   position: absolute;
   top: 0;

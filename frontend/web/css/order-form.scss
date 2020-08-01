@@ -566,8 +566,8 @@ $catalog-name_height: 25px;
 
 }
 
-.customer-orders-panel,
-.categories-panel {
+.customer-orders-panel {
+/*.categories-panel {*/
   top: 0;
   z-index: 3;
 
@@ -577,7 +577,7 @@ $catalog-name_height: 25px;
 }
 
 
-.categories-panel {
+/*.categories-panel {
   left: auto;
   right: 0;
 
@@ -632,7 +632,7 @@ $catalog-name_height: 25px;
       transition: 0.3s;
     }
   }
-}
+}*/
 
 .brick-wall {
   position: absolute;

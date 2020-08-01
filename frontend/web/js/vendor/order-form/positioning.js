@@ -59,7 +59,7 @@ elems['.wrp-pane .btn-head'].click(function () {
     btnElem.parent().toggleClass('unwrap');
 });
 
-elems['.categories-panel.btn-head'].click(function () {
+/*elems['.categories-panel.btn-head'].click(function () {
     var btnElem = $(this);
 
     elems['.wrp-pane .btn-head'].each(function () {
@@ -67,7 +67,7 @@ elems['.categories-panel.btn-head'].click(function () {
     });
 
     elems['.categories-panel.panel-elements-list'].toggleClass('unwrap');
-});
+});*/
 
 gl.functions.addOrderToPanel = function () {
     var orderInfoJson = $('#order-info').val();

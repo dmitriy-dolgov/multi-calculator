@@ -133,13 +133,13 @@ STR;
 
         $components = [];
 
-        $components = Component::findAll(['user_id' => null]);
+        //$components = Component::findAll(['user_id' => null]);
 
         if ($profile = $user->profile) {
             $components = $profile->user->getComponents()->forOrder()->all();
         }
 
-        //$componentSets = ComponentSet::find()->all();
+        $componentSets = ComponentSet::find()->all();
 
         $activeUsers = User::find()->activeAcceptOrders()->all();
 

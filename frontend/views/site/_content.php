@@ -80,7 +80,7 @@ $('.components-in-stock .collapse-head').click(function() {
     function () {
         elems['.vertical-pane'].data('jsp').reinitialise();
         //elems['.vertical-pane'].css('overflow', 'visible');
-    }, 50
+    }, 1500
   );
 });
 

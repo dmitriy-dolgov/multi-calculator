@@ -1,5 +1,6 @@
 .components-in-stock .collapse-head {
-  padding: 7px;
+  padding: 2px 7px;
+  margin-bottom: 5px;
   background-color: #00c000;
   color: #ffe16a;
   font-weight: bold;

@@ -83,7 +83,8 @@
 }
 
 .components-in-stock .collapse-head {
-  padding: 7px;
+  padding: 2px 7px;
+  margin-bottom: 5px;
   background-color: #00c000;
   color: #ffe16a;
   font-weight: bold;
@@ -201,7 +202,7 @@
   position: absolute;
   width: 100%;
   left: 0;
-  top: 28px;
+  top: 0;
   bottom: 0;
   background-image: url(/img/pizza-bg-sm.png);
 }
@@ -447,12 +448,16 @@
   z-index: 2;
 }
 .btn-order-container .btn-order {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   background: none;
   outline: none;
   position: absolute;
   margin: 0;
   padding: 0;
+  width: 100%;
   /*margin: 20px auto;
   width: 99px;
   height: 80px;*/
@@ -481,10 +486,13 @@
 }
 
 .oven-order {
-  position: absolute;
+  position: relative;
+  margin: 0 auto;
+  /*position: absolute;
   top: 0;
-  left: 0;
+  left: 0;*/
   /*height: 80px;*/
+  /*width: 100%;*/
   height: 120px;
 }
 
@@ -1124,6 +1132,12 @@
       width: $components-pane-width-mob;
     }
   }*/
+}
+@media screen and (max-width: 510px) {
+  .oven-order {
+    width: 100%;
+    height: auto;
+  }
 }
 @media screen and (max-width: 460px) {
   .create-pizza {

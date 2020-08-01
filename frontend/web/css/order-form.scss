@@ -83,7 +83,7 @@ $catalog-name_height: 25px;
   position: absolute;
   width: 100%;
   left: 0;
-  top: $catalog-name_height + $order-pane-margin-height;
+  top: 0;
   bottom: 0;
   background-image: url(/img/pizza-bg-sm.png);
 }
@@ -347,6 +347,9 @@ $catalog-name_height: 25px;
   z-index: 2;
 
   .btn-order {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: none;
     background: none;
     outline: none;
@@ -354,6 +357,7 @@ $catalog-name_height: 25px;
     position: absolute;
     margin: 0;
     padding: 0;
+    width: 100%;
     /*margin: 20px auto;
     width: 99px;
     height: 80px;*/
@@ -384,10 +388,13 @@ $catalog-name_height: 25px;
 }
 
 .oven-order {
-  position: absolute;
+  position: relative;
+  margin: 0 auto;
+  /*position: absolute;
   top: 0;
-  left: 0;
+  left: 0;*/
   /*height: 80px;*/
+  /*width: 100%;*/
   height: $order-pane-height;
 }
 

@@ -43,6 +43,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     return !empty($model->componentSets[0]) ? $model->componentSets[0]->name : '-';
                 },
             ],
+            [
+                'label' => Yii::t('app', 'Category'),
+                'format' => 'raw',
+                'value' => function (Component $model) {
+                    return $model->category ? $model->category->name : Yii::$app->formatter->nullDisplay;
+                },
+            ],
             'name',
             'short_name',
             //'parent_component_id',
@@ -51,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'description:ntext',
             //'short_description:ntext',
             'price',
-            'price_discount',
+            //'price_discount',
             [
                 'label' => Yii::t('app', 'Is active'),
                 'format' => 'raw',

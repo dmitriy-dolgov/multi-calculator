@@ -31,6 +31,9 @@ array_walk($componentSwitchGroupsItems, function (&$name) {
     $name = Yii::t('db', $name);
 });
 
+//TODO: в модель
+$categories = \common\models\db\Category::find()->all();
+$categoryList = \yii\helpers\ArrayHelper::map($categories, 'id', 'name');
 ?>
 
 <div class="component-form">
@@ -43,6 +46,9 @@ array_walk($componentSwitchGroupsItems, function (&$name) {
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'short_name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'category_id')->dropDownList($categoryList,
+        ['prompt' => Yii::t('app', ' - Not selected - ')])->label(Yii::t('app', 'Category')) ?>
 
     <?= $form->field($model, 'price')->widget(NumberControl::class, [
         'maskedInputOptions' => [

@@ -21,10 +21,11 @@ gl.functions.deleteComponentFromSet = function(setId, componentId, name) {
         $.post('/admin/component-set/remove-component-from-set', {
             ajax: 1,
             setId: setId,
-            componentId:componentId
+            componentId: componentId
         }, function(data) {
             if (data.result) {
-                $('.component-panel[data-id=' + componentId + ']').fadeOut();
+                //$('.component-panel[data-id=' + componentId + ']').fadeOut();
+                location.reload();
             } else {
                 alert({$jsStrings["Couldn't remove component from set."]});
             }
@@ -42,7 +43,7 @@ gl.functions.addComponentToSet = function(setId, componentId) {
     $.post('/admin/component-set/add-component-to-set', {
             ajax: 1,
             setId: setId,
-            componentId:componentId
+            componentId: componentId
         }, function(data) {
             if (data.result) {
                 //$('.component-panel.to-add[data-id=' + componentId + ']').fadeOut();
@@ -177,8 +178,9 @@ CSS
                         'class' => 'btn-component-to-add',
                         'onclick' => 'gl.functions.addComponentToSet(' . $model->id . ', ' . $component->id . ')',
                     ])
-                    . Html::img($component->getImageUrl(),
-                        ['style' => 'width:70px;margin:0 10px;']) . Html::encode($component->name),
+                    . Html::a(Html::img($component->getImageUrl(),
+                            ['style' => 'width:70px;margin:0 10px;']) . Html::encode($component->name),
+                        ['component/view', 'id' => $component->id], ['target' => '_blank']),
                     [
                         'class' => 'component-panel to-add',
                         'style' => 'margin-top: 7px;',

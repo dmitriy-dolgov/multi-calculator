@@ -243,4 +243,5 @@ return [
     'You are not logged in.' => 'Вы не вошли в систему.',
     'Category' => 'Категория',
     'Select a set ...' => 'Выберите набор ...',
+    'Manual' => 'Руководство',
 ];

@@ -104,7 +104,8 @@ STR;
 
     public function actionIndex($uid = null)
     {
-        if (!$uid) {
+        //TODO: раскомментить для типа отдельная-пиццерия
+        /*if (!$uid) {
             if (Yii::$app->params['domain-customer'] == 'pizza-customer.local') {
                 //$uid = '2_e42c5272';
                 $uid = 'set_1';
@@ -115,7 +116,7 @@ STR;
 
         if (!$user = User::findByUid($uid)) {
             throw new NotFoundHttpException();
-        }
+        }*/
 
         /*        $sypexGeo = new \omnilight\sypexgeo\Sypexgeo([
                     'database' => '@root/geo/SxGeoCity.dat',
@@ -133,8 +134,9 @@ STR;
 
         $components = [];
 
+        //TODO: закомментить для типа отдельная-пиццерия
         $components = Component::findAll(['user_id' => null]);
-
+        //TODO: раскомментить для типа отдельная-пиццерия
         /*if ($profile = $user->profile) {
             $components = $profile->user->getComponents()->forOrder()->all();
         }*/

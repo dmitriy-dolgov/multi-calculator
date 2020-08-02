@@ -70,11 +70,12 @@ use yii\helpers\Html;
                         <?php
                         $menuItems = [
                             [
-                                'label' => Yii::t('app', 'Help'),
+                                'label' => Yii::t('app', 'Manual'),
                                 'url' => ['/setup'],
                                 'icon' => 'question',
                             ],
-                            [
+                            //TODO: uncomment отдельная-пиццерия
+                            /*[
                                 'label' => Yii::t('app', 'Components'),
                                 'url' => ['/setup/component'],
                                 'icon' => 'shopping-basket',
@@ -86,7 +87,7 @@ use yii\helpers\Html;
                                 'options' => [
                                     'class' => 'text-red-menu',
                                 ]
-                            ],
+                            ],*/
                             [
                                 'label' => Yii::t('app', 'Co-workers'),
                                 'url' => ['/setup/co-worker'],

@@ -37,3 +37,5 @@ var elems = {
 gl.functions.setLogged = function () {
     location.reload();
 };
+
+$('.create-pizza').addClass('move-to-rb');

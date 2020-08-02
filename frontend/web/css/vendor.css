@@ -209,11 +209,21 @@
 
 .create-pizza {
   font-family: "Caveat", cursive;
-  font-size: 45px;
+  font-size: 50px;
   font-weight: bold;
   color: wheat;
   text-shadow: 1px 1px 6px #000, 1px 1px 6px #000, 1px 1px 6px #000;
   text-align: center;
+  position: absolute;
+  right: calc(50% - 100px);
+  transition: 5s ease-in;
+  bottom: 55px;
+}
+.create-pizza.move-to-rb {
+  transition: 5s ease-in;
+  right: 5px;
+  bottom: 0;
+  font-size: 20px;
 }
 
 .pizza-name {
@@ -1142,6 +1152,10 @@
 @media screen and (max-width: 460px) {
   .create-pizza {
     font-size: 35px;
+    right: calc(50% - 75px);
+  }
+  .create-pizza.move-to-rb {
+    font-size: 18px;
   }
 
   .pizza-name {

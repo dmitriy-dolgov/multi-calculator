@@ -289,7 +289,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
             <div class="menu">
                 <!--<img class="brick-wall" alt="" src="/img/brick-wall-120.png">-->
                 <div class="create-pizza"><?= Yii::t('app', 'Create your pizza') ?></div>
-                <div class="pizza-name"><?= Yii::t('app', 'Custom pizza') ?></div>
+                <?php /* ?><div class="pizza-name"><?= Yii::t('app', 'Custom pizza') ?></div><?php */ ?>
             </div>
 
             <!--<div class="resulting-panel"></div>-->
@@ -321,6 +321,8 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                                         onclick="javascript:$('#custom-menu-logout').submit();return false;"></a></i>
                         <?php endif; ?>
                     </div>
+
+                    <div class="pizza-name"><?= Yii::t('app', 'Custom pizza') ?></div>
 
                     <div class="no-components-pane">
                         <div class="ingredients"><?= Yii::t('app', 'Move components right here') ?></div>

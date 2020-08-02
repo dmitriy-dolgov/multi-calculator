@@ -1,6 +1,10 @@
 @media screen and (max-width: 460px) {
   .create-pizza {
     font-size: 35px;
+    right: calc(50% - 75px);
+  }
+  .create-pizza.move-to-rb {
+    font-size: 18px;
   }
 
   .pizza-name {

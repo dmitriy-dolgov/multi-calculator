@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $result = [];
                         foreach ($model->components as $component) {
                             $result[] = Html::a(Html::img($component->getImageUrl(), [
-                                    'style' => 'width:40px;margin-right:10px;',
+                                    'style' => 'width:40px;margin-right:10px;margin-bottom:5px;',
                                 ]) . $component->name,
                                 ['component/view', 'id' => $component->id],
                                 ['target' => '_blank']);

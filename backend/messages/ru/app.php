@@ -248,4 +248,8 @@ return [
     'No components yet' => 'Компонентов нет',
     'Are you sure you want to delete component "{name}"?' => 'Вы уверены что хотите удалить компонент "{name}"?',
     "Couldn't remove component from set." => 'Не удалось удалить компонент из набора компонентов.',
+    'Component list in the set' => 'Список компонентов в наборе',
+    'Component list to add' => 'Список компонентов для добавления',
+    'Add to set' => 'Добавить в набор',
+    "Couldn't add component to set." => 'Не удалось добавить компонент в набор.',
 ];

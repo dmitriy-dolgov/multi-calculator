@@ -2,6 +2,7 @@
 
 namespace backend\modules\admin\controllers;
 
+use common\models\db\Component;
 use common\models\db\ComponentComponentSet;
 use Yii;
 use common\models\db\ComponentSet;
@@ -126,6 +127,38 @@ class ComponentSetController extends Controller
             $result = false;
             if (!$ajax) {
                 Yii::$app->session->setFlash('error', Yii::t('app', "Couldn't remove component from set."));
+            }
+        }
+
+        if ($ajax) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return [
+                'result' => $result,
+            ];
+        }
+
+        return $this->redirect(['index']);
+    }
+
+    public function actionAddComponentToSet()
+    {
+        $result = false;
+
+        $setId = Yii::$app->request->post('setId');
+        $componentId = Yii::$app->request->post('componentId');
+        $ajax = Yii::$app->request->post('ajax', false);
+
+        //TODO: проверить корректность данного подхода
+        try {
+            //TODO: обработка возможных ошибок
+            $componentSetObj = ComponentSet::findOne($setId);
+            $componentObj = Component::findOne($componentId);
+            $componentObj->link('componentSets', $componentSetObj);
+            $result = true;
+        } catch (\Exception $e) {
+            $result = false;
+            if (!$ajax) {
+                Yii::$app->session->setFlash('error', Yii::t('app', "Couldn't add component to set."));
             }
         }
 

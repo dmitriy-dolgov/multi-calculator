@@ -244,4 +244,7 @@ return [
     'Category' => 'Категория',
     'Select a set ...' => 'Выберите набор ...',
     'Manual' => 'Руководство',
+    'Component list' => 'Список компонентов',
+    'No components yet' => 'Компонентов нет',
+    'Are you sure you want to delete component "{name}"?' => 'Вы уверены что хотите удалить компонент "{name}"?',
 ];

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\db\ComponentSetSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -15,7 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <div class="text-warning">
-        <?= Yii::t('app', 'Наборы шаблонов компонентов, доступны продавцу продукта для копирования в свой список компонентов.') ?>
+        <?= Yii::t('app',
+            'Наборы шаблонов компонентов, доступны продавцу продукта для копирования в свой список компонентов.') ?>
     </div>
 
     <br>
@@ -35,6 +37,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             'name',
+
+            [
+                'label' => Yii::t('app', 'Component list'),
+                'format' => 'raw',
+                'value' => function (\common\models\db\ComponentSet $model) {
+                    $result = Yii::$app->formatter->nullDisplay;
+                    if (!empty($model->components)) {
+                        $result = [];
+                        foreach ($model->components as $component) {
+                            $result[] = Html::a(Html::img($component->getImageUrl(), [
+                                    'style' => 'width:40px;margin-right:10px;',
+                                ]) . $component->name,
+                                ['component/view', 'id' => $component->id],
+                                ['target' => '_blank']);
+                        }
+                        $result = implode('<br>', $result);
+                    }
+                    return $result;
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

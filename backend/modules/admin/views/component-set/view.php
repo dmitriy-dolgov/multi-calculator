@@ -10,6 +10,20 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Component Sets'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
+$componentSetHtml = Yii::$app->formatter->nullDisplay;
+if (!empty($model->components)) {
+    $componentSetHtml = [];
+    foreach ($model->components as $component) {
+        $componentSetHtml[] = Html::a(Html::img($component->getImageUrl(), [
+                'style' => 'width:40px;margin-right:10px;',
+            ]) . $component->name,
+            ['component/view', 'id' => $component->id],
+            ['target' => '_blank']);
+    }
+    $componentSetHtml = implode('<br>', $componentSetHtml);
+}
+
 ?>
 <div class="component-set-view">
 
@@ -31,6 +45,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
+
+            [
+                'label' => Yii::t('app', 'Component list'),
+                'format' => 'raw',
+                'value' => $componentSetHtml,
+            ],
         ],
     ]) ?>
 

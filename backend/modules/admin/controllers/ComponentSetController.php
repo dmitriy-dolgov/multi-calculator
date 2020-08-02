@@ -2,6 +2,7 @@
 
 namespace backend\modules\admin\controllers;
 
+use common\models\db\ComponentComponentSet;
 use Yii;
 use common\models\db\ComponentSet;
 use common\models\db\ComponentSetSearch;
@@ -105,6 +106,35 @@ class ComponentSetController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    public function actionRemoveComponentFromSet()
+    {
+        $result = false;
+
+        $setId = Yii::$app->request->post('setId');
+        $componentId = Yii::$app->request->post('componentId');
+        $ajax = Yii::$app->request->post('ajax', false);
+
+        //TODO: проверить корректность данного подхода
+        try {
+            ComponentComponentSet::deleteAll(['component_set_id' => $setId, 'component_id' => $componentId]);
+            $result = true;
+        } catch (\Exception $e) {
+            $result = false;
+            if (!$ajax) {
+                Yii::$app->session->setFlash('error', Yii::t('app', "Couldn't remove component from set."));
+            }
+        }
+
+        if ($ajax) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return [
+                'result' => $result,
+            ];
+        }
 
         return $this->redirect(['index']);
     }

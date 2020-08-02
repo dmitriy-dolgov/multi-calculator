@@ -77,7 +77,7 @@ use yii\helpers\Html;
                             [
                                 'label' => Yii::t('app', 'Components'),
                                 'url' => ['/setup/component'],
-                                'icon' => 'pie-chart',
+                                'icon' => 'shopping-basket',
                             ],
                             [
                                 'label' => Yii::t('app', 'Link to embed'),

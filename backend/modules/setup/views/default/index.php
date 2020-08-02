@@ -10,7 +10,7 @@ use yii\helpers\Url;
     <p>Здесь настраиваются элементы и поведение вашего сайта, а также заполняются данные для того, чтобы ваши клиенты и
         мы могли связаться с вами.</p>
     <p>Перейдите на страницу <span class="link-for-menu"><a href="<?= Url::to(['/setup/component']) ?>"><i
-                        class="icon fa fa-pie-chart"></i><?= Yii::t('app',
+                        class="icon fa fa-shopping-basket"></i><?= Yii::t('app',
                     'Components') ?></a></span> для того чтобы настроить элементы из которых состоит ваш продукт.</p>
     <p>В меню <span class="link-for-menu"><i class="icon fa fa-user-o"></i><?= Yii::t('app',
                 'User') ?></span> доступны следующие элементы:

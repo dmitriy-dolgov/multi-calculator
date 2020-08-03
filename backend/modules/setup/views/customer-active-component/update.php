@@ -5,11 +5,13 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\db\CustomerActiveComponent */
 
-$this->title = Yii::t('app', 'Update Customer Active Component: {name}', [
-    'name' => $model->id,
+$componentName = $model->component ? $model->component->name : Yii::$app->formatter->nullDisplay;
+
+$this->title = Yii::t('app', 'Update Chosen Component: {name}', [
+    'name' => $componentName,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Customer Active Components'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Chosen Components'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $componentName, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="customer-active-component-update">

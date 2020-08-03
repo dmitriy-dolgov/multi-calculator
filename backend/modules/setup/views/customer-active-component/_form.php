@@ -20,6 +20,14 @@ foreach ($components as $compo) {
         $selectComponentsData[Yii::t('app', 'No category')][$compo->id] = $compo->name;
     }
 }
+
+$this->registerJs(<<<JS
+gl.functions.setUpOriginalComponentInfo = function(componentId) {
+    alert(componentId);
+}
+JS
+);
+
 ?>
 
 <div class="customer-active-component-form">
@@ -28,12 +36,20 @@ foreach ($components as $compo) {
 
     <?php /*= $form->field($model, 'component_id')->textInput()*/ ?>
 
-    <?= $form->field($model, 'component')->widget(\kartik\select2\Select2::classname(), [
+    <?= $form->field($model, 'component_id')->widget(\kartik\select2\Select2::classname(), [
         'data' => $selectComponentsData,
         'options' => ['placeholder' => 'Select a component ...'],
     ])->label(Yii::t('app', 'Components')) ?>
 
+    <hr>
+
+    <div class="original-price"></div>
+
     <?= $form->field($model, 'price_override')->textInput(['maxlength' => true]) ?>
+
+    <hr>
+
+    <div class="original-price_discount"></div>
 
     <?= $form->field($model, 'price_discount_override')->textInput(['maxlength' => true]) ?>
 

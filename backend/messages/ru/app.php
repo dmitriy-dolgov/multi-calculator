@@ -265,4 +265,6 @@ return [
     'Unit Value Max' => 'Максимальное значение в единицах измерения',
     'Add Chosen Component' => 'Добавить избранный компонент',
     'Select a component ...' => 'Выберите компонент ...',
+    'Overriding parameters for component "{compo}"' => 'Перегруженные параметры для компонента "{compo}"',
+    'Update Chosen Component: {name}' => 'Обновить выбранный компонент: {name}',
 ];

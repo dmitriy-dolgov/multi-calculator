@@ -6,7 +6,9 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\db\CustomerActiveComponent */
 
-$this->title = $model->id;
+$this->title = Yii::t('app', 'Overriding parameters for component "{compo}"', [
+    'compo' => $model->component ? $model->component->name : Yii::$app->formatter->nullDisplay,
+]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Chosen Components'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -30,14 +32,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'component_id',
+            //'component_id',
+            [
+                'label' => Yii::t('app', 'Component'),
+                'format' => 'raw',
+                'value' => $model->getComponentInfoHtml(),
+            ],
             'price_override',
             'price_discount_override',
-            'amount',
-            'unit_id',
-            'unit_value',
-            'unit_value_min',
-            'unit_value_max',
+            //'amount',
+            //'unit_id',
+            //'unit_value',
+            //'unit_value_min',
+            //'unit_value_max',
         ],
     ]) ?>
 

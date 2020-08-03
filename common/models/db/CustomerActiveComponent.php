@@ -90,9 +90,9 @@ class CustomerActiveComponent extends \yii\db\ActiveRecord
             $content = Html::img($this->component->getImageUrl(), [
                 'style' => 'width:40px;margin-right:10px;'
             ])
-                . Html::encode($this->component->name) . '; &nbps;'
+                . Html::encode($this->component->name) . '; &nbsp;'
                 . Yii::t('app', 'Price: {price}', ['price' => Internationalization::getPriceCaption($this->component->price)]);
-            $content = Html::a($content, ['component/view', 'id' => $this->component->id]);
+            $content = Html::a($content, ['component/view', 'id' => $this->component->id], ['target' => '_blank']);
             $result = Html::tag('div', $content, [
                 'style' => 'display:flex;',
             ]);

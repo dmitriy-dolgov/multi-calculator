@@ -21,6 +21,6 @@ class Internationalization
         [$dollars, $cents] = explode(self::getCurrencyCentCeparator(), $price);
 
         return $dollars . self::getCurrencyCentCeparator() . '<sup>' . $cents . '</sup>'
-            . ' <span class="c-sign-in-price">' . $sign . '</span>';
+            . ' <span class="c-sign-in-price" style="font-size:smaller">' . $sign . '</span>';
     }
 }

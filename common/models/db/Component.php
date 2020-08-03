@@ -40,6 +40,7 @@ use yii\helpers\Url;
  * @property ComponentSet[] $componentSets
  * @property ComponentImage[] $componentImages
  * @property ComponentVideo[] $componentVideos
+ * @property CustomerActiveComponent[] $customerActiveComponents
  * @property ShopOrderComponents[] $shopOrderComponents
  */
 class Component extends \yii\db\ActiveRecord
@@ -220,6 +221,16 @@ class Component extends \yii\db\ActiveRecord
     public function getComponentVideos()
     {
         return $this->hasMany(ComponentVideo::className(), ['component_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[CustomerActiveComponents]].
+     *
+     * @return \yii\db\ActiveQuery|yii\db\ActiveQuery
+     */
+    public function getCustomerActiveComponents()
+    {
+        return $this->hasMany(CustomerActiveComponent::className(), ['component_id' => 'id']);
     }
 
     /**

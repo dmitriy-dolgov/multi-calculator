@@ -2,7 +2,9 @@
 
 namespace common\models\db;
 
+use common\helpers\Internationalization;
 use Yii;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "customer_active_component".
@@ -79,5 +81,22 @@ class CustomerActiveComponent extends \yii\db\ActiveRecord
     public function getUnit()
     {
         return $this->hasOne(Unit::className(), ['id' => 'unit_id']);
+    }
+
+    public function getComponentInfoHtml()
+    {
+        $result = Yii::$app->formatter->nullDisplay;
+        if ($this->component) {
+            $content = Html::img($this->component->getImageUrl(), [
+                'style' => 'width:40px;margin-right:10px;'
+            ])
+                . Html::encode($this->component->name) . '; &nbps;'
+                . Yii::t('app', 'Price: {price}', ['price' => Internationalization::getPriceCaption($this->component->price)]);
+            $content = Html::a($content, ['component/view', 'id' => $this->component->id]);
+            $result = Html::tag('div', $content, [
+                'style' => 'display:flex;',
+            ]);
+        }
+        return $result;
     }
 }

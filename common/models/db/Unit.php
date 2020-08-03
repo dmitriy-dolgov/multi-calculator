@@ -14,6 +14,7 @@ use Yii;
  * @property string|null $symbol_pattern Шаблон, демонстрирующий значение вместе со знаком единицы
  *
  * @property Component[] $components
+ * @property CustomerActiveComponent[] $customerActiveComponents
  */
 class Unit extends \yii\db\ActiveRecord
 {
@@ -60,6 +61,16 @@ class Unit extends \yii\db\ActiveRecord
     public function getComponents()
     {
         return $this->hasMany(Component::className(), ['unit_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[CustomerActiveComponents]].
+     *
+     * @return \yii\db\ActiveQuery|yii\db\ActiveQuery
+     */
+    public function getCustomerActiveComponents()
+    {
+        return $this->hasMany(CustomerActiveComponent::className(), ['unit_id' => 'id']);
     }
 
     /**

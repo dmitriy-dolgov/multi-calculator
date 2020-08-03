@@ -74,6 +74,11 @@ use yii\helpers\Html;
                                 'url' => ['/setup'],
                                 'icon' => 'question',
                             ],
+                            [
+                                'label' => Yii::t('app', 'Chosen components'),
+                                'url' => ['/setup/customer-active-component'],
+                                'icon' => 'shopping-basket',
+                            ],
                             //TODO: uncomment отдельная-пиццерия
                             /*[
                                 'label' => Yii::t('app', 'Components'),

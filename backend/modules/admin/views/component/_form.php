@@ -50,7 +50,7 @@ $categoryList = \yii\helpers\ArrayHelper::map($categories, 'id', 'name');
             //'placeholder' => 'Select provinces ...',
             'multiple' => true,
         ],
-    ])->label('Component sets') ?>
+    ])->label(Yii::t('app', 'Component sets')) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

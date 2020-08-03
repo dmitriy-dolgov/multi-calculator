@@ -3,21 +3,41 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+//use kartik\nav\NavX;
+
 /* @var $this yii\web\View */
 /* @var $model common\models\db\CustomerActiveComponent */
 /* @var $form yii\widgets\ActiveForm */
+
+$components = \common\models\db\Component::findAll(['user_id' => null]);
+foreach ($components as $compo) {
+    if ($compo->category) {
+        if (!isset($selectComponentsData[$compo->category->name])) {
+            $selectComponentsData[$compo->category->name] = [];
+        }
+        $selectComponentsData[$compo->category->name][$compo->id] = $compo->name;
+    } else {
+        $selectComponentsData[Yii::t('app', 'No category')][$compo->id] = $compo->name;
+    }
+}
 ?>
 
 <div class="customer-active-component-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'component_id')->textInput() ?>
+    <?php /*= $form->field($model, 'component_id')->textInput()*/ ?>
+
+    <?= $form->field($model, 'component')->widget(\kartik\select2\Select2::classname(), [
+        'data' => $selectComponentsData,
+        'options' => ['placeholder' => 'Select a component ...'],
+    ])->label(Yii::t('app', 'Components')) ?>
 
     <?= $form->field($model, 'price_override')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'price_discount_override')->textInput(['maxlength' => true]) ?>
 
+    <?php /* ?>
     <?= $form->field($model, 'amount')->textInput() ?>
 
     <?= $form->field($model, 'unit_id')->textInput() ?>
@@ -27,6 +47,9 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'unit_value_min')->textInput() ?>
 
     <?= $form->field($model, 'unit_value_max')->textInput() ?>
+    <?php */ ?>
+
+    <hr>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

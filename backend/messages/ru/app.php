@@ -268,4 +268,5 @@ return [
     'Overriding parameters for component "{compo}"' => 'Перегруженные параметры для компонента "{compo}"',
     'Update Chosen Component: {name}' => 'Обновить выбранный компонент: {name}',
     'Co-worker functions' => 'Виды деятельности сотрудников',
+    'Create Co-worker function' => 'Создать вид деятельности сотрудника',
 ];

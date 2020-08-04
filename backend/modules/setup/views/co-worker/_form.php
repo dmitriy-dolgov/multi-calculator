@@ -14,6 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'worker_site_uid')->textInput(['maxlength' => true]) ?>
+
     <?php /*$form->field($model, 'birthday')->textInput()*/ ?>
 
     <?= $form->field($model, 'birthday')->widget(\kartik\date\DatePicker::class, [

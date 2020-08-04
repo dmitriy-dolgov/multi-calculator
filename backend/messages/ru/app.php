@@ -269,4 +269,8 @@ return [
     'Update Chosen Component: {name}' => 'Обновить выбранный компонент: {name}',
     'Co-worker functions' => 'Виды деятельности сотрудников',
     'Create Co-worker function' => 'Создать вид деятельности сотрудника',
+    'Worker Site Unique ID' => 'Уникальный идентификатор личного сайта сотрудника',
+    'Co-worker main page' => 'Главная страница сотрудника',
+    'Individual Co-worker`s site.' => 'Индивидуальная страница сотрудника.',
+    'Your name: {name}' => 'Ваше имя: {name}',
 ];

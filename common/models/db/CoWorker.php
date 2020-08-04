@@ -70,9 +70,9 @@ class CoWorker extends \yii\db\ActiveRecord
             'user_id' => Yii::t('app', 'User ID'),
             'name' => Yii::t('app-alt-1', 'Name'),
             'birthday' => Yii::t('app', 'Birthday'),
-            'co_worker_function' => Yii::t('app', 'Co Worker Function'),
+            'co_worker_function' => Yii::t('app', 'Co-worker function'),
             'description' => Yii::t('app', 'Description'),
-            'worker_site_uid' => Yii::t('app', 'Worker Site Uid'),
+            'worker_site_uid' => Yii::t('app', 'Worker Site Unique ID'),
         ];
     }
 

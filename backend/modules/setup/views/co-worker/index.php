@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\db\CoWorkerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -30,7 +31,15 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             //'user_id',
             'name',
+            [
+                'label' => Yii::t('app', 'Co-worker functions'),
+                'value' => function (\common\models\db\CoWorker $model) {
+                    return $model->coWorkerFunction ? $model->coWorkerFunction->name : Yii::$app->formatter->nullDisplay;
+                }
+            ],
+            'worker_site_uid',
             'birthday:date',
+            'description:ntext',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

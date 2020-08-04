@@ -33,4 +33,10 @@ return [
     'Size (mm.)' => 'Размер (мм)',
     'mm.' => 'мм',
     '{value} mm.' => '{value} мм',
+
+    'Chief Administrator' => 'Главный администратор',
+    'Component Manager' => 'Управляющий компонентами',
+    'Cook' => 'Повар',
+    'Сourier' => 'Курьер',
+    'Accept orders'  => 'Принимающий заказы',
 ];

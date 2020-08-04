@@ -159,6 +159,13 @@ order_price:decimal(8,2),order_price_discount:decimal(8,2)"
 ./yii migrate/create create_customer_active_component_table --fields="component_id:integer:foreignKey(component),price_override:decimal(8,2),price_discount_override:decimal(8,2),amount:integer:notNull:defaultValue(1),unit_id:integer:foreignKey(unit),unit_value:double,unit_value_min:double,unit_value_max:double"
 
 
+--
+
+--
+
+./yii migrate/create create_co_worker_function_table --fields="name:string(255)"
+
+./yii migrate/create add_worker_site_uid_column_to_co_worker_table --fields="co_worker_function:string(70):foreignKey(co_worker_function),description:text,worker_site_uid:string(20):comment('Уникальный ID для доступа к панели с доступными ползьователю функциями')"
 
 
 

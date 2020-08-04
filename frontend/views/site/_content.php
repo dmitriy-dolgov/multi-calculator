@@ -133,10 +133,14 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                     if (empty($collapsedComponents[$comp->category_id])) {
                         if ($comp->category_id) {
                             //$categoryId = $comp->category_id;
-                            $collapsedComponents[$categoryId] = [
-                                'name' => Category::findOne($categoryId)->short_name,
-                                'elems' => [],
-                            ];
+                            if ($categoryObj = Category::findOne($categoryId)) {
+                                $collapsedComponents[$categoryId] = [
+                                    'name' => $categoryObj->short_name ?: $categoryObj->name,
+                                    'elems' => [],
+                                ];
+                            } else {
+                                Yii::error('No category with ID: ' . $categoryId);
+                            }
                         } else {
                             $collapsedComponents[0] = [
                                 'name' => Yii::t('app', 'Not in categories'),

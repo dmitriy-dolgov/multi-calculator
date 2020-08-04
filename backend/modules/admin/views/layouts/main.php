@@ -98,6 +98,11 @@ CSS
                                         'url' => '/admin/component-switch-group',
                                         'icon' => 'toggle-on',
                                     ],
+                                    [
+                                        'label' => Yii::t('app', 'Co-worker function'),
+                                        'url' => '/admin/co-worker-functions',
+                                        'icon' => 'vcard-o',
+                                    ],
                                 ],
                             ]
                         )

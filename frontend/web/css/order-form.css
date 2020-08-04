@@ -229,9 +229,15 @@
 }
 
 @keyframes blinker {
-  50% {
-    opacity: 0.4;
+  /*50% { opacity: 0.4; }*/
+  15% {
+    opacity: 0;
   }
+  30% {
+    opacity: 1;
+  }
+  /*95% { opacity: 1; }
+  100% { opacity: 0; }*/
 }
 .pizza-name {
   font-family: "Caveat", cursive;
@@ -1025,11 +1031,11 @@
   height: 70vh;
 }
 
-.auth-clients {
+/*.auth-clients {
+  margin-top: 0;
   margin-bottom: 0;
   padding-bottom: 30px;
-}
-
+}*/
 .elem-pi {
   width: 30%;
   background-color: #1d1d1d;

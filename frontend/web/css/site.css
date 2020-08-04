@@ -44,7 +44,8 @@ body {
   z-index: 20;
 }
 
-#LoginForm {
+#LoginForm,
+#RegistrationForm {
   color: #2a2a2a !important;
 }
 

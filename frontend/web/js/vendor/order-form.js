@@ -38,4 +38,8 @@ gl.functions.setLogged = function () {
     location.reload();
 };
 
-$('.create-pizza').addClass('move-to-rb');
+$(function () {
+    setTimeout(function () {
+        $('.create-pizza').addClass('move-to-rb');
+    }, 5000);
+});

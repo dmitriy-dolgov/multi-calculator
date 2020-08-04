@@ -98,15 +98,22 @@ $catalog-name_height: 25px;
 
   position: absolute;
   right: calc(50% - 100px);
-  transition: 5s ease-in;
+  /*transition: 5s ease-in;*/
   bottom: 55px;
+
+  animation: blinker 1s linear infinite;
 
   &.move-to-rb {
     transition: 5s ease-in;
     right: 5px;
     bottom: 0;
     font-size: 20px;
+    animation: none;
   }
+}
+
+@keyframes blinker {
+  50% { opacity: 0.4; }
 }
 
 .pizza-name {
@@ -947,10 +954,11 @@ $catalog-name_height: 25px;
 
   .icon-exit {
     color: #1b1b1b !important;
+    text-decoration: none !important;
 
-    &:hover {
+    /*&:hover {
       text-decoration: none;
-    }
+    }*/
   }
 }
 

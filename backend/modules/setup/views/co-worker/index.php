@@ -33,8 +33,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             [
                 'label' => Yii::t('app', 'Co-worker functions'),
+                'format' => 'raw',
                 'value' => function (\common\models\db\CoWorker $model) {
-                    return $model->coWorkerFunction ? $model->coWorkerFunction->name : Yii::$app->formatter->nullDisplay;
+                    return $model->coWorkerFunction ? Html::encode($model->coWorkerFunction->name) : Yii::$app->formatter->nullDisplay;
                 }
             ],
             'worker_site_uid',

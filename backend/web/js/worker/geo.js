@@ -32,7 +32,7 @@ if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
-        gl.data.worldMap = new gl.functions.placesMap('worker-place-map', {latitude:lat,longitude:lng,zoom:6});
+        gl.data.worldMap = new gl.functions.placesMap('worker-place-map', {latitude:lat,longitude:lng,zoom:16});
     });
 } else {
     alert(gl.data['geolocation-is-not-accessible']);
@@ -59,4 +59,4 @@ gl.functions.correctGeolocation();
 
 setInterval(function () {
     gl.functions.correctGeolocation();
-}, 5000);
+}, 1000);

@@ -99,8 +99,8 @@ CSS
                                         'icon' => 'toggle-on',
                                     ],
                                     [
-                                        'label' => Yii::t('app', 'Co-worker function'),
-                                        'url' => '/admin/co-worker-functions',
+                                        'label' => Yii::t('app', 'Co-worker functions'),
+                                        'url' => '/admin/co-worker-function',
                                         'icon' => 'vcard-o',
                                     ],
                                 ],

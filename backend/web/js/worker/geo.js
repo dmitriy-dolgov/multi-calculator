@@ -38,6 +38,23 @@ if (navigator.geolocation) {
     alert(gl.data['geolocation-is-not-accessible']);
 }
 
+gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lon, icon, popupHtml) {
+    var newMarker;
+
+    var latLng = L.latLng(lat, lon);
+    if (icon) {
+        newMarker = new L.marker(latLng, {icon: icon}).addTo(this.map);
+    } else {
+        newMarker = new L.marker(latLng).addTo(this.map);
+    }
+
+    if (popupHtml) {
+        newMarker.bindPopup(popupHtml);
+    }
+
+    return newMarker;
+};
+
 gl.functions.correctGeolocation();
 
 setInterval(function () {

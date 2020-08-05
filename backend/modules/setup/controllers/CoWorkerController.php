@@ -4,6 +4,7 @@ namespace backend\modules\setup\controllers;
 
 use common\models\db\CoWorker;
 use common\models\db\CoWorkerSearch;
+use common\models\db\CoWorkerFunction;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -106,8 +107,11 @@ class CoWorkerController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $coWorkerFunctions = CoWorkerFunction::find()->all();
+
         return $this->render('create', [
             'model' => $model,
+            'coWorkerFunctions' => $coWorkerFunctions,
         ]);
     }
 
@@ -126,8 +130,11 @@ class CoWorkerController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $coWorkerFunctions = CoWorkerFunction::find()->all();
+
         return $this->render('update', [
             'model' => $model,
+            'coWorkerFunctions' => $coWorkerFunctions,
         ]);
     }
 

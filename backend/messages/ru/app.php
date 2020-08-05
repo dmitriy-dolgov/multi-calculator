@@ -268,6 +268,7 @@ return [
     'Overriding parameters for component "{compo}"' => 'Перегруженные параметры для компонента "{compo}"',
     'Update Chosen Component: {name}' => 'Обновить выбранный компонент: {name}',
     'Co-worker functions' => 'Виды деятельности сотрудников',
+    'Co-worker function' => 'Вид деятельности сотрудника',
     'Create Co-worker function' => 'Создать вид деятельности сотрудника',
     'Worker Site Unique ID' => 'Уникальный идентификатор личного сайта сотрудника',
     'Co-worker main page' => 'Главная страница сотрудника',

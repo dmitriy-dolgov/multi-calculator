@@ -53,6 +53,7 @@ class CoWorker extends \yii\db\ActiveRecord
             [['birthday'], 'safe'],
             [['description'], 'string'],
             [['name'], 'string', 'max' => 255],
+            [['name'], 'required'],
             [['co_worker_function'], 'string', 'max' => 70],
             [['worker_site_uid'], 'string', 'max' => 20],
             [['co_worker_function'], 'exist', 'skipOnError' => true, 'targetClass' => CoWorkerFunction::className(), 'targetAttribute' => ['co_worker_function' => 'id']],
@@ -117,7 +118,9 @@ class CoWorker extends \yii\db\ActiveRecord
 
     public function beforeSave($insert)
     {
-        $this->birthday = Setup::convert($this->birthday, 'datetime');
+        if ($this->birthday) {
+            $this->birthday = Setup::convert($this->birthday, 'datetime');
+        }
 
         return parent::beforeSave($insert);
     }

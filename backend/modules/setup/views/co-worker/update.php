@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\db\CoWorker */
+/* @var $coWorkerFunctions common\models\db\CoWorkerFunction[] */
 
 $this->title = Yii::t('app', 'Update Co-worker: {name}', [
     'name' => $model->name,
@@ -18,6 +19,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'coWorkerFunctions' => $coWorkerFunctions,
     ]) ?>
 
 </div>

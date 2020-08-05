@@ -6,6 +6,14 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\db\CoWorker */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $coWorkerFunctions common\models\db\CoWorkerFunction[] */
+
+//$coWorkerFunctionsItems = \yii\helpers\ArrayHelper::map($coWorkerFunctions, 'id', 'name');
+$coWorkerFunctionsItems = ['' => Yii::t('app', ' - Not selected - ')];
+foreach ($coWorkerFunctions as $cwf) {
+    $coWorkerFunctionsItems[$cwf->id] = Yii::t('db', $cwf->name);
+}
+
 ?>
 
 <div class="co-worker-form">
@@ -14,9 +22,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'worker_site_uid')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'co_worker_function')->dropDownList($coWorkerFunctionsItems) ?>
 
-    <?php /*$form->field($model, 'birthday')->textInput()*/ ?>
+    <?= $form->field($model, 'worker_site_uid')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'birthday')->widget(\kartik\date\DatePicker::class, [
         'options' => ['placeholder' => Yii::t('app', 'Enter birth date ...')],
@@ -25,6 +33,8 @@ use yii\widgets\ActiveForm;
         ]
     ]);
     ?>
+
+    <?= $form->field($model, 'description')->textarea() ?>
 
     <hr>
 

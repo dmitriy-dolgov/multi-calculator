@@ -13,12 +13,12 @@ use yii\behaviors\BlameableBehavior;
  * @property int|null $user_id
  * @property string|null $name
  * @property string|null $birthday
- * @property string|null $co_worker_function
  * @property string|null $description
  * @property string|null $worker_site_uid Уникальный ID для доступа к панели с доступными ползьователю функциями
  *
- * @property CoWorkerFunction $coWorkerFunction
  * @property User $user
+ * @property CoWorkerCoWorkerFunction[] $coWorkerCoWorkerFunctions
+ * @property CoWorkerFunction[] $coWorkerFunctions
  * @property ShopOrderStatus[] $shopOrderStatuses
  */
 class CoWorker extends \yii\db\ActiveRecord
@@ -54,9 +54,7 @@ class CoWorker extends \yii\db\ActiveRecord
             [['description'], 'string'],
             [['name'], 'string', 'max' => 255],
             [['name'], 'required'],
-            [['co_worker_function'], 'string', 'max' => 70],
             [['worker_site_uid'], 'string', 'max' => 20],
-            [['co_worker_function'], 'exist', 'skipOnError' => true, 'targetClass' => CoWorkerFunction::className(), 'targetAttribute' => ['co_worker_function' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -71,20 +69,9 @@ class CoWorker extends \yii\db\ActiveRecord
             'user_id' => Yii::t('app', 'User ID'),
             'name' => Yii::t('app-alt-1', 'Name'),
             'birthday' => Yii::t('app', 'Birthday'),
-            'co_worker_function' => Yii::t('app', 'Co-worker function'),
             'description' => Yii::t('app', 'Description'),
             'worker_site_uid' => Yii::t('app', 'Worker Site Unique ID'),
         ];
-    }
-
-    /**
-     * Gets query for [[CoWorkerFunction]].
-     *
-     * @return \yii\db\ActiveQuery|CoWorkerFunctionQuery
-     */
-    public function getCoWorkerFunction()
-    {
-        return $this->hasOne(CoWorkerFunction::className(), ['id' => 'co_worker_function']);
     }
 
     /**
@@ -95,6 +82,26 @@ class CoWorker extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * Gets query for [[CoWorkerCoWorkerFunctions]].
+     *
+     * @return \yii\db\ActiveQuery|CoWorkerCoWorkerFunctionQuery
+     */
+    public function getCoWorkerCoWorkerFunctions()
+    {
+        return $this->hasMany(CoWorkerCoWorkerFunction::className(), ['co_worker_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[CoWorkerFunctions]].
+     *
+     * @return \yii\db\ActiveQuery|CoWorkerFunctionQuery
+     */
+    public function getCoWorkerFunctions()
+    {
+        return $this->hasMany(CoWorkerFunction::className(), ['id' => 'co_worker_function_id'])->viaTable('co_worker_co_worker_function', ['co_worker_id' => 'id']);
     }
 
     /**

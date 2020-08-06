@@ -11,6 +11,7 @@ use Yii;
  * @property string|null $name
  * @property string|null $description
  *
+ * @property CoWorkerCoWorkerFunction[] $coWorkerCoWorkerFunctions
  * @property CoWorker[] $coWorkers
  */
 class CoWorkerFunction extends \yii\db\ActiveRecord
@@ -50,13 +51,23 @@ class CoWorkerFunction extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[CoWorkerCoWorkerFunctions]].
+     *
+     * @return \yii\db\ActiveQuery|CoWorkerCoWorkerFunctionQuery
+     */
+    public function getCoWorkerCoWorkerFunctions()
+    {
+        return $this->hasMany(CoWorkerCoWorkerFunction::className(), ['co_worker_function_id' => 'id']);
+    }
+
+    /**
      * Gets query for [[CoWorkers]].
      *
      * @return \yii\db\ActiveQuery|CoWorkerQuery
      */
     public function getCoWorkers()
     {
-        return $this->hasMany(CoWorker::className(), ['co_worker_function' => 'id']);
+        return $this->hasMany(CoWorker::className(), ['id' => 'co_worker_id'])->viaTable('co_worker_co_worker_function', ['co_worker_function_id' => 'id']);
     }
 
     /**

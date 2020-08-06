@@ -33,7 +33,7 @@ class m200804_161405_add_worker_site_uid_column_to_co_worker_table extends Migra
             'co_worker_function',
             '{{%co_worker_function}}',
             'id',
-            'CASCADE'
+            'SET NULL'
         );
     }
 

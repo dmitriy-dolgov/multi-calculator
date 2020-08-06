@@ -275,4 +275,6 @@ return [
     'Individual Co-worker`s site.' => 'Индивидуальная страница сотрудника.',
     'Your name: {name}' => 'Ваше имя: {name}',
     "Co-worker's functions" => 'Виды деятельности сотрудника',
+    'Your tasks:' => 'Ваши задачи:',
+    'No tasks. Please refer to your manager.' => 'Нет задач. Обратитесь к администратору.',
 ];

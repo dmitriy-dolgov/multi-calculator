@@ -52,3 +52,17 @@ gl.createMapMarkerPopupHtml = function (data) {
     }
     return html;
 };
+
+gl.handleJqueryAjaxFail = function(XMLHttpRequest, textStatus, errorThrown, howToHandle) {
+    howToHandle = typeof howToHandle !== 'undefined' ? howToHandle : 'alert';
+    if (howToHandle == 'alert') {
+        alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
+    }
+};
+
+gl.handleFailCustom = function(message, howToHandle) {
+    howToHandle = typeof howToHandle !== 'undefined' ? howToHandle : 'alert';
+    if (howToHandle == 'alert') {
+        alert(message);
+    }
+};

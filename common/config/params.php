@@ -49,4 +49,16 @@ return [
         'standardisation-secret-key'
     ],
 
+
+    /**
+     * Yandex metrika
+     */
+    'yandexMetrika.id' => '56685400',
+    'yandexMetrika.params' => [
+        'webvisor' => null,
+        'trackHash' => null,
+        'clickmap' => null,
+        'trackLinks' => null,
+        'accurateTrackBounce' => null,
+    ],
 ];

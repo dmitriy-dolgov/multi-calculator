@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "74784d7f6f4568c843e9f01c93c08053",
+    "content-hash": "21b036cda4b61273fea416e970583463",
     "packages": [
         {
             "name": "2amigos/2fa-library",
@@ -457,7 +457,7 @@
             "version": "3.5.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jquery/jquery-dist.git",
+                "url": "git@github.com:jquery/jquery-dist.git",
                 "reference": "4c0e4becb8263bb5b3e6dadc448d8e7305ef8215"
             },
             "dist": {
@@ -496,7 +496,7 @@
             "version": "1.12.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/components/jqueryui.git",
+                "url": "git@github.com:components/jqueryui.git",
                 "reference": "44ecf3794cc56b65954cc19737234a3119d036cc"
             },
             "dist": {
@@ -573,7 +573,7 @@
             "version": "v0.12.6",
             "source": {
                 "type": "git",
-                "url": "git@github.com:selectize/selectize.js.git",
+                "url": "https://github.com/selectize/selectize.js.git",
                 "reference": "eb0fca364f9bd6864ae197ea58c853f2717052a9"
             },
             "dist": {
@@ -907,6 +907,48 @@
                 "yii2"
             ],
             "time": "2017-01-31T09:48:06+00:00"
+        },
+        {
+            "name": "dkushnikov/yii2-yandex-metrika",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dkushnikov/yii2-yandex-metrika.git",
+                "reference": "d99714ae16971e4c7402dc0928c8424b45226567"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dkushnikov/yii2-yandex-metrika/zipball/d99714ae16971e4c7402dc0928c8424b45226567",
+                "reference": "d99714ae16971e4c7402dc0928c8424b45226567",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "yii\\widgets\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD License"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Kushnikov",
+                    "email": "dkushnikov@gmail.com"
+                }
+            ],
+            "description": "Yii2 widget to add Yandex.Metrika counter on page",
+            "keywords": [
+                "metrika",
+                "yandex",
+                "yandex.metrika",
+                "yii2"
+            ],
+            "time": "2015-08-18T20:49:24+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -1301,6 +1343,80 @@
                 "yii2"
             ],
             "time": "2017-01-31T10:40:06+00:00"
+        },
+        {
+            "name": "hiqdev/yii2-yandex-metrika",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hiqdev/yii2-yandex-metrika.git",
+                "reference": "ea2ca7934ec12d1680a4ba2a6c2608483f1411bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hiqdev/yii2-yandex-metrika/zipball/ea2ca7934ec12d1680a4ba2a6c2608483f1411bf",
+                "reference": "ea2ca7934ec12d1680a4ba2a6c2608483f1411bf",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "require-dev": {
+                "hiqdev/hidev-hiqdev": "<2.0",
+                "hiqdev/hidev-php": "<2.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "config-plugin": {
+                    "params": "src/config/params.php",
+                    "web": "src/config/web.php"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "hiqdev\\yii2\\YandexMetrika\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Andrii Vasyliev",
+                    "email": "sol@hiqdev.com",
+                    "homepage": "http://hipanel.com/",
+                    "role": "Project lead"
+                },
+                {
+                    "name": "Dmitry Naumenko",
+                    "email": "d.naumenko.a@gmail.com",
+                    "homepage": "http://silverfire.me/",
+                    "role": "Lead backend developer"
+                },
+                {
+                    "name": "Andrey Klochok",
+                    "email": "andreyklochok@gmail.com",
+                    "homepage": "http://hiqdev.com/",
+                    "role": "Lead frontend developer"
+                },
+                {
+                    "name": "Yuriy Myronchuk",
+                    "email": "bladeroot@gmail.com",
+                    "homepage": "http://hiqdev.com/",
+                    "role": "QA Lead"
+                }
+            ],
+            "description": "Yandex.Metrika counter for Yii2 applications",
+            "homepage": "https://github.com/hiqdev/yii2-yandex-metrika",
+            "keywords": [
+                "counter",
+                "metrika",
+                "plugin",
+                "yandex",
+                "yii2"
+            ],
+            "time": "2019-03-04T13:57:07+00:00"
         },
         {
             "name": "kartik-v/bootstrap-checkbox-x",
@@ -7582,7 +7698,8 @@
         "wertex/yii2-fias": 20,
         "yiisoft/yii2-authclient": 20,
         "kartik-v/yii2-checkbox-x": 20,
-        "kartik-v/yii2-nav-x": 20
+        "kartik-v/yii2-nav-x": 20,
+        "hiqdev/yii2-yandex-metrika": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

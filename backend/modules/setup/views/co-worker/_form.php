@@ -8,8 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $coWorkerFunctions common\models\db\CoWorkerFunction[] */
 
-//$coWorkerFunctionsItems = \yii\helpers\ArrayHelper::map($coWorkerFunctions, 'id', 'name');
-$coWorkerFunctionsItems = ['' => Yii::t('app', ' - Not selected - ')];
+$coWorkerFunctionsItems = [];
 foreach ($coWorkerFunctions as $cwf) {
     $coWorkerFunctionsItems[$cwf->id] = Yii::t('db', $cwf->name);
 }
@@ -22,7 +21,9 @@ foreach ($coWorkerFunctions as $cwf) {
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'co_worker_function')->dropDownList($coWorkerFunctionsItems) ?>
+    <?= $form->field($model, 'coWorkerFunctions')
+        ->checkboxList($coWorkerFunctionsItems, ['separator' => '<br/>'])
+        ->label(Yii::t('app', "Co-worker's functions")) ?>
 
     <?= $form->field($model, 'worker_site_uid')->textInput(['maxlength' => true]) ?>
 

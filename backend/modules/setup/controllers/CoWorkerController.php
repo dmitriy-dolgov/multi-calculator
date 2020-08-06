@@ -2,7 +2,10 @@
 
 namespace backend\modules\setup\controllers;
 
+use common\models\db\ComponentComponentSet;
+use common\models\db\ComponentSet;
 use common\models\db\CoWorker;
+use common\models\db\CoWorkerCoWorkerFunction;
 use common\models\db\CoWorkerSearch;
 use common\models\db\CoWorkerFunction;
 use Yii;
@@ -127,6 +130,23 @@ class CoWorkerController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            try {
+                CoWorkerCoWorkerFunction::deleteAll('co_worker_id = :id', [':id' => $id]);
+                $coWorkerFunctionIds = Yii::$app->request->post()['CoWorker']['coWorkerFunctions'];
+                if ($coWorkerFunctions = CoWorkerFunction::findAll($coWorkerFunctionIds)) {
+                    foreach ($coWorkerFunctions as $cwFunction) {
+                        $coWorkerCoWorkerFunction = new CoWorkerCoWorkerFunction();
+                        $coWorkerCoWorkerFunction->co_worker_id = $id;
+                        $coWorkerCoWorkerFunction->link('coWorkerFunction', $cwFunction);
+                    }
+                } else {
+                    //TODO: обработать ошибку (хотя со временем можем и отказаться от возможности НЕ иметь набор - тогда все нормально)
+                }
+            } catch (\Exception $e) {
+                Yii::error(Yii::t('app', "Couldn't update co-worker functions in the right way. Co-worker ID: {id}", ['id' => $id]));
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

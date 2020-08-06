@@ -10,6 +10,16 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Co-workers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
+$cwFuncValue = Yii::$app->formatter->nullDisplay;
+if ($model->coWorkerFunctions) {
+    $coWorkerFunctions = $model->coWorkerFunctions;
+    array_walk($coWorkerFunctions, function (\common\models\db\CoWorkerFunction &$func) {
+        $func = Html::encode(Yii::t('db', $func->name));
+    });
+    $cwFuncValue = implode('<br>', $coWorkerFunctions);
+}
+
 ?>
 <div class="co-worker-view">
 
@@ -35,10 +45,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => Yii::t('app', 'Co-worker functions'),
                 'format' => 'raw',
-                'value' => function (\common\models\db\CoWorker $model) {
+                'value' => $cwFuncValue,    /*function (\common\models\db\CoWorker $model) {
                     return $model->coWorkerFunction ? Html::encode(Yii::t('app',
                         $model->coWorkerFunction->name)) : Yii::$app->formatter->nullDisplay;
-                }
+                }*/
             ],
             'worker_site_uid',
             'birthday:date',

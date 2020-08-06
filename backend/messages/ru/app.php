@@ -274,4 +274,5 @@ return [
     'Co-worker main page' => 'Главная страница сотрудника',
     'Individual Co-worker`s site.' => 'Индивидуальная страница сотрудника.',
     'Your name: {name}' => 'Ваше имя: {name}',
+    "Co-worker's functions" => 'Виды деятельности сотрудника',
 ];

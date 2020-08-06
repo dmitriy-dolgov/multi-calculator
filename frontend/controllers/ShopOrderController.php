@@ -2,16 +2,13 @@
 
 namespace frontend\controllers;
 
-use common\models\db\Component;
-use common\models\db\ShopOrderStatus;
-use Yii;
 use common\models\db\ShopOrder;
 use common\models\db\ShopOrderSearch;
+use common\models\db\ShopOrderStatus;
+use Yii;
 use yii\data\ActiveDataProvider;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\Response;
 
 /**

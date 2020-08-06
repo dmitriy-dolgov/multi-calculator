@@ -6,8 +6,8 @@ use yii\helpers\Url;
 /* @var $worker \common\models\db\CoWorker */
 
 $jsStrings = [
-    'shop-order/get-active-orders' => Url::to(['shop-order/get-active-orders']),
-    'worker_uid' => Yii::$app->request->get('worker_uid'),
+    'worker/get-active-orders' => json_encode(Url::to(['worker/get-active-orders'])),
+    'worker_uid' => json_encode(Yii::$app->request->get('worker_uid')),
 ];
 
 $this->registerJs(<<<JS
@@ -16,7 +16,7 @@ $this->registerJs(<<<JS
     };
 
     gl.functions.acceptOrder = function(id) {
-        $.post('shop-order/accept-order', {id:id}, function(data) {
+        $.post('worker/accept-order', {id:id}, function(data) {
           if (data.status == 'success') {
               alert('Заказ отправлен на выполнение.');
               elems['#orders-pane'].find('.order[data-id=' + id + ']').fadeOut(400, function() {
@@ -47,33 +47,36 @@ $this->registerJs(<<<JS
             + '<div class="o-info deliver_email">Email: ' + order.deliver_email + '</div>'
             + '<div class="o-info deliver_comment">Комментарий: ' + order.deliver_comment + '</div>'
             + '<hr>'
-            + '<button onlcick="gl.functions.acceptOrder(' + order.id + ')">Принять</button>'
-            + '<button onlcick="gl.functions.declineOrder(' + order.id + ')">Отказаться</button>'
+            + '<button onlcick="gl.functions.acceptOrder(' + order.id + ')">Отослать приглашение пользователю</button>'
+            + '<button onlcick="gl.functions.declineOrder(' + order.id + ')">Отложить</button>'
             + '</div>';
         
         elems['#orders-pane'].prepend(html);
     }
-
-    setTimeout(function() {
-          $.get({$jsStrings['shop-order/get-active-orders']}, {worker_uid:{$jsStrings['worker_uid']}}, function(data) {
-            if (data.status == 'success') {
-                for (var id in data.orders) {
-                    var order = data.orders[id];
-                    var orderPane = elems['#orders-pane'].find('.order[data-id=' + order.id + ']');
-                    if (!orderPane.length) {
-                        putNewOrderToPane(order);
-                    }
+    
+    gl.functions.getActiveOrders = function() {
+      $.get({$jsStrings['worker/get-active-orders']}, {worker_uid:{$jsStrings['worker_uid']}}, function(data) {
+        if (data.status == 'success') {
+            for (var id in data.orders) {
+                var order = data.orders[id];
+                var orderPane = elems['#orders-pane'].find('.order[data-id=' + order.id + ']');
+                if (!orderPane.length) {
+                    putNewOrderToPane(order);
                 }
-            } else {
-                //TODO: to translate
-                gl.handleFailCustom('Unknown error');
             }
-          }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-            gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown);
-          });
-        },
-        7000
-    );
+        } else {
+            //TODO: to translate
+            gl.handleFailCustom('Unknown error');
+        }
+      }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown);
+      });
+    };
+    
+    gl.functions.getActiveOrders();
+    setTimeout(function() {
+          gl.functions.getActiveOrders();
+    }, 7000);
 JS
 );
 ?>

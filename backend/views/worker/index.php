@@ -24,12 +24,14 @@ $coWorkerFunctions = \yii\helpers\ArrayHelper::map($worker->coWorkerFunctions, '
     <?php else: ?>
         <?= Yii::t('app', 'No tasks. Please refer to your manager.') ?>
     <?php endif; ?>
-    <hr>
+
     <?php if (isset($coWorkerFunctions['courier'])): ?>
+        <hr>
         <?= $this->render('_courier', ['worker' => $worker]) ?>
     <?php endif; ?>
-    <hr>
+
     <?php if (isset($coWorkerFunctions['accept_orders'])): ?>
+        <hr>
         <?= $this->render('_accept_orders', ['worker' => $worker]) ?>
     <?php endif; ?>
 </div>

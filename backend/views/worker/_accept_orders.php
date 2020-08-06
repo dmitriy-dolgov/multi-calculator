@@ -10,6 +10,13 @@ $jsStrings = [
     'worker_uid' => json_encode(Yii::$app->request->get('worker_uid')),
 ];
 
+$this->registerCss(<<<CSS
+.order {
+    margin-bottom: 20px;
+}
+CSS
+);
+
 $this->registerJs(<<<JS
     var elems = {
         '#orders-pane': $('#orders-pane')
@@ -18,7 +25,7 @@ $this->registerJs(<<<JS
     gl.functions.acceptOrder = function(id) {
         $.post('worker/accept-order', {id:id}, function(data) {
           if (data.status == 'success') {
-              alert('Заказ отправлен на выполнение.');
+              alert('Отправлен запрос пользователю на подтверждение.');
               elems['#orders-pane'].find('.order[data-id=' + id + ']').fadeOut(400, function() {
                   // TODO: to remove
                   //this.remove();
@@ -39,6 +46,7 @@ $this->registerJs(<<<JS
     //TODO: to translate
     function putNewOrderToPane(order) {
         var html = '<div class="order" data-id="' + order.id + '">'
+            + '<div class="o-info id">ID: ' + order.id + '</div>'
             + '<div class="o-info order_uid">UID: ' + order.order_uid + '</div>'
             + '<div class="o-info created_at">Создан: ' + order.created_at + '</div>'
             + '<div class="o-info deliver_customer_name">Имя: ' + order.deliver_customer_name + '</div>'
@@ -47,8 +55,8 @@ $this->registerJs(<<<JS
             + '<div class="o-info deliver_email">Email: ' + order.deliver_email + '</div>'
             + '<div class="o-info deliver_comment">Комментарий: ' + order.deliver_comment + '</div>'
             + '<hr>'
-            + '<button onlcick="gl.functions.acceptOrder(' + order.id + ')">Отослать приглашение пользователю</button>'
-            + '<button onlcick="gl.functions.declineOrder(' + order.id + ')">Отложить</button>'
+            + '<button onclick="gl.functions.acceptOrder(' + order.id + ')">Отослать приглашение пользователю</button>'
+            + '<button onclick="gl.functions.declineOrder(' + order.id + ')">Отложить</button>'
             + '</div>';
         
         elems['#orders-pane'].prepend(html);
@@ -74,7 +82,7 @@ $this->registerJs(<<<JS
     };
     
     gl.functions.getActiveOrders();
-    setTimeout(function() {
+    setInterval(function() {
           gl.functions.getActiveOrders();
     }, 7000);
 JS

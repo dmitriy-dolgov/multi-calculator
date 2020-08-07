@@ -3,12 +3,10 @@
 namespace frontend\models;
 
 use common\models\db\Component;
-use common\models\db\ComponentComponentSet;
 use common\models\db\ShopOrder;
 use common\models\db\ShopOrderComponents;
 use common\models\db\ShopOrderStatus;
 use common\models\db\ShopOrderUser;
-use common\models\db\User;
 use Yii;
 use yii\base\Model;
 
@@ -22,6 +20,7 @@ class ShopOrderForm extends Model
     public $price_discount;
     public $name;
     public $short_name;
+    public $amount;
 
 
     /**
@@ -31,6 +30,7 @@ class ShopOrderForm extends Model
     {
         return [
             [['component_id'], 'integer'],
+            [['amount'], 'integer'],
             [['price', 'price_discount'], 'number'],
             [['name', 'short_name'], 'safe'],
             [
@@ -107,6 +107,7 @@ class ShopOrderForm extends Model
             //TODO: здесь проверить соответсвие полученных данных о цене и прочим с данными БД
 
             $shopOrderComponents = new ShopOrderComponents();
+            $shopOrderComponents->amount = $componentInfo['amount'];
             $shopOrderComponents->name = $component->name;
             $shopOrderComponents->short_name = $component->short_name;
             $shopOrderComponents->order_price = $component->price;

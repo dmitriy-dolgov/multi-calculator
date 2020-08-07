@@ -129,7 +129,7 @@ gl.functions.addComponentByData = function (data, append, noHistory) {
 
         var imageTextHtml = image_text ? ('<div class="image-text">' + image_text + '</div>') : '';
 
-        html = '<div class="added-component no-opacity ' + classSwitch + '" data-id="' + id + '" data-amount="1">'
+        html = '<div class="added-component no-opacity ' + classSwitch + '" data-id="' + id + '" data-amount="1" data-serial_id="' + totalAddedElements + '">'
             //+ '<div class="image-wrapper">'
             + '<div class="nice-line"></div>'
             + '<div class="image" style="background-image:url(' + gl.escapeHtml(image) + ')">' + imageTextHtml + '</div>'
@@ -162,6 +162,7 @@ gl.functions.addComponentByData = function (data, append, noHistory) {
             + '<input type="hidden" name="ShopOrderForm[components][' + totalAddedElements + '][price_discount]" value="' + gl.escapeHtml(price_discount) + '">'
             + '<input type="hidden" name="ShopOrderForm[components][' + totalAddedElements + '][name]" value="' + gl.escapeHtml(name) + '">'
             + '<input type="hidden" name="ShopOrderForm[components][' + totalAddedElements + '][short_name]" value="' + gl.escapeHtml(short_name) + '">'
+            //+ '<input type="hidden" name="ShopOrderForm[components][' + totalAddedElements + '][amount]" value="1">'
             + '</div>'
             + '</div>';
 

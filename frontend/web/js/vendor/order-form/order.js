@@ -38,6 +38,7 @@ gl.functions.composeOrder = function () {
         var unit_value = dataContainer.data('unit_value');
 
         var amount = $(this).data('amount');
+        var serialId = $(this).data('serial_id');
 
         priceTotal += parseFloat(price) * parseInt(amount);
 
@@ -54,6 +55,7 @@ gl.functions.composeOrder = function () {
             + (price ? (' <span class="currency-sign">' + gl.data['currency'] + '</span>') : '')
             + '</div>'
             + dataContainer.html()
+            + '<input type="hidden" name="ShopOrderForm[components][' + serialId + '][amount]" value="' + amount + '">'
             + '</div>';
     });
     html += '<div class="preview-element total-price-element">'
@@ -220,7 +222,8 @@ gl.functions.composeOrder = function () {
                 alert(result.msg ? result.msg : 'Unknown error');
             }
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-            alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
+            //alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
+            gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown);
         });
 
         return false;

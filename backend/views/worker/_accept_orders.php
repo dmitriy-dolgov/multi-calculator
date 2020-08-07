@@ -13,7 +13,9 @@ $jsStrings = [
 
 $this->registerCss(<<<CSS
 .order {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #243444;
 }
 CSS
 );
@@ -56,11 +58,14 @@ $this->registerJs(<<<JS
     //TODO: to translate
     function putNewOrderToPane(order) {
         var info = order.info;
-        var currentComponentsInfo = order.components.on_current;
         var currentComponentsHtml = 'Компоненты:<br>';
-        for (var id in currentComponentsInfo) {
-            var cci = currentComponentsInfo[id];
-            currentComponentsHtml += '<i>"' + cci.name + '"</i> Цена:' + cci.price + ' руб.<br>';
+        for (var id in order.components) {
+            var cci = order.components[id].on_current;
+            currentComponentsHtml += '<i>"' + cci.name + '"</i> Цена: ' + cci.price + ' р.';
+            if (order.components[id].on_deal.amount && order.components[id].on_deal.amount > 1) {
+                currentComponentsHtml += ' (' + order.components[id].on_deal.amount + ' шт)';
+            }
+            currentComponentsHtml += '<br>';
         }
         
         var html = '<div class="order" data-id="' + info.id + '">'
@@ -101,9 +106,9 @@ $this->registerJs(<<<JS
     };
     
     gl.functions.orders.acceptOrders.getActiveOrders();
-    setInterval(function() {
+    /*setInterval(function() {
           gl.functions.orders.acceptOrders.getActiveOrders();
-    }, 7000);
+    }, 7000);*/
 JS
 );
 ?>

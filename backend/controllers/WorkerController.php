@@ -5,7 +5,6 @@ namespace backend\controllers;
 use common\models\db\CoWorker;
 use common\models\db\ShopOrder;
 use common\models\db\ShopOrderStatus;
-use common\models\db\User;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

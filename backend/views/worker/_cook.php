@@ -22,7 +22,16 @@ $this->registerJs(<<<JS
         '#orders-pane': $('#orders-pane')
     };
 
-    gl.functions.acceptOrder = function(id) {
+    if (gl.functions.orders.cook.orders) {
+        alert('"gl.functions.orders.cook.orders" already set');
+    }
+    gl.functions.orders.cook.orders = {};
+    if (gl.functions.orders.cook.orders.cook) {
+        alert('"gl.functions.orders.cook.orders.cook" already set');
+    }
+    gl.functions.orders.cook.orders.cook = {};
+
+    /*gl.functions.orders.cook.acceptOrder = function(id) {
         $.post('worker/accept-order', {id:id}, function(data) {
           if (data.status == 'success') {
               alert('Отправлен запрос пользователю на подтверждение.');
@@ -37,9 +46,9 @@ $this->registerJs(<<<JS
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
             gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown);
         });
-    };
+    };*/
     
-    gl.functions.declineOrder = function(id) {
+    gl.functions.orders.cook.declineOrder = function(id) {
         alert('В разработке');
     };
 
@@ -47,22 +56,22 @@ $this->registerJs(<<<JS
     function putNewOrderToPane(order) {
         var html = '<div class="order" data-id="' + order.id + '">'
             + '<div class="o-info id">ID: ' + order.id + '</div>'
-            + '<div class="o-info order_uid">UID: ' + order.order_uid + '</div>'
+            //+ '<div class="o-info order_uid">UID: ' + order.order_uid + '</div>'
             + '<div class="o-info created_at">Создан: ' + order.created_at + '</div>'
-            + '<div class="o-info deliver_customer_name">Имя: ' + order.deliver_customer_name + '</div>'
-            + '<div class="o-info deliver_address">Адрес: ' + order.deliver_address + '</div>'
-            + '<div class="o-info deliver_phone">Телефон: ' + order.deliver_phone + '</div>'
-            + '<div class="o-info deliver_email">Email: ' + order.deliver_email + '</div>'
+            //+ '<div class="o-info deliver_customer_name">Имя: ' + order.deliver_customer_name + '</div>'
+            //+ '<div class="o-info deliver_address">Адрес: ' + order.deliver_address + '</div>'
+            //+ '<div class="o-info deliver_phone">Телефон: ' + order.deliver_phone + '</div>'
+            //+ '<div class="o-info deliver_email">Email: ' + order.deliver_email + '</div>'
             + '<div class="o-info deliver_comment">Комментарий: ' + order.deliver_comment + '</div>'
             + '<hr>'
-            + '<button onclick="gl.functions.acceptOrder(' + order.id + ')">Отослать приглашение пользователю</button>'
-            + '<button onclick="gl.functions.declineOrder(' + order.id + ')">Отложить</button>'
+            + '<button onclick="gl.functions.orders.cook.acceptOrder(' + order.id + ')">Принять заказ</button>'
+            + '<button onclick="gl.functions.orders.cook.declineOrder(' + order.id + ')">Отказаться от заказа</button>'
             + '</div>';
         
         elems['#orders-pane'].prepend(html);
     }
     
-    gl.functions.getActiveOrders = function() {
+    gl.functions.orders.cook.getActiveOrders = function() {
       $.get({$jsStrings['worker/get-active-orders']}, {worker_uid:{$jsStrings['worker_uid']}}, function(data) {
         if (data.status == 'success') {
             for (var id in data.orders) {
@@ -81,9 +90,9 @@ $this->registerJs(<<<JS
       });
     };
     
-    gl.functions.getActiveOrders();
+    gl.functions.orders.cook.getActiveOrders();
     setInterval(function() {
-          gl.functions.getActiveOrders();
+          gl.functions.orders.cook.getActiveOrders();
     }, 7000);
 JS
 );

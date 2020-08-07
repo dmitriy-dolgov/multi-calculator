@@ -1,3 +1,5 @@
+'use strict';
+
 if (!window.gl) {
     var gl = {};
 }
@@ -54,15 +56,25 @@ gl.createMapMarkerPopupHtml = function (data) {
 };
 
 gl.handleJqueryAjaxFail = function(XMLHttpRequest, textStatus, errorThrown, howToHandle) {
-    howToHandle = typeof howToHandle !== 'undefined' ? howToHandle : 'alert';
+    howToHandle = typeof howToHandle !== 'undefined' ? howToHandle : 'console';
     if (howToHandle == 'alert') {
         alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
+    } else if (howToHandle == 'console') {
+        this.log('Jquery Ajax Fail Info:');
+        this.log('XMLHttpRequest:');
+        this.log(XMLHttpRequest);
+        this.log('textStatus:');
+        this.log(textStatus);
+        this.log('errorThrown:');
+        this.log(errorThrown);
     }
 };
 
 gl.handleFailCustom = function(message, howToHandle) {
-    howToHandle = typeof howToHandle !== 'undefined' ? howToHandle : 'alert';
+    howToHandle = typeof howToHandle !== 'undefined' ? howToHandle : 'console';
     if (howToHandle == 'alert') {
         alert(message);
+    } else if (howToHandle == 'console') {
+        this.log('Fail Custom Message: ' + message);
     }
 };

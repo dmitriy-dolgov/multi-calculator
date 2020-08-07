@@ -23,7 +23,13 @@ $this->registerJs(<<<JS
         '#orders-pane': $('#orders-pane')
     };
 
+    if (gl.functions.orders) {
+        alert('"gl.functions.orders" already set');
+    }
     gl.functions.orders = {};
+    if (gl.functions.orders.acceptOrders) {
+        alert('"gl.functions.orders.acceptOrders" already set');
+    }
     gl.functions.orders.acceptOrders = {};
 
     gl.functions.orders.acceptOrders.acceptOrder = function(id) {
@@ -49,18 +55,26 @@ $this->registerJs(<<<JS
 
     //TODO: to translate
     function putNewOrderToPane(order) {
-        var html = '<div class="order" data-id="' + order.id + '">'
-            + '<div class="o-info id">ID: ' + order.id + '</div>'
-            + '<div class="o-info order_uid">UID: ' + order.order_uid + '</div>'
-            + '<div class="o-info created_at">Создан: ' + order.created_at + '</div>'
-            + '<div class="o-info deliver_customer_name">Имя: ' + order.deliver_customer_name + '</div>'
-            + '<div class="o-info deliver_address">Адрес: ' + order.deliver_address + '</div>'
-            + '<div class="o-info deliver_phone">Телефон: ' + order.deliver_phone + '</div>'
-            + '<div class="o-info deliver_email">Email: ' + order.deliver_email + '</div>'
-            + '<div class="o-info deliver_comment">Комментарий: ' + order.deliver_comment + '</div>'
-            + '<hr>'
-            + '<button onclick="gl.functions.orders.acceptOrders.acceptOrder(' + order.id + ')">Отослать приглашение пользователю</button>'
-            + '<button onclick="gl.functions.orders.acceptOrders.declineOrder(' + order.id + ')">Отложить</button>'
+        var info = order.info;
+        var currentComponentsInfo = order.components.on_current;
+        var currentComponentsHtml = 'Компоненты:<br>';
+        for (var id in currentComponentsInfo) {
+            var cci = currentComponentsInfo[id];
+            currentComponentsHtml += '<i>"' + cci.name + '"</i> Цена:' + cci.price + ' руб.<br>';
+        }
+        
+        var html = '<div class="order" data-id="' + info.id + '">'
+            + '<div class="o-info id">ID: ' + info.id + '</div>'
+            + '<div class="o-info order_uid">UID: ' + info.order_uid + '</div>'
+            + '<div class="o-info created_at">Создан: ' + info.created_at + '</div>'
+            + '<div class="o-info deliver_customer_name">Имя: ' + info.deliver_customer_name + '</div>'
+            + '<div class="o-info deliver_address">Адрес: ' + info.deliver_address + '</div>'
+            + '<div class="o-info deliver_phone">Телефон: ' + info.deliver_phone + '</div>'
+            + '<div class="o-info deliver_email">Email: ' + info.deliver_email + '</div>'
+            + '<div class="o-info deliver_comment">Комментарий: ' + info.deliver_comment + '</div>'
+            + '<hr>' + currentComponentsHtml + '<hr>'
+            + '<button onclick="gl.functions.orders.acceptOrders.acceptOrder(' + info.id + ')">Отослать приглашение пользователю</button>'
+            + '<button onclick="gl.functions.orders.acceptOrders.declineOrder(' + info.id + ')">Отложить</button>'
             + '</div>';
         
         elems['#orders-pane'].prepend(html);
@@ -72,6 +86,7 @@ $this->registerJs(<<<JS
             for (var id in data.orders) {
                 var order = data.orders[id];
                 var orderPane = elems['#orders-pane'].find('.order[data-id=' + order.id + ']');
+                //TODO: здесь проверять не сменился ли статус заказа и обновлять панель
                 if (!orderPane.length) {
                     putNewOrderToPane(order);
                 }

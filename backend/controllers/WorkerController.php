@@ -6,6 +6,7 @@ use common\models\db\CoWorker;
 use common\models\db\ShopOrder;
 use common\models\db\ShopOrderStatus;
 use common\models\db\User;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -47,7 +48,37 @@ class WorkerController extends Controller
         //if ($user->shopOrders) {
         //foreach ($user->shopOrders as $shopOrder) {
 
-        $shopOrders = ShopOrder::find()->all();
+        if ($newShopOrders = ShopOrderStatus::find()
+            ->select('shop_order_id')
+            ->andWhere(['type' => 'created'])
+            ->groupBy('shop_order_id')
+            ->orderBy(['shop_order_id' => SORT_DESC])
+            ->asArray()
+            ->all()
+        ) {
+            $orderIds = ArrayHelper::getColumn($newShopOrders, 'shop_order_id');
+            $orderObjs = ShopOrder::findAll($orderIds);
+            foreach ($orderObjs as $shopOrder) {
+                $components = [];
+                if ($shopOrder->shopOrderComponents) {
+                    foreach ($shopOrder->shopOrderComponents as $soComponent) {
+                        $components[] = [
+                            // Данные непосредственно на момент подтверждения заказа
+                            'on_deal' => ArrayHelper::toArray($soComponent),
+                            // Данные на текущий момент
+                            'on_current' => ArrayHelper::toArray($soComponent->component),
+                        ];
+                    }
+                }
+                $result['orders'][] = [
+                    'info' => ArrayHelper::toArray($shopOrder),
+                    'components' => $components,
+                ];
+            }
+
+        }
+
+        /*$shopOrders = ShopOrder::find()->all();
         if ($shopOrders) {
             foreach ($shopOrders as $shopOrder) {
                 if ($shopOrder->shopOrderStatuses) {
@@ -72,7 +103,7 @@ class WorkerController extends Controller
                     }
                 }
             }
-        }
+        }*/
 
         return $result;
     }

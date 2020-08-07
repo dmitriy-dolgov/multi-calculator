@@ -23,9 +23,10 @@ $this->registerJs(<<<JS
         '#orders-pane': $('#orders-pane')
     };
 
-    gl.functions.acceptOrders = {};
+    gl.functions.orders = {};
+    gl.functions.orders.acceptOrders = {};
 
-    gl.functions.acceptOrders.acceptOrder = function(id) {
+    gl.functions.orders.acceptOrders.acceptOrder = function(id) {
         $.post({$jsStrings['worker/accept-order']}, {id:id}, function(data) {
           if (data.status == 'success') {
               alert('Отправлен запрос пользователю на подтверждение.');
@@ -42,7 +43,7 @@ $this->registerJs(<<<JS
         });
     };
     
-    gl.functions.acceptOrders.declineOrder = function(id) {
+    gl.functions.orders.acceptOrders.declineOrder = function(id) {
         alert('В разработке');
     };
 
@@ -58,14 +59,14 @@ $this->registerJs(<<<JS
             + '<div class="o-info deliver_email">Email: ' + order.deliver_email + '</div>'
             + '<div class="o-info deliver_comment">Комментарий: ' + order.deliver_comment + '</div>'
             + '<hr>'
-            + '<button onclick="gl.functions.acceptOrders.acceptOrder(' + order.id + ')">Отослать приглашение пользователю</button>'
-            + '<button onclick="gl.functions.acceptOrders.declineOrder(' + order.id + ')">Отложить</button>'
+            + '<button onclick="gl.functions.orders.acceptOrders.acceptOrder(' + order.id + ')">Отослать приглашение пользователю</button>'
+            + '<button onclick="gl.functions.orders.acceptOrders.declineOrder(' + order.id + ')">Отложить</button>'
             + '</div>';
         
         elems['#orders-pane'].prepend(html);
     }
     
-    gl.functions.acceptOrders.getActiveOrders = function() {
+    gl.functions.orders.acceptOrders.getActiveOrders = function() {
       $.get({$jsStrings['worker/get-active-orders']}, {worker_uid:{$jsStrings['worker_uid']}}, function(data) {
         if (data.status == 'success') {
             for (var id in data.orders) {
@@ -84,9 +85,9 @@ $this->registerJs(<<<JS
       });
     };
     
-    gl.functions.acceptOrders.getActiveOrders();
+    gl.functions.orders.acceptOrders.getActiveOrders();
     setInterval(function() {
-          gl.functions.acceptOrders.getActiveOrders();
+          gl.functions.orders.acceptOrders.getActiveOrders();
     }, 7000);
 JS
 );

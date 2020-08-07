@@ -9,6 +9,14 @@ $this->title = Yii::t('app', 'Co-worker main page');
 
 $coWorkerFunctions = \yii\helpers\ArrayHelper::map($worker->coWorkerFunctions, 'id', 'name');
 
+$this->registerJs(<<<JS
+    if (gl.functions.orders) {
+        alert('"gl.functions.orders" already set');
+    }
+    gl.functions.orders = {};
+JS
+);
+
 ?>
 <div class="co-worker-page">
     <h1><?= Yii::t('app', 'Individual Co-worker`s site.') ?></h1>

@@ -25,10 +25,6 @@ $this->registerJs(<<<JS
         '#orders-pane': $('#orders-pane')
     };
 
-    if (gl.functions.orders) {
-        alert('"gl.functions.orders" already set');
-    }
-    gl.functions.orders = {};
     if (gl.functions.orders.acceptOrders) {
         alert('"gl.functions.orders.acceptOrders" already set');
     }
@@ -37,7 +33,7 @@ $this->registerJs(<<<JS
     gl.functions.orders.acceptOrders.acceptOrder = function(id) {
         $.post({$jsStrings['worker/accept-order']}, {id:id}, function(data) {
           if (data.status == 'success') {
-              alert('Отправлен запрос пользователю на подтверждение.');
+              alert('Отправлен запрос исполнителю на подтверждение.');
               elems['#orders-pane'].find('.order[data-id=' + id + ']').fadeOut(400, function() {
                   // TODO: to remove
                   //this.remove();
@@ -56,7 +52,7 @@ $this->registerJs(<<<JS
     };
 
     //TODO: to translate
-    function putNewOrderToPane(order) {
+    gl.functions.orders.acceptOrders.putNewOrderToPane = function(order) {
         var info = order.info;
         var currentComponentsHtml = 'Компоненты:<br>';
         for (var id in order.components) {
@@ -78,7 +74,7 @@ $this->registerJs(<<<JS
             + '<div class="o-info deliver_email">Email: ' + info.deliver_email + '</div>'
             + '<div class="o-info deliver_comment">Комментарий: ' + info.deliver_comment + '</div>'
             + '<hr>' + currentComponentsHtml + '<hr>'
-            + '<button onclick="gl.functions.orders.acceptOrders.acceptOrder(' + info.id + ')">Отослать приглашение пользователю</button>'
+            + '<button onclick="gl.functions.orders.acceptOrders.acceptOrder(' + info.id + ')">Отослать приглашение исполнителю</button>'
             + '<button onclick="gl.functions.orders.acceptOrders.declineOrder(' + info.id + ')">Отложить</button>'
             + '</div>';
         
@@ -93,7 +89,7 @@ $this->registerJs(<<<JS
                 var orderPane = elems['#orders-pane'].find('.order[data-id=' + order.id + ']');
                 //TODO: здесь проверять не сменился ли статус заказа и обновлять панель
                 if (!orderPane.length) {
-                    putNewOrderToPane(order);
+                    gl.functions.orders.acceptOrders.putNewOrderToPane(order);
                 }
             }
         } else {

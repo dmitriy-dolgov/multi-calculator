@@ -107,6 +107,23 @@ class CoWorkerController extends Controller
         $model = new CoWorker();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            try {
+                CoWorkerCoWorkerFunction::deleteAll('co_worker_id = :id', [':id' => $model->getPrimaryKey()]);
+                $coWorkerFunctionIds = Yii::$app->request->post()['CoWorker']['coWorkerFunctions'];
+                if ($coWorkerFunctions = CoWorkerFunction::findAll($coWorkerFunctionIds)) {
+                    foreach ($coWorkerFunctions as $cwFunction) {
+                        $coWorkerCoWorkerFunction = new CoWorkerCoWorkerFunction();
+                        $coWorkerCoWorkerFunction->co_worker_id = $model->getPrimaryKey();
+                        $coWorkerCoWorkerFunction->link('coWorkerFunction', $cwFunction);
+                    }
+                } else {
+                    //TODO: обработать ошибку (хотя со временем можем и отказаться от возможности НЕ иметь набор - тогда все нормально)
+                }
+            } catch (\Exception $e) {
+                Yii::error(Yii::t('app', "Couldn't update co-worker functions in the right way. Co-worker ID: {id}", ['id' => $id]));
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

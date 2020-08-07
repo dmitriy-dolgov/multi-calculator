@@ -12,6 +12,7 @@ use Yii;
  * @property int|null $component_id
  * @property string|null $name
  * @property string|null $short_name
+ * @property int|null $amount
  * @property float|null $order_price
  * @property float|null $order_price_discount
  *
@@ -34,7 +35,7 @@ class ShopOrderComponents extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['shop_order_id', 'component_id'], 'integer'],
+            [['shop_order_id', 'component_id', 'amount'], 'integer'],
             [['order_price', 'order_price_discount'], 'number'],
             [['name', 'short_name'], 'string', 'max' => 255],
             [['component_id'], 'exist', 'skipOnError' => true, 'targetClass' => Component::className(), 'targetAttribute' => ['component_id' => 'id']],
@@ -53,6 +54,7 @@ class ShopOrderComponents extends \yii\db\ActiveRecord
             'component_id' => Yii::t('app', 'Component ID'),
             'name' => Yii::t('app', 'Name'),
             'short_name' => Yii::t('app', 'Short Name'),
+            'amount' => Yii::t('app', 'Amount'),
             'order_price' => Yii::t('app', 'Order Price'),
             'order_price_discount' => Yii::t('app', 'Order Price Discount'),
         ];

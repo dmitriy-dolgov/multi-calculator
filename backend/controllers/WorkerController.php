@@ -44,7 +44,36 @@ class WorkerController extends Controller
 
         $result = ['status' => 'success', 'orders' => []];
 
-        if ($type == 'cook') {
+        if ($type == 'courier') {
+            if ($newShopOrders = ShopOrderStatus::find()
+                ->select('shop_order_id')
+                ->andWhere(['type' => 'offer-accepted-with-courier'])
+                ->groupBy('shop_order_id')
+                ->orderBy(['shop_order_id' => SORT_DESC])
+                ->asArray()
+                ->all()
+            ) {
+                $orderIds = ArrayHelper::getColumn($newShopOrders, 'shop_order_id');
+                $orderObjs = ShopOrder::findAll($orderIds);
+                foreach ($orderObjs as $shopOrder) {
+                    $components = [];
+                    if ($shopOrder->shopOrderComponents) {
+                        foreach ($shopOrder->shopOrderComponents as $soComponent) {
+                            $components[] = [
+                                // Данные непосредственно на момент подтверждения заказа
+                                'on_deal' => ArrayHelper::toArray($soComponent),
+                                // Данные на текущий момент
+                                'on_current' => ArrayHelper::toArray($soComponent->component),
+                            ];
+                        }
+                    }
+                    $result['orders'][] = [
+                        'info' => ArrayHelper::toArray($shopOrder),
+                        'components' => $components,
+                    ];
+                }
+            }
+        } elseif ($type == 'cook') {
             if ($newShopOrders = ShopOrderStatus::find()
                 ->select('shop_order_id')
                 ->andWhere(['type' => 'offer-sent-to-cook'])
@@ -157,7 +186,17 @@ class WorkerController extends Controller
         $orderId = \Yii::$app->request->post('id');
         $type = \Yii::$app->request->post('type');
 
-        if ($type == 'cook') {
+        if ($type == 'courier') {
+            if ($shopOrder = ShopOrder::findOne($orderId)) {
+                //TODO: проверять, может уже занят заказ
+                $shopOrderStatus = new ShopOrderStatus();
+                $shopOrderStatus->type = 'offer-accepted-with-courier';
+                $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
+                //$shopOrderStatus->save();
+
+                $result['status'] = 'success';
+            }
+        } elseif ($type == 'cook') {
             if ($shopOrder = ShopOrder::findOne($orderId)) {
                 //TODO: проверять, может уже занят заказ
                 $shopOrderStatus = new ShopOrderStatus();
@@ -178,6 +217,32 @@ class WorkerController extends Controller
 
                 $result['status'] = 'success';
             }
+        }
+
+        return $result;
+    }
+
+    public function actionPassOrderToCourier()
+    {
+        \Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $result = ['status' => 'error'];
+
+        $orderId = \Yii::$app->request->post('id');
+        $type = \Yii::$app->request->post('type');
+
+        if ($type == 'cook') {
+            if ($shopOrder = ShopOrder::findOne($orderId)) {
+                //TODO: проверять, может уже занят заказ
+                $shopOrderStatus = new ShopOrderStatus();
+                $shopOrderStatus->type = 'offer-accepted-with-courier';
+                $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
+                //$shopOrderStatus->save();
+
+                $result['status'] = 'success';
+            }
+        } else {
+            // unknown status
         }
 
         return $result;

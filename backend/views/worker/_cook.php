@@ -26,15 +26,27 @@ $this->registerJs(<<<JS
         alert('"gl.functions.orders.cook" already set');
     }
     gl.functions.orders.cook = {};
+    
+    gl.functions.orders.cook.passOrderToCourier = function(id) {
+        $.post('worker/pass-order-to-courier', {id:id,type:'cook'}, function(data) {
+            alert('Заказ отправлен курьеру!');
+            elems['#orders-pane'].find('.order[data-id=' + id + ']').fadeOut(400, function() {
+              // TODO: to remove
+              //this.remove();
+            });
+        });
+    };
 
     gl.functions.orders.cook.acceptOrder = function(id) {
         $.post('worker/accept-order', {id:id,type:'cook'}, function(data) {
           if (data.status == 'success') {
               alert('Вы перешли в статус изготовления пиццы.');
-              elems['#orders-pane'].find('.order[data-id=' + id + ']').fadeOut(400, function() {
+              /*elems['#orders-pane'].find('.order[data-id=' + id + ']').fadeOut(400, function() {
                   // TODO: to remove
                   //this.remove();
-              });
+              });*/
+              var html = 'Заказ исполняется вами! &nbsp;<button onclick="gl.functions.orders.cook.passOrderToCourier(' + id + ');return false;">Передать курьеру</button>';
+              elems['#orders-pane'].find('.order[data-id=' + id + ']').find('.btn-accept-order').replaceWith(html);
           } else {
               //TODO: to translate , maybe handle error
                 gl.handleFailCustom('Unknown error');
@@ -71,8 +83,8 @@ $this->registerJs(<<<JS
             + '<div class="o-info deliver_email">Email: ' + info.deliver_email + '</div>'
             + '<div class="o-info deliver_comment">Комментарий: ' + info.deliver_comment + '</div>'
             + '<hr>' + currentComponentsHtml + '<hr>'
-            + '<button onclick="gl.functions.orders.cook.acceptOrder(' + info.id + ')">Принять к исполнению</button>'
-            + '<button onclick="gl.functions.orders.cook.declineOrder(' + info.id + ')">Отказаться</button>'
+            + '<button class="btn-accept-order" onclick="gl.functions.orders.cook.acceptOrder(' + info.id + ');return false;">Принять к исполнению</button>'
+            + '<button onclick="gl.functions.orders.cook.declineOrder(' + info.id + ');return false;">Отказаться</button>'
             + '</div>';
         
         elems['#orders-pane'].prepend(html);

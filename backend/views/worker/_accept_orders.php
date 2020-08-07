@@ -7,6 +7,7 @@ use yii\helpers\Url;
 
 $jsStrings = [
     'worker/get-active-orders' => json_encode(Url::to(['worker/get-active-orders'])),
+    'worker/accept-order' => json_encode(Url::to(['worker/accept-order'])),
     'worker_uid' => json_encode(Yii::$app->request->get('worker_uid')),
 ];
 
@@ -22,8 +23,10 @@ $this->registerJs(<<<JS
         '#orders-pane': $('#orders-pane')
     };
 
-    gl.functions.acceptOrder = function(id) {
-        $.post('worker/accept-order', {id:id}, function(data) {
+    gl.functions.acceptOrders = {};
+
+    gl.functions.acceptOrders.acceptOrder = function(id) {
+        $.post({$jsStrings['worker/accept-order']}, {id:id}, function(data) {
           if (data.status == 'success') {
               alert('Отправлен запрос пользователю на подтверждение.');
               elems['#orders-pane'].find('.order[data-id=' + id + ']').fadeOut(400, function() {
@@ -39,7 +42,7 @@ $this->registerJs(<<<JS
         });
     };
     
-    gl.functions.declineOrder = function(id) {
+    gl.functions.acceptOrders.declineOrder = function(id) {
         alert('В разработке');
     };
 
@@ -55,14 +58,14 @@ $this->registerJs(<<<JS
             + '<div class="o-info deliver_email">Email: ' + order.deliver_email + '</div>'
             + '<div class="o-info deliver_comment">Комментарий: ' + order.deliver_comment + '</div>'
             + '<hr>'
-            + '<button onclick="gl.functions.acceptOrder(' + order.id + ')">Отослать приглашение пользователю</button>'
-            + '<button onclick="gl.functions.declineOrder(' + order.id + ')">Отложить</button>'
+            + '<button onclick="gl.functions.acceptOrders.acceptOrder(' + order.id + ')">Отослать приглашение пользователю</button>'
+            + '<button onclick="gl.functions.acceptOrders.declineOrder(' + order.id + ')">Отложить</button>'
             + '</div>';
         
         elems['#orders-pane'].prepend(html);
     }
     
-    gl.functions.getActiveOrders = function() {
+    gl.functions.acceptOrders.getActiveOrders = function() {
       $.get({$jsStrings['worker/get-active-orders']}, {worker_uid:{$jsStrings['worker_uid']}}, function(data) {
         if (data.status == 'success') {
             for (var id in data.orders) {
@@ -81,9 +84,9 @@ $this->registerJs(<<<JS
       });
     };
     
-    gl.functions.getActiveOrders();
+    gl.functions.acceptOrders.getActiveOrders();
     setInterval(function() {
-          gl.functions.getActiveOrders();
+          gl.functions.acceptOrders.getActiveOrders();
     }, 7000);
 JS
 );

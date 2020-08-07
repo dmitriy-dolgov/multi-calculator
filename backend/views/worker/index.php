@@ -34,4 +34,9 @@ $coWorkerFunctions = \yii\helpers\ArrayHelper::map($worker->coWorkerFunctions, '
         <hr>
         <?= $this->render('_accept_orders', ['worker' => $worker]) ?>
     <?php endif; ?>
+
+    <?php if (isset($coWorkerFunctions['cook'])): ?>
+        <hr>
+        <?= $this->render('_cook', ['worker' => $worker]) ?>
+    <?php endif; ?>
 </div>

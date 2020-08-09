@@ -46,7 +46,7 @@ class CoWorkerDeclineCause extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'co_worker_id' => Yii::t('app', 'Co Worker ID'),
             'cause' => Yii::t('app', 'Cause'),
-            'order' => Yii::t('app', 'Order'),
+            'order' => Yii::t('app', 'Sort Order'),
         ];
     }
 

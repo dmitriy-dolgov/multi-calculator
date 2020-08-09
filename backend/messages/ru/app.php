@@ -277,4 +277,12 @@ return [
     "Co-worker's functions" => 'Виды деятельности сотрудника',
     'Your tasks:' => 'Ваши задачи:',
     'No tasks. Please refer to your manager.' => 'Нет задач. Обратитесь к администратору.',
+    'Reasons for rejection' => 'Причины отказа',
+    'Co-Worker Decline Causes' => 'Причины отказов сотрудников',
+    'Create Co-Worker Decline Cause' => 'Создать причину отказа сотрудника',
+    'Cause' => 'Причина',
+    'Sort Order' => 'Порядок сортировки',
+    'Co-Worker' => 'Сотрудник',
+    '-- Not set --' => '-- Не установлено --',
+    'Update Co-Worker Decline Cause: {name}' => 'Обновить причину отказа сотрудника: {name}',
 ];

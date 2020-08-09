@@ -19,6 +19,7 @@ use yii\behaviors\BlameableBehavior;
  * @property User $user
  * @property CoWorkerCoWorkerFunction[] $coWorkerCoWorkerFunctions
  * @property CoWorkerFunction[] $coWorkerFunctions
+ * @property CoWorkerDeclineCause[] $coWorkerDeclineCauses
  * @property ShopOrderStatus[] $shopOrderStatuses
  */
 class CoWorker extends \yii\db\ActiveRecord
@@ -102,6 +103,16 @@ class CoWorker extends \yii\db\ActiveRecord
     public function getCoWorkerFunctions()
     {
         return $this->hasMany(CoWorkerFunction::className(), ['id' => 'co_worker_function_id'])->viaTable('co_worker_co_worker_function', ['co_worker_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[CoWorkerDeclineCauses]].
+     *
+     * @return \yii\db\ActiveQuery|CoWorkerDeclineCauseQuery
+     */
+    public function getCoWorkerDeclineCauses()
+    {
+        return $this->hasMany(CoWorkerDeclineCause::className(), ['co_worker_id' => 'id']);
     }
 
     /**

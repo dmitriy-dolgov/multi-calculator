@@ -179,8 +179,9 @@ order_price:decimal(8,2),order_price_discount:decimal(8,2)"
 
 ./yii migrate/create add_amount_column_to_shop_order_components_table --fields="amount:integer:default(1):after(short_name)"
 
+--
 
-
+./yii migrate/create create_co_worker_decline_cause_table --fields="co_worker_id:integer:foreignKey('co_worker'),cause:text:notNull,order:integer"
 
 
 

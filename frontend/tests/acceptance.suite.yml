@@ -3,7 +3,7 @@ actor: AcceptanceTester
 modules:
     enabled:
         - WebDriver:
-            url: http://localhost:8080
+            url: https://xn--24-6kc5a8a5ba.ru.com
             browser: firefox
         - Yii2:
             part: init

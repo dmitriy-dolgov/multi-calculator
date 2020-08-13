@@ -27,8 +27,8 @@ CSS
 );
 
 //print_r($worker->coWorkerDeclineCauses);
-$declineCausesHtml = '<select class="sel-decline-order-caulse">'
-    . '<option>Своя причина отказа</option>';
+$declineCausesHtml = '<select class="sel-decline-order-cause">'
+    . '<option value="">Новая причина отказа</option>';
 if ($worker->coWorkerDeclineCauses) {
     foreach ($worker->coWorkerDeclineCauses as $dCause) {
         $declineCausesHtml .= '<option value="' . $dCause->id . '">' . Html::encode($dCause->cause) . '</option>';
@@ -49,7 +49,18 @@ $this->registerJs(<<<JS
     }
     gl.functions.orders.acceptOrders = {};
     
-    //gl.functions.orders.setup
+    gl.functions.orders.setupEvents = function() {
+        $('.sel-decline-order-cause').unbind('change');
+        $('.sel-decline-order-cause').change(function() {
+            var elem = $(this);
+            var textarea = elem.parent().find('.text-new-decline-order-cause');
+            if (elem.val()) {
+                textarea.prop('disabled', true);
+            } else {
+                textarea.prop('disabled', false);
+            }
+        });
+    };
     
     gl.functions.orders.sendDeclineRequestReadyMessage = function(declineRequestId) {
         $.post({$jsStrings['worker/decline-order']}, {declineRequestId:declineRequestId}, function(data) {
@@ -150,7 +161,9 @@ $this->registerJs(<<<JS
             + '</div>';
         
         elems['#orders-pane'].prepend(html);
-    }
+        
+        gl.functions.orders.setupEvents();
+    };
     
     gl.functions.orders.acceptOrders.getActiveOrders = function() {
       $.get({$jsStrings['worker/get-active-orders']}, {worker_uid:{$jsStrings['worker_uid']}}, function(data) {

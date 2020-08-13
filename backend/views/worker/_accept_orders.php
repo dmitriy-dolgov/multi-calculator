@@ -26,7 +26,6 @@ $this->registerCss(<<<CSS
 CSS
 );
 
-//print_r($worker->coWorkerDeclineCauses);
 $declineCausesHtml = '<select class="sel-decline-order-cause">'
     . '<option value="">Новая причина отказа</option>';
 if ($worker->coWorkerDeclineCauses) {
@@ -47,6 +46,7 @@ $this->registerJs(<<<JS
     if (gl.functions.orders.acceptOrders) {
         alert('"gl.functions.orders.acceptOrders" already set');
     }
+    //TODO: реализовать ASAP !!!
     gl.functions.orders.acceptOrders = {};
     
     gl.functions.orders.setupEvents = function() {

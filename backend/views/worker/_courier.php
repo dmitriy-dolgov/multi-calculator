@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use kartik\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $worker \common\models\db\CoWorker */
@@ -22,6 +23,10 @@ $this->registerCss(<<<CSS
     width: 100%;
     height: 70vh;
 }
+.btn-decline-order {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
 CSS
 );
 
@@ -37,6 +42,18 @@ $jsStrings = [
     'worker/get-active-orders' => json_encode(Url::to(['worker/get-active-orders'])),
     'worker_uid' => json_encode(Yii::$app->request->get('worker_uid')),
 ];
+
+$declineCausesHtml = '<select class="sel-decline-order-cause">'
+    . '<option value="">Новая причина отказа</option>';
+if ($worker->coWorkerDeclineCauses) {
+    foreach ($worker->coWorkerDeclineCauses as $dCause) {
+        $declineCausesHtml .= '<option value="' . $dCause->id . '">' . Html::encode($dCause->cause) . '</option>';
+    }
+}
+$declineCausesHtml .= '</select><br>';
+
+$declineCausesHtml = json_encode($declineCausesHtml);
+
 
 $this->registerCss(<<<CSS
 .order {
@@ -54,6 +71,19 @@ $this->registerJs(<<<JS
         alert('"gl.functions.orders.courier" already set');
     }
     gl.functions.orders.courier = {};
+    
+    gl.functions.orders.courier.setupEvents = function() {
+        $('.sel-decline-order-cause').unbind('change');
+        $('.sel-decline-order-cause').change(function() {
+            var elem = $(this);
+            var textarea = elem.parent().find('.text-new-decline-order-cause');
+            if (elem.val()) {
+                textarea.prop('disabled', true);
+            } else {
+                textarea.prop('disabled', false);
+            }
+        });
+    };
     
     gl.functions.orders.courier.passOrderToCourier = function(id) {
         $.post('worker/pass-order-to-courier', {id:id,type:'courier'}, function(data) {
@@ -85,7 +115,11 @@ $this->registerJs(<<<JS
     };
     
     gl.functions.orders.courier.declineOrder = function(id) {
-        alert('В разработке');
+        alert('Вы отклонили/отложили заказ.');
+        elems['#orders-pane'].find('.order[data-id=' + id + ']').fadeOut(400, function() {
+            // TODO: to remove
+            //this.remove();
+        });
     };
 
     //TODO: to translate
@@ -111,11 +145,19 @@ $this->registerJs(<<<JS
             + '<div class="o-info deliver_email">Email: ' + info.deliver_email + '</div>'
             + '<div class="o-info deliver_comment">Комментарий: ' + info.deliver_comment + '</div>'
             + '<hr>' + currentComponentsHtml + '<hr>'
-            + '<button class="btn-accept-order" onclick="gl.functions.orders.courier.acceptOrder(' + info.id + ');return false;">Принять к исполнению</button>'
-            + '<button onclick="gl.functions.orders.courier.declineOrder(' + info.id + ');return false;">Отказаться</button>'
+            + '<button class="btn btn-warning btn-accept-order" onclick="gl.functions.orders.courier.acceptOrder(' + info.id + ');return false;">Принять к исполнению</button>'
+            //+ '<button class="btn btn-warning" onclick="gl.functions.orders.courier.declineOrder(' + info.id + ');return false;">Отказаться</button>'
+            + '<hr>'
+            + '<div class="decline-order-panel">'
+            + '<button class="btn btn-decline-order" onclick="gl.functions.orders.acceptOrders.declineOrder(' + info.id + ');return false;">Отложить/отказаться</button>'
+            + $declineCausesHtml
+            + 'Новая причина отказа:<br><textarea class="text-new-decline-order-cause"></textarea>'
+            + '</div>'
             + '</div>';
         
         elems['#orders-pane'].prepend(html);
+        
+        gl.functions.orders.courier.setupEvents();
     }
     
     gl.functions.orders.courier.getActiveOrders = function() {

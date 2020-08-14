@@ -219,7 +219,7 @@ gl.functions.composeOrder = function () {
                 gl.functions.fillOrderInfo(result, formDataArrIndexed);
                 gl.functions.addOrderToPanel();
             } else {
-                alert(result.msg ? result.msg : 'Unknown error');
+                alert(result.msg ? result.msg : gl.data['Unknown error. Please try again later or refer to administrator.']);
             }
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
             //alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);

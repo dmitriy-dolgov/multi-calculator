@@ -163,13 +163,15 @@ STR;
         $users = [];
         foreach (Yii::$app->request->post()['ShopOrderForm']['user_ids'] as $userId) {
             if (!$aUser = User::findOne($userId)) {
-                $response['msg'] = 'User ' . $userId . ' not found';
-                return $response;
+                //$response['msg'] = 'User ' . $userId . ' not found';
+                //return $response;
+                Yii::error(Yii::t('app', 'User {user} not found', ['user' => $userId]));
+                continue;
             }
             $users[] = $aUser;
         }
         if (!$users) {
-            $response['msg'] = 'Users not found';
+            $response['msg'] = Yii::t('app', 'Pizzerias not found');
             return $response;
         }
 

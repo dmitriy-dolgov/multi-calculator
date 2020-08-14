@@ -114,7 +114,9 @@ class ShopOrderForm extends Model
             $shopOrderComponents->short_name = $component->short_name;
             $shopOrderComponents->order_price = $component->price;
             $shopOrderComponents->order_price_discount = $component->price_discount;
-            $shopOrderComponents->link('component', $component);
+            //TODO: надо было сделать Junction table и связывать через компонент, а пока такой костыль
+            $shopOrderComponents->component_id = $component->id;
+            //$shopOrderComponents->link('component', $component);
             $shopOrderComponents->link('shopOrder', $shopOrder);
         }
 

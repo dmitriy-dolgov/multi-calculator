@@ -80,6 +80,7 @@ $jsStrings = [
     'Phone:' => Yii::t('app', 'Phone:'),
     'Your comment:' => Yii::t('app', 'Your comment:'),
     'Order ID:' => Yii::t('app', 'Order ID:'),
+    'Unknown error. Please try again later or refer to administrator.'=> Yii::t('app', 'Unknown error. Please try again later or refer to administrator.'),
 
     'currency' => Internationalization::getCurrencySign(),
     'cant_add_so_many_of_component' => Yii::t('app', 'So much does not fit on pizza!'),

@@ -303,7 +303,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
             </div>
 
             <!--<div class="resulting-panel"></div>-->
-            <!--<div class="capt-price"><? /*= Yii::t('app', 'Price:') */ ?>
+            <!--<div class="capt-price"><?php /*= Yii::t('app', 'Price:') */ ?>
             <div class="total-price" data-total_price="0">&nbsp;</div>
         </div>-->
             <!--<div class="components-selected" style="display: none"></div>--><?php /*//TODO: реализовать потом */ ?>

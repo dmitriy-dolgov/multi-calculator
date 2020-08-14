@@ -33,7 +33,7 @@ CSS
 ?>
 <div class="shop-order-index">
 
-    <!--<h1><? /*= Html::encode($this->title) */ ?></h1>-->
+    <!--<h1><?php /*= Html::encode($this->title) */ ?></h1>-->
 
     <?php
 

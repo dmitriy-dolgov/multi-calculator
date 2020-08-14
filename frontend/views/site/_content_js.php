@@ -127,7 +127,7 @@ foreach ($cityList as $cityId => $cityData) {
         <div class="order-data-container">
             <div class="title"><?= Html::encode(Yii::t('app', 'Your data')) ?></div>
             <div class="order-data-data">
-                <!--<button class="correct-geolocation" onclick="gl.functions.correctGeolocation();return false;"><? /*= Yii::t('app', 'Скорректировать геолокацию') */ ?></button>-->
+                <!--<button class="correct-geolocation" onclick="gl.functions.correctGeolocation();return false;"><?php /*= Yii::t('app', 'Скорректировать геолокацию') */ ?></button>-->
                 <label class="preview-element-yd">
                     <div class="label"><?= Html::encode(Yii::t('app', 'Your city:')) ?></div>
                     <select class="select-deliver_city_id" name="ShopOrderForm[deliver_city_id]">

@@ -162,7 +162,7 @@ CSS
                 <?php if (1): ?>
                 <section id="pane-order-make" class="view-pane">
                     <!--<iframe class="total-frame"
-                            src="<? /*= Url::to(['/vendor/order']) */ ?>/<? /*= Yii::$app->user->identity->getOrderUid() */ ?>"></iframe>-->
+                            src="<?php /*= Url::to(['/vendor/order']) */ ?>/<?php /*= Yii::$app->user->identity->getOrderUid() */ ?>"></iframe>-->
                     <iframe class="total-frame"
                             src="<?= Yii::$app->params['domain-customer-schema'] ?>://<?= Yii::$app->params['domain-customer'] ?>"></iframe>
                     <i class="pane-switch icon-arrow-left-circle btn-wrap-order-make-form"
@@ -180,9 +180,9 @@ CSS
 
 <!--<footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <? /*= date('Y') */ ?></p>
+        <p class="pull-left">&copy; My Company <?php /*= date('Y') */ ?></p>
 
-        <p class="pull-right"><? /*= Yii::powered() */ ?></p>
+        <p class="pull-right"><?php /*= Yii::powered() */ ?></p>
     </div>
 </footer>-->
 

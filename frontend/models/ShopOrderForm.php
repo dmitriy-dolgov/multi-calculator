@@ -57,6 +57,8 @@ class ShopOrderForm extends Model
     {
         $shopOrder = new ShopOrder();
 
+        //Yii::$app->db->beginTransaction();
+
         for (; ;) {
             //TODO: блокировка таблицы по-хорошему
             //$uid = $user->getId() . '_' . Yii::$app->security->generateRandomString(12);

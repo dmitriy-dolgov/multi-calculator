@@ -32,7 +32,7 @@ if ($worker->coWorkerDeclineCauses) {
     foreach ($worker->coWorkerDeclineCauses as $dCause) {
         $declineCausesHtml .= '<option value="' . $dCause->id . '">' . Html::encode($dCause->cause) . '</option>';
     }
-    //. '<br><button onclick="gl.functions.orders.sendDeclineRequestReadyMessage(' . $dCause->id . ')">Отказаться с готовым объяснением.</button>';
+    //. '<br><button onclick="gl.functions.orders.acceptOrders.sendDeclineRequestReadyMessage(' . $dCause->id . ')">Отказаться с готовым объяснением.</button>';
 }
 $declineCausesHtml .= '</select><br>';
 
@@ -49,7 +49,7 @@ $this->registerJs(<<<JS
     //TODO: реализовать ASAP !!!
     gl.functions.orders.acceptOrders = {};
     
-    gl.functions.orders.setupEvents = function() {
+    gl.functions.orders.acceptOrders.setupEvents = function() {
         $('.sel-decline-order-cause').unbind('change');
         $('.sel-decline-order-cause').change(function() {
             var elem = $(this);
@@ -62,7 +62,7 @@ $this->registerJs(<<<JS
         });
     };
     
-    gl.functions.orders.sendDeclineRequestReadyMessage = function(declineRequestId) {
+    gl.functions.orders.acceptOrders.sendDeclineRequestReadyMessage = function(declineRequestId) {
         $.post({$jsStrings['worker/decline-order']}, {declineRequestId:declineRequestId}, function(data) {
             if (data.status == 'success') {
                 
@@ -162,7 +162,7 @@ $this->registerJs(<<<JS
         
         elems['#orders-pane'].prepend(html);
         
-        gl.functions.orders.setupEvents();
+        gl.functions.orders.acceptOrders.setupEvents();
     };
     
     gl.functions.orders.acceptOrders.getActiveOrders = function() {

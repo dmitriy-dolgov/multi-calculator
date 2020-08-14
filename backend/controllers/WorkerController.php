@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\db\CoWorker;
 use common\models\db\ShopOrder;
 use common\models\db\ShopOrderStatus;
+use common\models\shop_order\ShopOrderOrders;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -103,7 +104,9 @@ class WorkerController extends Controller
                 }
             }
         } else {    // default: новый (created) заказ
-            if ($newShopOrders = ShopOrderStatus::find()
+            $shopOrders = new ShopOrderOrders();
+            $result['orders'] = $shopOrders->getActiveOrders($worker_uid);
+            /*if ($newShopOrders = ShopOrderStatus::find()
                 ->select('shop_order_id')
                 ->andWhere(['type' => 'created'])
                 ->groupBy('shop_order_id')
@@ -129,36 +132,6 @@ class WorkerController extends Controller
                         'info' => ArrayHelper::toArray($shopOrder),
                         'components' => $components,
                     ];
-                }
-            }
-
-            //$user = $this->getUserByWorkerUid($worker_uid);
-            //if ($user->shopOrders) {
-            //foreach ($user->shopOrders as $shopOrder) {
-            /*$shopOrders = ShopOrder::find()->all();
-            if ($shopOrders) {
-                foreach ($shopOrders as $shopOrder) {
-                    if ($shopOrder->shopOrderStatuses) {
-                        $isNew = true;
-                        foreach ($shopOrder->shopOrderStatuses as $shopOrderStatus) {
-                            if ($shopOrderStatus->type != 'created') {
-                                $isNew = false;
-                                break;
-                            }
-                        }
-                        if ($isNew) {
-                            $result['orders'][] = [
-                                'id' => $shopOrder->id,
-                                'order_uid' => $shopOrder->order_uid,
-                                'created_at' => $shopOrder->created_at,
-                                'deliver_customer_name' => $shopOrder->deliver_customer_name,
-                                'deliver_address' => $shopOrder->deliver_address,
-                                'deliver_phone' => $shopOrder->deliver_phone,
-                                'deliver_email' => $shopOrder->deliver_email,
-                                'deliver_comment' => $shopOrder->deliver_comment,
-                            ];
-                        }
-                    }
                 }
             }*/
         }

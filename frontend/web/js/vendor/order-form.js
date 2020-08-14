@@ -43,3 +43,25 @@ $(function () {
         $('.create-pizza').addClass('move-to-rb');
     }, 5000);
 });
+
+
+// Dummy code: if there is no web
+if (!window.L) {
+    window.L = {
+        icon: function () {
+        },
+        Icon: {
+        },
+        Marker: {
+            extend: function () {
+
+            }
+        },
+        marker: {},
+        DivIcon: {
+            extend: function () {
+
+            }
+        }
+    };
+}

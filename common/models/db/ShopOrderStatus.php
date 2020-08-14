@@ -8,8 +8,8 @@ use Yii;
  * This is the model class for table "shop_order_status".
  *
  * @property int $id
- * @property int|null $shop_order_id
- * @property int|null $user_id
+ * @property int $shop_order_id
+ * @property int $user_id
  * @property string|null $type Тип заказа - принят к исполнению, отложен, начал готовиться, в процессе доставки, отменен, завершен и т. д.
  * @property string|null $accepted_at Время назначения статуса
  * @property int|null $accepted_by Сотрудник назначивший статус
@@ -36,6 +36,7 @@ class ShopOrderStatus extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['shop_order_id', 'user_id'], 'required'],
             [['shop_order_id', 'user_id', 'accepted_by'], 'integer'],
             [['accepted_at'], 'safe'],
             [['data', 'description'], 'string'],

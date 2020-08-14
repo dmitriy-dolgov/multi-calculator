@@ -183,6 +183,8 @@ order_price:decimal(8,2),order_price_discount:decimal(8,2)"
 
 ./yii migrate/create create_co_worker_decline_cause_table --fields="co_worker_id:integer:foreignKey('co_worker'),cause:text:notNull,order:integer"
 
+--
 
+./yii migrate/create alter_shop_order_components_and_shop_order_status_tables
 
 

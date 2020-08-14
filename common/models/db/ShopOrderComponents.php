@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "shop_order_components".
  *
  * @property int $id
- * @property int|null $shop_order_id
+ * @property int $shop_order_id
  * @property int|null $component_id
  * @property string|null $name
  * @property string|null $short_name
@@ -35,6 +35,7 @@ class ShopOrderComponents extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['shop_order_id'], 'required'],
             [['shop_order_id', 'component_id', 'amount'], 'integer'],
             [['order_price', 'order_price_discount'], 'number'],
             [['name', 'short_name'], 'string', 'max' => 255],

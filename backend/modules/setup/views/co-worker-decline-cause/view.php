@@ -10,6 +10,16 @@ $this->title = $model->cause;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Co-Worker Decline Causes'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
+$coWorkerFunctionHtml = Yii::$app->formatter->nullDisplay;
+if (!empty($model->coWorker->coWorkerFunctions)) {
+    $coWorkerFunctionHtml = [];
+    foreach ($model->coWorker->coWorkerFunctions as $cwFunction) {
+        $coWorkerFunctionHtml[] = Yii::t('db', $cwFunction->name);
+    }
+    $coWorkerFunctionHtml = implode('<br>', $coWorkerFunctionHtml);
+}
+
 ?>
 <div class="co-worker-decline-cause-view">
 
@@ -35,6 +45,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => Yii::t('app', 'Co-Worker'),
                 'format' => 'raw',
                 'value' => $model->coWorker ? Html::encode($model->coWorker->name) : Yii::$app->formatter->nullDisplay,
+            ],
+            [
+                'label' => Yii::t('app', 'Co-worker function'),
+                'format' => 'raw',
+                'value' => $coWorkerFunctionHtml,
             ],
             'cause:ntext',
             'order',

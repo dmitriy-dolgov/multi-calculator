@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             [
-                'label' => Yii::t('app', 'Co-worker functions'),
+                'label' => Yii::t('app', 'Co-worker function'),
                 'format' => 'raw',
                 'value' => function (\common\models\db\CoWorkerDeclineCause $model) {
                     $html = Yii::$app->formatter->nullDisplay;

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\db\CoWorkerDeclineCause */
 /* @var $coWorkers common\models\db\CoWorker[] */
 
-$coWorkerName = $model->coWorker ? Html::encode($model->coWorker->name) : Yii::$app->formatter->nullDisplay;
+$coWorkerName = $model->coWorker ? $model->coWorker->name : Yii::t('yii', '(not set)');   //Yii::$app->formatter->nullDisplay;
 
 $this->title = Yii::t('app', 'Update Co-Worker Decline Cause: {name}', [
     'name' => $coWorkerName,

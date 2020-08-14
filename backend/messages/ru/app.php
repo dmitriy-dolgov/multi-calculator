@@ -285,4 +285,5 @@ return [
     'Co-Worker' => 'Сотрудник',
     '-- Not set --' => '-- Не установлено --',
     'Update Co-Worker Decline Cause: {name}' => 'Обновить причину отказа сотрудника: {name}',
+    'Priority to show in the list. Set up highther priority to more often selected causes.' => 'Последовательность вывода в списке. Чем чаще выбирается причина отказа, тем выше установите приоритет.',
 ];

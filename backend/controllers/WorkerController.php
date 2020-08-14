@@ -43,9 +43,22 @@ class WorkerController extends Controller
     {
         \Yii::$app->response->format = Response::FORMAT_JSON;
 
-        $result = ['status' => 'success', 'orders' => []];
+        $result = ['status' => 'undefined', 'orders' => []];
 
-        if ($type == 'courier') {
+        $className = $type ?: 'Orders';
+        $className = ucfirst(preg_replace('/[^a-zA-Z0-9_]/', '', $className));
+        $className = 'common\models\shop_order\ShopOrder' . $className;
+
+        if (!class_exists($className)) {
+            \Yii::error('Class "' . $className . '" does not exist.');
+            throw new NotFoundHttpException();
+        }
+
+        $shopOrders = new $className;
+        $result['orders'] = $shopOrders->getActiveOrders($worker_uid);
+        $result['status'] = 'success';
+
+        /*if ($type == 'courier') {
             if ($newShopOrders = ShopOrderStatus::find()
                 ->select('shop_order_id')
                 ->andWhere(['type' => 'offer-accepted-with-courier'])
@@ -106,35 +119,8 @@ class WorkerController extends Controller
         } else {    // default: новый (created) заказ
             $shopOrders = new ShopOrderOrders();
             $result['orders'] = $shopOrders->getActiveOrders($worker_uid);
-            /*if ($newShopOrders = ShopOrderStatus::find()
-                ->select('shop_order_id')
-                ->andWhere(['type' => 'created'])
-                ->groupBy('shop_order_id')
-                ->orderBy(['shop_order_id' => SORT_DESC])
-                ->asArray()
-                ->all()
-            ) {
-                $orderIds = ArrayHelper::getColumn($newShopOrders, 'shop_order_id');
-                $orderObjs = ShopOrder::findAll($orderIds);
-                foreach ($orderObjs as $shopOrder) {
-                    $components = [];
-                    if ($shopOrder->shopOrderComponents) {
-                        foreach ($shopOrder->shopOrderComponents as $soComponent) {
-                            $components[] = [
-                                // Данные непосредственно на момент подтверждения заказа
-                                'on_deal' => ArrayHelper::toArray($soComponent),
-                                // Данные на текущий момент
-                                'on_current' => ArrayHelper::toArray($soComponent->component),
-                            ];
-                        }
-                    }
-                    $result['orders'][] = [
-                        'info' => ArrayHelper::toArray($shopOrder),
-                        'components' => $components,
-                    ];
-                }
-            }*/
-        }
+            $result['status'] = 'success';
+        }*/
 
         return $result;
     }

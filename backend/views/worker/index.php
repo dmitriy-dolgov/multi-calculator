@@ -35,7 +35,7 @@ JS
 
     <?php if (isset($coWorkerFunctions['courier'])): ?>
         <hr>
-        <?= $this->render('_courier', ['worker' => $worker]) ?>
+        <?php /*= $this->render('_courier', ['worker' => $worker])*/ ?>
     <?php endif; ?>
 
     <?php if (isset($coWorkerFunctions['accept_orders'])): ?>
@@ -45,6 +45,6 @@ JS
 
     <?php if (isset($coWorkerFunctions['cook'])): ?>
         <hr>
-        <?= $this->render('_cook', ['worker' => $worker]) ?>
+        <?php /*= $this->render('_cook', ['worker' => $worker])*/ ?>
     <?php endif; ?>
 </div>

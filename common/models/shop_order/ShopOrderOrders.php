@@ -2,7 +2,10 @@
 
 namespace common\models\shop_order;
 
+use common\models\db\CoWorkerCoWorkerFunction;
+use Yii;
 use common\models\db\CoWorker;
+use common\models\db\CoWorkerFunction;
 use common\models\db\ShopOrder;
 use common\models\db\ShopOrderStatus;
 use yii\helpers\ArrayHelper;
@@ -10,12 +13,23 @@ use yii\web\NotFoundHttpException;
 
 class ShopOrderOrders extends ShopOrderWorker
 {
+    const FOR_ROLES = [
+        'accept_orders',
+    ];
+
     public function getActiveOrders($worker_uid)
     {
         $orders = [];
 
         if (!$coWorker = CoWorker::findOne(['worker_site_uid' => $worker_uid])) {
-            throw new NotFoundHttpException();
+            Yii::error('Worker user id not found: "' . $worker_uid . '".');
+            throw new NotFoundHttpException('Worker user id not found.');
+        }
+
+        //TODO: Проверка привилегий - улучшить
+        if (!CoWorkerCoWorkerFunction::find()->andWhere(['co_worker_id' => $coWorker->id])->andWhere(['IN', 'co_worker_function_id', self::FOR_ROLES])->exists()) {
+            Yii::error('Privilege not found for user with worker_uid: "' . $worker_uid . '", privilege is "' . self::FOR_ROLES . '".');
+            throw new NotFoundHttpException('Privilege not found.');
         }
 
         if ($newShopOrders = ShopOrderStatus::find()

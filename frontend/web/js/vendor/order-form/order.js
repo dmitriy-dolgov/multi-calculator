@@ -223,7 +223,7 @@ gl.functions.composeOrder = function () {
             }
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
             //alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
-            gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown);
+            gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown, 'alert');
         });
 
         return false;

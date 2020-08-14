@@ -222,6 +222,8 @@ gl.handleJqueryAjaxFail = function(XMLHttpRequest, textStatus, errorThrown, howT
         this.log(textStatus);
         this.log('errorThrown:');
         this.log(errorThrown);
+    } else {
+        this.log('UNKNOWN handling type');
     }
 };
 

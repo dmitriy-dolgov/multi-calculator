@@ -6,6 +6,7 @@ use common\models\db\Component;
 use common\models\db\ComponentSet;
 use common\models\db\User;
 use frontend\models\ShopOrderForm;
+use Symfony\Component\CssSelector\Exception\InternalErrorException;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -179,7 +180,8 @@ STR;
             $response['status'] = 'success';
             $response['order_uid'] = $shopOrder->order_uid;
         } else {
-            $response['msg'] = 'Unknown server error';
+            //$response['msg'] = 'Unknown server error';
+            throw new InternalErrorException();
         }
 
         return $response;

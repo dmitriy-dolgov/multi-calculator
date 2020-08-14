@@ -158,7 +158,7 @@ $this->registerJs(<<<JS
         elems['#orders-pane'].prepend(html);
         
         gl.functions.orders.courier.setupEvents();
-    }
+    };
     
     gl.functions.orders.courier.getActiveOrders = function() {
       $.get({$jsStrings['worker/get-active-orders']}, {worker_uid:{$jsStrings['worker_uid']},type:'courier'}, function(data) {

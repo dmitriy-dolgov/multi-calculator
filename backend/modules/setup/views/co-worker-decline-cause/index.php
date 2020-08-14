@@ -37,6 +37,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->coWorker ? Html::encode($model->coWorker->name) : Yii::$app->formatter->nullDisplay;
                 },
             ],
+            [
+                'label' => Yii::t('app', 'Co-worker functions'),
+                'format' => 'raw',
+                'value' => function (\common\models\db\CoWorkerDeclineCause $model) {
+                    $html = Yii::$app->formatter->nullDisplay;
+                    if (!empty($model->coWorker->coWorkerFunctions)) {
+                        $html = [];
+                        foreach ($model->coWorker->coWorkerFunctions as $cwFunction) {
+                            $html[] = Yii::t('db', $cwFunction->name);
+                        }
+                        $html = implode('<br>', $html);
+                    }
+                    return $html;
+                },
+            ],
             'cause:ntext',
             'order',
 

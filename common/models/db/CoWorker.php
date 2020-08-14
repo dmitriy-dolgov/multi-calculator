@@ -5,6 +5,7 @@ namespace common\models\db;
 use common\helpers\Setup;
 use Yii;
 use yii\behaviors\BlameableBehavior;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "co_worker".
@@ -141,5 +142,24 @@ class CoWorker extends \yii\db\ActiveRecord
         }
 
         return parent::beforeSave($insert);
+    }
+
+    public function getCoWorkerFunctionsList($html = true)
+    {
+        if (!empty($this->coWorkerFunctions)) {
+            $result = [];
+            foreach ($this->coWorkerFunctions as $cwFunction) {
+                $name = Yii::t('db', $cwFunction->name);
+                $result[] = $html ? Html::encode($name) : $name;
+            }
+        } else {
+            $result[] = Yii::$app->formatter->nullDisplay;
+        }
+
+        if ($html) {
+            $result = implode('<br>', $result);
+        }
+
+        return $result;
     }
 }

@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => Yii::t('app', 'Co-worker function'),
                 'format' => 'raw',
                 'value' => function (\common\models\db\CoWorkerDeclineCause $model) {
-                    $html = Yii::$app->formatter->nullDisplay;
+                    /*$html = Yii::$app->formatter->nullDisplay;
                     if (!empty($model->coWorker->coWorkerFunctions)) {
                         $html = [];
                         foreach ($model->coWorker->coWorkerFunctions as $cwFunction) {
@@ -49,7 +49,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                         $html = implode('<br>', $html);
                     }
-                    return $html;
+                    return $html;*/
+                    return $model->coWorker ? $model->coWorker->getCoWorkerFunctionsList() : Yii::$app->formatter->nullDisplay;
                 },
             ],
             'cause:ntext',

@@ -3,7 +3,6 @@
 namespace common\models\db;
 
 use Yii;
-use yii\helpers\Html;
 
 /**
  * This is the model class for table "co_worker_function".
@@ -78,24 +77,5 @@ class CoWorkerFunction extends \yii\db\ActiveRecord
     public static function find()
     {
         return new CoWorkerFunctionQuery(get_called_class());
-    }
-
-    public function getCoWorkerFunctionsList($html = true)
-    {
-        if (!empty($this->coWorkerFunctions)) {
-            $result = [];
-            foreach ($this->coWorkerFunctions as $cwFunction) {
-                $name = Yii::t('db', $cwFunction->name);
-                $result[] = $html ? Html::encode($name) : $html;
-            }
-        } else {
-            $result[] = Yii::$app->formatter->nullDisplay;
-        }
-
-        if ($html) {
-            $result = implode('<br>', $result);
-        }
-
-        return $html;
     }
 }

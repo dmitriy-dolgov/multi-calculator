@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 $coWorkersDropData = \yii\helpers\ArrayHelper::map($coWorkers, 'id', 'name');
 
-$coWorkerFunctionsList = $model->coWorker ? $model->coWorker->getCoWorkerFunctionsList(false) : [Yii::$app->formatter->nullDisplay];
+$coWorkerFunctionsList = $model->coWorker ? $model->coWorker->getCoWorkerFunctionsList(false) : Yii::$app->formatter->nullDisplay;
 
 ?>
 
@@ -22,9 +22,22 @@ $coWorkerFunctionsList = $model->coWorker ? $model->coWorker->getCoWorkerFunctio
         'prompt' => Yii::t('app', '-- Not set --'),
     ])->label(Yii::t('app', 'Co-Worker')) ?>
 
-    <?= Yii::t('app', 'Co-worker functions:') .
-        $model->coWorker->getCoWorkerFunctionsHtml()
-    ?>
+    <div class="form-group">
+        <label class="control-label"><?= Yii::t('app', 'Co-worker functions') ?></label>
+        <?php if (is_string($coWorkerFunctionsList)): ?>
+            <?= $coWorkerFunctionsList ?>
+        <?php else: ?>
+            <ul>
+                <?php foreach ($coWorkerFunctionsList as $function): ?>
+                    <li><?= Html::encode($function) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+        <div class="help-block"><?=
+            Html::a(Yii::t('app', 'Set up here: {url}', ['url' => '/setup/co-worker/update']),
+                ['/setup/co-worker/update', 'id' => $model->co_worker_id],
+                ['target' => '_blank']) ?></div>
+    </div>
 
     <?= $form->field($model, 'cause')->textarea(['rows' => 3]) ?>
 

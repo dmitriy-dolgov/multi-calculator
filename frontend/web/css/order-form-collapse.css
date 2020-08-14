@@ -6,6 +6,7 @@
   font-weight: bold;
   border-bottom: black 2px inset;
   cursor: pointer;
+  overflow: hidden;
 }
 .components-in-stock .collapse-content {
   max-height: 0;

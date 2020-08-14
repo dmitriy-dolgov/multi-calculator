@@ -106,12 +106,12 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
             </div>
             <?php */ ?>
         </button>
-        <!--<div class="categories-panel btn-head"><?/*= Yii::t('app', 'Catalog') */?></div>-->
+        <!--<div class="categories-panel btn-head"><?php /*= Yii::t('app', 'Catalog') */ ?></div>-->
     </div>
 
     <section class="components-in-stock">
 
-        <!--<div class="catalog-name"><? /*= Html::encode(Yii::t('app', 'Popular')) */ ?></div>-->
+        <!--<div class="catalog-name"><?php /*= Html::encode(Yii::t('app', 'Popular')) */ ?></div>-->
 
         <?php if ($components): ?>
 
@@ -202,7 +202,13 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                     // Plugin options (http://jscrollpane.kelvinluck.com/settings.html)
                     'scrollbarWidth' => 18,
                     'showArrows' => true,
-                ]
+                    //'contentWidth' => false,
+                    'contentWidth' => '0px',
+                    //'alwaysShowVScroll' => true,
+                    //'isScrollableH' => false,
+                    //'isScrollableV' => true,
+                    //'percentInViewH' => 0,
+                ],
             ]); ?>
         <?php else: ?>
             <?= Yii::t('app', 'There are no components! Please refer to “{url}” to add.',
@@ -595,7 +601,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
             </div>
             <div class="modal-body">
                 <!--<iframe class="popup-iframe" id="frame-order-form"
-                        src="<?/*= Url::to(['/vendor/order-panel', 'uid' => $uid]) */?>"></iframe>-->
+                        src="<?php /*= Url::to(['/vendor/order-panel', 'uid' => $uid]) */ ?>"></iframe>-->
                 <!--<iframe id="frame-order-form" src=""></iframe>-->
             </div>
         </div>

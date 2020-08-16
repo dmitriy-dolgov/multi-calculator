@@ -48,7 +48,8 @@
         "kartik-v/yii2-checkbox-x": "dev-master",
         "kartik-v/yii2-nav-x": "dev-master",
         "dkushnikov/yii2-yandex-metrika": "*",
-        "hiqdev/yii2-yandex-metrika": "dev-master"
+        "hiqdev/yii2-yandex-metrika": "dev-master",
+        "immusen/yii2-swoole-websocket": "~1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

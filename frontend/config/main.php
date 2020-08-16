@@ -10,12 +10,13 @@ $params = array_merge(
 $oauthData = [];
 if (\common\helpers\Web::isLocal()) {
     $oauthData['vkontakte'] = [
-        'clientId' => '7543832',
+        'clientId' => '7543832',    // pizza-customer.local
         'clientSecret' => 'XO3ltkl3J0CoZ95vAoPB',
     ];
 } else {
     $oauthData['vkontakte'] = [
-        'clientId' => '7543540',
+        //'clientId' => '7543540',  // бухгалтерия
+        'clientId' => '7569127',    // пицца24.ru.com
         'clientSecret' => 'FjLhZ0rIej1LVmnBCAua',
     ];
 }

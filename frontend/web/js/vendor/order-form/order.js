@@ -198,6 +198,8 @@ gl.functions.composeOrder = function () {
 
         $.post('/site/order-create-ajax', formData, function (result) {
             if (result.status == 'success') {
+                gl.functions.websocket.send({newOrderId: result.order_uid});
+
                 /*gl.functions.fillOrderInfo(result, {
                     deliver_customer_name: deliver_customer_name,
                     deliver_address: deliver_address,
@@ -207,12 +209,12 @@ gl.functions.composeOrder = function () {
                 });*/
                 var formDataArr = elem.serializeArray();
                 var formDataArrIndexed = {};
-                $.map(formDataArr, function(n, i){
+                $.map(formDataArr, function (n, i) {
                     formDataArrIndexed[n['name']] = n['value'];
                 });
 
-                gl.log('formDataArrIndexed:');
-                gl.log(formDataArrIndexed);
+                //gl.log('formDataArrIndexed:');
+                //gl.log(formDataArrIndexed);
 
                 formDataArrIndexed.deliverCityName = elem.find('[name="ShopOrderForm[deliver_city_id]"]').val();
 

@@ -25,12 +25,13 @@ gl.functions.websocket.init();
 
 gl.functions.websocket.socketOnOpen = function () {
     gl.log('SOCKET ON OPEN EVENT');
+    gl.log('gl.data.user_socket_id: ' + gl.data.user_socket_id);
     var msg = '{' +
         '"jsonrpc":"2.0",' +
-        '"id":gl.data.user_socket_id,' +
+        '"id":"1",' +
         '"method":"orderTeam/join",' +
         '"params":{' +
-        '  "id":"1",' +
+        '  "id":"' + gl.data.user_socket_id + '",' +
         '  "info":{' +
         //'  "age":"19",' +
         //'  "gender":"f"' +

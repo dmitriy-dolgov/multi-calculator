@@ -54,7 +54,47 @@ JS
 
     <?= \common\widgets\Alert::widget() ?>
 
-    <?php foreach ($orders as $ord): ?>
+    <?php foreach ($orders as $id => $orderList): ?>
+        <div class="function-orders-pane <?= $id ?>">
+            <?php foreach ($orderList as $ord): ?>
+                <div class="order" data-id="<?= $ord['info']['id'] ?>">
+                    <div class="o-info id">ID: <?= $ord['info']['id'] ?></div>
+                    <div class="o-info order_uid">UID: <?= Html::encode($ord['info']['order_uid']) ?></div>
+                    <div class="o-info created_at">Создан: <?= Html::encode($ord['info']['created_at']) ?></div>
+                    <div class="o-info deliver_customer_name">
+                        Имя: <?= Html::encode($ord['info']['deliver_customer_name']) ?></div>
+                    <div class="o-info deliver_address">
+                        Адрес: <?= Html::encode($ord['info']['deliver_address']) ?></div>
+                    <div class="o-info deliver_phone">Телефон: <?= Html::encode($ord['info']['deliver_phone']) ?></div>
+                    <div class="o-info deliver_email">Email: <?= Html::encode($ord['info']['deliver_email']) ?></div>
+                    <div class="o-info deliver_comment">
+                        Комментарий: <?= Html::encode($ord['info']['deliver_comment']) ?></div>
+                    <hr>
+                    Компоненты:<br>
+                    <?php foreach ($ord['components'] as $comp): ?>
+                        <i><?= Html::encode($comp['on_current']['name']) ?></i> Цена: <?= Html::encode($comp['on_current']['price']) ?> р.
+                        <?php if ($comp['on_deal']['amount'] > 1): ?>
+                            (<?= $comp['on_deal']['amount'] ?> шт.)
+                        <?php endif; ?>
+                        <br>
+                    <?php endforeach; ?>
+                    <hr>
+                    <button class="btn btn-warning"
+                            onclick="gl.functions.orders.acceptOrders.acceptOrder(<?= $ord['info']['id'] ?>);return false;">
+                        Отослать приглашение исполнителю
+                    </button>
+                    <hr>
+                    <div class="decline-order-panel">
+                        <button class="btn btn-decline-order"
+                                onclick="gl.functions.orders.acceptOrders.declineOrder(<?= $ord['info']['id'] ?>);return false;">
+                            Отложить/отказаться
+                        </button>
+                        declineCausesHtml
+                        Новая причина отказа:<br><textarea class="text-new-decline-order-cause"></textarea>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
     <?php endforeach; ?>
 
     <?php /*if (isset($coWorkerFunctions['accept_orders'])): */ ?><!--

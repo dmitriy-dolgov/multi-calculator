@@ -32,7 +32,7 @@ class OrderTeamController extends Controller
         //add fd into group with order_team id as the key
         $this->joinGroup($this->fd, $id);
 
-        $member_count = $this->redis->hincrby(self::ORDER_MEMBER_COUNT_KEY, $id, 1);
+        $member_count = $this->redis->hincrby(self::ORDER_TEAM_MEMBER_COUNT_KEY, $id, 1);
 
         //Get all fds in this order_team/group;
         $targets = $this->groupMembers($id);
@@ -44,26 +44,26 @@ class OrderTeamController extends Controller
     }
 
     /**
-     * some one leave order_team similar with actionJoin
-     * @param $id , order_team id
+     * some one leave order team similar with actionJoin
+     * @param $id , order team id
      * @param $info
      * @return bool
      */
     public function actionLeave($id, $info = null)
     {
-        $member_count = $this->redis->hincrby(self::ORDER_MEMBER_COUNT_KEY, $id, -1);
+        $member_count = $this->redis->hincrby(self::ORDER_TEAM_MEMBER_COUNT_KEY, $id, -1);
         $this->sendToGroup(['type' => 'leave', 'count' => $member_count, 'info' => $info], $id);
         //del fd from group
         return $this->leaveGroup($this->fd, $id);
     }
 
     /**
-     * Message to order_team, e.g. order/msg
+     * Message to order team, e.g. orderTeam/msg
      * ```JSON
      * {
      *       "jsonrpc":"2.0",
      *       "id":1,
-     *       "method":"order/msg",
+     *       "method":"orderTeam/msg",
      *       "params":{
      *           "id":"100111",
      *           "content":{

@@ -1,8 +1,8 @@
 gl.functions.websocket = {};
 
 gl.functions.websocket.init = function () {
-    var url = gl.data['yii-params']['websocket']['schema'] + '://'
-        + gl.data['yii-params']['websocket']['host'] + ':' + gl.data['yii-params']['websocket']['port'];
+    var url = gl.data.params.websocket.schema + '://'
+        + gl.data.params.websocket.host + ':' + gl.data.params.websocket.port;
 
     gl.functions.websocket.socket = new WebSocket(url);
     gl.log(['gl.functions.websocket.socket:', gl.functions.websocket.socket]);

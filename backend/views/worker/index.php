@@ -16,20 +16,34 @@ $this->registerJsFile(Url::to(['/js/order-handling/websocket.js']),
     ['depends' => ['backend\assets\WorkerAsset'], 'appendTimestamp' => YII_DEBUG]);
 
 $userSocketId = json_encode($worker->user_id + 1);
+$yiiParams = json_encode(Yii::$app->params['websocket']);
 
 $this->registerJs(<<<JS
+    if (!window.gl) {
+        var gl = {};
+    }
+    
+    // For global functions
+    if (!gl.functions) {
+        gl.functions = {};
+    }
+    
+    // For global data
+    if (!gl.data) {
+        gl.data = {};
+    }
+
     if (gl.functions.orders) {
         alert('"gl.functions.orders" already set');
     }
     gl.functions.orders = {};
-
-    if (!gl.data) {
-        gl.data = {};
-    }
     
-    gl.data.user_socket_id = {$userSocketId};
+    gl.data.user_socket_id = $userSocketId;
+    gl.data.params = {
+        websocket: $yiiParams
+    };
 JS
-);
+, \yii\web\View::POS_HEAD);
 
 ?>
 <header class="header">

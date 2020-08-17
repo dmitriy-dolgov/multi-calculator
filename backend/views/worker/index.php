@@ -89,7 +89,17 @@ JS
                                 onclick="gl.functions.orders.acceptOrders.declineOrder(<?= $ord['info']['id'] ?>);return false;">
                             Отложить/отказаться
                         </button>
-                        declineCausesHtml
+                        <select class="sel-decline-order-cause">
+                            <option value="">Новая причина отказа</option>
+                            <?php
+                            if ($worker->coWorkerDeclineCauses) {
+                                foreach ($worker->coWorkerDeclineCauses as $dCause) {
+                                    echo '<option value="' . $dCause->id . '">' . Html::encode($dCause->cause) . '</option>';
+                                }
+                            }
+                            ?>
+                        </select>
+                        <br>
                         Новая причина отказа:<br><textarea class="text-new-decline-order-cause"></textarea>
                     </div>
                 </div>

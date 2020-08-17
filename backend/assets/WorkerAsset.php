@@ -9,7 +9,7 @@ class WorkerAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/worker/style.css?ver=1.0',
+        'css/worker/style.css?ver=1.1',
     ];
     public $js = [
         'js/common.js',

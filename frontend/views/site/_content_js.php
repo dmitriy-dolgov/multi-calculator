@@ -99,6 +99,14 @@ $jsCode = "var gl = {data:{}};\n"
         'initialJSCode' => $initialJSCode,
         'userGeoPosition' => $userGeoPosition,
         'isWebLocal' => \common\helpers\Web::isLocal(),
+
+        'yii-params' => [
+            'websocket' => [
+                'schema' => Yii::$app->params['websocket']['schema'],
+                'host' => Yii::$app->params['websocket']['host'],
+                'port' => Yii::$app->params['websocket']['port'],
+            ],
+        ],
     ]);
 
 $this->registerJs($jsCode, \yii\web\View::POS_HEAD);
@@ -110,6 +118,7 @@ $this->registerJsFile(Url::to(['/js/vendor/order-form/geo.js']), ['depends' => [
 $this->registerJsFile(Url::to(['/js/vendor/order-form/components.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/order.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/categories.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
+$this->registerJsFile(Url::to(['/js/vendor/order-form/websocket.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 
 $this->registerJsFile(Url::to(['/js/leaflet/MovingMarker.js']), ['depends' => ['frontend\assets\VendorAsset']]);
 $this->registerJsFile(Url::to(['/js/leaflet/L.Icon.Pulse.js']), ['depends' => ['frontend\assets\VendorAsset']]);

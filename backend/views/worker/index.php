@@ -1,13 +1,13 @@
 <?php
 
-use yii\helpers\Url;
-
 /* @var $this yii\web\View */
 /* @var $worker \common\models\db\CoWorker */
+/* @var $coWorkerFunctions \common\models\db\CoWorkerFunction[] */
+/* @var $orders array */
 
 $this->title = Yii::t('app', 'Co-worker main page');
 
-$coWorkerFunctions = \yii\helpers\ArrayHelper::map($worker->coWorkerFunctions, 'id', 'name');
+//$coWorkerFunctions = \yii\helpers\ArrayHelper::map($worker->coWorkerFunctions, 'id', 'name');
 
 $this->registerJs(<<<JS
     if (gl.functions.orders) {
@@ -33,11 +33,6 @@ JS
         <?= Yii::t('app', 'No tasks. Please refer to your manager.') ?>
     <?php endif; ?>
 
-    <?php if (isset($coWorkerFunctions['courier'])): ?>
-        <hr>
-        <?php /*= $this->render('_courier', ['worker' => $worker])*/ ?>
-    <?php endif; ?>
-
     <?php if (isset($coWorkerFunctions['accept_orders'])): ?>
         <hr>
         <?= $this->render('_accept_orders', ['worker' => $worker]) ?>
@@ -45,6 +40,11 @@ JS
 
     <?php if (isset($coWorkerFunctions['cook'])): ?>
         <hr>
-        <?php /*= $this->render('_cook', ['worker' => $worker])*/ ?>
+        <?= $this->render('_cook', ['worker' => $worker]) ?>
+    <?php endif; ?>
+
+    <?php if (isset($coWorkerFunctions['courier'])): ?>
+        <hr>
+        <?= $this->render('_courier', ['worker' => $worker]) ?>
     <?php endif; ?>
 </div>

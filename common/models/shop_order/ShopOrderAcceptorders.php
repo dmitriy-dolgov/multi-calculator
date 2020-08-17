@@ -11,7 +11,7 @@ use common\models\db\ShopOrderStatus;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 
-class ShopOrderOrders extends ShopOrderWorker
+class ShopOrderAcceptorders extends ShopOrderWorker
 {
     const FOR_ROLES = [
         'accept_orders',

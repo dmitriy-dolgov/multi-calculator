@@ -3,6 +3,7 @@
 namespace common\models\db;
 
 use Yii;
+use yii\web\NotFoundHttpException;
 
 /**
  * This is the model class for table "co_worker_function".
@@ -77,5 +78,14 @@ class CoWorkerFunction extends \yii\db\ActiveRecord
     public static function find()
     {
         return new CoWorkerFunctionQuery(get_called_class());
+    }
+
+    public function getCoWorkerFunctionClassById()
+    {
+        //$className = $id ?: 'Orders';
+        $className = ucfirst(preg_replace('/[^a-zA-Z0-9]/', '', $this->id));
+        $className = 'common\models\shop_order\ShopOrder' . $className;
+
+        return $className;
     }
 }

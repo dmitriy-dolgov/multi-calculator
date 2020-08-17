@@ -33,8 +33,26 @@ class WorkerController extends Controller
             throw new NotFoundHttpException();
         }
 
+        $coWorkerFunctions = \yii\helpers\ArrayHelper::map($workerObj->coWorkerFunctions, 'id', 'name');
+
+        $orders = [];
+
+        //foreach ($coWorkerFunctions as $id => $name) {
+        foreach ($workerObj->coWorkerFunctions as $cwFunction) {
+            $className = $cwFunction->getCoWorkerFunctionClassById();
+            if (!class_exists($className)) {
+                \Yii::error('Class "' . $className . '" does not exist.');
+                throw new NotFoundHttpException();
+            }
+
+            $shopOrders = new $className;
+            $orders[$cwFunction->id] = $shopOrders->getActiveOrders($worker_uid);
+        }
+
         return $this->render('index', [
             'worker' => $workerObj,
+            'coWorkerFunctions' => $coWorkerFunctions,
+            'orders' => $orders,
         ]);
     }
 
@@ -136,7 +154,7 @@ class WorkerController extends Controller
         return User::findOne($worker->user_id);
     }*/
 
-    public function actionAcceptOrder()
+    public function actionAcceptOrderByMaker()
     {
         \Yii::$app->response->format = Response::FORMAT_JSON;
 

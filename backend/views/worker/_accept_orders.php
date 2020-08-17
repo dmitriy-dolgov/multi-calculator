@@ -32,7 +32,6 @@ if ($worker->coWorkerDeclineCauses) {
     foreach ($worker->coWorkerDeclineCauses as $dCause) {
         $declineCausesHtml .= '<option value="' . $dCause->id . '">' . Html::encode($dCause->cause) . '</option>';
     }
-    //. '<br><button onclick="gl.functions.orders.acceptOrders.sendDeclineRequestReadyMessage(' . $dCause->id . ')">Отказаться с готовым объяснением.</button>';
 }
 $declineCausesHtml .= '</select><br>';
 
@@ -46,7 +45,7 @@ $this->registerJs(<<<JS
     if (gl.functions.orders.acceptOrders) {
         alert('"gl.functions.orders.acceptOrders" already set');
     }
-    //TODO: реализовать ASAP !!!
+    
     gl.functions.orders.acceptOrders = {};
     
     gl.functions.orders.acceptOrders.setupEvents = function() {
@@ -75,7 +74,7 @@ $this->registerJs(<<<JS
     };
 
     gl.functions.orders.acceptOrders.acceptOrder = function(id) {
-        $.post({$jsStrings['worker/accept-order']}, {id:id}, function(data) {
+        $.post({$jsStrings['worker/accept-order-by-maker']}, {id:id,worker_uid:{$jsStrings['worker_uid']}}, function(data) {
           if (data.status == 'success') {
               alert('Отправлен запрос исполнителю на подтверждение.');
               elems['#orders-pane'].find('.order[data-id=' + id + ']').fadeOut(400, function() {

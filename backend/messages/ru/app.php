@@ -272,7 +272,7 @@ return [
     'Create Co-worker function' => 'Создать вид деятельности сотрудника',
     'Worker Site Unique ID' => 'Уникальный идентификатор личного сайта сотрудника',
     'Co-worker main page' => 'Главная страница сотрудника',
-    'Individual Co-worker`s site.' => 'Индивидуальная страница сотрудника.',
+    'Individual Co-Worker`s Site' => 'Индивидуальная страница сотрудника',
     'Your name: {name}' => 'Ваше имя: {name}',
     "Co-worker's functions" => 'Виды деятельности сотрудника',
     'Your tasks:' => 'Ваши задачи:',

@@ -1,5 +1,57 @@
+html,
+body {
+  height: 100%;
+}
+
 #wrap {
-  padding: 10px;
+  height: 100%;
+}
+
+.header,
+.footer {
+  background-color: #3e3e3e;
+  color: yellow;
+}
+
+.footer {
+  clear: both;
+  position: relative;
+  height: 50px;
+  margin-top: -50px;
+  border-top: 2px ridge #f0f0f0;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  height: 60px;
+}
+.header .caption {
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  font-size: 13px;
+  padding-top: 5px;
+  color: #24dd24;
+}
+.header .info {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  padding: 0 10px 7px;
+  align-items: center;
+}
+.header .function-list {
+  margin: 0 0 0 auto;
+  padding: 0;
+  list-style-type: none;
+}
+.header .function-list .cw-function {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=style.css.map */

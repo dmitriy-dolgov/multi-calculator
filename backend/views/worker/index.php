@@ -9,11 +9,21 @@ $this->title = Yii::t('app', 'Co-worker main page');
 
 //$coWorkerFunctions = \yii\helpers\ArrayHelper::map($worker->coWorkerFunctions, 'id', 'name');
 
+$this->registerJsFile(Url::to(['/js/order-handling/websocket.js']), ['depends' => ['backend\assets\WorkerAsset'], 'appendTimestamp' => YII_DEBUG]);
+
+$userSocketId = json_encode($worker->user_id + 1);
+
 $this->registerJs(<<<JS
     if (gl.functions.orders) {
         alert('"gl.functions.orders" already set');
     }
     gl.functions.orders = {};
+
+    if (!gl.data) {
+        gl.data = {};
+    }
+    
+    gl.data.user_socket_id = $userSocketId;
 JS
 );
 

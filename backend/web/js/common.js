@@ -37,7 +37,13 @@ gl.escapeHtml = function (text) {
 
 gl.log = function (msg) {
     if (window.console) {
-        console.log(msg);
+        if (typeof msg == 'string') {
+            console.log(msg);
+        } else {    // must be an array
+            for (var id in msg) {
+                console.log(msg[id]);
+            }
+        }
     }
 };
 

@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\db\ShopOrder;
 use common\models\db\ShopOrderSearch;
 use common\models\db\ShopOrderStatus;
+use izumi\longpoll\Server;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -16,6 +17,34 @@ use yii\web\Response;
  */
 class ShopOrderController extends Controller
 {
+    public function actions()
+    {
+        return [
+            'wait-order' => [
+                'class' => 'izumi\longpoll\LongPollAction',
+                'events' => ['order-accepted-by-merchant'],
+                'callback' => [$this, 'orderAcceptedByMerchant'],
+            ],
+        ];
+    }
+
+    public function orderAcceptedByMerchant(Server $server)
+    {
+        $server->responseData = Yii::$app->cache->get('acceptedOrderMerchantId');
+        Yii::$app->cache->delete('acceptedOrderMerchantId');
+        //$server->responseData = $this->acceptedOrderMerchantId;
+    }
+
+    public function actionAcceptOrderByMerchant()
+    {
+        //pizza-customer.local/shop-order/accept-order-by-merchant
+
+        $merchantId = 234;
+        Yii::$app->cache->set('acceptedOrderMerchantId', $merchantId);
+        //$this->acceptedOrderMerchantId = $merchantId;
+        \izumi\longpoll\Event::triggerByKey('order-accepted-by-merchant');
+    }
+
     /**
      * Lists all ShopOrder models.
      * @return mixed

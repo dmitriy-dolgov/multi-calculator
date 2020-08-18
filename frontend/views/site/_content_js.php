@@ -118,7 +118,8 @@ $this->registerJsFile(Url::to(['/js/vendor/order-form/geo.js']), ['depends' => [
 $this->registerJsFile(Url::to(['/js/vendor/order-form/components.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/order.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/categories.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
-$this->registerJsFile(Url::to(['/js/vendor/order-form/websocket.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
+//$this->registerJsFile(Url::to(['/js/vendor/order-form/websocket.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
+//$this->registerJsFile(Url::to(['/js/vendor/order-form/longpoll.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 
 $this->registerJsFile(Url::to(['/js/leaflet/MovingMarker.js']), ['depends' => ['frontend\assets\VendorAsset']]);
 $this->registerJsFile(Url::to(['/js/leaflet/L.Icon.Pulse.js']), ['depends' => ['frontend\assets\VendorAsset']]);
@@ -130,6 +131,12 @@ $cityList = (new \common\models\Geo())->getCityList();
 foreach ($cityList as $cityId => $cityData) {
     $cityListSelect[$cityId] = $cityData['name'];
 }*/
+
+\izumi\longpoll\widgets\LongPoll::widget([
+    'url' => ['/shop-order/wait-order'],
+    'events' => ['order-accepted-by-merchant'],
+    'callback' => 'function(text){ alert(text); }',
+]);
 ?>
 <div id="elems-container" style="display: none">
     <div class="order-data-container-wrp">

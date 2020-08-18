@@ -25,28 +25,54 @@ class ShopOrderController extends Controller
                 'events' => ['order-accepted-by-merchant'],
                 'callback' => [$this, 'orderAcceptedByMerchant'],
             ],
+            'wait-courier' => [
+                'class' => 'izumi\longpoll\LongPollAction',
+                'events' => ['order-accepted-by-courier'],
+                'callback' => [$this, 'orderAcceptedByCourier'],
+            ],
         ];
     }
 
     public function orderAcceptedByMerchant(Server $server)
     {
-        $server->responseData = Yii::$app->cache->get('acceptedOrderData');
-        Yii::$app->cache->delete('acceptedOrderData');
+        $server->responseData = Yii::$app->cache->get('acceptedOrderMerchantData');
+        Yii::$app->cache->delete('acceptedOrderMerchantData');
     }
 
-    public function actionAcceptOrderByMerchant()
+    public function orderAcceptedByCourier(Server $server)
     {
-        //pizza-customer.local/shop-order/accept-order-by-merchant
+        $server->responseData = Yii::$app->cache->get('acceptedOrderCourierData');
+        Yii::$app->cache->delete('acceptedOrderCourierData');
+    }
+
+    public function actionAcceptOrderByMerchant($merchantDataName)
+    {
+        //pizza-customer.local/shop-order/accept-order-by-merchant?merchantDataName=Дима пицца
 
         $acceptedOrderData = [
             'order_status' => 'accepted-by-merchant',
-            'orderId' => 'oId567',
+            'orderId' => 'oId567f4',
             'merchantData' => [
-                'name' => 'Это название пиццерии',
+                'name' => $merchantDataName,
             ],
         ];
-        Yii::$app->cache->set('acceptedOrderData', $acceptedOrderData);
+        Yii::$app->cache->set('acceptedOrderMerchantData', $acceptedOrderData);
         \izumi\longpoll\Event::triggerByKey('order-accepted-by-merchant');
+    }
+
+    public function actionAcceptOrderByCourier($courierName)
+    {
+        //pizza-customer.local/shop-order/accept-order-by-courier?courierName=Дима курьер
+
+        $acceptedOrderData = [
+            'order_status' => 'accepted-by-courier',
+            'orderId' => 'oId567f4',
+            'courierData' => [
+                'name' => $courierName,
+            ],
+        ];
+        Yii::$app->cache->set('acceptedOrderCourierData', $acceptedOrderData);
+        \izumi\longpoll\Event::triggerByKey('order-accepted-by-courier');
     }
 
     /**

@@ -995,13 +995,22 @@ $catalog-name_height: 25px;
   color: #EEE;
 }
 
-@keyframes blink-order-accepted {
+@keyframes blink-green {
   50% {
     -webkit-box-shadow: 0 5px 15px rgb(0, 255, 0, 1);
     box-shadow: 0 5px 15px rgb(0, 255, 0, 1);
   }
 }
-
 .blinking-border-order-accepted {
-  animation: blink .5s step-end infinite alternate;
+  animation: blink-green .5s step-end infinite alternate;
+}
+
+@keyframes blink-yellow {
+  50% {
+    -webkit-box-shadow: 0 5px 15px rgb(255, 255, 0, 1);
+    box-shadow: 0 5px 15px rgb(255, 255, 0, 1);
+  }
+}
+.blinking-border-order-accepted-by-courier {
+  animation: blink-yellow .5s step-end infinite alternate;
 }

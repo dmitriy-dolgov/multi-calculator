@@ -1054,14 +1054,24 @@
   color: #EEE;
 }
 
-@keyframes blink-order-accepted {
+@keyframes blink-green {
   50% {
     -webkit-box-shadow: 0 5px 15px lime;
     box-shadow: 0 5px 15px lime;
   }
 }
 .blinking-border-order-accepted {
-  animation: blink 0.5s step-end infinite alternate;
+  animation: blink-green 0.5s step-end infinite alternate;
+}
+
+@keyframes blink-yellow {
+  50% {
+    -webkit-box-shadow: 0 5px 15px yellow;
+    box-shadow: 0 5px 15px yellow;
+  }
+}
+.blinking-border-order-accepted-by-courier {
+  animation: blink-yellow 0.5s step-end infinite alternate;
 }
 
 @media screen and (max-width: 1000px) {

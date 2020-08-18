@@ -995,10 +995,13 @@ $catalog-name_height: 25px;
   color: #EEE;
 }
 
-@keyframes blink {
-  50% { box-shadow: 0 5px 15px rgb(255, 0, 0, 1); }
+@keyframes blink-order-accepted {
+  50% {
+    -webkit-box-shadow: 0 5px 15px rgb(0, 255, 0, 1);
+    box-shadow: 0 5px 15px rgb(0, 255, 0, 1);
+  }
 }
 
-.blinking-border {
+.blinking-border-order-accepted {
   animation: blink .5s step-end infinite alternate;
 }

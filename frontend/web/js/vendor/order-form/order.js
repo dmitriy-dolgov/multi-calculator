@@ -356,25 +356,28 @@ gl.functions.fillOrderInfo = function (result, formData) {
 gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
     var result = false;
 
-    var container = $('.orders-container [data-order-id="' + orderId + '"]');
-    //if (container.length) {
-    if (1) {
+    var container = $('.orders-container .elem');
+    //var container = $('.orders-container [data-order-id="' + orderId + '"]');
+    if (container.length) {
         var orderInfoJson = container.data('order-info');
-        var orderInfoObj = JSON.parse(orderInfoJson);
+        gl.log(['orderInfoJson', orderInfoJson]);
+        //var orderInfoObj = JSON.parse(orderInfoJson);
+        var orderInfoObj = orderInfoJson;
         orderInfoObj.orderStatus = 'accepted-by-merchant';
-        container.data('order-info', JSON.stringify(orderInfoObj));
+        //container.data('order-info', JSON.stringify(orderInfoObj));
+        container.data('order-info', orderInfoObj);
 
         //TODO: здесь мигает окно "заказы" и если окно с текущим заказом открыто, то мигает и оно
-        $('#popup-compose-form .modal-content').addClass('blinking-border');
-        setTimeout(function () {
+        $('#popup-compose-form .modal-content').addClass('blinking-border-order-accepted');
+        /*setTimeout(function () {
             $('#popup-compose-form .modal-content').removeClass('blinking-border');
-        }, 7000);
+        }, 7000);*/
 
         //TODO: перевод
         var html = '<h3>Заказ взят в обработку.</h3>'
             + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
             + '<div class="info-message red">Ожидайте когда пицца будет передана курьеру.</div>';
-        elems['#order-form-submit'].find('.order-data-container').html(html);
+        elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
 
         result = true;
     }

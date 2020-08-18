@@ -1054,12 +1054,13 @@
   color: #EEE;
 }
 
-@keyframes blink {
+@keyframes blink-order-accepted {
   50% {
-    box-shadow: 0 5px 15px red;
+    -webkit-box-shadow: 0 5px 15px lime;
+    box-shadow: 0 5px 15px lime;
   }
 }
-.blinking-border {
+.blinking-border-order-accepted {
   animation: blink 0.5s step-end infinite alternate;
 }
 

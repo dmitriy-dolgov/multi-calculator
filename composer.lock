@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7966f3879436ca488ed9752c9483a8d",
+    "content-hash": "66824159ed3b9727716b3e9c4efdbe17",
     "packages": [
         {
             "name": "2amigos/2fa-library",
@@ -337,7 +337,7 @@
             "version": "v3.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
+                "url": "git@github.com:twbs/bootstrap.git",
                 "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e"
             },
             "dist": {
@@ -1463,6 +1463,57 @@
                 "yii2"
             ],
             "time": "2019-03-31T08:29:21+00:00"
+        },
+        {
+            "name": "izumi-kun/yii2-longpoll",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Izumi-kun/yii2-longpoll.git",
+                "reference": "92056922db492b36e063e6b747b341afab8b69c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Izumi-kun/yii2-longpoll/zipball/92056922db492b36e063e6b747b341afab8b69c2",
+                "reference": "92056922db492b36e063e6b747b341afab8b69c2",
+                "shasum": ""
+            },
+            "require": {
+                "npm-asset/jquery-longpoll-client": "0.3.0",
+                "php": "^7.0",
+                "yiisoft/yii2": "~2.0.14"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.4.0",
+                "symfony/process": "*",
+                "yiisoft/yii2-httpclient": "^2.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "izumi\\longpoll\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Viktor Khokhryakov",
+                    "email": "viktor.khokhryakov@gmail.com"
+                }
+            ],
+            "description": "Implements long polling connection",
+            "keywords": [
+                "comet",
+                "extension",
+                "longpoll",
+                "longpolling",
+                "server",
+                "yii2"
+            ],
+            "time": "2018-03-31T07:45:10+00:00"
         },
         {
             "name": "kartik-v/bootstrap-checkbox-x",
@@ -2776,6 +2827,20 @@
             ]
         },
         {
+            "name": "npm-asset/jquery-longpoll-client",
+            "version": "0.3.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/jquery-longpoll-client/-/jquery-longpoll-client-0.3.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "BSD-3-Clause"
+            ]
+        },
+        {
             "name": "nsept/yii2-jscrollpane",
             "version": "dev-master",
             "source": {
@@ -2862,6 +2927,40 @@
                 "yii2"
             ],
             "time": "2015-12-25T06:12:08+00:00"
+        },
+        {
+            "name": "odannyc/yii2-sse",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/odannyc/yii2-sse.git",
+                "reference": "a0352441c82c42ae87cbad73f8c7028d7d7bfb3a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/odannyc/yii2-sse/zipball/a0352441c82c42ae87cbad73f8c7028d7d7bfb3a",
+                "reference": "a0352441c82c42ae87cbad73f8c7028d7d7bfb3a",
+                "shasum": ""
+            },
+            "require": {
+                "tonyhhyip/sse": "^2.1",
+                "yiisoft/yii2": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "odannyc\\Yii2SSE\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Danny Carrillo",
+                    "email": "odannycx@gmail.com"
+                }
+            ],
+            "description": "Yii2 SSE is a wrapper for the library libSSE-php. Its used for managing Server Sent Events in Yii2.",
+            "time": "2016-07-28T18:10:36+00:00"
         },
         {
             "name": "omnilight/yii2-sypexgeo",
@@ -3163,6 +3262,60 @@
                 "mailer"
             ],
             "time": "2020-06-21T09:31:45+00:00"
+        },
+        {
+            "name": "symfony/http-foundation",
+            "version": "3.4.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/http-foundation.git",
+                "reference": "e5a42880895b43cd53d1a7b92bdcfb7d80c0af1c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/e5a42880895b43cd53d1a7b92bdcfb7d80c0af1c",
+                "reference": "e5a42880895b43cd53d1a7b92bdcfb7d80c0af1c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8",
+                "symfony/polyfill-mbstring": "~1.1",
+                "symfony/polyfill-php70": "~1.6"
+            },
+            "require-dev": {
+                "symfony/expression-language": "~2.8|~3.0|~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\HttpFoundation\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony HttpFoundation Component",
+            "homepage": "https://symfony.com",
+            "time": "2020-08-12T14:55:37+00:00"
         },
         {
             "name": "symfony/polyfill-iconv",
@@ -3549,6 +3702,62 @@
                 "shim"
             ],
             "time": "2020-07-14T12:35:20+00:00"
+        },
+        {
+            "name": "tonyhhyip/sse",
+            "version": "v2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tonyhhyip/libSSE-php.git",
+                "reference": "b853ee3f830e74b73062bbb7b1412b6f602c8721"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tonyhhyip/libSSE-php/zipball/b853ee3f830e74b73062bbb7b1412b6f602c8721",
+                "reference": "b853ee3f830e74b73062bbb7b1412b6f602c8721",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9",
+                "symfony/http-foundation": "~2.7 | ~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.2 | ~5.0"
+            },
+            "suggest": {
+                "predis/predis": "For using RedisMechnism",
+                "symfony/polyfill-apcu": "For APCMecnism on PHP < 7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sse\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Licson Lee",
+                    "email": "licson0729@gmail.com",
+                    "homepage": "https://licson.net/",
+                    "role": "Owner"
+                },
+                {
+                    "name": "Tony Yip",
+                    "email": "tony@opensource.hk",
+                    "homepage": "https://github.com/tonyhhyip",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An easy-to-use, object-orienlated library for Server-Sent Events",
+            "homepage": "https://github.com/licson0729/libSSE-php",
+            "keywords": [
+                "sse"
+            ],
+            "time": "2017-02-21T12:28:27+00:00"
         },
         {
             "name": "wertex/yii2-fias",
@@ -7920,6 +8129,8 @@
         "kartik-v/yii2-checkbox-x": 20,
         "kartik-v/yii2-nav-x": 20,
         "hiqdev/yii2-yandex-metrika": 20,
+        "izumi-kun/yii2-longpoll": 20,
+        "odannyc/yii2-sse": 20,
         "codeception/codeception": 20,
         "codeception/module-webdriver": 20
     },

@@ -117,6 +117,8 @@ JS
                         Новая причина отказа:<br><textarea class="text-new-decline-order-cause"></textarea>
                     </div>
                 </div>
+                <hr>
+                <hr>
             <?php endforeach; ?>
         </div>
     <?php endforeach; ?>

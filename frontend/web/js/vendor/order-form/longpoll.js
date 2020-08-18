@@ -33,9 +33,16 @@ gl.functions.longpoll.waitForMerchantOrderAccept = function (data) {
         }
     };
     $.longpoll.register(id, config).start();
+
+    gl.functions.longpoll.merchantInterval = setInterval(function () {
+        $.get('/shop-order/accept-order-by-merchant');
+    }, 5000);
 };
 
 gl.functions.longpoll.waitForCourierToGo = function () {
+
+    clearInterval(gl.functions.longpoll.merchantInterval);
+
     var id = 'courierOrderAccept';
     var timestamp = Date.now() / 1000 | 0;
     var config = {
@@ -58,6 +65,10 @@ gl.functions.longpoll.waitForCourierToGo = function () {
         }
     };
     $.longpoll.register(id, config).start();
+
+    setInterval(function () {
+        $.get('/shop-order/accept-order-by-courier');
+    }, 5000);
 };
 
 //gl.functions.longpoll.waitForMerchantOrderAccept({orderId:randomInt(0, 9999999)});

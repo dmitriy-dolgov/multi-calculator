@@ -1054,6 +1054,15 @@
   color: #EEE;
 }
 
+@keyframes blink {
+  50% {
+    box-shadow: 0 5px 15px red;
+  }
+}
+.blinking-border {
+  animation: blink 0.5s step-end infinite alternate;
+}
+
 @media screen and (max-width: 1000px) {
   .registration-info,
 .capt-price {

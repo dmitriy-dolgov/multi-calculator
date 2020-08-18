@@ -18,18 +18,10 @@ gl.functions.longpoll.waitForMerchantOrderAccept = function (data) {
 
                     alert(data.orderId);
 
-                    var container = $('.orders-container [data-order-id="' + data.orderId + '"]');
-                    if (container.length) {
-                        var orderInfoJson = container.data('order-info');
-                        var orderInfoObj = JSON.parse(orderInfoJson);
-                        orderInfoObj.orderStatus = 'accepted-by-merchant';
-                        container.data('order-info', JSON.stringify(orderInfoObj));
-
-                        //TODO: здесь мигает окно "заказы"
-
+                    if (gl.functions.setUpPaneOnOrderAccepted(data.orderId, data.merchantData)) {
                         $.longpoll.destroy(id);
                     } else {
-                        //TODO: обработка ошибок с данными заказа
+                        //TODO: обработка ошибок
                     }
                 } else {
                     //TODO: обработка ошибок

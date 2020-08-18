@@ -30,18 +30,22 @@ class ShopOrderController extends Controller
 
     public function orderAcceptedByMerchant(Server $server)
     {
-        $server->responseData = Yii::$app->cache->get('acceptedOrderMerchantId');
-        Yii::$app->cache->delete('acceptedOrderMerchantId');
-        //$server->responseData = $this->acceptedOrderMerchantId;
+        $server->responseData = Yii::$app->cache->get('acceptedOrderData');
+        Yii::$app->cache->delete('acceptedOrderData');
     }
 
     public function actionAcceptOrderByMerchant()
     {
         //pizza-customer.local/shop-order/accept-order-by-merchant
 
-        $merchantId = 234;
-        Yii::$app->cache->set('acceptedOrderMerchantId', $merchantId);
-        //$this->acceptedOrderMerchantId = $merchantId;
+        $acceptedOrderData = [
+            'order_status' => 'accepted-by-merchant',
+            'orderId' => 'oId567',
+            'merchantData' => [
+                'name' => 'Это название пиццерии',
+            ],
+        ];
+        Yii::$app->cache->set('acceptedOrderData', $acceptedOrderData);
         \izumi\longpoll\Event::triggerByKey('order-accepted-by-merchant');
     }
 

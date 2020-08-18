@@ -1054,4 +1054,13 @@
   color: #EEE;
 }
 
+@keyframes blink {
+  50% {
+    box-shadow: 0 5px 15px red;
+  }
+}
+.blinking-border {
+  animation: blink 0.5s step-end infinite alternate;
+}
+
 /*# sourceMappingURL=order-form.css.map */

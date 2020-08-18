@@ -994,3 +994,11 @@ $catalog-name_height: 25px;
 .cbx-icon {
   color: #EEE;
 }
+
+@keyframes blink {
+  50% { box-shadow: 0 5px 15px rgb(255, 0, 0, 1); }
+}
+
+.blinking-border {
+  animation: blink .5s step-end infinite alternate;
+}

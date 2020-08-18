@@ -5,7 +5,7 @@ gl.functions.websocket.init = function () {
         + gl.data['yii-params']['websocket']['host'] + ':' + gl.data['yii-params']['websocket']['port'];
 
     gl.functions.websocket.socket = new WebSocket(url);
-    gl.log(['gl.functions.websocket.socket:', gl.functions.websocket.socket]);
+   // gl.log(['gl.functions.websocket.socket:', gl.functions.websocket.socket]);
 
     gl.functions.websocket.socket.onopen = function () {
         gl.functions.websocket.socketOnOpen();
@@ -27,7 +27,7 @@ gl.functions.websocket.socketOnOpen = function () {
     gl.log('SOCKET ON OPEN EVENT');
     var msg = {
         jsonrpc: "2.0",
-        id: 1,
+        id: 444,
         method: "customer/join",
         params: {
             id: 1,
@@ -47,10 +47,14 @@ gl.functions.websocket.send = function (info) {
 
     gl.log('SOCKET ON SEND');
 
+    if (gl.functions.websocket.socket.readyState != 1) {
+        gl.functions.websocket.socketOnOpen();
+    }
+
     if (gl.functions.websocket.socket.readyState == 1) {
         var msg = {
             jsonrpc: "2.0",
-            id: 1,
+            id: 444,
             method: "customer/newOrderCreated",
             params: {
                 id: 1,

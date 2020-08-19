@@ -48,7 +48,6 @@ JS
 $this->registerJsFile(Url::to(['/js/order-handling/longpoll.js']),
     ['depends' => ['backend\assets\WorkerAsset'], 'appendTimestamp' => YII_DEBUG]);
 
-
 ?>
 <header class="header">
     <div class="caption"><?= Html::encode(Yii::t('app', 'Individual Co-Worker`s Site')) ?></div>
@@ -74,6 +73,10 @@ $this->registerJsFile(Url::to(['/js/order-handling/longpoll.js']),
 
     <?php foreach ($orders as $id => $orderList): ?>
         <div class="function-orders-pane <?= $id ?>">
+            <?php if ($id == 'accept_orders') {
+                echo $this->render('_accept_orders', ['orderList' => $orderList, 'worker' => $worker]);
+            } ?>
+            <?php /* ?>
             <?php foreach ($orderList as $ord): ?>
                 <div class="order" data-id="<?= $ord['info']['id'] ?>">
                     <div class="o-info id">ID: <?= $ord['info']['id'] ?></div>
@@ -124,6 +127,7 @@ $this->registerJsFile(Url::to(['/js/order-handling/longpoll.js']),
                 <hr>
                 <hr>
             <?php endforeach; ?>
+            <?php */ ?>
         </div>
     <?php endforeach; ?>
 

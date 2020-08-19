@@ -228,7 +228,7 @@ class WorkerController extends Controller
                     $alertUrl = \common\helpers\Web::getUrlToCustomerSite()
                         . Url::to([
                             '/shop-order/accept-order-by-merchant',
-                            'orderId' => $orderId,
+                            'orderUid' => $shopOrder->order_uid,
                             'merchantId' => $coWorker->user_id
                         ]);
 

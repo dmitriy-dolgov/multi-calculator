@@ -106,8 +106,8 @@ STR;
     public function actionIndex($uid = null)
     {
         //die('AI');
-        Yii::$app->cache->delete('acceptedOrderMerchantData');
-        Yii::$app->cache->delete('acceptedOrderCourierData');
+        //Yii::$app->cache->delete('acceptedOrderMerchantData');
+        //Yii::$app->cache->delete('acceptedOrderCourierData');
 
         //TODO: раскомментить для типа отдельная-пиццерия
         /*if (!$uid) {

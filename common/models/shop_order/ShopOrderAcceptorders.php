@@ -27,7 +27,11 @@ class ShopOrderAcceptorders extends ShopOrderWorker
         }
 
         //TODO: Проверка привилегий - улучшить
-        if (!CoWorkerCoWorkerFunction::find()->andWhere(['co_worker_id' => $coWorker->id])->andWhere(['IN', 'co_worker_function_id', self::FOR_ROLES])->exists()) {
+        if (!CoWorkerCoWorkerFunction::find()->andWhere(['co_worker_id' => $coWorker->id])->andWhere([
+            'IN',
+            'co_worker_function_id',
+            self::FOR_ROLES
+        ])->exists()) {
             Yii::error('Privilege not found for user with worker_uid: "' . $worker_uid . '", privilege is "' . self::FOR_ROLES . '".');
             throw new NotFoundHttpException('Privilege not found.');
         }
@@ -42,7 +46,7 @@ class ShopOrderAcceptorders extends ShopOrderWorker
             ->all()
         ) {
             $orderIds = ArrayHelper::getColumn($newShopOrders, 'shop_order_id');
-            $orderObjs = ShopOrder::findAll($orderIds);
+            $orderObjs = ShopOrder::find()->andWhere(['IN', 'id', $orderIds])->orderBy(['id' => SORT_DESC])->all();
             foreach ($orderObjs as $shopOrder) {
                 $components = [];
                 if ($shopOrder->shopOrderComponents) {

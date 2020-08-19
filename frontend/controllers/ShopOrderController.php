@@ -19,7 +19,7 @@ use yii\web\Response;
 class ShopOrderController extends Controller
 {
     //TODO: временный конструкт
-    protected $currentOrderId;
+    protected $currentOrderUid;
 
     public function actions()
     {
@@ -43,23 +43,23 @@ class ShopOrderController extends Controller
 
         if ($t = Yii::$app->request->get('t')) {
             // Первый запрос
-            $orderId = Yii::$app->request->get('orderId');
-            if ($orderId) {
+            $orderUid = Yii::$app->request->get('orderUid');
+            if ($orderUid) {
                 //TODO: это может оказаться полезным в случае переоткрытия заказа - рассмотреть такие случаи
-                Yii::$app->cache->delete(['order_handling', 'accepted_by_merchant', 'data', 'orderId' => $orderId]);
-                //Yii::$app->session->set('orderId', $orderId);
-                $this->currentOrderId = $orderId;
+                Yii::$app->cache->delete(['order_handling', 'accepted_by_merchant', 'data', 'orderUid' => $orderUid]);
+                //Yii::$app->session->set('orderUid', $orderUid);
+                $this->currentOrderUid = $orderUid;
             } else {
                 Yii::error('No order ID on orderAcceptedByMerchant()');
             }
         } else {
-            //if ($orderId = Yii::$app->session->get('orderId')) {
-            if ($orderId = $this->currentOrderId) {
+            //if ($orderUid = Yii::$app->session->get('orderUid')) {
+            if ($orderUid = $this->currentOrderUid) {
                 if ($storedData = Yii::$app->cache->get([
                     'order_handling',
                     'accepted_by_merchant',
                     'data',
-                    'orderId' => $orderId,
+                    'orderUid' => $orderUid,
                 ])) {
                     $server->responseData = $storedData;
                     return;
@@ -77,12 +77,13 @@ class ShopOrderController extends Controller
         //Yii::$app->cache->delete('acceptedOrderCourierData');
     }
 
-    public function actionAcceptOrderByMerchant($orderId, $merchantId)
+    public function actionAcceptOrderByMerchant($orderUid, $merchantId)
     {
         //pizza-customer.local/shop-order/accept-order-by-merchant?merchantDataName=Дима пицца
+        //pizza-customer.local/shop-order/accept-order-by-merchant?orderUid=6qNy1wt4VcRChNw&merchantId=2
 
-        $orderId = Yii::$app->request->post('orderId');
-        $merchantId = Yii::$app->request->post('merchantId');
+        //$orderUid = Yii::$app->request->post('orderUid');
+        //$merchantId = Yii::$app->request->post('merchantId');
 
         if (!$user = User::findOne($merchantId)) {
             Yii::error('User not found. User id: ' . $merchantId);
@@ -91,7 +92,7 @@ class ShopOrderController extends Controller
 
         $acceptedOrderData = [
             'order_status' => 'accepted-by-merchant',
-            'orderId' => $orderId,
+            'orderUid' => $orderUid,
             'merchantData' => [
                 'name' => $user->profile->name,
                 'address' => $user->profile->location,
@@ -99,7 +100,7 @@ class ShopOrderController extends Controller
             ],
         ];
 
-        Yii::$app->cache->set(['order_handling', 'accepted_by_merchant', 'data', 'orderId' => $orderId],
+        Yii::$app->cache->set(['order_handling', 'accepted_by_merchant', 'data', 'orderUid' => $orderUid],
             $acceptedOrderData);
         \izumi\longpoll\Event::triggerByKey('order-accepted-by-merchant');
 
@@ -112,7 +113,7 @@ class ShopOrderController extends Controller
 
         $acceptedOrderData = [
             'order_status' => 'accepted-by-courier',
-            'orderId' => 'oId567f4',
+            'orderUid' => 'oId567f4',
             'courierData' => [
                 'name' => $courierName,
             ],
@@ -171,13 +172,13 @@ class ShopOrderController extends Controller
         ]);
     }
 
-    public function actionOrderStatus($orderId)
+    public function actionOrderStatus($orderUid)
     {
         $result = ['status' => 'error'];
 
         Yii::$app->response->format = Response::FORMAT_JSON;
 
-        if ($shopOrder = ShopOrder::findOne(['order_uid' => $orderId])) {
+        if ($shopOrder = ShopOrder::findOne(['order_uid' => $orderUid])) {
             $result['status'] = 'success';
             //$result['data']['order-status'] = 'offer-sent-to-customer';
             $result['data']['order-status'] = 'new';

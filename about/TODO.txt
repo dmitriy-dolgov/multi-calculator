@@ -275,3 +275,6 @@ TODO:
 
 72) Важность: 2
     gl.functions.websocket.send - сделать обработку ошибки если сокет не готов
+
+73) Важность: 4
+    actionAcceptOrderByMerchant() - сделать только через POST

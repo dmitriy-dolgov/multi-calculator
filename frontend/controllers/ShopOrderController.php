@@ -36,22 +36,21 @@ class ShopOrderController extends Controller
     public function orderAcceptedByMerchant(Server $server)
     {
         $server->responseData = Yii::$app->cache->get('acceptedOrderMerchantData');
-        Yii::$app->cache->delete('acceptedOrderMerchantData');
+        //Yii::$app->cache->delete('acceptedOrderMerchantData');
     }
 
     public function orderAcceptedByCourier(Server $server)
     {
         $server->responseData = Yii::$app->cache->get('acceptedOrderCourierData');
-        Yii::$app->cache->delete('acceptedOrderCourierData');
+        //Yii::$app->cache->delete('acceptedOrderCourierData');
     }
 
     public function actionAcceptOrderByMerchant($merchantDataName = 'Дима пицца')
     {
         //pizza-customer.local/shop-order/accept-order-by-merchant?merchantDataName=Дима пицца
 
-        $f = Yii::getAlias('@runtime/merchant.txt');
-        if (is_file($f)) {
-
+        //$f = Yii::getAlias('@runtime/merchant.txt');
+        //if (is_file($f)) {
             $acceptedOrderData = [
                 'order_status' => 'accepted-by-merchant',
                 'orderId' => 'oId567f4',
@@ -59,17 +58,22 @@ class ShopOrderController extends Controller
                     'name' => $merchantDataName,
                 ],
             ];
+            //die('actionAcceptOrderByMerchant');
             Yii::$app->cache->set('acceptedOrderMerchantData', $acceptedOrderData);
             \izumi\longpoll\Event::triggerByKey('order-accepted-by-merchant');
-        }
+        //}
+
+        echo 'actionAcceptOrderByMerchant';
+
+        //die('actionAcceptOrderByMerchant');
     }
 
     public function actionAcceptOrderByCourier($courierName = 'Дима курьер')
     {
         //pizza-customer.local/shop-order/accept-order-by-courier?courierName=Дима курьер
 
-        $f = Yii::getAlias('@runtime/courier.txt');
-        if (is_file($f)) {
+        //$f = Yii::getAlias('@runtime/courier.txt');
+        //if (is_file($f)) {
             $acceptedOrderData = [
                 'order_status' => 'accepted-by-courier',
                 'orderId' => 'oId567f4',
@@ -79,7 +83,11 @@ class ShopOrderController extends Controller
             ];
             Yii::$app->cache->set('acceptedOrderCourierData', $acceptedOrderData);
             \izumi\longpoll\Event::triggerByKey('order-accepted-by-courier');
-        }
+        //}
+
+        echo 'actionAcceptOrderByCourier';
+
+        //die('actionAcceptOrderByCourier');
     }
 
     /**
@@ -88,6 +96,9 @@ class ShopOrderController extends Controller
      */
     public function actionIndex()
     {
+        /*Yii::$app->cache->delete('acceptedOrderMerchantData');
+        Yii::$app->cache->delete('acceptedOrderCourierData');*/
+
         $searchModel = new ShopOrderSearch();
         $dataProvider = new ActiveDataProvider([
             'query' => Yii::$app->user->identity->getShopOrders0(),

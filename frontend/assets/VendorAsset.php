@@ -13,6 +13,7 @@ class VendorAsset extends AssetBundle
     ];
     public $js = [
         'js/common.js?v=1.32',
+        'js/jquery.longpoll.js'
         //'js/jquery.ui.touch-punch.min.js',
     ];
     public $depends = [
@@ -22,7 +23,7 @@ class VendorAsset extends AssetBundle
         'frontend\assets\JplayerAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         'rmrevin\yii\fontawesome\AssetBundle',
-        'izumi\longpoll\widgets\LongPollAsset',
+        //'izumi\longpoll\widgets\LongPollAsset',
         //'common\assets\CookiesAsset',
     ];
 }

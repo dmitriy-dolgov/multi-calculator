@@ -334,7 +334,7 @@ gl.functions.fillOrderInfo = function (result, formData) {
         orderDataDataElem.html(html);
         orderDataDataElem.animate({opacity: 1});
 
-        setInterval(function () {
+        /*setInterval(function () {
             $.get('/shop-order/order-status', {orderId: result.order_uid}, function (result) {
                 if (result.status == 'success' && result.data['order-status'] == 'offer-sent-to-customer') {
                     for (var id in gl.functions.placesMap.prototype.allMovingMarkers) {
@@ -348,7 +348,7 @@ gl.functions.fillOrderInfo = function (result, formData) {
                     gl.functions.placesMap.prototype.allPolylines = [];
                 }
             });
-        }, 5000);
+        }, 5000);*/
     });
 };
 

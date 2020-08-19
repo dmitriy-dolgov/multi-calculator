@@ -47,14 +47,14 @@ class ShopOrderController extends Controller
             if ($orderUid) {
                 //TODO: это может оказаться полезным в случае переоткрытия заказа - рассмотреть такие случаи
                 Yii::$app->cache->delete(['order_handling', 'accepted_by_merchant', 'data', 'orderUid' => $orderUid]);
-                //Yii::$app->session->set('orderUid', $orderUid);
-                $this->currentOrderUid = $orderUid;
+                Yii::$app->session->set('currentOrderUid', $orderUid);
+                //$this->currentOrderUid = $orderUid;
             } else {
                 Yii::error('No order ID on orderAcceptedByMerchant()');
             }
         } else {
-            //if ($orderUid = Yii::$app->session->get('orderUid')) {
-            if ($orderUid = $this->currentOrderUid) {
+            if ($orderUid = Yii::$app->session->get('currentOrderUid')) {
+            //if ($orderUid = $this->currentOrderUid) {
                 if ($storedData = Yii::$app->cache->get([
                     'order_handling',
                     'accepted_by_merchant',

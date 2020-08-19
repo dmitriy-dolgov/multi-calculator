@@ -11,23 +11,23 @@ gl.functions.longpoll.destroyLongPollProcess = function(longPollId) {
     }, 0);
 };
 
-gl.functions.longpoll.waitForMerchantOrderAccept = function (orderId) {
+gl.functions.longpoll.waitForMerchantOrderAccept = function (orderUid) {
 
     gl.log('gl.functions.longpoll.waitForMerchantOrderAccept() START');
 
-    var longPollId = 'merchantOrderAccept_' + orderId;
+    var longPollId = 'merchantOrderAccept_' + orderUid;
     var timestamp = Date.now() / 1000 | 0;
     var config = {
         url: '/shop-order/wait-order',
         //type: 'post', // bug in longpoll
-        params: {t: timestamp, orderId: orderId},
+        params: {t: timestamp, orderUid: orderUid},
         callback: function (data) {
             if (data) {
                 if (data.order_status == 'accepted-by-merchant') {
 
-                    //alert(data.orderId);
+                    //alert(data.orderUid);
 
-                    if (gl.functions.setUpPaneOnOrderAccepted(data.orderId, data.merchantData)) {
+                    if (gl.functions.setUpPaneOnOrderAccepted(data.orderUid, data.merchantData)) {
                         gl.functions.longpoll.destroyLongPollProcess(longPollId);
                         gl.functions.longpoll.waitForCourierToGo();
                     } else {
@@ -46,19 +46,19 @@ gl.functions.longpoll.waitForMerchantOrderAccept = function (orderId) {
     $.longpoll.register(longPollId, config).start();
 };
 
-gl.functions.longpoll.waitForCourierToGo = function (orderId) {
+gl.functions.longpoll.waitForCourierToGo = function (orderUid) {
 
     gl.log('gl.functions.longpoll.waitForCourierToGo() START');
 
-    var longPollId = 'courierOrderAccept_' + orderId;
+    var longPollId = 'courierOrderAccept_' + orderUid;
     var timestamp = Date.now() / 1000 | 0;
     var config = {
         url: '/shop-order/wait-courier',
-        params: {t: timestamp, orderId: orderId},
+        params: {t: timestamp, orderUid: orderUid},
         callback: function (data) {
             if (data) {
                 if (data.order_status == 'accepted-by-courier') {
-                    if (gl.functions.setUpPaneOnOrderAcceptedByCourier(data.orderId, data.courierData)) {
+                    if (gl.functions.setUpPaneOnOrderAcceptedByCourier(data.orderUid, data.courierData)) {
                         gl.functions.longpoll.destroyLongPollProcess(longPollId);
                         //gl.functions.longpoll.waitForCourierToGo();
                     } else {
@@ -75,5 +75,5 @@ gl.functions.longpoll.waitForCourierToGo = function (orderId) {
     $.longpoll.register(longPollId, config).start();
 };
 
-//gl.functions.longpoll.waitForMerchantOrderAccept({orderId:randomInt(0, 9999999)});
+//gl.functions.longpoll.waitForMerchantOrderAccept({orderUid:randomInt(0, 9999999)});
 

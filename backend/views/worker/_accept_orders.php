@@ -30,10 +30,6 @@ $this->registerJs(<<<JS
         '#orders-pane': $('#orders-pane')
     };
 
-    if (!gl.functions.orders) {
-        gl.functions.orders = {};
-    }
-
     if (gl.functions.orders.acceptOrders) {
         alert('"gl.functions.orders.acceptOrders" already set');
     }

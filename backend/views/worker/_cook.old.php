@@ -10,6 +10,13 @@ $jsStrings = [
     'worker_uid' => json_encode(Yii::$app->request->get('worker_uid')),
 ];
 
+$this->registerCss(<<<CSS
+.order {
+    margin-bottom: 20px;
+}
+CSS
+);
+
 $this->registerJs(<<<JS
     var elems = {
         '#orders-pane': $('#orders-pane')

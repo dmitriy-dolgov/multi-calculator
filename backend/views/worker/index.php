@@ -45,6 +45,13 @@ $this->registerJs(<<<JS
 JS
 , \yii\web\View::POS_HEAD);*/
 
+$this->registerJs(<<<JS
+    if (!gl.functions.orders) {
+        gl.functions.orders = {};
+    };
+JS
+);
+
 $this->registerJsFile(Url::to(['/js/order-handling/longpoll.js']),
     ['depends' => ['backend\assets\WorkerAsset'], 'appendTimestamp' => YII_DEBUG]);
 

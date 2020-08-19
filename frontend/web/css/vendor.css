@@ -936,6 +936,7 @@
   background-color: #2d3436;
   text-shadow: 1px 1px 5px black;
   letter-spacing: 1px;
+  outline: none;
 }
 
 .pizzeria-panel {

@@ -199,7 +199,7 @@ gl.functions.composeOrder = function () {
         $.post('/site/order-create-ajax', formData, function (result) {
             if (result.status == 'success') {
                 //gl.functions.websocket.send({newOrderId: result.order_uid});
-                gl.functions.longpoll.waitForMerchantOrderAccept({orderId: result.order_uid});
+                gl.functions.longpoll.waitForMerchantOrderAccept(result.order_uid);
 
                 /*gl.functions.fillOrderInfo(result, {
                     deliver_customer_name: deliver_customer_name,

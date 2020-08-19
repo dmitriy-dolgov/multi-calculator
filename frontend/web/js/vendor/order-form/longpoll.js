@@ -4,18 +4,23 @@ function randomInt(min, max) {
     return min + Math.floor((max - min) * Math.random());
 }
 
-gl.functions.longpoll.waitForMerchantOrderAccept = function (data) {
+gl.functions.longpoll.destroyLongPollProcess = function(longPollId) {
+    setTimeout(function () {
+        $.longpoll.destroy(longPollId);
+        gl.log('LP destroyed: ' + longPollId);
+    }, 0);
+};
+
+gl.functions.longpoll.waitForMerchantOrderAccept = function (orderId) {
 
     gl.log('gl.functions.longpoll.waitForMerchantOrderAccept() START');
 
-    //var id = 'merchantOrderAccept_' + data.orderId;
-    var id = 'merchantOrderAccept';
+    var longPollId = 'merchantOrderAccept_' + orderId;
     var timestamp = Date.now() / 1000 | 0;
     var config = {
-        //url: '/shop-order/wait-order?order_id=' + encodeURIComponent(data.orderId),
         url: '/shop-order/wait-order',
         //type: 'post', // bug in longpoll
-        params: {t: timestamp, dtt: 'my_data_dtt'},
+        params: {t: timestamp, orderId: orderId},
         callback: function (data) {
             if (data) {
                 if (data.order_status == 'accepted-by-merchant') {
@@ -23,13 +28,8 @@ gl.functions.longpoll.waitForMerchantOrderAccept = function (data) {
                     //alert(data.orderId);
 
                     if (gl.functions.setUpPaneOnOrderAccepted(data.orderId, data.merchantData)) {
-                        /*$.longpoll.destroy('merchantOrderAccept');
-                        gl.log('gl.functions.longpoll.waitForCourierToGo();');
-                        gl.log('destroyed: ' + id);
-                        setTimeout(function () {*/
+                        gl.functions.longpoll.destroyLongPollProcess(longPollId);
                         gl.functions.longpoll.waitForCourierToGo();
-                        //}, 5000);
-
                     } else {
                         //TODO: обработка ошибок
                     }
@@ -43,38 +43,23 @@ gl.functions.longpoll.waitForMerchantOrderAccept = function (data) {
         }
     };
 
-    $.longpoll.register(id, config).start();
-
-    /*gl.functions.longpoll.merchantInterval = setInterval(function () {
-        $.get('/shop-order/accept-order-by-merchant');
-    }, 5000);*/
+    $.longpoll.register(longPollId, config).start();
 };
 
-gl.functions.longpoll.waitForCourierToGo = function () {
-
-    setTimeout(function () {
-        $.longpoll.destroy('merchantOrderAccept');
-        gl.log('3: gl.functions.longpoll.waitForCourierToGo();');
-        gl.log('3: destroyed: ' + id);
-    }, 0);
-
-    //clearInterval(gl.functions.longpoll.merchantInterval);
+gl.functions.longpoll.waitForCourierToGo = function (orderId) {
 
     gl.log('gl.functions.longpoll.waitForCourierToGo() START');
 
-    var id = 'courierOrderAccept';
+    var longPollId = 'courierOrderAccept_' + orderId;
     var timestamp = Date.now() / 1000 | 0;
     var config = {
         url: '/shop-order/wait-courier',
-        //type: 'post',
-        params: {t: timestamp, md: 'my_data_md'},
+        params: {t: timestamp, orderId: orderId},
         callback: function (data) {
             if (data) {
                 if (data.order_status == 'accepted-by-courier') {
-
                     if (gl.functions.setUpPaneOnOrderAcceptedByCourier(data.orderId, data.courierData)) {
-                        $.longpoll.destroy(id);
-                        gl.log('destroyed 2: ' + id);
+                        gl.functions.longpoll.destroyLongPollProcess(longPollId);
                         //gl.functions.longpoll.waitForCourierToGo();
                     } else {
                         //TODO: обработка ошибок
@@ -87,11 +72,7 @@ gl.functions.longpoll.waitForCourierToGo = function () {
         }
     };
 
-    $.longpoll.register(id, config).start();
-
-    /*setInterval(function () {
-        $.get('/shop-order/accept-order-by-courier');
-    }, 5000);*/
+    $.longpoll.register(longPollId, config).start();
 };
 
 //gl.functions.longpoll.waitForMerchantOrderAccept({orderId:randomInt(0, 9999999)});

@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use Yii;
 use common\models\db\CoWorker;
 use common\models\db\ShopOrder;
 use common\models\db\ShopOrderStatus;
@@ -108,7 +109,7 @@ class WorkerController extends Controller
         } elseif ($type == 'cook') {
             if ($newShopOrders = ShopOrderStatus::find()
                 ->select('shop_order_id')
-                ->andWhere(['type' => 'offer-sent-to-cook'])
+                ->andWhere(['type' => 'offer-sent-to-cook'])    //offer-accepted-by-cook
                 ->groupBy('shop_order_id')
                 ->orderBy(['shop_order_id' => SORT_DESC])
                 ->asArray()
@@ -156,12 +157,18 @@ class WorkerController extends Controller
 
     public function actionAcceptOrderByMaker()
     {
-        \Yii::$app->response->format = Response::FORMAT_JSON;
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
         $result = ['status' => 'error'];
 
-        $orderId = \Yii::$app->request->post('id');
-        $type = \Yii::$app->request->post('type');
+        $workerUid = Yii::$app->request->post('worker_uid');
+        if (!$coWorker = CoWorker::find()->select(['id', 'user_id'])->andWhere(['worker_site_uid' => $workerUid])->one()) {
+            Yii::error('Co-worker not found: `' . $workerUid . '``');
+            throw new NotFoundHttpException('Co-worker not found.');
+        }
+
+        $orderId = Yii::$app->request->post('id');
+        $type = Yii::$app->request->post('type');
 
         if ($type == 'courier') {
             if ($shopOrder = ShopOrder::findOne($orderId)) {
@@ -184,15 +191,34 @@ class WorkerController extends Controller
                 $result['status'] = 'success';
             }
         } else {    // новый заказ
-            if ($shopOrder = ShopOrder::findOne($orderId)) {
-                //TODO: проверять, может уже занят заказ
-                $shopOrderStatus = new ShopOrderStatus();
-                //$shopOrderStatus->type = 'offer-sent-to-customer';
-                $shopOrderStatus->type = 'offer-sent-to-cook';
-                $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
-                //$shopOrderStatus->save();
 
-                $result['status'] = 'success';
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                if ($shopOrder = ShopOrder::findOne($orderId)) {
+                    //TODO: проверять, может уже занят заказ
+                    $shopOrderStatus = new ShopOrderStatus();
+                    $shopOrderStatus->type = 'offer-accepted-by-cook';
+                    $shopOrderStatus->user_id = $coWorker->user_id;
+                    $shopOrderStatus->accepted_at = date('Y-m-d H:i:s');
+                    $shopOrderStatus->accepted_by = $coWorker->id;
+                    $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
+                    //$shopOrderStatus->save();
+
+                    // Установим статусы для других пользователей
+                    
+
+                    $result['status'] = 'success';
+                }
+
+                $transaction->commit();
+            } catch (\Exception $e) {
+                $transaction->rollBack();
+                //TODO: обработка ошибки
+                throw $e;
+            } catch (\Throwable $e) {
+                $transaction->rollBack();
+                //TODO: обработка ошибки
+                throw $e;
             }
         }
 

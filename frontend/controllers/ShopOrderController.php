@@ -17,6 +17,9 @@ use yii\web\Response;
  */
 class ShopOrderController extends Controller
 {
+    //TODO: временный конструкт
+    protected $currentOrderId;
+
     public function actions()
     {
         return [
@@ -43,12 +46,14 @@ class ShopOrderController extends Controller
             if ($orderId) {
                 //TODO: это может оказаться полезным в случае переоткрытия заказа - рассмотреть такие случаи
                 Yii::$app->cache->delete(['order_handling', 'accepted_by_merchant', 'data', 'orderId' => $orderId]);
-                Yii::$app->session->set('orderId', $orderId);
+                //Yii::$app->session->set('orderId', $orderId);
+                $this->currentOrderId = $orderId;
             } else {
                 Yii::error('No order ID on orderAcceptedByMerchant()');
             }
         } else {
-            if ($orderId = Yii::$app->session->get('orderId')) {
+            //if ($orderId = Yii::$app->session->get('orderId')) {
+            if ($orderId = $this->currentOrderId) {
                 if ($storedData = Yii::$app->cache->get([
                     'order_handling',
                     'accepted_by_merchant',
@@ -60,7 +65,7 @@ class ShopOrderController extends Controller
                 }
             }
 
-            //TODO: проверить прекращается ли работа
+            //TODO: проверить прекращается ли работа, не отсылается ли ответ клиенту
             exit;
         }
     }

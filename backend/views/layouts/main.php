@@ -164,7 +164,7 @@ CSS
                     <!--<iframe class="total-frame"
                             src="<?php /*= Url::to(['/vendor/order']) */ ?>/<?php /*= Yii::$app->user->identity->getOrderUid() */ ?>"></iframe>-->
                     <iframe class="total-frame"
-                            src="<?= Yii::$app->params['domain-customer-schema'] ?>://<?= Yii::$app->params['domain-customer'] ?>"></iframe>
+                            src="<?= \common\helpers\Web::getUrlToCustomerSite() ?>"></iframe>
                     <i class="pane-switch icon-arrow-left-circle btn-wrap-order-make-form"
                        title="Развернуть панель"></i>
                 </section>

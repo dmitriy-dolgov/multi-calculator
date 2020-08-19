@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\db\ShopOrder;
 use common\models\db\ShopOrderSearch;
 use common\models\db\ShopOrderStatus;
+use common\models\db\User;
 use izumi\longpoll\Server;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -83,11 +84,18 @@ class ShopOrderController extends Controller
         $orderId = Yii::$app->request->post('orderId');
         $merchantId = Yii::$app->request->post('merchantId');
 
+        if (!$user = User::findOne($merchantId)) {
+            Yii::error('User not found. User id: ' . $merchantId);
+            throw new NotFoundHttpException('User not found!');
+        }
+
         $acceptedOrderData = [
             'order_status' => 'accepted-by-merchant',
-            'orderId' => 'oId567f4',
+            'orderId' => $orderId,
             'merchantData' => [
-                'name' => 'some test name',
+                'name' => $user->profile->name,
+                'address' => $user->profile->location,
+                'company_lat_long' => $user->profile->company_lat_long,
             ],
         ];
 
@@ -95,7 +103,7 @@ class ShopOrderController extends Controller
             $acceptedOrderData);
         \izumi\longpoll\Event::triggerByKey('order-accepted-by-merchant');
 
-        echo 'actionAcceptOrderByMerchant';
+        return 'success';
     }
 
     public function actionAcceptOrderByCourier($courierName = 'Дима курьер')

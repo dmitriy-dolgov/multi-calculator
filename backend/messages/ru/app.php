@@ -287,4 +287,5 @@ return [
     'Update Co-Worker Decline Cause: {name}' => 'Обновить причину отказа сотрудника: {name}',
     'Priority to show in the list. Set up highther priority to more often selected causes.' => 'Последовательность вывода в списке. Чем чаще выбирается причина отказа, тем выше установите приоритет.',
     'Set up here: {url}' => 'Устанавливается здесь: {url}',
+    "Cound't send notice about an order to user!" => 'Не удалось отправить извещение пользователю о заказе!',
 ];

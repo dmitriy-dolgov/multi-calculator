@@ -51,11 +51,19 @@ return [
             'name' => 'advanced-frontend',
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'traceLevel' => YII_DEBUG ? 0 : 0,
+            'flushInterval' => 1,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
+                ],
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'categories' => ['order-accept'],
+                    'logFile' => '@runtime/logs/order-accept.log',
+                    'exportInterval' => 1,
+                    'levels' => ['trace'],
                 ],
             ],
         ],

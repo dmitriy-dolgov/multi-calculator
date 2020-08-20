@@ -39,11 +39,14 @@ class ShopOrderController extends Controller
 
     public function orderAcceptedByMerchant(Server $server)
     {
-        $server->responseData = false;
+        //$server->responseData = false;
+
+        Yii::debug('orderAcceptedByMerchant()', 'order-accept');
 
         if ($t = Yii::$app->request->get('t')) {
             // Первый запрос
             $orderUid = Yii::$app->request->get('orderUid');
+            Yii::debug('orderAcceptedByMerchant() - first cycle, $orderUid: ' . $orderUid, 'order-accept');
             if ($orderUid) {
                 //TODO: это может оказаться полезным в случае переоткрытия заказа - рассмотреть такие случаи
                 Yii::$app->cache->delete(['order_handling', 'accepted_by_merchant', 'data', 'orderUid' => $orderUid]);
@@ -53,22 +56,39 @@ class ShopOrderController extends Controller
                 Yii::error('No order ID on orderAcceptedByMerchant()');
             }
         } else {
-            if ($orderUid = Yii::$app->session->get('currentOrderUid')) {
-            //if ($orderUid = $this->currentOrderUid) {
-                if ($storedData = Yii::$app->cache->get([
+            if (session_status() !== PHP_SESSION_ACTIVE) {
+
+                //TODO: проверить здесь, закомментить Yii::debug() если надо
+                headers_sent($file, $line);
+                Yii::debug('H-SENT: file:' . $file . '; line: ' . $line, 'order-accept');
+
+                YII_DEBUG ? session_start() : @session_start();
+            }
+            //$orderUid = Yii::$app->session->get('currentOrderUid');
+            $orderUid = $_SESSION['currentOrderUid'] ?? false;
+            Yii::debug('orderAcceptedByMerchant() - NOT first cycle, $orderUid: ' . $orderUid, 'order-accept');
+            if ($orderUid) {
+                //if ($orderUid = $this->currentOrderUid) {
+                $storedData = Yii::$app->cache->get([
                     'order_handling',
                     'accepted_by_merchant',
                     'data',
                     'orderUid' => $orderUid,
-                ])) {
+                ]);
+                Yii::debug('orderAcceptedByMerchant(), $storedData: ' . print_r($storedData, true), 'order-accept');
+                if ($storedData) {
+                    Yii::debug('orderAcceptedByMerchant(), IN ST DT', 'order-accept');
                     $server->responseData = $storedData;
-                    return;
+                    //return;
                 }
             }
 
             //TODO: проверить прекращается ли работа, не отсылается ли ответ клиенту
-            exit;
+            //exit;
+            //Yii::$app->end();
         }
+
+        Yii::debug('orderAcceptedByMerchant(), EXIT FUNC', 'order-accept');
     }
 
     public function orderAcceptedByCourier(Server $server)
@@ -100,9 +120,13 @@ class ShopOrderController extends Controller
             ],
         ];
 
+        Yii::debug('actionAcceptOrderByMerchant, $orderUid: ' . $orderUid, 'order-accept');
+
         Yii::$app->cache->set(['order_handling', 'accepted_by_merchant', 'data', 'orderUid' => $orderUid],
             $acceptedOrderData);
         \izumi\longpoll\Event::triggerByKey('order-accepted-by-merchant');
+
+        Yii::debug('actionAcceptOrderByMerchant, END OF FUNC', 'order-accept');
 
         return 'success';
     }

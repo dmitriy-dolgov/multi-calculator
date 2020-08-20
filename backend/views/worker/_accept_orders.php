@@ -8,10 +8,10 @@ use yii\helpers\Html;
 /* @var $orderList array */
 
 $jsStrings = [
-    'worker/get-active-orders' => json_encode(Url::to(['worker/get-active-orders'])),
+    //'worker/get-active-orders' => json_encode(Url::to(['worker/get-active-orders'])),
     'worker/accept-order-by-maker' => json_encode(Url::to(['worker/accept-order-by-maker'])),
     'worker_uid' => json_encode(Yii::$app->request->get('worker_uid')),
-    'worker/decline-order' => json_encode(Url::to(['worker/get-active-orders'])),
+    'worker/decline-order' => json_encode(Url::to(['worker/decline-order'])),
 ];
 
 /*$declineCausesHtml = '<select class="sel-decline-order-cause">'
@@ -51,7 +51,7 @@ $this->registerJs(<<<JS
     gl.functions.orders.acceptOrders.acceptOrder = function(id) {
         $.post({$jsStrings['worker/accept-order-by-maker']}, {id:id,worker_uid:{$jsStrings['worker_uid']}}, function(data) {
           if (data.status == 'success') {
-              alert('Отправлен запрос исполнителю.');
+              alert('Запрос отправлен на выполнение.');
               
               //TODO: показывать уже существующие выполняющиеся заказы
               $('.function-orders-pane .order[data-id=' + id + ']' .btn-accept-order-wrap).html('<i><b>Отправлен на выполнение.</b></i>');

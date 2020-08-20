@@ -8,10 +8,9 @@ use yii\helpers\Html;
 /* @var $orderList array */
 
 $jsStrings = [
-    'worker/get-active-orders' => json_encode(Url::to(['worker/get-active-orders'])),
-    'worker/accept-order-by-maker' => json_encode(Url::to(['worker/accept-order-by-maker'])),
+    'worker/accept-order-by-courier' => json_encode(Url::to(['worker/accept-order-by-courier'])),
     'worker_uid' => json_encode(Yii::$app->request->get('worker_uid')),
-    'worker/decline-order' => json_encode(Url::to(['worker/get-active-orders'])),
+    'worker/decline-order' => json_encode(Url::to(['worker/decline-order'])),
 ];
 
 $this->registerJs(<<<JS
@@ -19,13 +18,13 @@ $this->registerJs(<<<JS
         '#orders-pane': $('#orders-pane')
     };
 
-    if (gl.functions.orders.acceptOrders) {
-        alert('"gl.functions.orders.acceptOrders" already set');
+    if (gl.functions.orders.cook) {
+        alert('"gl.functions.orders.cook" already set');
     }
     
-    gl.functions.orders.acceptOrders = {};
+    gl.functions.orders.cook = {};
    
-    gl.functions.orders.acceptOrders.sendDeclineRequestReadyMessage = function(declineRequestId) {
+    gl.functions.orders.cook.sendDeclineRequestReadyMessage = function(declineRequestId) {
         $.post({$jsStrings['worker/decline-order']}, {declineRequestId:declineRequestId}, function(data) {
             if (data.status == 'success') {
                 
@@ -37,19 +36,19 @@ $this->registerJs(<<<JS
         });
     };
 
-    gl.functions.orders.acceptOrders.acceptOrder = function(id) {
-        $.post({$jsStrings['worker/accept-order-by-maker']}, {id:id,worker_uid:{$jsStrings['worker_uid']}}, function(data) {
+    gl.functions.orders.cook.acceptOrder = function(id) {
+        $.post({$jsStrings['worker/accept-order-by-courier']}, {id:id,worker_uid:{$jsStrings['worker_uid']}}, function(data) {
           if (data.status == 'success') {
-              alert('Отправлен запрос исполнителю.');
+              alert('Готовый продукт передан курьеру.');
               
               //TODO: показывать уже существующие выполняющиеся заказы
-              $('.function-orders-pane .order[data-id=' + id + ']' .btn-accept-order-wrap).html('<i><b>Отправлен на выполнение.</b></i>');
+              $('.function-orders-pane .order[data-id=' + id + ']' .btn-accept-order-wrap).html('<i><b>Продукт передан курьеру.</b></i>');
               /*$('.function-orders-pane .order[data-id=' + id + ']').fadeOut(400, function() {
                   // TODO: to remove
                   //this.remove();
               });*/
           } else if (data.status == 'warning') {
-              alert('Заказ отправлен на выполнение но произошла ошибка: ' + data.msg);
+              alert('Готовый продукт передан курьеру но произошла ошибка: ' + data.msg);
           } else {
               //TODO: to translate , maybe handle error
                 gl.handleFailCustom('Unknown error');
@@ -59,7 +58,7 @@ $this->registerJs(<<<JS
         });
     };
     
-    gl.functions.orders.acceptOrders.declineOrder = function(id) {
+    gl.functions.orders.cook.declineOrder = function(id) {
         alert('Вы отклонили/отложили заказ.');
         elems['#orders-pane'].find('.order[data-id=' + id + ']').fadeOut(400, function() {
             // TODO: to remove
@@ -94,14 +93,14 @@ JS
         <hr>
         <div class="btn-accept-order-wrap">
             <button class="btn btn-warning"
-                    onclick="gl.functions.orders.acceptOrders.acceptOrder(<?= $ord['info']['id'] ?>);return false;">
+                    onclick="gl.functions.orders.cook.acceptOrder(<?= $ord['info']['id'] ?>);return false;">
                 Передать курьеру
             </button>
         </div>
         <hr>
         <div class="decline-order-panel">
             <button class="btn btn-decline-order"
-                    onclick="gl.functions.orders.acceptOrders.declineOrder(<?= $ord['info']['id'] ?>);return false;">
+                    onclick="gl.functions.orders.cook.declineOrder(<?= $ord['info']['id'] ?>);return false;">
                 Отложить/отказаться
             </button>
             <select class="sel-decline-order-cause">

@@ -38,7 +38,7 @@ class ShopOrderStatus extends \yii\db\ActiveRecord
         // Заказ уже принят в обработку другой пиццерией. Возможен откат к состоянию 'created'.
         'offer-blocked-with-other-pizzeria',
         // Заказ передан курьеру.
-        'offer-accepted-with-courier',
+        'offer-accepted-by-courier',
         // Заказ доставлен пользователю.
         'offer-accepted-with-customer',
         // Заказ обработан и закрыт (удачно или неудачно).

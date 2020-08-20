@@ -109,92 +109,137 @@ class WorkerController extends Controller
         }
 
         $orderId = Yii::$app->request->post('id');
-        $type = Yii::$app->request->post('type');
+        //$type = Yii::$app->request->post('type');
 
-        if ($type == 'courier') {
+        // новый заказ
+
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
             if ($shopOrder = ShopOrder::findOne($orderId)) {
+                $currentTimestamp = date('Y-m-d H:i:s');
+
                 //TODO: проверять, может уже занят заказ
                 $shopOrderStatus = new ShopOrderStatus();
-                $shopOrderStatus->type = 'offer-accepted-with-courier';
+                $shopOrderStatus->type = 'offer-accepted-by-cook';
+                $shopOrderStatus->user_id = $coWorker->user_id;
+                $shopOrderStatus->accepted_at = $currentTimestamp;
+                $shopOrderStatus->accepted_by = $coWorker->id;
                 $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
                 //$shopOrderStatus->save();
 
-                $result['status'] = 'success';
-            }
-        } elseif ($type == 'cook') {
-            if ($shopOrder = ShopOrder::findOne($orderId)) {
-                //TODO: проверять, может уже занят заказ
-                $shopOrderStatus = new ShopOrderStatus();
-                $shopOrderStatus->type = 'offer-accepted-with-cook';
-                $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
-                //$shopOrderStatus->save();
-
-                $result['status'] = 'success';
-            }
-        } else {    // новый заказ
-
-            $transaction = Yii::$app->db->beginTransaction();
-            try {
-                if ($shopOrder = ShopOrder::findOne($orderId)) {
-                    $currentTimestamp = date('Y-m-d H:i:s');
-
-                    //TODO: проверять, может уже занят заказ
+                // Установим статусы для других пользователей
+                $usersForStatuses = ShopOrderUser::find()
+                    ->andWhere(['shop_order_id' => $orderId])
+                    ->andWhere(['!=', 'user_id', $coWorker->user_id])
+                    ->all();
+                foreach ($usersForStatuses as $user) {
                     $shopOrderStatus = new ShopOrderStatus();
-                    $shopOrderStatus->type = 'offer-accepted-by-cook';
-                    $shopOrderStatus->user_id = $coWorker->user_id;
+                    $shopOrderStatus->type = 'offer-blocked-with-other-pizzeria';
+                    $shopOrderStatus->user_id = $user->user_id;
                     $shopOrderStatus->accepted_at = $currentTimestamp;
-                    $shopOrderStatus->accepted_by = $coWorker->id;
                     $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
-                    //$shopOrderStatus->save();
-
-                    // Установим статусы для других пользователей
-                    $usersForStatuses = ShopOrderUser::find()
-                        ->andWhere(['shop_order_id' => $orderId])
-                        ->andWhere(['!=', 'user_id', $coWorker->user_id])
-                        ->all();
-                    foreach ($usersForStatuses as $user) {
-                        $shopOrderStatus = new ShopOrderStatus();
-                        $shopOrderStatus->type = 'offer-blocked-with-other-pizzeria';
-                        $shopOrderStatus->user_id = $user->user_id;
-                        $shopOrderStatus->accepted_at = $currentTimestamp;
-                        $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
-                    }
-
-                    // Сигнал отправившему заявку пользователю что пицца принята в разработку
-                    $alertUrl = \common\helpers\Web::getUrlToCustomerSite()
-                        . Url::to([
-                            '/shop-order/accept-order-by-merchant',
-                            'orderUid' => $shopOrder->order_uid,
-                            'merchantId' => $coWorker->user_id
-                        ]);
-
-                    if (file_get_contents($alertUrl) == 'success') {
-                        $result['status'] = 'success';
-                    } else {
-                        //throw new \Exception(Yii::t('app', "Cound't send notice about an order to user!"));
-                        Yii::error("Cound't send notice about an order to user! Url: " . $alertUrl);
-                        //TODO: !!!!!!!! обработка статуса 'warning'
-                        $result['status'] = 'warning';
-                        $result['msg'] = Yii::t('app', "Cound't send notice about an order to user!");
-                    }
                 }
 
-                $transaction->commit();
-            } catch (\Exception $e) {
-                $transaction->rollBack();
-                $result['msg'] = $e->getMessage();
-                //throw $e;
-            } catch (\Throwable $e) {
-                $transaction->rollBack();
-                $result['msg'] = $e->getMessage();
-                //throw $e;
+                // Сигнал отправившему заявку пользователю что пицца принята в разработку
+                $alertUrl = \common\helpers\Web::getUrlToCustomerSite()
+                    . Url::to([
+                        '/shop-order/accept-order-by-merchant',
+                        'orderUid' => $shopOrder->order_uid,
+                        'merchantId' => $coWorker->user_id,
+                    ]);
+
+                if (file_get_contents($alertUrl) == 'success') {
+                    $result['status'] = 'success';
+                } else {
+                    //throw new \Exception(Yii::t('app', "Cound't send notice about an order to user!"));
+                    Yii::error("Cound't send notice about an order to user! Url: " . $alertUrl);
+                    //TODO: !!!!!!!! обработка статуса 'warning'
+                    $result['status'] = 'warning';
+                    $result['msg'] = Yii::t('app', "Cound't send notice about an order to user!");
+                }
             }
+
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            $result['msg'] = $e->getMessage();
+            //throw $e;
+        } catch (\Throwable $e) {
+            $transaction->rollBack();
+            $result['msg'] = $e->getMessage();
+            //throw $e;
         }
+
 
         return $result;
     }
 
-    public function actionPassOrderToCourier()
+    public function actionAcceptOrderByCourier()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $result = ['status' => 'error'];
+
+        $workerUid = Yii::$app->request->post('worker_uid');
+        if (!$coWorker = CoWorker::find()->select([
+            'id',
+            'user_id'
+        ])->andWhere(['worker_site_uid' => $workerUid])->one()) {
+            Yii::error('Co-worker not found: `' . $workerUid . '``');
+            throw new NotFoundHttpException('Co-worker not found.');
+        }
+
+        $orderId = Yii::$app->request->post('id');
+
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            if ($shopOrder = ShopOrder::findOne($orderId)) {
+                $currentTimestamp = date('Y-m-d H:i:s');
+
+                //TODO: проверять, может уже занят заказ
+                $shopOrderStatus = new ShopOrderStatus();
+                $shopOrderStatus->type = 'offer-accepted-by-courier';
+                $shopOrderStatus->user_id = $coWorker->user_id;
+                $shopOrderStatus->accepted_at = $currentTimestamp;
+                $shopOrderStatus->accepted_by = $coWorker->id;
+                $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
+
+                // Сигнал отправившему заявку пользователю что пицца принята в разработку
+                $alertUrl = \common\helpers\Web::getUrlToCustomerSite()
+                    . Url::to([
+                        '/shop-order/accept-order-by-courier',
+                        'orderUid' => $shopOrder->order_uid,
+                        'merchantId' => $coWorker->user_id,
+                        'courierId' => $coWorker->id,
+                    ]);
+
+                if (file_get_contents($alertUrl) == 'success') {
+                    $result['status'] = 'success';
+                } else {
+                    //throw new \Exception(Yii::t('app', "Cound't send notice about an order to user!"));
+                    Yii::error("Cound't send notice about an order to user! Url: " . $alertUrl);
+                    //TODO: !!!!!!!! обработка статуса 'warning'
+                    $result['status'] = 'warning';
+                    $result['msg'] = Yii::t('app', "Cound't send notice about an order to user!");
+                }
+            }
+
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            $result['msg'] = $e->getMessage();
+            //throw $e;
+        } catch (\Throwable $e) {
+            $transaction->rollBack();
+            $result['msg'] = $e->getMessage();
+            //throw $e;
+        }
+
+
+        return $result;
+    }
+
+    /*public function actionPassOrderToCourier()
     {
         \Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -207,7 +252,7 @@ class WorkerController extends Controller
             if ($shopOrder = ShopOrder::findOne($orderId)) {
                 //TODO: проверять, может уже занят заказ
                 $shopOrderStatus = new ShopOrderStatus();
-                $shopOrderStatus->type = 'offer-accepted-with-courier';
+                $shopOrderStatus->type = 'offer-accepted-by-courier';
                 $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
                 //$shopOrderStatus->save();
 
@@ -218,5 +263,5 @@ class WorkerController extends Controller
         }
 
         return $result;
-    }
+    }*/
 }

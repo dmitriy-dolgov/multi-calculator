@@ -376,7 +376,7 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
         //TODO: перевод
         var html = '<h3>Заказ взят в обработку.</h3>'
             + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
-            + '<div class="info-message">Адрес пиццерии: ' + gl.escapeHtml(merchantData.address) + '</div>'
+            + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
             + '<div class="info-message red">Ожидайте когда пицца будет передана курьеру.</div>';
         elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
 
@@ -405,7 +405,7 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         //TODO: перевод
         var html = '<h3>Заказ принят курьером и в пути.</h3>'
             + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
-            + '<div class="info-message">Адрес пиццерии: ' + gl.escapeHtml(merchantData.address) + '</div>'
+            + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
             + '<div class="info-message">Курьер: ' + gl.escapeHtml(courierData.name) + '</div>'
             + '<div class="info-message red">Ожидайте прибытия курьера.</div>';
         elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);

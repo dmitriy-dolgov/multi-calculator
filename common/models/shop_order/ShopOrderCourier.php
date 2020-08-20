@@ -38,7 +38,7 @@ class ShopOrderCourier extends ShopOrderWorker
         if ($newShopOrders = ShopOrderStatus::find()
             ->select('shop_order_id')
             ->andWhere(['user_id' => $coWorker->user_id])
-            ->andWhere(['type' => 'offer-accepted-with-courier'])
+            ->andWhere(['type' => 'offer-accepted-by-courier'])
             ->orderBy(['shop_order_id' => SORT_DESC])
             ->asArray()
             ->all()

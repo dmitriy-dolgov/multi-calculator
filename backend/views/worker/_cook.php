@@ -42,7 +42,7 @@ $this->registerJs(<<<JS
               alert('Готовый продукт передан курьеру.');
               
               //TODO: показывать уже существующие выполняющиеся заказы
-              $('.function-orders-pane .order[data-id=' + id + ']' .btn-accept-order-wrap).html('<i><b>Продукт передан курьеру.</b></i>');
+              $('.function-orders-pane .order[data-id=' + id + '] .btn-accept-order-wrap').html('<i><b>Продукт передан курьеру.</b></i>');
               /*$('.function-orders-pane .order[data-id=' + id + ']').fadeOut(400, function() {
                   // TODO: to remove
                   //this.remove();

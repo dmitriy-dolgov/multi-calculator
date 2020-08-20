@@ -1,30 +1,53 @@
 gl.functions.longpoll = {};
 
+/*function randomInt(min, max) {
+    return min + Math.floor((max - min) * Math.random());
+}*/
+
+gl.functions.longpoll.destroyLongPollProcess = function(longPollId) {
+    setTimeout(function () {
+        $.longpoll.destroy(longPollId);
+        gl.log('LP destroyed: ' + longPollId);
+    }, 0);
+};
+
 gl.functions.longpoll.waitForMerchantOrderAccept = function (orderUid) {
-    
-    $.post('/shop-order/wait-order', {orderUid: orderUid}, function (data) {
-        if (data.status == 'success') {
-            if (data.data.order_status == 'accepted-by-merchant') {
-                if (gl.functions.setUpPaneOnOrderAccepted(data.data.orderUid, data.data.merchantData)) {
-                    gl.functions.longpoll.waitForCourierToGo(orderUid);
+
+    gl.log('gl.functions.longpoll.waitForMerchantOrderAccept() START');
+
+    var longPollId = 'merchantOrderAccept_' + orderUid;
+    var timestamp = Date.now() / 1000 | 0;
+    var config = {
+        url: '/shop-order/wait-order',
+        //type: 'post', // bug in longpoll
+        params: {t: timestamp, orderUid: orderUid},
+        callback: function (data) {
+            if (data) {
+                if (data.order_status == 'accepted-by-merchant') {
+
+                    //alert(data.orderUid);
+
+                    if (gl.functions.setUpPaneOnOrderAccepted(data.orderUid, data.merchantData)) {
+                        gl.functions.longpoll.destroyLongPollProcess(longPollId);
+                        gl.functions.longpoll.waitForCourierToGo();
+                    } else {
+                        //TODO: обработка ошибок
+                    }
                 } else {
                     //TODO: обработка ошибок
                 }
-            } else {
-                //TODO: обработка ошибок
             }
-        } else {
-            alert('Unknown ajax error!');
+            gl.log('INSIDE callback of waitForMerchantOrderAccept()');
+            //Query.longpoll.get('myId').stop();
+            //jQuery.longpoll.destroy('myId');
         }
-    }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-        gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown, 'alert');
-    });
+    };
+
+    $.longpoll.register(longPollId, config).start();
 };
 
 gl.functions.longpoll.waitForCourierToGo = function (orderUid) {
 
-    alert('courier: ' + orderUid);
-    return;
     gl.log('gl.functions.longpoll.waitForCourierToGo() START');
 
     var longPollId = 'courierOrderAccept_' + orderUid;

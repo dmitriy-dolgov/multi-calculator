@@ -96,8 +96,8 @@ JS
         <hr>
         Компоненты:<br>
         <?php foreach ($ord['components'] as $comp): ?>
-            <i><?= Html::encode($comp['on_current']['name'] ?? 'Без имени') ?></i> Цена: <?= Html::encode($comp['on_current']['price']) ?> р.
-            <?php if ($comp['on_deal']['amount'] > 1): ?>
+            <i><?= Html::encode($comp['on_current']['name'] ?? 'Без имени') ?></i> Цена: <?= Html::encode($comp['on_current']['price'] ?? Yii::t('app', 'For free')) ?> р.
+            <?php if (($comp['on_deal']['amount'] ?? 1) > 1): ?>
                 (<?= $comp['on_deal']['amount'] ?> шт.)
             <?php endif; ?>
             <br>

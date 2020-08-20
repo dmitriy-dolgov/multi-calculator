@@ -96,7 +96,7 @@ JS
         <hr>
         Компоненты:<br>
         <?php foreach ($ord['components'] as $comp): ?>
-            <i><?= Html::encode($comp['on_current']['name']) ?></i> Цена: <?= Html::encode($comp['on_current']['price']) ?> р.
+            <i><?= Html::encode($comp['on_current']['name'] ?? 'Без имени') ?></i> Цена: <?= Html::encode($comp['on_current']['price']) ?> р.
             <?php if ($comp['on_deal']['amount'] > 1): ?>
                 (<?= $comp['on_deal']['amount'] ?> шт.)
             <?php endif; ?>

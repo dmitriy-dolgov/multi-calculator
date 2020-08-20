@@ -36,16 +36,42 @@ class ShopOrderAcceptorders extends ShopOrderWorker
             throw new NotFoundHttpException('Privilege not found.');
         }
 
-        if ($newShopOrders = ShopOrderStatus::find()
-            ->select('shop_order_id')
+        /*echo ShopOrderStatus::find()
+            //->select('', 'shop_order_id')
             ->andWhere(['user_id' => $coWorker->user_id])
-            ->andWhere(['type' => 'created'])
+            ->andWhere(['!=', 'type', 'finished'])
             //->groupBy('shop_order_id')
-            ->orderBy(['shop_order_id' => SORT_DESC])
+            //->orderBy(['shop_order_id' => SORT_DESC])
+            ->groupBy('id')
+            ->orderBy(['id' => SORT_DESC])
+            ->createCommand()->getRawSql();
+
+        exit;*/
+
+        if ($newShopOrders = ShopOrderStatus::find()
+            //->select('', 'shop_order_id')
+            ->andWhere(['user_id' => $coWorker->user_id])
+            ->andWhere(['!=', 'type', 'finished'])
+            //->groupBy('shop_order_id')
+            //->orderBy(['shop_order_id' => SORT_DESC])
+            //->groupBy('id')
+            ->orderBy(['id' => SORT_ASC])
             ->asArray()
             ->all()
         ) {
-            $orderIds = ArrayHelper::getColumn($newShopOrders, 'shop_order_id');
+            //$orderIds = ArrayHelper::getColumn($newShopOrders, 'shop_order_id');
+
+            $orderTypes = [];
+            foreach ($newShopOrders as $ord) {
+                $orderTypes[$ord['shop_order_id']] = $ord['type'];
+            }
+            $orderIds = [];
+            foreach ($orderTypes as $shopOrderId => $ordType) {
+                if ($ordType == 'created') {
+                    $orderIds[] = $shopOrderId;
+                }
+            }
+
             $orderObjs = ShopOrder::find()->andWhere(['IN', 'id', $orderIds])->orderBy(['id' => SORT_DESC])->all();
             foreach ($orderObjs as $shopOrder) {
                 $components = [];

@@ -221,6 +221,9 @@ gl.functions.composeOrder = function () {
 
                 gl.functions.fillOrderInfo(result, formDataArrIndexed);
                 gl.functions.addOrderToPanel();
+
+                $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
+                elems['#order-form-submit'].find('.order-data-container.info-panel').addClass('blinking-border-order-accepted');
             } else {
                 alert(result.msg ? result.msg : gl.data['Unknown error. Please try again later or refer to administrator.']);
             }
@@ -380,6 +383,11 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
             + '<div class="info-message red">Ожидайте когда пицца будет передана курьеру.</div>';
         elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
 
+        $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
+
+        //TODO: move to bottom
+        elems['#order-form-submit'].find('.component-container .order-data-container').remove();
+
         result = true;
     }
 
@@ -409,6 +417,10 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
             + '<div class="info-message">Курьер: ' + gl.escapeHtml(courierData.name) + '</div>'
             + '<div class="info-message red">Ожидайте прибытия курьера.</div>';
         elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
+
+        $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
+        elems['#order-form-submit'].find('.order-data-container.info-panel').addClass('blinking-border-order-accepted-by-courier');
+        gl.data.worldMap.showCourier();
 
         result = true;
     }

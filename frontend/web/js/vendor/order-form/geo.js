@@ -12,6 +12,19 @@ gl.functions.correctGeolocation = function () {
     }
 };
 
+gl.functions.getCurrentGeoLocation = function () {
+    var coords = {lat: 55.107540130615, lng: 33.267589569092};
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            coords.lat = position.coords.latitude;
+            coords.lng = position.coords.longitude;
+        });
+    }
+
+    return coords;
+};
+
 gl.functions.correctGeolocation();
 
 gl.functions.SelectProviders = {
@@ -47,6 +60,13 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
         maxZoom: 18
     }).addTo(this.map);
+
+    //this.showCourier();
+};
+
+gl.functions.placesMap.prototype.showCourier = function () {
+    var latLng = gl.functions.getCurrentGeoLocation();
+    this.addMarkerByCoords(latLng.lat, latLng.lng, this.icons.courier);
 };
 
 //gl.functions.placesMap.globalZIndex = 0;
@@ -110,6 +130,10 @@ gl.functions.placesMap.prototype.icons = {
     movingTarget: L.icon({
         iconUrl: '/img/map/target.gif',
         iconSize: [11, 11]
+    }),
+    courier: L.icon({
+        iconUrl: '/img/map/courier-moto.png',
+        iconSize: [32, 32]
     }),
 };
 

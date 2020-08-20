@@ -1,5 +1,10 @@
 gl.functions.longpoll = {};
 
+window.onbeforeunload = function() {
+    gl.log('window.onbeforeunload');
+    $.get('/shop-order/stop');
+}
+
 gl.functions.longpoll.waitForMerchantOrderAccept = function (orderUid) {
     
     $.post('/shop-order/wait-order', {orderUid: orderUid}, function (data) {
@@ -29,7 +34,7 @@ gl.functions.longpoll.waitForCourierToGo = function (orderUid) {
         if (data.status == 'success') {
             if (data.data.order_status == 'accepted-by-courier') {
                 if (gl.functions.setUpPaneOnOrderAcceptedByCourier(data.data.orderUid, data.data.merchantData, data.data.courierData)) {
-                    gl.functions.longpoll.waitForCourierToGo(orderUid);
+                    //gl.functions.longpoll.waitForCourierToGo(orderUid);
                 } else {
                     //TODO: обработка ошибок
                 }

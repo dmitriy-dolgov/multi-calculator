@@ -21,6 +21,11 @@ class ShopOrderController extends Controller
 {
     const TIME_LIMIT_FOR_LONGPOLL = 600;
 
+    public function actionStop()
+    {
+        Yii::$app->cache->set('c-stop', true);
+    }
+
     public function actionWaitOrder()
     {
         set_time_limit(self::TIME_LIMIT_FOR_LONGPOLL);
@@ -34,6 +39,10 @@ class ShopOrderController extends Controller
         $cacheKey = ['order_handling', 'accepted_by_merchant', 'data', 'orderUid' => $orderUid];
 
         for (; ;) {
+            /*if (Yii::$app->cache->get('c-stop')) {
+                Yii::$app->cache->delete('c-stop');
+                break;
+            }*/
             if ($storedData = Yii::$app->cache->get($cacheKey)) {
                 //Yii::debug('actionWaitOrder() in cycle', 'order-accept');
                 $result = ['status' => 'success', 'data' => $storedData];

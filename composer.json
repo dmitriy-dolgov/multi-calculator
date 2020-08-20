@@ -51,7 +51,8 @@
         "hiqdev/yii2-yandex-metrika": "dev-master",
         "immusen/yii2-swoole-websocket": "~1.0",
         "izumi-kun/yii2-longpoll": "dev-master",
-        "odannyc/yii2-sse": "dev-master"
+        "odannyc/yii2-sse": "dev-master",
+        "morozovsk/yii2-websocket": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

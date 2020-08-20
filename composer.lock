@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "66824159ed3b9727716b3e9c4efdbe17",
+    "content-hash": "9073e7c54bf3045921def4dc36f15ffd",
     "packages": [
         {
             "name": "2amigos/2fa-library",
@@ -337,7 +337,7 @@
             "version": "v3.4.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:twbs/bootstrap.git",
+                "url": "https://github.com/twbs/bootstrap.git",
                 "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e"
             },
             "dist": {
@@ -2811,6 +2811,124 @@
                 "maxmind"
             ],
             "time": "2019-12-19T22:59:03+00:00"
+        },
+        {
+            "name": "morozovsk/websocket",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/morozovsk/websocket.git",
+                "reference": "c3e447bd156aa18df5da9b77b53c09ab79cee528"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/morozovsk/websocket/zipball/c3e447bd156aa18df5da9b77b53c09ab79cee528",
+                "reference": "c3e447bd156aa18df5da9b77b53c09ab79cee528",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "morozovsk\\websocket\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "simple chat (single daemon)",
+                    "homepage": "http://sharoid.ru/chat.html"
+                },
+                {
+                    "name": "pro chat (master + worker)",
+                    "homepage": "http://sharoid.ru/chat2.html"
+                },
+                {
+                    "name": "simple game",
+                    "homepage": "http://sharoid.ru/game.html"
+                }
+            ],
+            "description": "simple php websocket server with examples and demo: simple chat (single daemon) - http://sharoid.ru/chat.html , pro chat (master + worker) - http://sharoid.ru/chat2.html , simple game - http://sharoid.ru/game.html",
+            "homepage": "http://sharoid.ru/game.html",
+            "keywords": [
+                "chat",
+                "demo",
+                "event",
+                "examle",
+                "game",
+                "laravel",
+                "libevent",
+                "server",
+                "socket_select",
+                "websocket",
+                "yii"
+            ],
+            "time": "2019-05-01T14:38:16+00:00"
+        },
+        {
+            "name": "morozovsk/yii2-websocket",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/morozovsk/yii2-websocket.git",
+                "reference": "07ac2ba3a4eeee108748e4ce51fdd149ba8d3cde"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/morozovsk/yii2-websocket/zipball/07ac2ba3a4eeee108748e4ce51fdd149ba8d3cde",
+                "reference": "07ac2ba3a4eeee108748e4ce51fdd149ba8d3cde",
+                "shasum": ""
+            },
+            "require": {
+                "morozovsk/websocket": ">=3.0",
+                "yiisoft/yii2": "2.*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "morozovsk\\yii2websocket\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "simple chat (single daemon)",
+                    "homepage": "http://sharoid.ru/chat.html"
+                },
+                {
+                    "name": "pro chat (master + worker)",
+                    "homepage": "http://sharoid.ru/chat2.html"
+                },
+                {
+                    "name": "simple game",
+                    "homepage": "http://sharoid.ru/game.html"
+                }
+            ],
+            "description": "simple php websocket server with examples and demo: simple chat (single daemon) - http://sharoid.ru/chat.html , pro chat (master + worker) - http://sharoid.ru/chat2.html , simple game - http://sharoid.ru/game.html",
+            "homepage": "http://sharoid.ru/game.html",
+            "keywords": [
+                "chat",
+                "demo",
+                "event",
+                "examle",
+                "game",
+                "laravel",
+                "libevent",
+                "server",
+                "socket_select",
+                "websocket",
+                "yii"
+            ],
+            "time": "2016-06-07T11:19:33+00:00"
         },
         {
             "name": "npm-asset/bootstrap",
@@ -8131,6 +8249,7 @@
         "hiqdev/yii2-yandex-metrika": 20,
         "izumi-kun/yii2-longpoll": 20,
         "odannyc/yii2-sse": 20,
+        "morozovsk/yii2-websocket": 20,
         "codeception/codeception": 20,
         "codeception/module-webdriver": 20
     },

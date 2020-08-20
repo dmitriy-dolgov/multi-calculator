@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\db\CoWorker;
 use common\models\db\ShopOrder;
 use common\models\db\ShopOrderSearch;
 use common\models\db\ShopOrderStatus;
@@ -18,40 +19,23 @@ use yii\web\Response;
  */
 class ShopOrderController extends Controller
 {
-    //TODO: временный конструкт
-    protected $currentOrderUid;
-
-    /*public function actions()
-    {
-        return [
-            'wait-order' => [
-                'class' => 'izumi\longpoll\LongPollAction',
-                'events' => ['order-accepted-by-merchant'],
-                'callback' => [$this, 'orderAcceptedByMerchant'],
-            ],
-            'wait-courier' => [
-                'class' => 'izumi\longpoll\LongPollAction',
-                'events' => ['order-accepted-by-courier'],
-                'callback' => [$this, 'orderAcceptedByCourier'],
-            ],
-        ];
-    }*/
+    const TIME_LIMIT_FOR_LONGPOLL = 600;
 
     public function actionWaitOrder()
     {
-        set_time_limit(600);
+        set_time_limit(self::TIME_LIMIT_FOR_LONGPOLL);
 
         $result = ['status' => 'error'];
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         $orderUid = Yii::$app->request->post('orderUid');
-        Yii::debug('actionWaitOrder() got $orderUid: ' . $orderUid, 'order-accept');
+        //Yii::debug('actionWaitOrder() got $orderUid: ' . $orderUid, 'order-accept');
         $cacheKey = ['order_handling', 'accepted_by_merchant', 'data', 'orderUid' => $orderUid];
 
         for (; ;) {
             if ($storedData = Yii::$app->cache->get($cacheKey)) {
-                Yii::debug('actionWaitOrder() in cycle', 'order-accept');
+                //Yii::debug('actionWaitOrder() in cycle', 'order-accept');
                 $result = ['status' => 'success', 'data' => $storedData];
                 Yii::$app->cache->delete($cacheKey);
                 break;
@@ -63,76 +47,34 @@ class ShopOrderController extends Controller
         return $result;
     }
 
-    public function orderAcceptedByMerchant(Server $server)
+    public function actionWaitCourier()
     {
-        //$server->responseData = false;
+        set_time_limit(self::TIME_LIMIT_FOR_LONGPOLL);
 
-        Yii::debug('orderAcceptedByMerchant()', 'order-accept');
+        $result = ['status' => 'error'];
 
-        if ($t = Yii::$app->request->get('t')) {
-            // Первый запрос
-            $orderUid = Yii::$app->request->get('orderUid');
-            Yii::debug('orderAcceptedByMerchant() - first cycle, $orderUid: ' . $orderUid, 'order-accept');
-            if ($orderUid) {
-                //TODO: это может оказаться полезным в случае переоткрытия заказа - рассмотреть такие случаи
-                Yii::$app->cache->delete(['order_handling', 'accepted_by_merchant', 'data', 'orderUid' => $orderUid]);
-                //Yii::$app->session->set('currentOrderUid', $orderUid);
-                //$this->currentOrderUid = $orderUid;
-                $GLOBALS['currentOrderUid'] = $orderUid;
-            } else {
-                Yii::error('No order ID on orderAcceptedByMerchant()');
-            }
-        } else {
-            /*if (session_status() !== PHP_SESSION_ACTIVE) {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-                //TODO: проверить здесь, закомментить Yii::debug() если надо
-                headers_sent($file, $line);
-                Yii::debug('H-SENT: file:' . $file . '; line: ' . $line, 'order-accept');
+        $orderUid = Yii::$app->request->post('orderUid');
+        Yii::debug('actionWaitCourier() got $orderUid: ' . $orderUid, 'order-accept');
+        $cacheKey = ['order_handling', 'accepted_by_courier', 'data', 'orderUid' => $orderUid];
 
-                YII_DEBUG ? session_start() : @session_start();
-            }
-            //$orderUid = Yii::$app->session->get('currentOrderUid');
-            $orderUid = $_SESSION['currentOrderUid'] ?? false;*/
-            $orderUid = $GLOBALS['currentOrderUid'];
-            Yii::debug('orderAcceptedByMerchant() - NOT first cycle, $orderUid: ' . $orderUid, 'order-accept');
-            if ($orderUid) {
-                //if ($orderUid = $this->currentOrderUid) {
-                $storedData = Yii::$app->cache->get([
-                    'order_handling',
-                    'accepted_by_merchant',
-                    'data',
-                    'orderUid' => $orderUid,
-                ]);
-                Yii::debug('orderAcceptedByMerchant(), $storedData: ' . print_r($storedData, true), 'order-accept');
-                if ($storedData) {
-                    Yii::debug('orderAcceptedByMerchant(), IN ST DT', 'order-accept');
-                    $server->responseData = $storedData;
-                    //return;
-                }
+        for (; ;) {
+            if ($storedData = Yii::$app->cache->get($cacheKey)) {
+                Yii::debug('actionWaitCourier() in cycle', 'order-accept');
+                $result = ['status' => 'success', 'data' => $storedData];
+                Yii::$app->cache->delete($cacheKey);
+                break;
             }
 
-            //TODO: проверить прекращается ли работа, не отсылается ли ответ клиенту
-            exit;
-            //Yii::$app->end();
+            sleep(3);
         }
 
-        Yii::debug('orderAcceptedByMerchant(), EXIT FUNC', 'order-accept');
-    }
-
-    public function orderAcceptedByCourier(Server $server)
-    {
-        $server->responseData = Yii::$app->cache->get('acceptedOrderCourierData');
-        //Yii::$app->cache->delete('acceptedOrderCourierData');
+        return $result;
     }
 
     public function actionAcceptOrderByMerchant($orderUid, $merchantId)
     {
-        //pizza-customer.local/shop-order/accept-order-by-merchant?merchantDataName=Дима пицца
-        //pizza-customer.local/shop-order/accept-order-by-merchant?orderUid=6qNy1wt4VcRChNw&merchantId=2
-
-        //$orderUid = Yii::$app->request->post('orderUid');
-        //$merchantId = Yii::$app->request->post('merchantId');
-
         if (!$user = User::findOne($merchantId)) {
             Yii::error('User not found. User id: ' . $merchantId);
             throw new NotFoundHttpException('User not found!');
@@ -148,34 +90,44 @@ class ShopOrderController extends Controller
             ],
         ];
 
-        //Yii::debug('actionAcceptOrderByMerchant, $orderUid: ' . $orderUid, 'order-accept');
-
-        Yii::debug('actionAcceptOrderByMerchant() got $orderUid: ' . $orderUid, 'order-accept');
-
+        //Yii::debug('actionAcceptOrderByMerchant() got $orderUid: ' . $orderUid, 'order-accept');
         Yii::$app->cache->set(['order_handling', 'accepted_by_merchant', 'data', 'orderUid' => $orderUid],
             $acceptedOrderData);
-        //\izumi\longpoll\Event::triggerByKey('order-accepted-by-merchant');
-
-        Yii::debug('actionAcceptOrderByMerchant, END OF FUNC', 'order-accept');
 
         return 'success';
     }
 
-    public function actionAcceptOrderByCourier($courierName = 'Дима курьер')
+    public function actionAcceptOrderByCourier($orderUid, $merchantId, $courierId)
     {
-        //pizza-customer.local/shop-order/accept-order-by-courier?courierName=Дима курьер
+        //pizza-customer.local/shop-order/accept-order-by-courier
+
+        if (!$user = User::findOne($merchantId)) {
+            Yii::error('User not found. User id: ' . $merchantId);
+            throw new NotFoundHttpException('User not found!');
+        }
+
+        if (!$courier = CoWorker::findOne($courierId)) {
+            Yii::error('Co-worker not found. Co-worker id: ' . $courierId);
+            throw new NotFoundHttpException('Co-worker not found!');
+        }
 
         $acceptedOrderData = [
             'order_status' => 'accepted-by-courier',
-            'orderUid' => 'oId567f4',
+            'orderUid' => '$orderUid',
+            'merchantData' => [
+                'name' => $user->profile->name,
+                'address' => $user->profile->location,
+                'company_lat_long' => $user->profile->company_lat_long,
+            ],
             'courierData' => [
-                'name' => $courierName,
+                'name' => $courier->name,
             ],
         ];
-        Yii::$app->cache->set('acceptedOrderCourierData', $acceptedOrderData);
-        \izumi\longpoll\Event::triggerByKey('order-accepted-by-courier');
 
-        echo 'actionAcceptOrderByCourier';
+        Yii::$app->cache->set(['order_handling', 'accepted_by_courier', 'data', 'orderUid' => $orderUid],
+            $acceptedOrderData);
+
+        return 'success';
     }
 
     /**

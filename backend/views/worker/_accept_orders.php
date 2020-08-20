@@ -51,13 +51,16 @@ $this->registerJs(<<<JS
     gl.functions.orders.acceptOrders.acceptOrder = function(id) {
         $.post({$jsStrings['worker/accept-order-by-maker']}, {id:id,worker_uid:{$jsStrings['worker_uid']}}, function(data) {
           if (data.status == 'success') {
-              alert('Отправлен запрос исполнителю на подтверждение.');
-              elems['#orders-pane'].find('.order[data-id=' + id + ']').fadeOut(400, function() {
+              alert('Отправлен запрос исполнителю.');
+              
+              //TODO: показывать уже существующие выполняющиеся заказы
+              $('.function-orders-pane .order[data-id=' + id + ']' .btn-accept-order-wrap).html('<i><b>Отправлен на выполнение.</b></i>');
+              /*$('.function-orders-pane .order[data-id=' + id + ']').fadeOut(400, function() {
                   // TODO: to remove
                   //this.remove();
-              });
+              });*/
           } else if (data.status == 'warning') {
-              alert('Заказ подтвержден к выполнению но произошла ошибка: ' + data.msg);
+              alert('Заказ отправлен на выполнение но произошла ошибка: ' + data.msg);
           } else {
               //TODO: to translate , maybe handle error
                 gl.handleFailCustom('Unknown error');
@@ -100,10 +103,12 @@ JS
             <br>
         <?php endforeach; ?>
         <hr>
-        <button class="btn btn-warning"
-                onclick="gl.functions.orders.acceptOrders.acceptOrder(<?= $ord['info']['id'] ?>);return false;">
-            Отослать приглашение исполнителю
-        </button>
+        <div class="btn-accept-order-wrap">
+            <button class="btn btn-warning"
+                    onclick="gl.functions.orders.acceptOrders.acceptOrder(<?= $ord['info']['id'] ?>);return false;">
+                Передать исполнителю
+            </button>
+        </div>
         <hr>
         <div class="decline-order-panel">
             <button class="btn btn-decline-order"

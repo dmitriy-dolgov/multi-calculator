@@ -33,31 +33,11 @@ class ShopOrderController extends Controller
      */
     public function actionWaitOrderCommand()
     {
-        //pizza-customer.local/shop-order/wait-order-confirmation
-
-        /*if (!$orderUid = Yii::$app->request->post('orderUid')) {
-            throw new NotFoundHttpException();
-        }
-
-        $dataPath = Yii::getAlias('@root/sse/data');
-        $data = new Data('file', ['path' => $dataPath]);
-        $data->set('orderUid', json_encode([
-            'orderUid' => $orderUid,
-            'time' => time(),
-        ]));*/
-
-        //$dataPath = Yii::getAlias('@root/sse/data');
-        //$storage = new Data('file', ['path' => $dataPath]);
-
         $sessId = Yii::$app->session->getId();
-
-        //ob_start();
 
         $sse = Yii::$app->sse;
         $sse->addEventListener('merchant-order-accept', new MerchantOrderAccept($sessId));
         $sse->start();
-
-        //ob_end_clean();
     }
 
     /**
@@ -84,7 +64,9 @@ class ShopOrderController extends Controller
 
         $data[] = $orderUid;
 
-        Yii::$app->cache->set($sessionOrderIdsKey, $data);
+        if (!Yii::$app->cache->set($sessionOrderIdsKey, $data)) {
+            return ['status' => 'error'];
+        }
 
         //TODO: на самом деле могут быть ошибки - учесть это
         return ['status' => 'success'];
@@ -99,6 +81,7 @@ class ShopOrderController extends Controller
     public function actionOrderAccept()
     {
         //pizza-customer.local/shop-order/order-accept?type=accepted-by-merchant&merchantId=2&orderUid=
+        //pizza-customer.local/shop-order/order-accept?type=accepted-by-courier&merchantId=2&orderUid=
 
         $type = Yii::$app->request->post('type', Yii::$app->request->get('type'));
         $orderUid = Yii::$app->request->post('orderUid', Yii::$app->request->get('orderUid'));
@@ -112,10 +95,6 @@ class ShopOrderController extends Controller
             Yii::error('User not found. User id: ' . $merchantId);
             throw new NotFoundHttpException('User not found!');
         }
-
-        //TODO: пересмотреть в пользу Yii::$app->cache ??
-        //$dataPath = Yii::getAlias('@root/sse/data');
-        //$storage = new Data('file', ['path' => $dataPath]);
 
         $orderInfo = [
             'sessionId' => Yii::$app->session->getId(),
@@ -134,7 +113,31 @@ class ShopOrderController extends Controller
                         'company_lat_long' => $user->profile->company_lat_long,
                     ],
                 ];
-                //$storage->set('order-info', json_encode($orderInfo));
+
+                Yii::$app->cache->set('order-info', json_encode($orderInfo));
+                break;
+            }
+            case 'accepted-by-courier':
+            {
+                $courierId = Yii::$app->request->post('courierId', Yii::$app->request->get('courierId'));
+                if (!$courier = CoWorker::findOne($courierId)) {
+                    Yii::error('Co-worker not found. Co-worker id: ' . $courierId);
+                    throw new NotFoundHttpException('Co-worker not found!');
+                }
+
+                $orderInfo['acceptedOrderData'] = [
+                    'order_status' => 'accepted-by-merchant',
+                    'orderUid' => $orderUid,
+                    'merchantData' => [
+                        'name' => $user->profile->name,
+                        'address' => $user->profile->location,
+                        'company_lat_long' => $user->profile->company_lat_long,
+                    ],
+                    'courierData' => [
+                        'name' => $courier->name,
+                    ],
+                ];
+
                 Yii::$app->cache->set('order-info', json_encode($orderInfo));
                 break;
             }

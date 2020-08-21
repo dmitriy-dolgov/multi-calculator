@@ -34,24 +34,28 @@ gl.functions.sse.init = function () {
 gl.functions.sse.startListen_OrdersAcceptance = function () {
     gl.functions.sse.init();
 
-    /*if (!gl.functions.sse.handleOpen) {
-        var interval = setInterval(function () {
-            if (gl.functions.sse.handleOpen) {
-                clearInterval(interval);
+    gl.functions.sse.handle.addEventListener('merchant-order-accept', function (event) {
+        gl.log('event.data:');
+        gl.log(event.data);
+
+        if (event.data.order_status == 'accepted-by-merchant') {
+            if (gl.functions.setUpPaneOnOrderAccepted(event.data.orderUid, event.data.merchantData)) {
+                //gl.functions.sse.handle.removeEventListener('merchant-order-accept', $.noop, false);
+                //gl.functions.longpoll.waitForCourierToGo(event.data.orderUid);
+            } else {
+                //TODO: обработка ошибок
             }
-        }, 300);
-    }*/
+        } else if (event.data.order_status == 'accepted-by-courier') {
+            if (gl.functions.setUpPaneOnOrderAcceptedByCourier(event.data.orderUid, event.data.merchantData, event.data.courierData)) {
+                gl.functions.sse.handle.removeEventListener('merchant-order-accept', $.noop, false);
+            } else {
+                //TODO: обработка ошибок
+            }
+        } else {
+            //TODO: обработка ошибок
+        }
 
-    if (!gl.functions.sse.listeners) {
-        gl.functions.sse.listeners = {};
-    }
-
-    if (!gl.functions.sse.listeners['order-accept']) {
-        gl.functions.sse.listeners['order-accept'] = gl.functions.sse.handle.addEventListener('merchant-order-accept', function (event) {
-            gl.log('event.data:');
-            gl.log(event.data);
-        }, false);
-    }
+    }, false);
 };
 
 gl.functions.sse.startOrderAccept = function (orderUid) {

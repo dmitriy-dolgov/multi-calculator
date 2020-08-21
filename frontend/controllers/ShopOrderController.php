@@ -7,6 +7,7 @@ use common\models\db\ShopOrder;
 use common\models\db\ShopOrderSearch;
 use common\models\db\ShopOrderStatus;
 use common\models\db\User;
+use frontend\sse\MessageEventHandler;
 use izumi\longpoll\Server;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -26,11 +27,25 @@ class ShopOrderController extends Controller
         Yii::$app->cache->set('c-stop', true);
     }
 
+    /**
+     * Ожидание ответа одной из пиццерий.
+     */
+    public function actionWaitOrderConfirmation()
+    {
+        //pizza-customer.local/shop-order/wait-order-confirmation
+
+        $sse = Yii::$app->sse;
+        $sse->addEventListener('message', new MessageEventHandler());
+        $sse->start();
+    }
+
     public function actionWaitOrder()
     {
         set_time_limit(self::TIME_LIMIT_FOR_LONGPOLL);
 
         $result = ['status' => 'error'];
+
+        file_put_contents('naem', 'just a content');
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 

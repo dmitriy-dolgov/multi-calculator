@@ -24,5 +24,11 @@ return [
                 ],
             ],
         ],
+        'sse' => [
+            'class' => \odannyc\Yii2SSE\LibSSE::class,
+            'sleep_time' => 4,
+            'exec_limit' => 0,
+            'keep_alive_time' => 17,
+        ],
     ],
 ];

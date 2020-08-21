@@ -199,7 +199,8 @@ gl.functions.composeOrder = function () {
         $.post('/site/order-create-ajax', formData, function (result) {
             if (result.status == 'success') {
                 //gl.functions.websocket.send({newOrderId: result.order_uid});
-                gl.functions.longpoll.waitForMerchantOrderAccept(result.order_uid);
+                //gl.functions.longpoll.waitForMerchantOrderAccept(result.order_uid);
+                gl.functions.sse.waitForMerchantOrderAccept(result.order_uid);
 
                 /*gl.functions.fillOrderInfo(result, {
                     deliver_customer_name: deliver_customer_name,
@@ -421,6 +422,10 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
         elems['#order-form-submit'].find('.order-data-container.info-panel').addClass('blinking-border-order-accepted-by-courier');
         gl.data.worldMap.showCourier();
+
+        /*setInterval(function () {
+            gl.data.worldMap.moveCourier();
+        }, 5000);*/
 
         result = true;
     }

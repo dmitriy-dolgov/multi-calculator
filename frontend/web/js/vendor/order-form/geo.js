@@ -66,7 +66,12 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
 gl.functions.placesMap.prototype.showCourier = function () {
     var latLng = gl.functions.getCurrentGeoLocation();
-    this.addMarkerByCoords(latLng.lat, latLng.lng, this.icons.courier);
+    this.courierMarker = this.addMarkerByCoords(latLng.lat, latLng.lng, this.icons.courier);
+};
+
+gl.functions.placesMap.prototype.moveCourier = function () {
+    var latLng = gl.functions.getCurrentGeoLocation();
+    //this.courierMarker
 };
 
 //gl.functions.placesMap.globalZIndex = 0;

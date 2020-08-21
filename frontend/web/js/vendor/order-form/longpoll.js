@@ -3,7 +3,7 @@ gl.functions.longpoll = {};
 window.onbeforeunload = function() {
     gl.log('window.onbeforeunload');
     $.get('/shop-order/stop');
-}
+};
 
 gl.functions.longpoll.waitForMerchantOrderAccept = function (orderUid) {
     

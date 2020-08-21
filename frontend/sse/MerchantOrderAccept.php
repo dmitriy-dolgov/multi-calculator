@@ -19,6 +19,9 @@ class MerchantOrderAccept extends SSEBase
 
     public function update()
     {
+        $sessionOrderIdsKey = ['order-accept', 'order-uids', 'session-id' => $this->sessionId];
+        Yii::$app->cache->delete($sessionOrderIdsKey);
+
         return json_encode($this->orderInfo['acceptedOrderData']);
     }
 

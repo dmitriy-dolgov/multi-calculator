@@ -26,8 +26,8 @@ return [
         ],
         'sse' => [
             'class' => \odannyc\Yii2SSE\LibSSE::class,
-            'sleep_time' => 4,
-            'exec_limit' => 30, //???  0?   // A 30 second time limit can prevent running out of resources quickly. - send.php
+            'sleep_time' => 7,
+            'exec_limit' => 0,    //30, //???  0?   // A 30 second time limit can prevent running out of resources quickly. - send.php
             'keep_alive_time' => 17,
         ],
     ],

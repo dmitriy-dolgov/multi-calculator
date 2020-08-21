@@ -8,6 +8,7 @@ use common\models\db\ShopOrderSearch;
 use common\models\db\ShopOrderStatus;
 use common\models\db\User;
 use frontend\sse\MerchantOrderAccept;
+use frontend\sse\OrderHandling;
 use Sse\Data;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -22,10 +23,10 @@ class ShopOrderController extends Controller
 {
     const TIME_LIMIT_FOR_LONGPOLL = 600;
 
-    public function actionStop()
+    /*public function actionStop()
     {
         Yii::$app->cache->set('c-stop', true);
-    }
+    }*/
 
     /**
      * Ожидание ответа одной из пиццерий - старт SSE.
@@ -35,9 +36,11 @@ class ShopOrderController extends Controller
     {
         $sessId = Yii::$app->session->getId();
 
-        $sse = Yii::$app->sse;
-        $sse->addEventListener('merchant-order-accept', new MerchantOrderAccept($sessId));
-        $sse->start();
+        //$sse = Yii::$app->sse;
+        //$sse->addEventListener('merchant-order-accept', new MerchantOrderAccept($sessId));
+        //$sse->start();
+
+        (new OrderHandling())->waitForOrderCommand($sessId);
     }
 
     /**
@@ -81,7 +84,7 @@ class ShopOrderController extends Controller
     public function actionOrderAccept()
     {
         //pizza-customer.local/shop-order/order-accept?type=accepted-by-merchant&merchantId=2&orderUid=
-        //pizza-customer.local/shop-order/order-accept?type=accepted-by-courier&merchantId=2&orderUid=
+        //pizza-customer.local/shop-order/order-accept?type=accepted-by-courier&merchantId=2&courierId=2&orderUid=
 
         $type = Yii::$app->request->post('type', Yii::$app->request->get('type'));
         $orderUid = Yii::$app->request->post('orderUid', Yii::$app->request->get('orderUid'));
@@ -152,7 +155,7 @@ class ShopOrderController extends Controller
     }
 
 
-    public function actionWaitOrder()
+    /*public function actionWaitOrder()
     {
         set_time_limit(self::TIME_LIMIT_FOR_LONGPOLL);
 
@@ -167,10 +170,10 @@ class ShopOrderController extends Controller
         $cacheKey = ['order_handling', 'accepted_by_merchant', 'data', 'orderUid' => $orderUid];
 
         for (; ;) {
-            /*if (Yii::$app->cache->get('c-stop')) {
-                Yii::$app->cache->delete('c-stop');
-                break;
-            }*/
+//            if (Yii::$app->cache->get('c-stop')) {
+//                Yii::$app->cache->delete('c-stop');
+//                break;
+//            }
             if ($storedData = Yii::$app->cache->get($cacheKey)) {
                 //Yii::debug('actionWaitOrder() in cycle', 'order-accept');
                 $result = ['status' => 'success', 'data' => $storedData];
@@ -208,10 +211,12 @@ class ShopOrderController extends Controller
         }
 
         return $result;
-    }
+    }*/
 
     public function actionAcceptOrderByMerchant($orderUid, $merchantId)
     {
+        //pizza-customer.local/shop-order/accept-order-by-merchant
+
         if (!$user = User::findOne($merchantId)) {
             Yii::error('User not found. User id: ' . $merchantId);
             throw new NotFoundHttpException('User not found!');

@@ -2,13 +2,14 @@
 
 namespace frontend\sse;
 
+use Yii;
 use odannyc\Yii2SSE\SSEBase;
 use Sse\Data;
 
 class MerchantOrderAccept extends SSEBase
 {
     /** @var Data */
-    protected $storage;
+    //protected $storage;
 
     /** @var string */
     protected $sessionId;
@@ -16,22 +17,27 @@ class MerchantOrderAccept extends SSEBase
     protected $orderInfo;
 
 
-    public function __construct($sessionId, $storage) {
+    public function __construct($sessionId) {
         $this->sessionId = $sessionId;
-        $this->storage = $storage;
+        //$this->storage = $storage;
     }
 
     public function update()
     {
-        return $this->orderInfo['acceptedOrderData'];
+        return json_encode($this->orderInfo['acceptedOrderData']);
     }
 
     public function check()
     {
-        $this->orderInfo = json_decode($this->storage->get('order-info'));
-
-        if ($this->orderInfo['sessionId'] == $this->sessionId) {
-            return true;
+        if ($this->orderInfo = json_decode(Yii::$app->cache->get('order-info'), true)) {
+            if ($this->orderInfo['sessionId'] == $this->sessionId) {
+                $sessionOrderIdsKey = ['order-accept', 'order-uids', 'session-id' => $this->sessionId];
+                if ($data = Yii::$app->cache->get($sessionOrderIdsKey)) {
+                    if (in_array($this->orderInfo['acceptedOrderData']['orderUid'], $data)) {
+                        return true;
+                    }
+                }
+            }
         }
 
         return false;

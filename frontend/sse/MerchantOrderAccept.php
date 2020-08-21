@@ -5,7 +5,7 @@ namespace frontend\sse;
 use odannyc\Yii2SSE\SSEBase;
 use Sse\Data;
 
-class MessageEventHandler extends SSEBase
+class MerchantOrderAccept extends SSEBase
 {
     /** @var Data */
     protected $storage;

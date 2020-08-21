@@ -7,8 +7,7 @@ use common\models\db\ShopOrder;
 use common\models\db\ShopOrderSearch;
 use common\models\db\ShopOrderStatus;
 use common\models\db\User;
-use frontend\sse\MessageEventHandler;
-use izumi\longpoll\Server;
+use frontend\sse\MerchantOrderAccept;
 use Sse\Data;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -35,20 +34,54 @@ class ShopOrderController extends Controller
     {
         //pizza-customer.local/shop-order/wait-order-confirmation
 
-        if (!$orderUid = Yii::$app->request->post('orderUid')) {
+        /*if (!$orderUid = Yii::$app->request->post('orderUid')) {
             throw new NotFoundHttpException();
         }
 
         $dataPath = Yii::getAlias('@root/sse/data');
         $data = new Data('file', ['path' => $dataPath]);
         $data->set('orderUid', json_encode([
-            'orderUid' => htmlentities($orderUid),
+            'orderUid' => $orderUid,
             'time' => time(),
-        ]));
+        ]));*/
+
+        $dataPath = Yii::getAlias('@root/sse/data');
+        $data = new Data('file', ['path' => $dataPath]);
 
         $sse = Yii::$app->sse;
-        $sse->addEventListener('message', new MessageEventHandler($data));
+        $sse->addEventListener('merchant-order-accept', new MerchantOrderAccept($data));
         $sse->start();
+    }
+
+    public function actionOrderAccept()
+    {
+        $type = Yii::$app->request->post('type');
+        if (!$orderUid = Yii::$app->request->post('orderUid')) {
+            throw new NotFoundHttpException('Order not set.');
+        }
+
+        //TODO: пересмотреть в пользу Yii::$app->cache ??
+        $dataPath = Yii::getAlias('@root/sse/data');
+        $data = new Data('file', ['path' => $dataPath]);
+
+        $dataSet = [
+            'orderUid' => $orderUid,
+            'time' => time(),
+        ];
+
+        switch ($type) {
+            case 'order-accept':
+            {
+                $data->set('orderUid', json_encode($dataSet));
+                break;
+            }
+            default:
+            {
+                Yii::error('Wrong type: ' . $type);
+                throw new NotFoundHttpException('Wrong type.');
+            }
+        }
+
     }
 
     public function actionWaitOrder()

@@ -29,6 +29,7 @@ class ShopOrderController extends Controller
 
     /**
      * Ожидание ответа одной из пиццерий.
+     * Вызывается заказчиком пиццы.
      */
     public function actionWaitOrderCommand()
     {
@@ -46,33 +47,57 @@ class ShopOrderController extends Controller
         ]));*/
 
         $dataPath = Yii::getAlias('@root/sse/data');
-        $data = new Data('file', ['path' => $dataPath]);
+        $storage = new Data('file', ['path' => $dataPath]);
 
         $sse = Yii::$app->sse;
-        $sse->addEventListener('merchant-order-accept', new MerchantOrderAccept($data));
+        $sse->addEventListener('merchant-order-accept', new MerchantOrderAccept(Yii::$app->session->getId(), $storage));
         $sse->start();
     }
 
+    /**
+     * Принять заказ на изготовление пиццы.
+     * Вызывается пиццерией.
+     *
+     * @throws NotFoundHttpException
+     */
     public function actionOrderAccept()
     {
         $type = Yii::$app->request->post('type');
-        if (!$orderUid = Yii::$app->request->post('orderUid')) {
-            throw new NotFoundHttpException('Order not set.');
+
+        $orderUid = Yii::$app->request->post('orderUid');
+        if (!ShopOrder::findOne($orderUid)) {
+            Yii::error('Order not found. Order uid: ' . $orderUid);
+            throw new NotFoundHttpException('Order not found!');
+        }
+
+        $merchantId = Yii::$app->request->post('merchantId');
+        if (!$user = User::findOne($merchantId)) {
+            Yii::error('User not found. User id: ' . $merchantId);
+            throw new NotFoundHttpException('User not found!');
         }
 
         //TODO: пересмотреть в пользу Yii::$app->cache ??
         $dataPath = Yii::getAlias('@root/sse/data');
-        $data = new Data('file', ['path' => $dataPath]);
+        $storage = new Data('file', ['path' => $dataPath]);
 
-        $dataSet = [
-            'orderUid' => $orderUid,
+        $orderInfo = [
+            'sessionId' => Yii::$app->session->getId(),
             'time' => time(),
         ];
 
         switch ($type) {
-            case 'order-accept':
+            case 'accepted-by-merchant':
             {
-                $data->set('orderUid', json_encode($dataSet));
+                $orderInfo['acceptedOrderData'] = [
+                    'order_status' => 'accepted-by-merchant',
+                    'orderUid' => $orderUid,
+                    'merchantData' => [
+                        'name' => $user->profile->name,
+                        'address' => $user->profile->location,
+                        'company_lat_long' => $user->profile->company_lat_long,
+                    ],
+                ];
+                $storage->set('order-info', json_encode($orderInfo));
                 break;
             }
             default:
@@ -82,6 +107,7 @@ class ShopOrderController extends Controller
             }
         }
 
+        return 'success';
     }
 
     public function actionWaitOrder()

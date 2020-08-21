@@ -10,17 +10,30 @@ class MerchantOrderAccept extends SSEBase
     /** @var Data */
     protected $storage;
 
-    public function __construct($data) {
-        $this->storage = $data;
-    }
+    /** @var string */
+    protected $sessionId;
 
-    public function check()
-    {
-        return true;
+    protected $orderInfo;
+
+
+    public function __construct($sessionId, $storage) {
+        $this->sessionId = $sessionId;
+        $this->storage = $storage;
     }
 
     public function update()
     {
-        return "Something Cool";
+        return $this->orderInfo['acceptedOrderData'];
+    }
+
+    public function check()
+    {
+        $this->orderInfo = json_decode($this->storage->get('order-info'));
+
+        if ($this->orderInfo['sessionId'] == $this->sessionId) {
+            return true;
+        }
+
+        return false;
     }
 }

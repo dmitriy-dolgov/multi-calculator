@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9073e7c54bf3045921def4dc36f15ffd",
+    "content-hash": "52e7fb36094372587343c06205d76ad0",
     "packages": [
         {
             "name": "2amigos/2fa-library",
@@ -337,7 +337,7 @@
             "version": "v3.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
+                "url": "git@github.com:twbs/bootstrap.git",
                 "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e"
             },
             "dist": {
@@ -3917,6 +3917,52 @@
                 "yii2"
             ],
             "time": "2018-05-16T19:18:46+00:00"
+        },
+        {
+            "name": "workerman/workerman",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/walkor/Workerman.git",
+                "reference": "1ed65cb8c7b82bbb5d8c32ed815e7c659b3b72c7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/walkor/Workerman/zipball/1ed65cb8c7b82bbb5d8c32ed815e7c659b3b72c7",
+                "reference": "1ed65cb8c7b82bbb5d8c32ed815e7c659b3b72c7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "suggest": {
+                "ext-event": "For better performance. "
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Workerman\\": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "walkor",
+                    "email": "walkor@workerman.net",
+                    "homepage": "http://www.workerman.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An asynchronous event driven PHP framework for easily building fast, scalable network applications.",
+            "homepage": "http://www.workerman.net",
+            "keywords": [
+                "asynchronous",
+                "event-loop"
+            ],
+            "time": "2020-08-18T07:30:10+00:00"
         },
         {
             "name": "xj/yii2-jplayer-widget",
@@ -8250,6 +8296,7 @@
         "izumi-kun/yii2-longpoll": 20,
         "odannyc/yii2-sse": 20,
         "morozovsk/yii2-websocket": 20,
+        "workerman/workerman": 20,
         "codeception/codeception": 20,
         "codeception/module-webdriver": 20
     },

@@ -1,5 +1,7 @@
 <?php
 
+Yii::setAlias('@root', dirname(dirname(__DIR__)));
+
 return [
     'adminEmail' => 'TwilightTower@mail.ru',
     'supportEmail' => 'TwilightTower@mail.ru',

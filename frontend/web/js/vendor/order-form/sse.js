@@ -8,27 +8,33 @@ if (gl.functions.sse) {
 
 gl.functions.sse = {};
 
+/**
+  * @type {EventSource|null}
+ */
+gl.functions.sse.handle = null;
+
+gl.functions.sse.init = function() {
+    if (!gl.functions.sse.handle) {
+        gl.functions.sse.handle = new EventSource('/shop-order/wait-order-command');
+
+        gl.functions.sse.handle.addEventListener('error', function(event) {
+            //TODO: to do
+            // Сообщаем о проблеме с подключением
+        }, false);
+    }
+};
+
+gl.functions.sse.startListen_MerchantOrderAccept = function() {
+    gl.functions.sse.init();
+
+    gl.functions.sse.handle.addEventListener('merchant-order-accept', function (event) {
+        gl.log('event.data:' + event.data);
+    }, false);
+};
+
 gl.functions.sse.waitForMerchantOrderAccept = function (orderUid) {
 
-    var sse = new EventSource('/shop-order/wait-order-confirmation');
-    sse.addEventListener('message', function (event) {
-        /*var data = JSON.parse(event.data);
-        // Отрисовываем пришедшее с сервера сообщение
-        renderMessage(data);*/
+    $.post();
 
-        gl.log('event.data:');
-        gl.log(event.data);
-
-    }, false);
-
-    sse.addEventListener('error', function(event) {
-        //TODO: to do
-        // Сообщаем о проблеме с подключением
-        /*renderMessage({
-            isbot: true,
-            message: 'connection error',
-            name: '@Chat'
-        });*/
-    }, false);
 };
 

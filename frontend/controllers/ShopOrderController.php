@@ -9,6 +9,7 @@ use common\models\db\ShopOrderStatus;
 use common\models\db\User;
 use frontend\sse\MessageEventHandler;
 use izumi\longpoll\Server;
+use Sse\Data;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -30,12 +31,23 @@ class ShopOrderController extends Controller
     /**
      * Ожидание ответа одной из пиццерий.
      */
-    public function actionWaitOrderConfirmation()
+    public function actionWaitOrderCommand()
     {
         //pizza-customer.local/shop-order/wait-order-confirmation
 
+        if (!$orderUid = Yii::$app->request->post('orderUid')) {
+            throw new NotFoundHttpException();
+        }
+
+        $dataPath = Yii::getAlias('@root/sse/data');
+        $data = new Data('file', ['path' => $dataPath]);
+        $data->set('orderUid', json_encode([
+            'orderUid' => htmlentities($orderUid),
+            'time' => time(),
+        ]));
+
         $sse = Yii::$app->sse;
-        $sse->addEventListener('message', new MessageEventHandler());
+        $sse->addEventListener('message', new MessageEventHandler($data));
         $sse->start();
     }
 

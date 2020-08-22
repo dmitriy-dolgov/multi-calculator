@@ -76,15 +76,16 @@ class ShopOrderController extends Controller
     }
 
     /**
-     * Принять заказ на изготовление пиццы.
+     * Обработать команду по статусу заказа.
      * Вызывается пиццерией.
      *
+     * @return string
      * @throws NotFoundHttpException
      */
-    public function actionOrderAccept()
+    public function actionOrderCommand()
     {
-        //pizza-customer.local/shop-order/order-accept?type=accepted-by-merchant&merchantId=2&orderUid=
-        //pizza-customer.local/shop-order/order-accept?type=accepted-by-courier&merchantId=2&courierId=2&orderUid=
+        //pizza-customer.local/shop-order/order-command?type=accepted-by-merchant&merchantId=2&orderUid=
+        //pizza-customer.local/shop-order/order-command?type=accepted-by-courier&merchantId=2&courierId=2&orderUid=
 
         $type = Yii::$app->request->post('type', Yii::$app->request->get('type'));
         $orderUid = Yii::$app->request->post('orderUid', Yii::$app->request->get('orderUid'));
@@ -99,15 +100,61 @@ class ShopOrderController extends Controller
             throw new NotFoundHttpException('User not found!');
         }
 
-        $orderInfo = [
+        /*$orderInfo = [
             'sessionId' => Yii::$app->session->getId(),
             'time' => time(),
-        ];
+        ];*/
+
+        //$sessId = Yii::$app->session->getId();
+
+        /*$orderCommand = Yii::$app->cache->get('order-command');
+        if (empty($orderCommand[$sessId])) {
+            $orderCommand[$sessId] = [];
+        }
+
+        if (empty($orderCommand[$sessId][$orderUid])) {
+            $orderCommand[$sessId][$orderUid];
+        }
+
+        if (empty($orderCommand[$sessId][$orderUid]['info'])) {
+            $orderCommand[$sessId][$orderUid]['info'] = [];
+        }*/
+
+        $currentCustomerId = '';
+
+        if ($orderCommand = Yii::$app->cache->get('order-command')) {
+            foreach ($orderCommand as $customerId => $orders) {
+                if (isset($orders[$orderUid])) {
+                    $currentCustomerId = $customerId;
+                    break;
+                } else {
+                    return 'no_order_in_command';
+                }
+            }
+        } else {
+            return 'no_order_command';
+        }
 
         switch ($type) {
             case 'accepted-by-merchant':
             {
-                $orderInfo['acceptedOrderData'] = [
+                /*$orderInfo['acceptedOrderData'] = [
+                    'order_status' => 'accepted-by-merchant',
+                    'orderUid' => $orderUid,
+                    'merchantData' => [
+                        'name' => $user->profile->name,
+                        'address' => $user->profile->location,
+                        'company_lat_long' => $user->profile->company_lat_long,
+                    ],
+                ];*/
+
+                if ($orderCommand[$currentCustomerId][$orderUid]['info']['order_status'] == 'accepted-by-merchant') {
+                    // Эта данные уже установлены
+                    //TODO: возможно следует отдельно обработать
+                    break;
+                }
+
+                $orderCommand[$currentCustomerId][$orderUid]['info'] = [
                     'order_status' => 'accepted-by-merchant',
                     'orderUid' => $orderUid,
                     'merchantData' => [
@@ -117,7 +164,7 @@ class ShopOrderController extends Controller
                     ],
                 ];
 
-                Yii::$app->cache->set('order-info', json_encode($orderInfo));
+                Yii::$app->cache->set('order-command', json_encode($orderCommand));
                 break;
             }
             case 'accepted-by-courier':

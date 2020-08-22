@@ -91,10 +91,7 @@ gl.functions.sse.startOrderAccept = function (orderUid) {
         gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown, 'alert');
     });*/
 
-    setTimeout(function () {
-        fetch('/shop-order/start-order-accept?orderUid=' + encodeURIComponent(orderUid));
-    }, 5000);
-
+    fetch('/shop-order/start-order-accept?orderUid=' + encodeURIComponent(orderUid));
 };
 
 /*gl.functions.sse.waitForMerchantOrderAccept = function (orderUid) {

@@ -8,6 +8,17 @@ use yii\base\BaseObject;
 class OrderHandling extends BaseObject
 {
     /**
+     *  "order-command"[
+     *      <customerId>[               // уникальный ID пользователя (ID сессии напр.)
+     *          <orderUid>[             // UID заказа
+     *              - info              // данные для отправки пользователю
+     *              - times_sent        // сколько было ответов пользователю (отправки параметра `data`)
+     *          ],
+     *          ...
+     *      ],
+     *      ...
+     *  ]
+     *
      * @param string $customerId идентификатор уникально определяющий пользователя (соединение с пользователем)
      */
     public function waitForOrderCommand($customerId)
@@ -20,19 +31,17 @@ class OrderHandling extends BaseObject
             $prev[$customerId] = [];
         }
 
-        /**
-            "order-command"
-                <customerId>
-                    <orderId>
-
-
-         */
-
         for (; ;) {
             $now = Yii::$app->cache->get('order-command');
 
             if ($now[$customerId] != $prev[$customerId]) {
-                $now
+                foreach ($now[$customerId] as $orderUid => $orderInfo) {
+                    if (empty($orderInfo['times_sent'])) {
+                        $data = json_encode($orderInfo['info']);
+                        echo "data: $data\n\n";
+                        $orderInfo['times_sent'] = 1;
+                    }
+                }
 
                 ob_flush();
                 flush();
@@ -51,6 +60,4 @@ class OrderHandling extends BaseObject
             $counter += $sleep;
         }
     }
-
-
 }

@@ -34,6 +34,10 @@ class OrderHandling extends BaseObject
         for (; ;) {
             $now = Yii::$app->cache->get('order-command');
 
+            if (!isset($now[$customerId])) {
+                $now[$customerId] = [];
+            }
+
             if ($now[$customerId] != $prev[$customerId]) {
                 foreach ($now[$customerId] as $orderUid => $orderInfo) {
                     if (empty($orderInfo['times_sent'])) {

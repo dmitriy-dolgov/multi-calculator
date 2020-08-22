@@ -83,7 +83,7 @@ gl.functions.sse.startListen_OrdersAcceptance = function () {
 
 gl.functions.sse.startOrderAccept = function (orderUid) {
 
-    /*$.post('/shop-order/start-order-accept', {orderUid: orderUid}, function (data) {
+    /*$.get('/shop-order/start-order-accept', {orderUid: orderUid}, function (data) {
         if (data.status != 'success') {
             alert('Unknown ajax error!');
         }

@@ -41,9 +41,10 @@ class ShopOrderController extends Controller
         //$sse->start();
 
         $orderCommand = Yii::$app->cache->get('order-command');
-        if (isset($orderCommand[$sessId])) {
+        //TODO: реализовать
+        /*if (isset($orderCommand[$sessId])) {
             return 'process_already_exists';
-        }
+        }*/
 
         $orderCommand[$sessId] = [];
 

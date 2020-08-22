@@ -1,24 +1,54 @@
 gl.functions.websocket = {};
 
-gl.functions.websocket.init = function () {
+gl.functions.websocket.socketOnClose = function () {
+    gl.log('SOCKET ON CLOSE EVENT');
+
     var url = gl.data['yii-params']['websocket']['schema'] + '://'
         + gl.data['yii-params']['websocket']['host'] + ':' + gl.data['yii-params']['websocket']['port'];
 
+    if (gl.functions.websocket.socket) {
+        gl.log('WebSocket disconnected.');
+    }
+
     gl.functions.websocket.socket = new WebSocket(url);
-   // gl.log(['gl.functions.websocket.socket:', gl.functions.websocket.socket]);
+    // gl.log(['gl.functions.websocket.socket:', gl.functions.websocket.socket]);
 
     gl.functions.websocket.socket.onopen = function () {
         gl.functions.websocket.socketOnOpen();
     };
-    gl.functions.websocket.socket.onclose = function () {
-        gl.functions.websocket.socketOnClose();
+    gl.functions.websocket.socket.onmessage = function (event) {
+        gl.functions.websocket.socketOnMessage(event);
     };
     gl.functions.websocket.socket.onerror = function () {
         gl.functions.websocket.socketOnError();
     };
-    gl.functions.websocket.socket.onmessage = function (event) {
-        gl.functions.websocket.socketOnMessage(event);
-    };
+    gl.functions.websocket.socket.onclose = gl.functions.websocket.socketOnClose;
+};
+
+gl.functions.websocket.init = function () {
+
+    gl.functions.websocket.socketOnClose();
+
+    /*gl.functions.websocket.socket.onclose = function () {
+        if (gl.functions.websocket.socket) {
+            gl.log('WebSocket disconnected.');
+        }
+        gl.functions.websocket.socket = new WebSocket(url);
+        // gl.log(['gl.functions.websocket.socket:', gl.functions.websocket.socket]);
+
+        gl.functions.websocket.socket.onopen = function () {
+            gl.functions.websocket.socketOnOpen();
+        };
+        gl.functions.websocket.socket.onmessage = function (event) {
+            gl.functions.websocket.socketOnMessage(event);
+        };
+        gl.functions.websocket.socket.onerror = function () {
+            gl.functions.websocket.socketOnError();
+        };
+
+        //gl.functions.websocket.socketOnClose();
+    };*/
+
 };
 
 gl.functions.websocket.init();
@@ -67,11 +97,6 @@ gl.functions.websocket.send = function (info) {
         //TODO: handle error
         alert('Произошла ошибка, попробуйте пожалуйста позже!');
     }
-};
-
-gl.functions.websocket.socketOnClose = function () {
-    //TODO: обрабатывать
-    gl.log('SOCKET ON CLOSE EVENT');
 };
 
 gl.functions.websocket.socketOnError = function () {

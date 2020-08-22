@@ -54,6 +54,8 @@ class OrderHandling extends BaseObject
                 // Send a little candy 15 seconds every in order not to disconnect
                 if ($counter > 15) {
                     echo ":[server] How is everything ? ;) \n\n";
+                    ob_flush();
+                    flush();
                     $counter = 0;
                 }
             }

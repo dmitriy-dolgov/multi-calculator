@@ -34,7 +34,14 @@ class ShopOrderController extends Controller
      */
     public function actionWaitOrderCommand()
     {
-        $sessId = Yii::$app->session->getId();
+        header('Content-Type: text/event-stream');
+        header('Cache-Control: no-cache');
+        header('Connection: keep-alive');
+
+        ob_flush();
+        flush();
+
+        /*$sessId = Yii::$app->session->getId();
 
         //$sse = Yii::$app->sse;
         //$sse->addEventListener('merchant-order-accept', new MerchantOrderAccept($sessId));
@@ -42,15 +49,19 @@ class ShopOrderController extends Controller
 
         $orderCommand = Yii::$app->cache->get('order-command');
         //TODO: реализовать
-        /*if (isset($orderCommand[$sessId])) {
-            return 'process_already_exists';
-        }*/
+//        if (isset($orderCommand[$sessId])) {
+//            return 'process_already_exists';
+//        }
 
         $orderCommand[$sessId] = [];
 
         Yii::$app->cache->set('order-command', $orderCommand);
 
-        (new OrderHandling())->waitForOrderCommand($sessId);
+        (new OrderHandling())->waitForOrderCommand($sessId);*/
+
+        $oh = new OrderHandling();
+        $oh->queryStart();
+        $oh->waitForOrderCommand();
     }
 
     /**
@@ -66,23 +77,28 @@ class ShopOrderController extends Controller
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        $sessId = Yii::$app->session->getId();
+        /*$sessId = Yii::$app->session->getId();
 
         $orderCommand = Yii::$app->cache->get('order-command');
 
         if (!isset($orderCommand[$sessId])) {
             $orderCommand[$sessId] = [];
         }
-        if (!isset($orderCommand[$sessId][$orderUid])) {
+
+        /*if (!isset($orderCommand[$sessId][$orderUid])) {
             $orderCommand[$sessId][$orderUid] = [];
         }
         if (!isset($orderCommand[$sessId][$orderUid]['info'])) {
             $orderCommand[$sessId][$orderUid]['info'] = [];
         }
 
-        Yii::$app->cache->set('order-command', $orderCommand);
+        Yii::$app->cache->set('order-command', $orderCommand);*/
 
-        return ['status' => 'success'];
+        $oh = new OrderHandling();
+
+        return [
+            'status' => $oh->startOrderAccept($orderUid) ? 'success' : 'error',
+        ];
 
         /*Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 

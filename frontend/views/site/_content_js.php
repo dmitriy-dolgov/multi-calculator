@@ -118,9 +118,9 @@ $this->registerJsFile(Url::to(['/js/vendor/order-form/geo.js']), ['depends' => [
 $this->registerJsFile(Url::to(['/js/vendor/order-form/components.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/order.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/categories.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
-$this->registerJsFile(Url::to(['/js/vendor/order-form/websocket.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
+//$this->registerJsFile(Url::to(['/js/vendor/order-form/websocket.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 //$this->registerJsFile(Url::to(['/js/vendor/order-form/longpoll.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
-//$this->registerJsFile(Url::to(['/js/vendor/order-form/sse.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
+$this->registerJsFile(Url::to(['/js/vendor/order-form/sse.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 
 $this->registerJsFile(Url::to(['/js/leaflet/MovingMarker.js']), ['depends' => ['frontend\assets\VendorAsset']]);
 $this->registerJsFile(Url::to(['/js/leaflet/L.Icon.Pulse.js']), ['depends' => ['frontend\assets\VendorAsset']]);

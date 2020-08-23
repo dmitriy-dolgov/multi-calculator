@@ -4,6 +4,14 @@ namespace websocket\controllers;
 
 use immusen\websocket\src\Controller;
 
+/**
+ * Class CustomerController
+ * @package websocket\controllers
+ *
+ * Группы пользователей:
+ *      1 - покупатели пиццы
+ *      2 - сотрудники принимающие заказы
+ */
 class CustomerController extends Controller
 {
 
@@ -84,7 +92,16 @@ class CustomerController extends Controller
 
     public function actionNewOrderCreated($id, $info)
     {
+        echo "actionNewOrderCreated()\n";
+        echo "ID: $id\n";
         print_r($info);
+
+        if ($id == 1) {
+            $content = [];
+
+            return $this->sendToGroup($content, 2);
+        }
+
     }
 
 }

@@ -69,7 +69,7 @@ gl.functions.websocket.socketOnOpen = function () {
     gl.functions.websocket.socket.send(JSON.stringify(msg));
 };
 
-gl.functions.websocket.send = function (info) {
+gl.functions.websocket.send = function (info, method) {
     // 0 	CONNECTING 	Socket has been created. The connection is not yet open.
     // 1 	OPEN 	The connection is open and ready to communicate.
     // 2 	CLOSING 	The connection is in the process of closing.
@@ -77,17 +77,18 @@ gl.functions.websocket.send = function (info) {
 
     gl.log('SOCKET ON SEND');
 
-    if (gl.functions.websocket.socket.readyState != 1) {
+    /*if (gl.functions.websocket.socket.readyState != 1) {
         gl.functions.websocket.socketOnOpen();
-    }
+    }*/
 
+    //TODO: проверить нужно ли что-то делать по поводу пропавшего соединения здесь и сделать
     if (gl.functions.websocket.socket.readyState == 1) {
         var msg = {
             jsonrpc: "2.0",
-            id: 444,
-            method: "customer/newOrderCreated",
+            id: 1,
+            method: method, //'customer/newOrderCreated',
             params: {
-                id: 1,
+                id: 189,  // room 2 is room for pizza customers
                 info: info
             }
         };

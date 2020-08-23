@@ -18,21 +18,22 @@ class OrderHandling extends BaseObject
      *      ],
      *      ...
      *  ]
-     *
-     * @param string $customerId идентификатор уникально определяющий пользователя (соединение с пользователем)
      */
-    public function waitForOrderCommand($customerId)
+    public function waitForOrderCommand()
     {
         $sleep = 5;
         $counter = 0;
 
-        $prev = Yii::$app->cache->get('order-command');
+        $customerId = $this->getUserUniqueId();
+        $storeKey = $this->getStoreKey();
+
+        $prev = Yii::$app->cache->get($storeKey);
         if (!isset($prev[$customerId])) {
             $prev[$customerId] = [];
         }
 
         for (; ;) {
-            $now = Yii::$app->cache->get('order-command');
+            $now = Yii::$app->cache->get($storeKey);
 
             if (!isset($now[$customerId])) {
                 $now[$customerId] = [];
@@ -65,5 +66,49 @@ class OrderHandling extends BaseObject
             sleep($sleep);
             $counter += $sleep;
         }
+    }
+
+    public function queryStart()
+    {
+        $userUid = $this->getUserUniqueId();
+        $storeKey = $this->getStoreKey();
+
+        $orderCommand = Yii::$app->cache->get($storeKey);
+        if (!isset($orderCommand[$userUid])) {
+            $orderCommand[$userUid] = [];
+        }
+
+        Yii::$app->cache->set($storeKey, $orderCommand);
+
+        return $userUid;
+    }
+
+    public function getUserUniqueId()
+    {
+        return Yii::$app->session->getId();
+    }
+
+    public function getStoreKey()
+    {
+        return get_called_class() . ':order-command';
+    }
+
+    public function startOrderAccept($orderUid)
+    {
+        $this->queryStart();
+
+        $userUid = $this->getUserUniqueId();
+        $storeKey = $this->getStoreKey();
+
+        $orderCommand = Yii::$app->cache->get($storeKey);
+
+        if (!isset($orderCommand[$userUid][$orderUid])) {
+            $orderCommand[$userUid][$orderUid] = [];
+        }
+        if (!isset($orderCommand[$userUid][$orderUid]['info'])) {
+            $orderCommand[$userUid][$orderUid]['info'] = [];
+        }
+
+        return Yii::$app->cache->set($storeKey, $orderCommand);
     }
 }

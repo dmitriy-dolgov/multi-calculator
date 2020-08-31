@@ -24,15 +24,8 @@ class AcceptOrderController extends Controller
     {
         //pizza-admin.local/accept-order/wait-order-command
 
-        header('Content-Type: text/event-stream');
-        header('Cache-Control: no-cache');
-        //header('Connection: keep-alive');
-
-        //ob_flush();
-        //flush();
-
         $oh = new OrderHandlingBackend();
-        $oh->queryStart();
+        //$oh->queryStart();
         $oh->waitForOrderCommand();
     }
 

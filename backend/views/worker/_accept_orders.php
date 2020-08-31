@@ -25,7 +25,9 @@ $declineCausesHtml .= '</select><br>';
 
 $declineCausesHtml = json_encode($declineCausesHtml);*/
 
+$this->registerJsFile(Url::to(['/js/worker/order-handling.js']), ['depends' => ['backend\assets\WorkerAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/order-handling/sse-backend.js']), ['depends' => ['backend\assets\WorkerAsset'], 'appendTimestamp' => YII_DEBUG]);
+
 
 $this->registerJs(<<<JS
     var elems = {

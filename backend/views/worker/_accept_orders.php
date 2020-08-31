@@ -25,6 +25,8 @@ $declineCausesHtml .= '</select><br>';
 
 $declineCausesHtml = json_encode($declineCausesHtml);*/
 
+$this->registerJsFile(Url::to(['/js/order-handling/sse.js']), ['depends' => ['backend\assets\WorkerAsset'], 'appendTimestamp' => YII_DEBUG]);
+
 $this->registerJs(<<<JS
     var elems = {
         '#orders-pane': $('#orders-pane')

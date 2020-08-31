@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="shop-order-search">
+<div class="make-order-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],

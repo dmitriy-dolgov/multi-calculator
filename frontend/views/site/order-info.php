@@ -48,7 +48,7 @@ JS
 );
 
 //TODO: переместить
-$changeStatusUrl = json_encode(Url::to(['/setup/shop-order/status-change']));
+$changeStatusUrl = json_encode(Url::to(['/setup/make-order/status-change']));
 
 //TODO: обработка ошибок типа 404
 $this->registerJs(<<<JS
@@ -118,7 +118,7 @@ JS
 //}
 
 ?>
-<main id="shop-order">
+<main id="make-order">
     <div class="top-title"><?= Yii::t('app', 'Your order') ?></div>
     <div class="order-info">
         <!--<img class="o-img" alt="" src="/img/order-desc.png">-->

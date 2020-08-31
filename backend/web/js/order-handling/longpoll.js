@@ -14,7 +14,7 @@ gl.functions.longpoll.destroyLongPollProcess = function(longPollId) {
     var longPollId = 'merchantOrderAccept_' + orderId;
     var timestamp = Date.now() / 1000 | 0;
     var config = {
-        url: '/shop-order/wait-order',
+        url: '/make-order/wait-order',
         //type: 'post', // bug in longpoll
         params: {t: timestamp, orderId: orderId},
         callback: function (data) {

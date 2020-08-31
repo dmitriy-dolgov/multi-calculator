@@ -201,12 +201,15 @@ gl.functions.composeOrder = function () {
         //gl.functions.websocket.send({newOrderId: 'test_order_id'}, 'customer/newOrderCreated');
         //return false;
 
+        gl.functions.sse.startOrderAccept('12345');
+        return false;
+
         $.post('/site/order-create-ajax', formData, function (result) {
             if (result.status == 'success') {
                 //gl.functions.websocket.send({newOrderId: result.order_uid}, 'customer/newOrderCreated');
                 //gl.functions.longpoll.waitForMerchantOrderAccept(result.order_uid);
                 //gl.functions.sse.waitForMerchantOrderAccept(result.order_uid);
-                gl.functions.sse.startListen_OrdersAcceptance();
+                //gl.functions.sse.startListen_OrdersAcceptance();
                 //setTimeout(function () {
                     gl.functions.sse.startOrderAccept(result.order_uid);
                 //}, 10000);
@@ -348,7 +351,7 @@ gl.functions.fillOrderInfo = function (result, formData) {
         orderDataDataElem.animate({opacity: 1});
 
         /*setInterval(function () {
-            $.get('/shop-order/order-status', {orderId: result.order_uid}, function (result) {
+            $.get('/make-order/order-status', {orderId: result.order_uid}, function (result) {
                 if (result.status == 'success' && result.data['order-status'] == 'offer-sent-to-customer') {
                     for (var id in gl.functions.placesMap.prototype.allMovingMarkers) {
                         gl.functions.placesMap.prototype.allMovingMarkers[id].removeFrom(gl.data.worldMap.map);

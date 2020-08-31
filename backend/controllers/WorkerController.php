@@ -143,14 +143,14 @@ class WorkerController extends Controller
                 // Сигнал отправившему заявку пользователю что пицца принята в разработку
                 /*$alertUrl = \common\helpers\Web::getUrlToCustomerSite()
                     . Url::to([
-                        '/shop-order/accept-order-by-merchant',
+                        '/make-order/accept-order-by-merchant',
                         'orderUid' => $shopOrder->order_uid,
                         'merchantId' => $coWorker->user_id,
                     ]);*/
 
                 $alertUrl = \common\helpers\Web::getUrlToCustomerSite()
                     . Url::to([
-                        '/shop-order/order-accept',
+                        '/make-order/order-accept',
                         'type' => 'accepted-by-merchant',
                         'orderUid' => $shopOrder->order_uid,
                         'merchantId' => $coWorker->user_id,
@@ -215,7 +215,7 @@ class WorkerController extends Controller
                 // Сигнал отправившему заявку пользователю что пицца принята в разработку
                 /*$alertUrl = \common\helpers\Web::getUrlToCustomerSite()
                     . Url::to([
-                        '/shop-order/accept-order-by-courier',
+                        '/make-order/accept-order-by-courier',
                         'orderUid' => $shopOrder->order_uid,
                         'merchantId' => $coWorker->user_id,
                         'courierId' => $coWorker->id,
@@ -223,7 +223,7 @@ class WorkerController extends Controller
 
                 $alertUrl = \common\helpers\Web::getUrlToCustomerSite()
                     . Url::to([
-                        '/shop-order/order-accept',
+                        '/make-order/order-accept',
                         'type' => 'accepted-by-courier',
                         'orderUid' => $shopOrder->order_uid,
                         'merchantId' => $coWorker->user_id,

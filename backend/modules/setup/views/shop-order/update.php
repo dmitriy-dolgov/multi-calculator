@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Order List'), 'url' 
 $this->params['breadcrumbs'][] = ['label' => ($model->deliver_customer_name . ' - ' . $model->order_uid), 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
-<div class="shop-order-update">
+<div class="make-order-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

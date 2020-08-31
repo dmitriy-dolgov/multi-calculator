@@ -1,0 +1,10 @@
+SSE команды на стороне админа:
+ping:   - название event listener
+    time - время пинга (произвольный формат)
+
+new-order:   - название event listener
+    html    - HTML - код заказа
+
+#accepted-by-customer:   - название event listener
+#    user_uid    - уникальный ID пользователя через который поддерживается связь с сервером (session)
+#    order_uid   - уникальный ID заказа

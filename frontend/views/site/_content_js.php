@@ -134,7 +134,7 @@ foreach ($cityList as $cityId => $cityData) {
 }*/
 
 /*\izumi\longpoll\widgets\LongPoll::widget([
-    'url' => ['/shop-order/wait-order'],
+    'url' => ['/make-order/wait-order'],
     'events' => ['order-accepted-by-merchant'],
     'callback' => 'function(text){ alert(text); }',
 ]);*/

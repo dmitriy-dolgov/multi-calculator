@@ -5,22 +5,22 @@ namespace backend\sse;
 use Yii;
 use yii\base\BaseObject;
 
-class OrderHandling extends BaseObject
+class OrderHandlingBackend extends BaseObject
 {
     /**
-     *  "order-command"[
-     *      <customerId>[               // уникальный ID пользователя (ID сессии напр.)
-     *          <orderUid>[             // UID заказа
-     *              - info              // данные для отправки пользователю
-     *              - times_sent        // сколько было ответов пользователю (отправки параметра `data`)
+     * <customerId>[       // уникальный ID пользователя (ID сессии напр.)
+     *          [
+     *              <eventName> =>              // Название события (ping, new-order ...)
+     *                  <any event data>        // Данные события
      *          ],
      *          ...
-     *      ],
-     *      ...
-     *  ]
+     * ],
+     * ...
      */
     public function waitForOrderCommand()
     {
+        set_time_limit(0);
+
         $sleep = 4;
         $counter = 0;
 
@@ -29,14 +29,14 @@ class OrderHandling extends BaseObject
 
         $storeKey = $this->getStoreKey();
 
-        //$prev = Yii::$app->cache->get($storeKey);
         $prev = [];
         if (!isset($prev[$customerId])) {
             $prev[$customerId] = [];
         }
 
+        $eventId = 1;
+
         for (; ;) {
-            //$now = Yii::$app->cache->get($storeKey);
             $now = $prev;
 
             if (!isset($now[$customerId])) {
@@ -44,12 +44,11 @@ class OrderHandling extends BaseObject
             }
 
             if ($now[$customerId] != $prev[$customerId]) {
-                foreach ($now[$customerId] as $orderUid => $orderInfo) {
-                    if (empty($orderInfo['times_sent'])) {
-                        $data = json_encode($orderInfo['info']);
-                        echo "data: aname $data \n\n";
-                        $orderInfo['times_sent'] = 1;
-                    }
+                foreach ($now[$customerId] as $eventName => $eventInfo) {
+                    $data = json_encode($eventInfo);
+                    echo "event: $eventName\n";
+                    echo "data: $data\n\n";
+                    $orderInfo['times_sent'] = 1;
                 }
 
                 ob_flush();
@@ -58,6 +57,7 @@ class OrderHandling extends BaseObject
             } else {
                 // Send a little candy 15 seconds every in order not to disconnect
                 if ($counter > 15) {
+                    //echo 'event: ping';   // То что начинается с двоеточия - комментарий SSE
                     echo ":[server] How is everything ? ;) \n\n";
                     ob_flush();
                     flush();
@@ -94,7 +94,7 @@ class OrderHandling extends BaseObject
 
     public function getStoreKey()
     {
-        return get_called_class() . ':order-command';
+        return ':sse-backend-command';
     }
 
     public function startOrderAccept($orderUid)

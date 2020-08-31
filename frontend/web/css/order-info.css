@@ -1,17 +1,17 @@
 @charset "UTF-8";
-#shop-order {
+#make-order {
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
   padding-bottom: 7vw;
 }
-#shop-order .top-title {
+#make-order .top-title {
   padding: 20px;
   font-size: 30px;
   text-align: center;
   font-weight: bold;
 }
-#shop-order .order-info {
+#make-order .order-info {
   position: relative;
   width: 100%;
   margin-bottom: 2vw;
@@ -24,10 +24,10 @@
   background-size: contain;
   background-position: top;*/
 }
-#shop-order .order-info .o-img {
+#make-order .order-info .o-img {
   width: 100%;
 }
-#shop-order .order-info .o-content {
+#make-order .order-info .o-content {
   position: relative;
   width: 100%;
   /*top: 39%;
@@ -36,31 +36,31 @@
   font-weight: bold;
   line-height: 2.2;
 }
-#shop-order .order-info .o-content a {
+#make-order .order-info .o-content a {
   color: inherit !important;
 }
-#shop-order .order-info .o-content .status-hint {
+#make-order .order-info .o-content .status-hint {
   font-size: 28px;
   text-align: center;
   color: white;
 }
 @media screen and (max-width: 900px) {
-  #shop-order .order-info .o-content .status-hint {
+  #make-order .order-info .o-content .status-hint {
     font-size: 3.3vw;
   }
 }
 @media screen and (max-width: 900px) {
-  #shop-order .order-info .o-content {
+  #make-order .order-info .o-content {
     font-size: 2.8vw;
   }
 }
-#shop-order .order-components {
+#make-order .order-components {
   width: 100%;
   min-height: 33vw;
   position: relative;
   margin: 6vw 0 0;
 }
-#shop-order .order-components .bg {
+#make-order .order-components .bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -70,24 +70,24 @@
   border-radius: 50%;
 }
 @media screen and (max-width: 900px) {
-  #shop-order .order-components {
+  #make-order .order-components {
     min-height: 38vw;
     margin: 7vw 0 0;
   }
 }
-#shop-order .order-components .o-content {
+#make-order .order-components .o-content {
   padding: 10vw 8vw;
   position: relative;
 }
 @media screen and (max-width: 900px) {
-  #shop-order .order-components .o-content {
+  #make-order .order-components .o-content {
     padding: 10vw 8vw 11vw;
   }
 }
-#shop-order .order-components .o-content .text-warning {
+#make-order .order-components .o-content .text-warning {
   color: #ac141f;
 }
-#shop-order .order-components .o-content .subheader {
+#make-order .order-components .o-content .subheader {
   text-align: center;
   font-size: 55px;
   font-weight: bold;
@@ -96,49 +96,49 @@
   color: #fdb526;
 }
 @media screen and (max-width: 900px) {
-  #shop-order .order-components .o-content .subheader {
+  #make-order .order-components .o-content .subheader {
     font-size: 6.5vw;
     margin-bottom: 7vw;
   }
 }
-#shop-order .order-components .o-content .subelement {
+#make-order .order-components .o-content .subelement {
   display: flex;
   font-size: 30px;
   margin-bottom: 20px;
   font-weight: 800;
 }
 @media screen and (max-width: 900px) {
-  #shop-order .order-components .o-content .subelement {
+  #make-order .order-components .o-content .subelement {
     font-size: 4.5vw;
     margin-bottom: 1vw;
   }
 }
-#shop-order .order-components .o-content .subelement .title {
+#make-order .order-components .o-content .subelement .title {
   margin-right: 2vw;
   white-space: nowrap;
 }
-#shop-order .order-components .o-content .subelement .dots {
+#make-order .order-components .o-content .subelement .dots {
   width: 100%;
   overflow: hidden;
   white-space: nowrap;
 }
-#shop-order .order-components .o-content .subelement .price {
+#make-order .order-components .o-content .subelement .price {
   white-space: nowrap;
   color: #fdb526;
   margin-left: 2vw;
 }
-#shop-order .order-components .b-c-left-top,
-#shop-order .order-components .b-c-right-top,
-#shop-order .order-components .b-c-left-bottom,
-#shop-order .order-components .b-c-right-bottom {
+#make-order .order-components .b-c-left-top,
+#make-order .order-components .b-c-right-top,
+#make-order .order-components .b-c-left-bottom,
+#make-order .order-components .b-c-right-bottom {
   position: absolute;
   width: 18%;
 }
-#shop-order .order-components .b-c-left-top {
+#make-order .order-components .b-c-left-top {
   left: 0;
   top: 0;
 }
-#shop-order .order-components .b-c-right-top {
+#make-order .order-components .b-c-right-top {
   right: 0;
   top: 0;
   /*
@@ -151,50 +151,50 @@
     position: absolute;
   }*/
 }
-#shop-order .order-components .b-c-left-bottom {
+#make-order .order-components .b-c-left-bottom {
   left: 0;
   bottom: 0;
 }
-#shop-order .order-components .b-c-right-bottom {
+#make-order .order-components .b-c-right-bottom {
   right: 0;
   bottom: 0;
 }
-#shop-order .order-components .b-c-top-line,
-#shop-order .order-components .b-c-bottom-line,
-#shop-order .order-components .b-c-left-line,
-#shop-order .order-components .b-c-right-line {
+#make-order .order-components .b-c-top-line,
+#make-order .order-components .b-c-bottom-line,
+#make-order .order-components .b-c-left-line,
+#make-order .order-components .b-c-right-line {
   position: absolute;
   background-color: #fdb526;
 }
-#shop-order .order-components .b-c-top-line {
+#make-order .order-components .b-c-top-line {
   width: 56%;
   height: 4px;
   left: 22%;
   top: 1%;
 }
-#shop-order .order-components .b-c-bottom-line {
+#make-order .order-components .b-c-bottom-line {
   width: 56%;
   height: 4px;
   left: 22%;
   bottom: 1%;
 }
-#shop-order .order-components .b-c-left-line {
+#make-order .order-components .b-c-left-line {
   display: none;
   width: 4px;
   left: 1%;
 }
-#shop-order .order-components .b-c-right-line {
+#make-order .order-components .b-c-right-line {
   display: none;
   width: 4px;
   right: 1%;
 }
 @media screen and (max-width: 900px) {
-  #shop-order .order-components .b-c-top-line,
-#shop-order .order-components .b-c-bottom-line {
+  #make-order .order-components .b-c-top-line,
+#make-order .order-components .b-c-bottom-line {
     height: 2px;
   }
-  #shop-order .order-components .b-c-left-line,
-#shop-order .order-components .b-c-right-line {
+  #make-order .order-components .b-c-left-line,
+#make-order .order-components .b-c-right-line {
     width: 2px;
   }
 }

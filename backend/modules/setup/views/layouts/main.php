@@ -120,11 +120,11 @@ use yii\helpers\Html;
                                     ],
                                     [
                                         'label' => Yii::t('app', 'Signal Contacts'),
-                                        'url' => ['/setup/shop-order-signal']
+                                        'url' => ['/setup/make-order-signal']
                                     ],
                                     [
                                         'label' => Yii::t('app', 'Order list'),
-                                        'url' => ['/setup/shop-order/index', 'sort' => '-created_at'],
+                                        'url' => ['/setup/make-order/index', 'sort' => '-created_at'],
                                     ],
                                 ],
                             ],

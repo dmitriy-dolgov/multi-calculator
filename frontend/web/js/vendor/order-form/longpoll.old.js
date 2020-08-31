@@ -18,7 +18,7 @@ gl.functions.longpoll.waitForMerchantOrderAccept = function (orderUid) {
     var longPollId = 'merchantOrderAccept_' + orderUid;
     var timestamp = Date.now() / 1000 | 0;
     var config = {
-        url: '/shop-order/wait-order',
+        url: '/make-order/wait-order',
         //type: 'post', // bug in longpoll
         params: {t: timestamp, orderUid: orderUid},
         callback: function (data) {
@@ -53,7 +53,7 @@ gl.functions.longpoll.waitForCourierToGo = function (orderUid) {
     var longPollId = 'courierOrderAccept_' + orderUid;
     var timestamp = Date.now() / 1000 | 0;
     var config = {
-        url: '/shop-order/wait-courier',
+        url: '/make-order/wait-courier',
         params: {t: timestamp, orderUid: orderUid},
         callback: function (data) {
             if (data) {

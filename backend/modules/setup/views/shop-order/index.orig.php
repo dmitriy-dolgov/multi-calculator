@@ -13,7 +13,7 @@ $this->title = Yii::t('app', 'Order List');
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerCss(<<<CSS
-.shop-order-index td hr {
+.make-order-index td hr {
     margin: 7px 0;
     border-top: 1px solid #848484;
 }
@@ -24,7 +24,7 @@ CSS
 );
 
 ?>
-<div class="shop-order-index">
+<div class="make-order-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

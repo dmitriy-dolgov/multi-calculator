@@ -7,59 +7,31 @@ use common\models\db\ShopOrder;
 use common\models\db\ShopOrderSearch;
 use common\models\db\ShopOrderStatus;
 use common\models\db\User;
-use frontend\sse\MerchantOrderAccept;
-use frontend\sse\OrderHandling;
-use Sse\Data;
+use backend\sse\OrderHandlingBackend;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
-/**
- * ShopOrderController implements the CRUD actions for ShopOrder model.
- */
-class ShopOrderController extends Controller
+class AcceptOrderController extends Controller
 {
-    const TIME_LIMIT_FOR_LONGPOLL = 600;
-
-    /*public function actionStop()
-    {
-        Yii::$app->cache->set('c-stop', true);
-    }*/
-
     /**
      * Ожидание ответа одной из пиццерий - старт SSE.
      * Вызывается заказчиком пиццы.
      */
     public function actionWaitOrderCommand()
     {
+        //pizza-admin.local/accept-order/wait-order-command
+
         header('Content-Type: text/event-stream');
         header('Cache-Control: no-cache');
-        header('Connection: keep-alive');
+        //header('Connection: keep-alive');
 
-        ob_flush();
-        flush();
+        //ob_flush();
+        //flush();
 
-        /*$sessId = Yii::$app->session->getId();
-
-        //$sse = Yii::$app->sse;
-        //$sse->addEventListener('merchant-order-accept', new MerchantOrderAccept($sessId));
-        //$sse->start();
-
-        $orderCommand = Yii::$app->cache->get('order-command');
-        //TODO: реализовать
-//        if (isset($orderCommand[$sessId])) {
-//            return 'process_already_exists';
-//        }
-
-        $orderCommand[$sessId] = [];
-
-        Yii::$app->cache->set('order-command', $orderCommand);
-
-        (new OrderHandling())->waitForOrderCommand($sessId);*/
-
-        $oh = new OrderHandling();
+        $oh = new OrderHandlingBackend();
         $oh->queryStart();
         $oh->waitForOrderCommand();
     }
@@ -73,54 +45,15 @@ class ShopOrderController extends Controller
      */
     public function actionStartOrderAccept($orderUid)
     {
-        //pizza-customer.local/shop-order/start-order-accept?orderUid=Glj4y20fg1io8hJ
+        //pizza-customer.local/make-order/start-order-accept?orderUid=Glj4y20fg1io8hJ
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        /*$sessId = Yii::$app->session->getId();
-
-        $orderCommand = Yii::$app->cache->get('order-command');
-
-        if (!isset($orderCommand[$sessId])) {
-            $orderCommand[$sessId] = [];
-        }
-
-        /*if (!isset($orderCommand[$sessId][$orderUid])) {
-            $orderCommand[$sessId][$orderUid] = [];
-        }
-        if (!isset($orderCommand[$sessId][$orderUid]['info'])) {
-            $orderCommand[$sessId][$orderUid]['info'] = [];
-        }
-
-        Yii::$app->cache->set('order-command', $orderCommand);*/
-
-        $oh = new OrderHandling();
+        $oh = new OrderHandlingBackend();
 
         return [
             'status' => $oh->startOrderAccept($orderUid) ? 'success' : 'error',
         ];
-
-        /*Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-        if (!$orderUid = Yii::$app->request->post('orderUid')) {
-            throw new NotFoundHttpException();
-        }
-
-        $sessionId = Yii::$app->session->getId();
-        $sessionOrderIdsKey = ['order-accept', 'order-uids', 'session-id' => $sessionId];
-
-        if (!$data = Yii::$app->cache->get($sessionOrderIdsKey)) {
-            $data = [];
-        }
-
-        $data[] = $orderUid;
-
-        if (!Yii::$app->cache->set($sessionOrderIdsKey, $data)) {
-            return ['status' => 'error'];
-        }
-
-        //TODO: на самом деле могут быть ошибки - учесть это
-        return ['status' => 'success'];*/
     }
 
     /**
@@ -132,8 +65,8 @@ class ShopOrderController extends Controller
      */
     public function actionOrderCommand()
     {
-        //pizza-customer.local/shop-order/order-command?type=accepted-by-merchant&merchantId=2&orderUid=
-        //pizza-customer.local/shop-order/order-command?type=accepted-by-courier&merchantId=2&courierId=2&orderUid=
+        //pizza-customer.local/make-order/order-command?type=accepted-by-merchant&merchantId=2&orderUid=
+        //pizza-customer.local/make-order/order-command?type=accepted-by-courier&merchantId=2&courierId=2&orderUid=
 
         $type = Yii::$app->request->post('type', Yii::$app->request->get('type'));
         $orderUid = Yii::$app->request->post('orderUid', Yii::$app->request->get('orderUid'));
@@ -251,68 +184,9 @@ class ShopOrderController extends Controller
         return 'success';
     }
 
-
-    /*public function actionWaitOrder()
-    {
-        set_time_limit(self::TIME_LIMIT_FOR_LONGPOLL);
-
-        $result = ['status' => 'error'];
-
-        file_put_contents('naem', 'just a content');
-
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-        $orderUid = Yii::$app->request->post('orderUid');
-        //Yii::debug('actionWaitOrder() got $orderUid: ' . $orderUid, 'order-accept');
-        $cacheKey = ['order_handling', 'accepted_by_merchant', 'data', 'orderUid' => $orderUid];
-
-        for (; ;) {
-//            if (Yii::$app->cache->get('c-stop')) {
-//                Yii::$app->cache->delete('c-stop');
-//                break;
-//            }
-            if ($storedData = Yii::$app->cache->get($cacheKey)) {
-                //Yii::debug('actionWaitOrder() in cycle', 'order-accept');
-                $result = ['status' => 'success', 'data' => $storedData];
-                Yii::$app->cache->delete($cacheKey);
-                break;
-            }
-
-            sleep(3);
-        }
-
-        return $result;
-    }
-
-    public function actionWaitCourier()
-    {
-        set_time_limit(self::TIME_LIMIT_FOR_LONGPOLL);
-
-        $result = ['status' => 'error'];
-
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-        $orderUid = Yii::$app->request->post('orderUid');
-        Yii::debug('actionWaitCourier() got $orderUid: ' . $orderUid, 'order-accept');
-        $cacheKey = ['order_handling', 'accepted_by_courier', 'data', 'orderUid' => $orderUid];
-
-        for (; ;) {
-            if ($storedData = Yii::$app->cache->get($cacheKey)) {
-                Yii::debug('actionWaitCourier() in cycle', 'order-accept');
-                $result = ['status' => 'success', 'data' => $storedData];
-                Yii::$app->cache->delete($cacheKey);
-                break;
-            }
-
-            sleep(3);
-        }
-
-        return $result;
-    }*/
-
     public function actionAcceptOrderByMerchant($orderUid, $merchantId)
     {
-        //pizza-customer.local/shop-order/accept-order-by-merchant
+        //pizza-customer.local/make-order/accept-order-by-merchant
 
         if (!$user = User::findOne($merchantId)) {
             Yii::error('User not found. User id: ' . $merchantId);
@@ -338,7 +212,7 @@ class ShopOrderController extends Controller
 
     public function actionAcceptOrderByCourier($orderUid, $merchantId, $courierId)
     {
-        //pizza-customer.local/shop-order/accept-order-by-courier
+        //pizza-customer.local/make-order/accept-order-by-courier
 
         if (!$user = User::findOne($merchantId)) {
             Yii::error('User not found. User id: ' . $merchantId);

@@ -5,7 +5,7 @@ namespace backend\sse;
 use Yii;
 use yii\base\BaseObject;
 
-class OrderHandlingBackend extends BaseObject
+abstract class OrderHandlingBackend extends BaseObject
 {
     /**
      * <sseUserId>[       // уникальный ID пользователя (ID сессии напр.)
@@ -28,6 +28,8 @@ class OrderHandlingBackend extends BaseObject
 
         // см. connection_aborted() - https://kevinchoppin.dev/blog/server-sent-events-in-php
         ignore_user_abort(true);
+
+        $this->setSseUserIdForFunction();
 
         $sleep = 4;
         $counter = 0;
@@ -66,15 +68,22 @@ class OrderHandlingBackend extends BaseObject
             }
 
             if ($now[$sseUserId] != $prev[$sseUserId]) {
-                foreach ($now[$sseUserId] as $eventName => $eventInfo) {
-                    $data = json_encode($eventInfo);
-                    echo "event: $eventName\n";
-                    echo "data: $data\n\n";
-                }
+                if (in_array($sseUserId, $this->getSseUserListByFunction())) {
+                    $nowDuplicateForUser = $now[$sseUserId];
+                    foreach ($nowDuplicateForUser as $eventName => $eventInfo) {
+                        $data = json_encode($eventInfo);
+                        echo "event: $eventName\n";
+                        echo "data: $data\n\n";
 
-                ob_flush();
-                flush();
-                $counter = 0;
+                        unset($now[$sseUserId][$eventName]);
+                    }
+
+                    Yii::$app->cache->set($storeKey, $now);
+
+                    ob_flush();
+                    flush();
+                    $counter = 0;
+                }
             } else {
                 // Send a little candy 15 seconds every in order not to disconnect
                 if ($counter > 15) {
@@ -92,6 +101,10 @@ class OrderHandlingBackend extends BaseObject
             $counter += $sleep;
         }
     }
+
+    abstract public function setSseUserIdForFunction();
+
+    abstract public function getSseUserListByFunction();
 
     /*public function queryStart()
     {
@@ -117,23 +130,4 @@ class OrderHandlingBackend extends BaseObject
     {
         return ':sse-backend-command';
     }
-
-    /*public function startOrderAccept($orderUid)
-    {
-        $this->queryStart();
-
-        $sseUserId = $this->getSseUserId();
-        $storeKey = $this->getStoreKey();
-
-        $orderCommand = Yii::$app->cache->get($storeKey);
-
-        if (!isset($orderCommand[$sseUserId][$orderUid])) {
-            $orderCommand[$sseUserId][$orderUid] = [];
-        }
-        if (!isset($orderCommand[$sseUserId][$orderUid]['info'])) {
-            $orderCommand[$sseUserId][$orderUid]['info'] = [];
-        }
-
-        return Yii::$app->cache->set($storeKey, $orderCommand);
-    }*/
 }

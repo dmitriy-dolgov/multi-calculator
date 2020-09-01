@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use backend\sse\NewOrderHandlingBackend;
 use common\models\db\CoWorker;
 use common\models\db\ShopOrder;
 use common\models\db\ShopOrderSearch;
@@ -17,15 +18,14 @@ use yii\web\Response;
 class AcceptOrderController extends Controller
 {
     /**
-     * Ожидание ответа одной из пиццерий - старт SSE.
+     * Ожидание прихода информации о новом заказе - старт SSE.
      * Вызывается заказчиком пиццы.
      */
     public function actionWaitOrderCommand()
     {
         //pizza-admin.local/accept-order/wait-order-command
 
-        $oh = new OrderHandlingBackend();
-        //$oh->queryStart();
+        $oh = new NewOrderHandlingBackend();
         $oh->waitForOrderCommand();
     }
 

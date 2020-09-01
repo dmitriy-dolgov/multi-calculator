@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use backend\sse\NewOrderHandlingBackend;
 use common\models\db\Component;
 use common\models\db\ComponentSet;
 use common\models\db\User;
@@ -185,6 +186,9 @@ STR;
         ) {
             $response['status'] = 'success';
             $response['order_uid'] = $shopOrder->order_uid;
+
+            NewOrderHandlingBackend::addNewOrder('<hr>SOME TEST<hr>++++++++++++++++++++++++++++++<br>');
+
         } else {
             //$response['msg'] = 'Unknown server error';
             throw new InternalErrorException();

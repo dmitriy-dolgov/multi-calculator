@@ -30,26 +30,6 @@ class AcceptOrderController extends Controller
     }
 
     /**
-     * Старт прослушки конкретного заказа.
-     * Вызывается заказчиком пиццы.
-     *
-     * @return array
-     * @throws NotFoundHttpException
-     */
-    public function actionStartOrderAccept($orderUid)
-    {
-        //pizza-customer.local/make-order/start-order-accept?orderUid=Glj4y20fg1io8hJ
-
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-        $oh = new OrderHandlingBackend();
-
-        return [
-            'status' => $oh->startOrderAccept($orderUid) ? 'success' : 'error',
-        ];
-    }
-
-    /**
      * Обработать команду по статусу заказа.
      * Вызывается пиццерией.
      *
@@ -65,34 +45,10 @@ class AcceptOrderController extends Controller
         $orderUid = Yii::$app->request->post('orderUid', Yii::$app->request->get('orderUid'));
         $merchantId = Yii::$app->request->post('merchantId', Yii::$app->request->get('merchantId'));
 
-        /*if (!ShopOrder::findOne($orderUid)) {
-            Yii::error('Order not found. Order uid: ' . $orderUid);
-            throw new NotFoundHttpException('Order not found!');
-        }*/
         if (!$user = User::findOne($merchantId)) {
             Yii::error('User not found. User id: ' . $merchantId);
             throw new NotFoundHttpException('User not found!');
         }
-
-        /*$orderInfo = [
-            'sessionId' => Yii::$app->session->getId(),
-            'time' => time(),
-        ];*/
-
-        //$sessId = Yii::$app->session->getId();
-
-        /*$orderCommand = Yii::$app->cache->get('order-command');
-        if (empty($orderCommand[$sessId])) {
-            $orderCommand[$sessId] = [];
-        }
-
-        if (empty($orderCommand[$sessId][$orderUid])) {
-            $orderCommand[$sessId][$orderUid];
-        }
-
-        if (empty($orderCommand[$sessId][$orderUid]['info'])) {
-            $orderCommand[$sessId][$orderUid]['info'] = [];
-        }*/
 
         $currentCustomerId = '';
 
@@ -236,54 +192,6 @@ class AcceptOrderController extends Controller
         return 'success';
     }
 
-    /**
-     * Lists all ShopOrder models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new ShopOrderSearch();
-        $dataProvider = new ActiveDataProvider([
-            'query' => Yii::$app->user->identity->getShopOrders0(),
-        ]);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single ShopOrder model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new ShopOrder model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new ShopOrder();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
     public function actionOrderStatus($orderUid)
     {
         $result = ['status' => 'error'];
@@ -331,41 +239,6 @@ class AcceptOrderController extends Controller
             'success' => true,
         ]);
     }
-
-    /**
-     * Updates an existing ShopOrder model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    /*public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }*/
-
-    /**
-     * TODO: реализовать через deleted_at
-     * Deletes an existing ShopOrder model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    /*public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }*/
 
     /**
      * Finds the ShopOrder model based on its primary key value.

@@ -7,6 +7,11 @@ use yii\base\BaseObject;
 
 abstract class OrderHandlingBackend extends BaseObject
 {
+    const STORE_KEY = ':sse-backend-command';
+
+    protected static $sseUserId;
+
+
     /**
      * <sseUserId>[       // уникальный ID пользователя (ID сессии напр.)
      *          [
@@ -40,17 +45,15 @@ abstract class OrderHandlingBackend extends BaseObject
         $sseUserId = $this->getSseUserId();
         Yii::$app->session->close();
 
-        $storeKey = $this->getStoreKey();
-
         // см. https://kevinchoppin.dev/blog/server-sent-events-in-php для использования полифила
         //echo ':' . str_repeat(' ', 2048) . "\n"; // 2 kB padding for IE
         //echo "retry: 2000\n";
 
-        if (!$prev = Yii::$app->cache->get($storeKey)) {
+        if (!$prev = Yii::$app->cache->get(self::STORE_KEY)) {
             $prev = [];
         }
 
-        if (!isset($prev[$sseUserId])) {
+        if (empty($prev[$sseUserId])) {
             $prev[$sseUserId] = [];
         }
 
@@ -59,31 +62,29 @@ abstract class OrderHandlingBackend extends BaseObject
                 exit();
             }
 
-            if (!$now = Yii::$app->cache->get($storeKey)) {
+            if (!$now = Yii::$app->cache->get(self::STORE_KEY)) {
                 $now = [];
             }
 
-            if (!isset($now[$sseUserId])) {
+            if (empty($now[$sseUserId])) {
                 $now[$sseUserId] = [];
             }
 
-            if ($now[$sseUserId] != $prev[$sseUserId]) {
-                if (in_array($sseUserId, $this->getSseUserListByFunction())) {
-                    $nowDuplicateForUser = $now[$sseUserId];
-                    foreach ($nowDuplicateForUser as $eventName => $eventInfo) {
-                        $data = json_encode($eventInfo);
-                        echo "event: $eventName\n";
-                        echo "data: $data\n\n";
+            if (in_array($sseUserId, $this->getSseUserListByFunction()) && $now[$sseUserId] != $prev[$sseUserId]) {
+                $nowDuplicateForUser = $now[$sseUserId];
+                foreach ($nowDuplicateForUser as $eventName => $eventInfo) {
+                    $data = json_encode($eventInfo);
+                    echo "event: $eventName\n";
+                    echo "data: $data\n\n";
 
-                        unset($now[$sseUserId][$eventName]);
-                    }
-
-                    Yii::$app->cache->set($storeKey, $now);
-
-                    ob_flush();
-                    flush();
-                    $counter = 0;
+                    unset($now[$sseUserId][$eventName]);
                 }
+
+                Yii::$app->cache->set(self::STORE_KEY, $now);
+
+                ob_flush();
+                flush();
+                $counter = 0;
             } else {
                 // Send a little candy 15 seconds every in order not to disconnect
                 if ($counter > 15) {
@@ -123,11 +124,10 @@ abstract class OrderHandlingBackend extends BaseObject
 
     public function getSseUserId()
     {
-        return Yii::$app->session->getId();
-    }
+        if (!self::$sseUserId) {
+            self::$sseUserId = Yii::$app->session->getId();
+        }
 
-    public function getStoreKey()
-    {
-        return ':sse-backend-command';
+        return self::$sseUserId;
     }
 }

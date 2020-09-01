@@ -201,8 +201,8 @@ gl.functions.composeOrder = function () {
         //gl.functions.websocket.send({newOrderId: 'test_order_id'}, 'customer/newOrderCreated');
         //return false;
 
-        gl.functions.sse.startOrderAccept('12345');
-        return false;
+        //gl.functions.sse.startOrderAccept('12345');
+        //return false;
 
         $.post('/site/order-create-ajax', formData, function (result) {
             if (result.status == 'success') {

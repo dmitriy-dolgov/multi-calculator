@@ -211,7 +211,7 @@ gl.functions.composeOrder = function () {
                 //gl.functions.sse.waitForMerchantOrderAccept(result.order_uid);
                 //gl.functions.sse.startListen_OrdersAcceptance();
                 //setTimeout(function () {
-                    gl.functions.sse.startOrderAccept(result.order_uid);
+                    //gl.functions.sse.startOrderAccept(result.order_uid);
                 //}, 10000);
 
                 /*gl.functions.fillOrderInfo(result, {

@@ -122,7 +122,7 @@ abstract class OrderHandlingBackend extends BaseObject
         return $sseUserId;
     }*/
 
-    public function getSseUserId()
+    public static function getSseUserId()
     {
         if (!self::$sseUserId) {
             self::$sseUserId = Yii::$app->session->getId();

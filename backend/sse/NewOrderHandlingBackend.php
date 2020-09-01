@@ -25,12 +25,16 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
     {
         $data = Yii::$app->cache->get(self::STORE_KEY);
 
-        if (empty($data[self::$sseUserId])) {
-            $data[self::$sseUserId] = [];
+        $sseUserId = self::getSseUserId();
+
+        if (empty($data[$sseUserId])) {
+            $data[$sseUserId] = [];
         }
 
-        $data[self::$sseUserId][] = [
+        $data[$sseUserId][] = [
             'new-order' => $html,
         ];
+
+        return Yii::$app->cache->set(self::STORE_KEY, $data);
     }
 }

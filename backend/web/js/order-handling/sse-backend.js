@@ -49,15 +49,4 @@ gl.functions.sse.startListen_OrdersAcceptance = function () {
     });
 };
 
-/*gl.functions.sse.startOrderAccept = function (orderUid) {
-
-    fetch('/make-order/start-order-accept?orderUid=' + encodeURIComponent(orderUid))
-        .then(function (response) {
-            gl.log('response:');
-            gl.log(response);
-            gl.log('response.json():');
-            gl.log(response.json());
-        });
-};*/
-
 gl.functions.sse.startListen_OrdersAcceptance();

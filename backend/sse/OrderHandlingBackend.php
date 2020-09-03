@@ -19,12 +19,12 @@ abstract class OrderHandlingBackend extends BaseObject
      *
      * @return mixed
      */
-    abstract public static function getBaseStoreElement();
+    abstract public static function getBaseUserElement();
 
     /**
      * Очистить ненужные данные при окончательном закрытии соединения.
      */
-    abstract public static function cleanOnConnectionClose();
+    abstract public function cleanOnConnectionClose();
 
     abstract public function handleIncomingSignals();
 
@@ -56,7 +56,7 @@ abstract class OrderHandlingBackend extends BaseObject
         //echo ':' . str_repeat(' ', 2048) . "\n"; // 2 kB padding for IE
         //echo "retry: 2000\n";
 
-        /*if (!$prev = Yii::$app->cache->get(self::STORE_KEY)) {
+        /*if (!$prev = Yii::$app->cacheSse->get(self::STORE_KEY)) {
             $prev = [];
         }
 
@@ -68,16 +68,16 @@ abstract class OrderHandlingBackend extends BaseObject
             $prev[$userFunction][$sseUserId] = [];
         }*/
 
-        //$prev = $this->getBaseStoreElement();
+        //$prev = $this->getBaseUserElement();
 
         for (; ;) {
             if (connection_aborted()) {
-                self::cleanOnConnectionClose();
+                $this->cleanOnConnectionClose();
                 Yii::debug('connection_aborted()', 'sse-order');
                 exit();
             }
 
-            /*if (!$now = Yii::$app->cache->get(self::STORE_KEY)) {
+            /*if (!$now = Yii::$app->cacheSse->get(self::STORE_KEY)) {
                 $now = [];
             }
 
@@ -85,13 +85,16 @@ abstract class OrderHandlingBackend extends BaseObject
                 $now[$sseUserId] = [];
             }*/
 
-            $now = $this->getBaseStoreElement();
+            $now = $this->getBaseUserElement();
 
             //$r = $this->getSseUserListByFunction();
             Yii::debug('$sseUserId: ' . $sseUserId, 'sse-order');
             //Yii::debug('R: ' . print_r($r, true), 'sse-order');
             Yii::debug('$now: ' . print_r($now, true), 'sse-order');
             //Yii::debug('$prev: ' . print_r($prev, true), 'sse-order');
+
+            $sc = Yii::$app->cacheSse->get(static::STORE_KEY);
+            Yii::debug('Yii::$app->cacheSse->get(self::STORE_KEY): ' . print_r($sc, true), 'sse-order');
 
             echo "event: ping\n";
             echo 'data: ' . json_encode(['time' => time()]) . "\n\n";
@@ -113,7 +116,7 @@ abstract class OrderHandlingBackend extends BaseObject
                     unset($now[$sseUserId][$eventName]);
                 }
 
-                Yii::$app->cache->set(self::STORE_KEY, $now);*/
+                Yii::$app->cacheSse->set(self::STORE_KEY, $now);*/
 
                 $counter = 0;
             } else {
@@ -139,12 +142,12 @@ abstract class OrderHandlingBackend extends BaseObject
         $sseUserId = $this->getSseUserId();
         $storeKey = $this->getStoreKey();
 
-        $orderCommand = Yii::$app->cache->get($storeKey);
+        $orderCommand = Yii::$app->cacheSse->get($storeKey);
         if (!isset($orderCommand[$sseUserId])) {
             $orderCommand[$sseUserId] = [];
         }
 
-        Yii::$app->cache->set($storeKey, $orderCommand);
+        Yii::$app->cacheSse->set($storeKey, $orderCommand);
 
         return $sseUserId;
     }*/

@@ -35,9 +35,6 @@ return [
         'mapHandler' => [
             'class' => 'common\components\MapHandler',
         ],
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
-        ],
         /*'dbConnectionManager' => [
             'class' => 'common/components/DbConnectionManager',
         ],*/

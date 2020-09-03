@@ -5,8 +5,8 @@ namespace backend\sse;
 use Yii;
 
 /**
- * <userFunction> => [     // Функция пользователя (accept_orders, courier ...)
- *      <sseUserId>[       // Уникальный ID пользователя (ID сессии напр.)
+ * <coWorkerFunction> => [      // Функция сотрудника (accept_orders, courier ...)
+ *      <sseUserId>[            // Уникальный ID пользователя (ID сессии напр.)
  *          [
  *              <eventName> =>              // Название события (ping, new-order ...)
  *                  <any event data>        // Данные события
@@ -46,43 +46,43 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
         return $this->sseUsersByFunction[self::CO_WORKER_FUNCTION];
     }*/
 
-    public static function getBaseStoreElement()
+    public static function getBaseUserElement()
     {
         //TODO: блокировать кеш
 
         $updated = false;
 
-        if (!$elem = Yii::$app->cache->flush()->get(self::STORE_KEY)) {
-            $elem = [];
+        if (!$elems = Yii::$app->cacheSse->get(self::STORE_KEY)) {
+            $elems = [];
             $updated = true;
         }
 
-        if (!isset($elem[self::CO_WORKER_FUNCTION])) {
-            $elem[self::CO_WORKER_FUNCTION] = [];
+        if (!isset($elems[self::CO_WORKER_FUNCTION])) {
+            $elems[self::CO_WORKER_FUNCTION] = [];
             $updated = true;
         }
 
         $sseUserId = self::getSseUserId();
-        if (!isset($elem[self::CO_WORKER_FUNCTION][$sseUserId])) {
-            $elem[self::CO_WORKER_FUNCTION][$sseUserId] = [];
+        if (!isset($elems[self::CO_WORKER_FUNCTION][$sseUserId])) {
+            $elems[self::CO_WORKER_FUNCTION][$sseUserId] = [];
             $updated = true;
         }
 
         if ($updated) {
-            Yii::$app->cache->set(self::STORE_KEY, $elem);
+            Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
         }
 
-        return $elem[self::CO_WORKER_FUNCTION][$sseUserId];
+        return $elems[self::CO_WORKER_FUNCTION][$sseUserId];
     }
 
-    public function setBaseStoreElement($bsElem)
+    /*public static function setBaseStoreElement($bsElem)
     {
-        if (!$elem = Yii::$app->cache->get(self::STORE_KEY)) {
-            $elem = [];
+        if (!$elems = Yii::$app->cacheSse->get(self::STORE_KEY)) {
+            $elems = [];
         }
-        $elem[self::CO_WORKER_FUNCTION][self::getSseUserId()] = $bsElem;
-        Yii::$app->cache->set(self::STORE_KEY, $elem);
-    }
+        $elems[self::CO_WORKER_FUNCTION][self::getSseUserId()] = $bsElem;
+        Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
+    }*/
 
     /**
      * @inheritDoc
@@ -90,16 +90,18 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
     public function handleIncomingSignals()
     {
         //TODO: блокировать кеш
-        $elem = Yii::$app->cache->get(self::STORE_KEY);
+        $elems = Yii::$app->cacheSse->get(self::STORE_KEY);
 
         $sseUserId = self::getSseUserId();
 
-        foreach ($elem[self::CO_WORKER_FUNCTION][$sseUserId] as $ordinalId => $eventList) {
+        foreach ($elems[self::CO_WORKER_FUNCTION][$sseUserId] as $ordinalId => $eventList) {
             if (!$eventName = array_key_first($eventList)) {
                 Yii::error('No first element (event name) in function list!');
                 continue;
             }
-            $eventData = json_encode($eventList[$eventName]);
+            $eventData = json_encode([
+                'html' => $eventList[$eventName],
+            ]);
             echo "event: $eventName\n";
             echo "data: $eventData\n\n";
             /*foreach ($currentStateElemCopy as $eventName => $eventData) {
@@ -108,29 +110,45 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
                 echo "data: $data\n\n";
 
                 //TODO: возможно, отмечать признак отправки
-                unset($elem[self::CO_WORKER_FUNCTION][$sseUserId][$eventName]);
+                unset($elems[self::CO_WORKER_FUNCTION][$sseUserId][$eventName]);
             }*/
         }
 
         ob_flush();
         flush();
 
-        $elem[self::CO_WORKER_FUNCTION][$sseUserId] = [];
+        $elems[self::CO_WORKER_FUNCTION][$sseUserId] = [];
 
-        Yii::$app->cache->set(self::STORE_KEY, $elem);
+        Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
     }
 
     public static function addNewOrder($html)
     {
         //TODO: блокировать кеш
 
-        $elem = self::getBaseStoreElement();
-        $elem[] = [
+        if (!$elems = Yii::$app->cacheSse->get(self::STORE_KEY)) {
+            $elems = [];
+        }
+
+        foreach ($elems as $coWorkerFunction => $userList) {
+            if ($coWorkerFunction == self::CO_WORKER_FUNCTION) {
+                foreach ($userList as $sseUserId => $userItem) {
+                    $elems[$coWorkerFunction][$sseUserId][] = [
+                        'new-order' => $html,
+                    ];
+                }
+            }
+        }
+
+        Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
+
+        /*$elems = self::getBaseUserElement();
+        $elems[] = [
             'new-order' => $html,
         ];
-        self::setBaseStoreElement($elem);
-        
-        /*$data = Yii::$app->cache->get(self::STORE_KEY);
+        self::setBaseStoreElement($elems);*/
+
+        /*$data = Yii::$app->cacheSse->get(self::STORE_KEY);
 
         $sseUserId = self::getSseUserId();
 
@@ -142,15 +160,15 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
             'new-order' => $html,
         ];
 
-        return Yii::$app->cache->set(self::STORE_KEY, $data);*/
+        return Yii::$app->cacheSse->set(self::STORE_KEY, $data);*/
     }
 
-    public static function cleanOnConnectionClose()
+    public function cleanOnConnectionClose()
     {
         //TODO: блокировать кеш
 
-        $elem = Yii::$app->cache->get(self::STORE_KEY);
-        unset($elem[self::CO_WORKER_FUNCTION][self::getSseUserId()]);
-        Yii::$app->cache->set(self::STORE_KEY, $elem);
+        $elems = Yii::$app->cacheSse->get(self::STORE_KEY);
+        unset($elems[self::CO_WORKER_FUNCTION][self::getSseUserId()]);
+        Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
     }
 }

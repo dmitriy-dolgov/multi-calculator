@@ -14,6 +14,10 @@ $configData = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'cacheSse' => [
+            'class' => 'yii\caching\FileCache',
+            'cachePath' => '@common/runtime/cache',
+        ],
         /*'view' => [
             'as YandexMetrika' => [
                 'class' => \hiqdev\yii2\YandexMetrika\Behavior::class,

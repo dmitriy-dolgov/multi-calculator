@@ -33,7 +33,7 @@ gl.functions.sse.startListen_OrdersAcceptance = function () {
 
     gl.functions.sse.es.addEventListener('ping', function (event) {
         var obj = JSON.parse(event.data);
-        gl.log('ping at ' + obj.time);
+        //gl.log('ping at ' + obj.time);
     });
 
     gl.functions.sse.es.addEventListener('new-order', function (event) {

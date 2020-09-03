@@ -8,6 +8,11 @@ class Web
 {
     public static function isLocal()
     {
+        // Похоже это консоль
+        if (!isset($_SERVER['SERVER_NAME'])) {
+            return false;
+        }
+
         $domainParts = explode('.', $_SERVER['SERVER_NAME']);
         return end($domainParts) == 'local';
     }

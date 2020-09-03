@@ -21,6 +21,11 @@ abstract class OrderHandlingBackend extends BaseObject
      */
     abstract public static function getBaseStoreElement();
 
+    /**
+     * Очистить ненужные данные при окончательном закрытии соединения.
+     */
+    abstract public static function cleanOnConnectionClose();
+
     abstract public function handleIncomingSignals();
 
 
@@ -67,6 +72,7 @@ abstract class OrderHandlingBackend extends BaseObject
 
         for (; ;) {
             if (connection_aborted()) {
+                self::cleanOnConnectionClose();
                 Yii::debug('connection_aborted()', 'sse-order');
                 exit();
             }
@@ -96,7 +102,7 @@ abstract class OrderHandlingBackend extends BaseObject
             if (!empty($now)) {
                 Yii::debug('$now != $prev', 'sse-order');
 
-                $this->handleIncomingSignals($now);
+                $this->handleIncomingSignals();
 
                 /*$nowDuplicateForUser = $now[$sseUserId];
                 foreach ($nowDuplicateForUser as $eventName => $eventInfo) {

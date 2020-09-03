@@ -52,7 +52,7 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
 
         $updated = false;
 
-        if (!$elem = Yii::$app->cache->get(self::STORE_KEY)) {
+        if (!$elem = Yii::$app->cache->flush()->get(self::STORE_KEY)) {
             $elem = [];
             $updated = true;
         }
@@ -143,5 +143,14 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
         ];
 
         return Yii::$app->cache->set(self::STORE_KEY, $data);*/
+    }
+
+    public static function cleanOnConnectionClose()
+    {
+        //TODO: блокировать кеш
+
+        $elem = Yii::$app->cache->get(self::STORE_KEY);
+        unset($elem[self::CO_WORKER_FUNCTION][self::getSseUserId()]);
+        Yii::$app->cache->set(self::STORE_KEY, $elem);
     }
 }

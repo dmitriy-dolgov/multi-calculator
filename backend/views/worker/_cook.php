@@ -18,13 +18,13 @@ $this->registerJs(<<<JS
         '#orders-pane': $('#orders-pane')
     };
 
-    if (gl.functions.orders.cook) {
-        alert('"gl.functions.orders.cook" already set');
+    if (gl.functions.orders.maker) {
+        alert('"gl.functions.orders.maker" already set');
     }
     
-    gl.functions.orders.cook = {};
+    gl.functions.orders.maker = {};
    
-    gl.functions.orders.cook.sendDeclineRequestReadyMessage = function(declineRequestId) {
+    gl.functions.orders.maker.sendDeclineRequestReadyMessage = function(declineRequestId) {
         $.post({$jsStrings['worker/decline-order']}, {declineRequestId:declineRequestId}, function(data) {
             if (data.status == 'success') {
                 
@@ -36,7 +36,7 @@ $this->registerJs(<<<JS
         });
     };
 
-    gl.functions.orders.cook.acceptOrder = function(id) {
+    gl.functions.orders.maker.acceptOrder = function(id) {
         $.post({$jsStrings['worker/accept-order-by-courier']}, {id:id,worker_uid:{$jsStrings['worker_uid']}}, function(data) {
           if (data.status == 'success') {
               alert('Готовый продукт передан курьеру.');
@@ -58,7 +58,7 @@ $this->registerJs(<<<JS
         });
     };
     
-    gl.functions.orders.cook.declineOrder = function(id) {
+    gl.functions.orders.maker.declineOrder = function(id) {
         alert('Вы отклонили/отложили заказ.');
         elems['#orders-pane'].find('.order[data-id=' + id + ']').fadeOut(400, function() {
             // TODO: to remove
@@ -93,14 +93,14 @@ JS
         <hr>
         <div class="btn-accept-order-wrap">
             <button class="btn btn-warning"
-                    onclick="gl.functions.orders.cook.acceptOrder(<?= $ord['info']['id'] ?>);return false;">
+                    onclick="gl.functions.orders.maker.acceptOrder(<?= $ord['info']['id'] ?>);return false;">
                 Передать курьеру
             </button>
         </div>
         <hr>
         <div class="decline-order-panel">
             <button class="btn btn-decline-order"
-                    onclick="gl.functions.orders.cook.declineOrder(<?= $ord['info']['id'] ?>);return false;">
+                    onclick="gl.functions.orders.maker.declineOrder(<?= $ord['info']['id'] ?>);return false;">
                 Отложить/отказаться
             </button>
             <select class="sel-decline-order-cause">

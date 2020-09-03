@@ -13,7 +13,7 @@ use yii\web\NotFoundHttpException;
 class ShopOrderCook extends ShopOrderWorker
 {
     const FOR_ROLES = [
-        'cook',
+        'maker',
     ];
 
     public function getActiveOrders($worker_uid)
@@ -51,7 +51,7 @@ class ShopOrderCook extends ShopOrderWorker
             }
             $orderIds = [];
             foreach ($orderTypes as $shopOrderId => $ordType) {
-                if ($ordType == 'offer-accepted-by-cook') {
+                if ($ordType == 'offer-accepted-by-maker') {
                     $orderIds[] = $shopOrderId;
                 }
             }

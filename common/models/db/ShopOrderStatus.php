@@ -30,10 +30,10 @@ class ShopOrderStatus extends \yii\db\ActiveRecord
 
         // Заказ принят и отправлен в обработку к исполнителю (повару).
         // (будет без этого этапа, предположим что тот кто сидит на заказах сразу назначает повару)
-        //'offer-sent-to-cook',
+        //'offer-sent-to-maker',
 
         // Заказ принят исполнителем (поваром) к обработке.
-        'offer-accepted-by-cook',
+        'offer-accepted-by-maker',
 
         // Заказ уже принят в обработку другой пиццерией. Возможен откат к состоянию 'created'.
         'offer-blocked-with-other-pizzeria',

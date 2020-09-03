@@ -187,4 +187,8 @@ order_price:decimal(8,2),order_price_discount:decimal(8,2)"
 
 ./yii migrate/create alter_shop_order_components_and_shop_order_status_tables
 
+---
+
+./yii migrate/create update_co_worker_function_table_rows
+
 

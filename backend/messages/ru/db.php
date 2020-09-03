@@ -37,6 +37,7 @@ return [
     'Chief Administrator' => 'Главный администратор',
     'Component Manager' => 'Управляющий компонентами',
     'Cook' => 'Повар',
+    'Maker' => 'Исполнитель',
     'Сourier' => 'Курьер',
     'Accept orders'  => 'Принимающий заказы',
 ];

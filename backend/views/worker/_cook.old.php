@@ -22,13 +22,13 @@ $this->registerJs(<<<JS
         '#orders-pane': $('#orders-pane')
     };
 
-    if (gl.functions.orders.cook) {
-        alert('"gl.functions.orders.cook" already set');
+    if (gl.functions.orders.maker) {
+        alert('"gl.functions.orders.maker" already set');
     }
-    gl.functions.orders.cook = {};
+    gl.functions.orders.maker = {};
     
-    gl.functions.orders.cook.passOrderToCourier = function(id) {
-        $.post('worker/pass-order-to-courier', {id:id,type:'cook'}, function(data) {
+    gl.functions.orders.maker.passOrderToCourier = function(id) {
+        $.post('worker/pass-order-to-courier', {id:id,type:'maker'}, function(data) {
             alert('Заказ отправлен курьеру!');
             elems['#orders-pane'].find('.order[data-id=' + id + ']').fadeOut(400, function() {
               // TODO: to remove
@@ -37,15 +37,15 @@ $this->registerJs(<<<JS
         });
     };
 
-    gl.functions.orders.cook.acceptOrder = function(id) {
-        $.post('worker/accept-order', {id:id,type:'cook'}, function(data) {
+    gl.functions.orders.maker.acceptOrder = function(id) {
+        $.post('worker/accept-order', {id:id,type:'maker'}, function(data) {
           if (data.status == 'success') {
               alert('Вы перешли в статус изготовления пиццы.');
               /*elems['#orders-pane'].find('.order[data-id=' + id + ']').fadeOut(400, function() {
                   // TODO: to remove
                   //this.remove();
               });*/
-              var html = 'Заказ исполняется вами! &nbsp;<button onclick="gl.functions.orders.cook.passOrderToCourier(' + id + ');return false;">Передать курьеру</button>';
+              var html = 'Заказ исполняется вами! &nbsp;<button onclick="gl.functions.orders.maker.passOrderToCourier(' + id + ');return false;">Передать курьеру</button>';
               elems['#orders-pane'].find('.order[data-id=' + id + ']').find('.btn-accept-order').replaceWith(html);
           } else {
               //TODO: to translate , maybe handle error
@@ -56,12 +56,12 @@ $this->registerJs(<<<JS
         });
     };
     
-    gl.functions.orders.cook.declineOrder = function(id) {
+    gl.functions.orders.maker.declineOrder = function(id) {
         alert('В разработке');
     };
 
     //TODO: to translate
-    gl.functions.orders.cook.putNewOrderToPane = function(order) {
+    gl.functions.orders.maker.putNewOrderToPane = function(order) {
         var info = order.info;
         var currentComponentsHtml = 'Компоненты:<br>';
         for (var id in order.components) {
@@ -83,21 +83,21 @@ $this->registerJs(<<<JS
             + '<div class="o-info deliver_email">Email: ' + info.deliver_email + '</div>'
             + '<div class="o-info deliver_comment">Комментарий: ' + info.deliver_comment + '</div>'
             + '<hr>' + currentComponentsHtml + '<hr>'
-            + '<button class="btn-accept-order" onclick="gl.functions.orders.cook.acceptOrder(' + info.id + ');return false;">Принять к исполнению</button>'
-            + '<button onclick="gl.functions.orders.cook.declineOrder(' + info.id + ');return false;">Отказаться</button>'
+            + '<button class="btn-accept-order" onclick="gl.functions.orders.maker.acceptOrder(' + info.id + ');return false;">Принять к исполнению</button>'
+            + '<button onclick="gl.functions.orders.maker.declineOrder(' + info.id + ');return false;">Отказаться</button>'
             + '</div>';
         
         elems['#orders-pane'].prepend(html);
     }
     
-    gl.functions.orders.cook.getActiveOrders = function() {
-      $.get({$jsStrings['worker/get-active-orders']}, {worker_uid:{$jsStrings['worker_uid']},type:'cook'}, function(data) {
+    gl.functions.orders.maker.getActiveOrders = function() {
+      $.get({$jsStrings['worker/get-active-orders']}, {worker_uid:{$jsStrings['worker_uid']},type:'maker'}, function(data) {
         if (data.status == 'success') {
             for (var id in data.orders) {
                 var order = data.orders[id];
                 var orderPane = elems['#orders-pane'].find('.order[data-id=' + order.id + ']');
                 if (!orderPane.length) {
-                    gl.functions.orders.cook.putNewOrderToPane(order);
+                    gl.functions.orders.maker.putNewOrderToPane(order);
                 }
             }
         } else {
@@ -109,9 +109,9 @@ $this->registerJs(<<<JS
       });
     };
     
-    gl.functions.orders.cook.getActiveOrders();
+    gl.functions.orders.maker.getActiveOrders();
     /*setInterval(function() {
-          gl.functions.orders.cook.getActiveOrders();
+          gl.functions.orders.maker.getActiveOrders();
     }, 7000);*/
 JS
 );

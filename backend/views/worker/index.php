@@ -83,7 +83,7 @@ $this->registerJsFile(Url::to(['/js/order-handling/longpoll.js']),
             <?php
             if ($id == 'accept_orders') {
                 echo $this->render('_accept_orders', ['orderList' => $orderList, 'worker' => $worker]);
-            } elseif ($id == 'cook') {
+            } elseif ($id == 'maker') {
                 echo $this->render('_cook', ['orderList' => $orderList, 'worker' => $worker]);
             } elseif ($id == 'courier') {
                 echo $this->render('_courier', ['orderList' => $orderList, 'worker' => $worker]);
@@ -150,7 +150,7 @@ $this->registerJsFile(Url::to(['/js/order-handling/longpoll.js']),
         <? /*= $this->render('_accept_orders', ['worker' => $worker]) */ ?>
     <?php /*endif; */ ?>
 
-    <?php /*if (isset($coWorkerFunctions['cook'])): */ ?>
+    <?php /*if (isset($coWorkerFunctions['maker'])): */ ?>
         <hr>
         <? /*= $this->render('_cook', ['worker' => $worker]) */ ?>
     <?php /*endif; */ ?>

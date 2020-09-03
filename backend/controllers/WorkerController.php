@@ -120,7 +120,7 @@ class WorkerController extends Controller
 
                 //TODO: проверять, может уже занят заказ
                 $shopOrderStatus = new ShopOrderStatus();
-                $shopOrderStatus->type = 'offer-accepted-by-cook';
+                $shopOrderStatus->type = 'offer-accepted-by-maker';
                 $shopOrderStatus->user_id = $coWorker->user_id;
                 $shopOrderStatus->accepted_at = $currentTimestamp;
                 $shopOrderStatus->accepted_by = $coWorker->id;
@@ -265,7 +265,7 @@ class WorkerController extends Controller
         $orderId = \Yii::$app->request->post('id');
         $type = \Yii::$app->request->post('type');
 
-        if ($type == 'cook') {
+        if ($type == 'maker') {
             if ($shopOrder = ShopOrder::findOne($orderId)) {
                 //TODO: проверять, может уже занят заказ
                 $shopOrderStatus = new ShopOrderStatus();

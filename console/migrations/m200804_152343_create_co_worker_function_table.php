@@ -33,8 +33,8 @@ class m200804_152343_create_co_worker_function_table extends Migration
             'name' => 'Component Manager',
         ]);
         $this->insert('{{%co_worker_function}}', [
-            'id' => 'cook',
-            'name' => 'Cook',
+            'id' => 'maker',
+            'name' => 'Maker',
         ]);
         $this->insert('{{%co_worker_function}}', [
             'id' => 'courier',

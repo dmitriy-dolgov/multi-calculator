@@ -39,11 +39,20 @@ return [
             'name' => 'advanced-backend',
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'traceLevel' => YII_DEBUG ? 0 : 0,
+            'flushInterval' => 1,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
+                ],
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'categories' => ['sse-order'],
+                    'logFile' => '@runtime/logs/sse-order.log',
+                    'exportInterval' => 1,
+                    'levels' => ['trace'],
+                    'logVars' => [],
                 ],
             ],
         ],

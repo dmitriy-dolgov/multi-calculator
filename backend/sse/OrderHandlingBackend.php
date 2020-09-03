@@ -12,19 +12,31 @@ abstract class OrderHandlingBackend extends BaseObject
     protected static $sseUserId;
 
 
+    //abstract public function setSseUserIdForFunction();
+
+    //abstract public function getSseUserListByFunction();
+
+    abstract public function getBaseStoreElement();
+
+    abstract public function handleIncomingSignals();
+
+
     /**
-     * <sseUserId>[       // уникальный ID пользователя (ID сессии напр.)
+     * <userFunction> => [     // Функция пользователя (accept_orders, courier ...)
+     *      <sseUserId>[       // Уникальный ID пользователя (ID сессии напр.)
      *          [
      *              <eventName> =>              // Название события (ping, new-order ...)
      *                  <any event data>        // Данные события
      *          ],
      *          ...
+     *      ],
+     *      ...
      * ],
      * ...
      */
     public function waitForOrderCommand()
     {
-        //set_time_limit(0);    // наверное не надо благодаря text/event-stream ?
+        set_time_limit(0);    // наверное не надо благодаря text/event-stream ?
 
         header('Content-Type: text/event-stream');
         header('Cache-Control: no-cache');
@@ -34,9 +46,9 @@ abstract class OrderHandlingBackend extends BaseObject
         // см. connection_aborted() - https://kevinchoppin.dev/blog/server-sent-events-in-php
         ignore_user_abort(true);
 
-        $this->setSseUserIdForFunction();
+        //$this->setSseUserIdForFunction();
 
-        $sleep = 4;
+        $sleep = 8;
         $counter = 0;
 
         //TODO: реализовать
@@ -49,29 +61,53 @@ abstract class OrderHandlingBackend extends BaseObject
         //echo ':' . str_repeat(' ', 2048) . "\n"; // 2 kB padding for IE
         //echo "retry: 2000\n";
 
-        if (!$prev = Yii::$app->cache->get(self::STORE_KEY)) {
+        /*if (!$prev = Yii::$app->cache->get(self::STORE_KEY)) {
             $prev = [];
         }
 
-        if (empty($prev[$sseUserId])) {
-            $prev[$sseUserId] = [];
+        if (empty($prev[$userFunction])) {
+            $prev[$userFunction] = [];
         }
+
+        if (empty($prev[$userFunction][$sseUserId])) {
+            $prev[$userFunction][$sseUserId] = [];
+        }*/
+
+        $prev = $this->getBaseStoreElement();
 
         for (; ;) {
             if (connection_aborted()) {
+                Yii::debug('connection_aborted()', 'sse-order');
                 exit();
             }
 
-            if (!$now = Yii::$app->cache->get(self::STORE_KEY)) {
+            /*if (!$now = Yii::$app->cache->get(self::STORE_KEY)) {
                 $now = [];
             }
 
             if (empty($now[$sseUserId])) {
                 $now[$sseUserId] = [];
-            }
+            }*/
 
-            if (in_array($sseUserId, $this->getSseUserListByFunction()) && $now[$sseUserId] != $prev[$sseUserId]) {
-                $nowDuplicateForUser = $now[$sseUserId];
+            $now = $this->getBaseStoreElement();
+
+            //$r = $this->getSseUserListByFunction();
+            Yii::debug('$sseUserId: ' . $sseUserId, 'sse-order');
+            //Yii::debug('R: ' . print_r($r, true), 'sse-order');
+            Yii::debug('$now: ' . print_r($now, true), 'sse-order');
+            Yii::debug('$prev: ' . print_r($prev, true), 'sse-order');
+
+            echo "event: ping\n";
+            echo 'data: ' . json_encode(['time' => time()]) . "\n\n";
+
+
+            //if (in_array($sseUserId, $this->getSseUserListByFunction()) && $now[$sseUserId] != $prev[$sseUserId]) {
+            if ($now != $prev) {
+                Yii::debug('IN ARRAY', 'sse-order');
+
+                $this->handleIncomingSignals();
+
+                /*$nowDuplicateForUser = $now[$sseUserId];
                 foreach ($nowDuplicateForUser as $eventName => $eventInfo) {
                     $data = json_encode($eventInfo);
                     echo "event: $eventName\n";
@@ -80,7 +116,7 @@ abstract class OrderHandlingBackend extends BaseObject
                     unset($now[$sseUserId][$eventName]);
                 }
 
-                Yii::$app->cache->set(self::STORE_KEY, $now);
+                Yii::$app->cache->set(self::STORE_KEY, $now);*/
 
                 ob_flush();
                 flush();
@@ -102,10 +138,6 @@ abstract class OrderHandlingBackend extends BaseObject
             $counter += $sleep;
         }
     }
-
-    abstract public function setSseUserIdForFunction();
-
-    abstract public function getSseUserListByFunction();
 
     /*public function queryStart()
     {

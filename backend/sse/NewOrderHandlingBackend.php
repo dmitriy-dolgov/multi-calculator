@@ -24,28 +24,6 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
     const CO_WORKER_FUNCTION = 'accept_orders';
 
 
-    //protected $sseUsersByFunction = [];
-
-
-    /** @var string название функции пользователя (accept_orders, courier ...) */
-    /*protected $userFunction;
-
-
-    public function __construct($config = [])
-    {
-        parent::__construct($config);
-    }
-
-    public function setSseUserIdForFunction()
-    {
-        $this->sseUsersByFunction[self::CO_WORKER_FUNCTION][] = self::getSseUserId();
-    }
-
-    public function getSseUserListByFunction()
-    {
-        return $this->sseUsersByFunction[self::CO_WORKER_FUNCTION];
-    }*/
-
     public static function getBaseUserElement()
     {
         //TODO: блокировать кеш
@@ -75,15 +53,6 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
         return $elems[self::CO_WORKER_FUNCTION][$sseUserId];
     }
 
-    /*public static function setBaseStoreElement($bsElem)
-    {
-        if (!$elems = Yii::$app->cacheSse->get(self::STORE_KEY)) {
-            $elems = [];
-        }
-        $elems[self::CO_WORKER_FUNCTION][self::getSseUserId()] = $bsElem;
-        Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
-    }*/
-
     /**
      * @inheritDoc
      */
@@ -104,14 +73,6 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
             ]);
             echo "event: $eventName\n";
             echo "data: $eventData\n\n";
-            /*foreach ($currentStateElemCopy as $eventName => $eventData) {
-                $data = json_encode($eventData);
-                echo "event: $eventName\n";
-                echo "data: $data\n\n";
-
-                //TODO: возможно, отмечать признак отправки
-                unset($elems[self::CO_WORKER_FUNCTION][$sseUserId][$eventName]);
-            }*/
         }
 
         ob_flush();
@@ -141,26 +102,6 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
         }
 
         Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
-
-        /*$elems = self::getBaseUserElement();
-        $elems[] = [
-            'new-order' => $html,
-        ];
-        self::setBaseStoreElement($elems);*/
-
-        /*$data = Yii::$app->cacheSse->get(self::STORE_KEY);
-
-        $sseUserId = self::getSseUserId();
-
-        if (empty($data[$sseUserId])) {
-            $data[$sseUserId] = [];
-        }
-
-        $data[$sseUserId][] = [
-            'new-order' => $html,
-        ];
-
-        return Yii::$app->cacheSse->set(self::STORE_KEY, $data);*/
     }
 
     public function cleanOnConnectionClose()

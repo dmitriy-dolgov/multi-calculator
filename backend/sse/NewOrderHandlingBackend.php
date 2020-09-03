@@ -38,7 +38,7 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
 
     public function setSseUserIdForFunction()
     {
-        $this->sseUsersByFunction[self::CO_WORKER_FUNCTION][] = $this->getSseUserId();
+        $this->sseUsersByFunction[self::CO_WORKER_FUNCTION][] = self::getSseUserId();
     }
 
     public function getSseUserListByFunction()
@@ -46,8 +46,10 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
         return $this->sseUsersByFunction[self::CO_WORKER_FUNCTION];
     }*/
 
-    public function getBaseStoreElement()
+    public static function getBaseStoreElement()
     {
+        //TODO: блокировать кеш
+
         $updated = false;
 
         if (!$elem = Yii::$app->cache->get(self::STORE_KEY)) {
@@ -55,13 +57,13 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
             $updated = true;
         }
 
-        if (empty($elem[self::CO_WORKER_FUNCTION])) {
+        if (!isset($elem[self::CO_WORKER_FUNCTION])) {
             $elem[self::CO_WORKER_FUNCTION] = [];
             $updated = true;
         }
 
-        $sseUserId = $this->getSseUserId();
-        if (empty($elem[self::CO_WORKER_FUNCTION][$sseUserId])) {
+        $sseUserId = self::getSseUserId();
+        if (!isset($elem[self::CO_WORKER_FUNCTION][$sseUserId])) {
             $elem[self::CO_WORKER_FUNCTION][$sseUserId] = [];
             $updated = true;
         }
@@ -73,14 +75,24 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
         return $elem[self::CO_WORKER_FUNCTION][$sseUserId];
     }
 
+    public function setBaseStoreElement($bsElem)
+    {
+        if (!$elem = Yii::$app->cache->get(self::STORE_KEY)) {
+            $elem = [];
+        }
+        $elem[self::CO_WORKER_FUNCTION][self::getSseUserId()] = $bsElem;
+        Yii::$app->cache->set(self::STORE_KEY, $elem);
+    }
+
     /**
      * @inheritDoc
      */
     public function handleIncomingSignals()
     {
+        //TODO: блокировать кеш
         $elem = Yii::$app->cache->get(self::STORE_KEY);
 
-        $sseUserId = $this->getSseUserId();
+        $sseUserId = self::getSseUserId();
 
         foreach ($elem[self::CO_WORKER_FUNCTION][$sseUserId] as $ordinalId => $eventList) {
             if (!$eventName = array_key_first($eventList)) {
@@ -100,17 +112,25 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
             }*/
         }
 
+        ob_flush();
+        flush();
+
         $elem[self::CO_WORKER_FUNCTION][$sseUserId] = [];
 
         Yii::$app->cache->set(self::STORE_KEY, $elem);
-
-        ob_flush();
-        flush();
     }
 
     public static function addNewOrder($html)
     {
-        $data = Yii::$app->cache->get(self::STORE_KEY);
+        //TODO: блокировать кеш
+
+        $elem = self::getBaseStoreElement();
+        $elem[] = [
+            'new-order' => $html,
+        ];
+        self::setBaseStoreElement($elem);
+        
+        /*$data = Yii::$app->cache->get(self::STORE_KEY);
 
         $sseUserId = self::getSseUserId();
 
@@ -122,6 +142,6 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
             'new-order' => $html,
         ];
 
-        return Yii::$app->cache->set(self::STORE_KEY, $data);
+        return Yii::$app->cache->set(self::STORE_KEY, $data);*/
     }
 }

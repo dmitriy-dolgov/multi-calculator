@@ -14,7 +14,12 @@ abstract class OrderHandlingBackend extends BaseObject
 
     //abstract public function getSseUserListByFunction();
 
-    abstract public function getBaseStoreElement();
+    /**
+     * Инициализирует и возвращает базовый элемент.
+     *
+     * @return mixed
+     */
+    abstract public static function getBaseStoreElement();
 
     abstract public function handleIncomingSignals();
 
@@ -58,7 +63,7 @@ abstract class OrderHandlingBackend extends BaseObject
             $prev[$userFunction][$sseUserId] = [];
         }*/
 
-        $prev = $this->getBaseStoreElement();
+        //$prev = $this->getBaseStoreElement();
 
         for (; ;) {
             if (connection_aborted()) {
@@ -80,14 +85,15 @@ abstract class OrderHandlingBackend extends BaseObject
             Yii::debug('$sseUserId: ' . $sseUserId, 'sse-order');
             //Yii::debug('R: ' . print_r($r, true), 'sse-order');
             Yii::debug('$now: ' . print_r($now, true), 'sse-order');
-            Yii::debug('$prev: ' . print_r($prev, true), 'sse-order');
+            //Yii::debug('$prev: ' . print_r($prev, true), 'sse-order');
 
             echo "event: ping\n";
             echo 'data: ' . json_encode(['time' => time()]) . "\n\n";
 
 
             //if (in_array($sseUserId, $this->getSseUserListByFunction()) && $now[$sseUserId] != $prev[$sseUserId]) {
-            if ($now != $prev) {
+            //if ($now != $prev) {
+            if (!empty($now)) {
                 Yii::debug('$now != $prev', 'sse-order');
 
                 $this->handleIncomingSignals($now);
@@ -115,7 +121,7 @@ abstract class OrderHandlingBackend extends BaseObject
                 }
             }
 
-            $prev = $now;
+            //$prev = $now;
 
             sleep($sleep);
             $counter += $sleep;

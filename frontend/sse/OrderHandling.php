@@ -5,114 +5,90 @@ namespace frontend\sse;
 use Yii;
 use yii\base\BaseObject;
 
-class OrderHandling extends BaseObject
+abstract class OrderHandling extends BaseObject
 {
+    protected static $sseUserId;
+
+
     /**
-     *  "order-command"[
-     *      <customerId>[               // уникальный ID пользователя (ID сессии напр.)
-     *          <orderUid>[             // UID заказа
-     *              - info              // данные для отправки пользователю
-     *              - times_sent        // сколько было ответов пользователю (отправки параметра `data`)
-     *          ],
-     *          ...
-     *      ],
-     *      ...
-     *  ]
+     * Инициализирует и возвращает базовый элемент.
+     *
+     * @return mixed
      */
+    abstract public static function getBaseUserElement();
+
+    /**
+     * Очистить ненужные данные при окончательном закрытии соединения.
+     */
+    abstract public function cleanOnConnectionClose();
+
+    abstract public function handleIncomingSignals();
+
+
     public function waitForOrderCommand()
     {
-        $sleep = 4;
+        set_time_limit(0);    // наверное не надо благодаря text/event-stream ?
+
+        header('Content-Type: text/event-stream');
+        header('Cache-Control: no-cache');
+        //header('Access-Control-Allow-Origin: *');
+        //header('Connection: keep-alive');
+
+        // см. connection_aborted() - https://kevinchoppin.dev/blog/server-sent-events-in-php
+        ignore_user_abort(true);
+
+        $sleep = 8;
         $counter = 0;
 
-        $customerId = $this->getUserUniqueId();
+        //TODO: реализовать
+        //$eventId = 1;
+
+        $sseUserId = $this->getSseUserId();
         Yii::$app->session->close();
 
-        $storeKey = $this->getStoreKey();
-
-        //$prev = Yii::$app->cache->get($storeKey);
-        $prev = [];
-        if (!isset($prev[$customerId])) {
-            $prev[$customerId] = [];
-        }
+        // см. https://kevinchoppin.dev/blog/server-sent-events-in-php для использования полифила
+        //echo ':' . str_repeat(' ', 2048) . "\n"; // 2 kB padding for IE
+        //echo "retry: 2000\n";
 
         for (; ;) {
-            //$now = Yii::$app->cache->get($storeKey);
-            $now = $prev;
-
-            if (!isset($now[$customerId])) {
-                $now[$customerId] = [];
+            if (connection_aborted()) {
+                $this->cleanOnConnectionClose();
+                Yii::debug('connection_aborted()', 'sse-order');
+                exit();
             }
 
-            if ($now[$customerId] != $prev[$customerId]) {
-                foreach ($now[$customerId] as $orderUid => $orderInfo) {
-                    if (empty($orderInfo['times_sent'])) {
-                        $data = json_encode($orderInfo['info']);
-                        echo "data: aname $data \n\n";
-                        $orderInfo['times_sent'] = 1;
-                    }
-                }
+            $now = $this->getBaseUserElement();
 
-                ob_flush();
-                flush();
+//            echo "event: ping\n";
+//            echo 'data: ' . json_encode(['time' => time() . '_$sseUserId: ' . $sseUserId]) . "\n\n";
+//            ob_flush();
+//            flush();
+
+            if (!empty($now)) {
+                $this->handleIncomingSignals();
                 $counter = 0;
             } else {
                 // Send a little candy 15 seconds every in order not to disconnect
                 if ($counter > 15) {
-                    echo ":[server] How is everything ? ;) \n\n";
+                    // То что начинается с двоеточия - комментарий SSE
+                    echo ":[server] ping \n\n";
                     ob_flush();
                     flush();
                     $counter = 0;
                 }
             }
 
-            $prev = $now;
-
             sleep($sleep);
             $counter += $sleep;
         }
     }
 
-    public function queryStart()
+    public static function getSseUserId()
     {
-        $userUid = $this->getUserUniqueId();
-        $storeKey = $this->getStoreKey();
-
-        $orderCommand = Yii::$app->cache->get($storeKey);
-        if (!isset($orderCommand[$userUid])) {
-            $orderCommand[$userUid] = [];
+        if (!self::$sseUserId) {
+            self::$sseUserId = Yii::$app->session->getId();
         }
 
-        Yii::$app->cache->set($storeKey, $orderCommand);
-
-        return $userUid;
-    }
-
-    public function getUserUniqueId()
-    {
-        return Yii::$app->session->getId();
-    }
-
-    public function getStoreKey()
-    {
-        return get_called_class() . ':order-command';
-    }
-
-    public function startOrderAccept($orderUid)
-    {
-        $this->queryStart();
-
-        $userUid = $this->getUserUniqueId();
-        $storeKey = $this->getStoreKey();
-
-        $orderCommand = Yii::$app->cache->get($storeKey);
-
-        if (!isset($orderCommand[$userUid][$orderUid])) {
-            $orderCommand[$userUid][$orderUid] = [];
-        }
-        if (!isset($orderCommand[$userUid][$orderUid]['info'])) {
-            $orderCommand[$userUid][$orderUid]['info'] = [];
-        }
-
-        return Yii::$app->cache->set($storeKey, $orderCommand);
+        return self::$sseUserId;
     }
 }

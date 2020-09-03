@@ -44,18 +44,20 @@ gl.functions.sse.startListen_OrderStatusAcceptance = function () {
         if (data.order_status == 'accepted-by-merchant') {
             gl.log("data.order_status == 'accepted-by-merchant'");
             if (gl.functions.setUpPaneOnOrderAccepted(data.orderUid, data.merchantData)) {
-                gl.log("true");
+                gl.log("setUpPaneOnOrderAccepted() - true");
                 //gl.functions.sse.se.removeEventListener('merchant-order-accept', $.noop, false);
                 //gl.functions.longpoll.waitForCourierToGo(data.orderUid);
             } else {
                 //TODO: обработка ошибок
-                gl.log("false");
+                gl.log("setUpPaneOnOrderAccepted() - false");
             }
         } else if (data.order_status == 'accepted-by-courier') {
             if (gl.functions.setUpPaneOnOrderAcceptedByCourier(data.orderUid, data.merchantData, data.courierData)) {
+                gl.log("setUpPaneOnOrderAcceptedByCourier() - true");
                 //gl.functions.sse.se.removeEventListener('merchant-order-accept', $.noop, false);
             } else {
                 //TODO: обработка ошибок
+                gl.log("setUpPaneOnOrderAcceptedByCourier() - false");
             }
         } else {
             //TODO: обработка ошибок
@@ -76,14 +78,13 @@ gl.functions.sse.startOrderAccept = function (orderUid) {
         gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown, 'alert');
     });*/
 
-    fetch('/make-order/start-order-accept?orderUid=' + encodeURIComponent(orderUid))
-    //fetch('/index2.php?orderUid=' + encodeURIComponent(orderUid))
+    /*fetch('/make-order/start-order-accept?orderUid=' + encodeURIComponent(orderUid))
         .then(function (response) {
             gl.log('response:');
             gl.log(response);
             gl.log('response.json():');
             gl.log(response.json());
-        });
+        });*/
 };
 
 /*gl.functions.sse.waitForMerchantOrderAccept = function (orderUid) {

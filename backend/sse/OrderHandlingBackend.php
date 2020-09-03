@@ -7,8 +7,6 @@ use yii\base\BaseObject;
 
 abstract class OrderHandlingBackend extends BaseObject
 {
-    const STORE_KEY = ':sse-backend-command';
-
     protected static $sseUserId;
 
 
@@ -21,19 +19,6 @@ abstract class OrderHandlingBackend extends BaseObject
     abstract public function handleIncomingSignals();
 
 
-    /**
-     * <userFunction> => [     // Функция пользователя (accept_orders, courier ...)
-     *      <sseUserId>[       // Уникальный ID пользователя (ID сессии напр.)
-     *          [
-     *              <eventName> =>              // Название события (ping, new-order ...)
-     *                  <any event data>        // Данные события
-     *          ],
-     *          ...
-     *      ],
-     *      ...
-     * ],
-     * ...
-     */
     public function waitForOrderCommand()
     {
         set_time_limit(0);    // наверное не надо благодаря text/event-stream ?
@@ -103,9 +88,9 @@ abstract class OrderHandlingBackend extends BaseObject
 
             //if (in_array($sseUserId, $this->getSseUserListByFunction()) && $now[$sseUserId] != $prev[$sseUserId]) {
             if ($now != $prev) {
-                Yii::debug('IN ARRAY', 'sse-order');
+                Yii::debug('$now != $prev', 'sse-order');
 
-                $this->handleIncomingSignals();
+                $this->handleIncomingSignals($now);
 
                 /*$nowDuplicateForUser = $now[$sseUserId];
                 foreach ($nowDuplicateForUser as $eventName => $eventInfo) {
@@ -118,8 +103,6 @@ abstract class OrderHandlingBackend extends BaseObject
 
                 Yii::$app->cache->set(self::STORE_KEY, $now);*/
 
-                ob_flush();
-                flush();
                 $counter = 0;
             } else {
                 // Send a little candy 15 seconds every in order not to disconnect

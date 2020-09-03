@@ -4,8 +4,23 @@ namespace backend\sse;
 
 use Yii;
 
+/**
+ * <userFunction> => [     // Функция пользователя (accept_orders, courier ...)
+ *      <sseUserId>[       // Уникальный ID пользователя (ID сессии напр.)
+ *          [
+ *              <eventName> =>              // Название события (ping, new-order ...)
+ *                  <any event data>        // Данные события
+ *          ],
+ *          ...
+ *      ],
+ *      ...
+ * ],
+ * ...
+ */
 class NewOrderHandlingBackend extends OrderHandlingBackend
 {
+    const STORE_KEY = ':sse-backend-command_NewOrderHandlingBackend';
+
     const CO_WORKER_FUNCTION = 'accept_orders';
 
 
@@ -58,9 +73,39 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
         return $elem[self::CO_WORKER_FUNCTION][$sseUserId];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function handleIncomingSignals()
     {
-        
+        $elem = Yii::$app->cache->get(self::STORE_KEY);
+
+        $sseUserId = $this->getSseUserId();
+
+        foreach ($elem[self::CO_WORKER_FUNCTION][$sseUserId] as $ordinalId => $eventList) {
+            if (!$eventName = array_key_first($eventList)) {
+                Yii::error('No first element (event name) in function list!');
+                continue;
+            }
+            $eventData = json_encode($eventList[$eventName]);
+            echo "event: $eventName\n";
+            echo "data: $eventData\n\n";
+            /*foreach ($currentStateElemCopy as $eventName => $eventData) {
+                $data = json_encode($eventData);
+                echo "event: $eventName\n";
+                echo "data: $data\n\n";
+
+                //TODO: возможно, отмечать признак отправки
+                unset($elem[self::CO_WORKER_FUNCTION][$sseUserId][$eventName]);
+            }*/
+        }
+
+        $elem[self::CO_WORKER_FUNCTION][$sseUserId] = [];
+
+        Yii::$app->cache->set(self::STORE_KEY, $elem);
+
+        ob_flush();
+        flush();
     }
 
     public static function addNewOrder($html)

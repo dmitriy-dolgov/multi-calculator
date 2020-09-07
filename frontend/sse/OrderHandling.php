@@ -37,7 +37,10 @@ abstract class OrderHandling extends BaseObject
         // см. connection_aborted() - https://kevinchoppin.dev/blog/server-sent-events-in-php
         ignore_user_abort(true);
 
-        $sleep = 4;
+        ob_flush();
+        flush();
+
+        $sleep = 8;
         $counter = 0;
 
         //TODO: реализовать
@@ -59,10 +62,10 @@ abstract class OrderHandling extends BaseObject
 
             $now = static::getBaseUserElement();
 
-//            echo "event: ping\n";
-//            echo 'data: ' . json_encode(['time' => time() . '_$sseUserId: ' . $sseUserId]) . "\n\n";
-//            ob_flush();
-//            flush();
+            echo "event: ping\n";
+            echo 'data: ' . json_encode(['time' => time() . '_data: ' . print_r($now, true)]) . "\n\n";
+            ob_flush();
+            flush();
 
             if (!empty($now)) {
                 $this->handleIncomingSignals();

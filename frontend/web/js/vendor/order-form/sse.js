@@ -47,7 +47,7 @@ gl.functions.sse.startListen_OrderStatusAcceptance = function () {
 
         var data = JSON.parse(event.data);
 
-        if (gl.functions.setUpPaneOnOrderAccepted(data.orderUid, data.merchantData)) {
+        if (gl.functions.setUpPaneOnOrderAccepted(data.data.orderUid, data.data.merchantData)) {
             gl.log("setUpPaneOnOrderAccepted() - true");
             //gl.functions.sse.se.removeEventListener('merchant-order-accept', $.noop, false);
             //gl.functions.longpoll.waitForCourierToGo(data.orderUid);

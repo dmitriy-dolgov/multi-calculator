@@ -58,6 +58,8 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
 
         $sseUserId = self::getSseUserId();
 
+        $updated = false;
+
         foreach ($elems[$sseUserId] as $orderUid => $orderList) {
             foreach ($orderList as $ordinalId => $eventList) {
                 if (!$eventName = array_key_first($eventList)) {
@@ -72,15 +74,20 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
                 echo "event: $eventName\n";
                 echo "data: $eventData\n\n";
             }
-        }
+
+            $elems[$sseUserId][$orderUid] = [];
+            $updated = true;
+       }
 
         ob_flush();
         flush();
 
         // Очистка всех событий
-        $elems[$sseUserId] = [];
+        //$elems[$sseUserId] = [];
 
-        Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
+        if ($updated) {
+            Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
+        }
     }
 
     public static function acceptOrderByMerchant($acceptedOrderUid, $merchantData)
@@ -120,7 +127,6 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
     {
         //TODO: блокировать кеш
 
-        //if (!$elems = Yii::$app->cacheSse->get(self::STORE_KEY)) {
         if (($elems = Yii::$app->cacheSse->get(self::STORE_KEY)) === false) {
             $elems = [];
         }

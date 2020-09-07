@@ -14,6 +14,10 @@ gl.functions.sse = {};
 gl.functions.sse.se = null;
 
 gl.functions.sse.startListen_OrderStatusAcceptance = function () {
+    if (gl.functions.sse.es) {
+        return;
+    }
+
     gl.functions.sse.es = new EventSource('/make-order/wait-order-command');  // { withCredentials: true });  // http://username:password@github.com - HTTP basic auth
 
     gl.functions.sse.es.onopen = function () {

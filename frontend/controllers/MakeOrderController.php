@@ -7,6 +7,7 @@ use common\models\db\ShopOrder;
 use common\models\db\ShopOrderSearch;
 use common\models\db\ShopOrderStatus;
 use common\models\db\User;
+use frontend\sse\CustomerWaitResponseOrderHandling;
 use frontend\sse\OrderHandling;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -27,15 +28,7 @@ class MakeOrderController extends Controller
     {
         //pizza-customer.local/make-order/wait-order-command
 
-        header('Content-Type: text/event-stream');
-        header('Cache-Control: no-cache');
-        //header('Connection: keep-alive');
-
-        //ob_flush();
-        //flush();
-
-        $oh = new OrderHandling();
-        $oh->queryStart();
+        $oh = new CustomerWaitResponseOrderHandling();
         $oh->waitForOrderCommand();
     }
 
@@ -246,54 +239,6 @@ class MakeOrderController extends Controller
         return 'success';
     }
 
-    /**
-     * Lists all ShopOrder models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new ShopOrderSearch();
-        $dataProvider = new ActiveDataProvider([
-            'query' => Yii::$app->user->identity->getShopOrders0(),
-        ]);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single ShopOrder model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new ShopOrder model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new ShopOrder();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
     public function actionOrderStatus($orderUid)
     {
         $result = ['status' => 'error'];
@@ -343,53 +288,18 @@ class MakeOrderController extends Controller
     }
 
     /**
-     * Updates an existing ShopOrder model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    /*public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }*/
-
-    /**
-     * TODO: реализовать через deleted_at
-     * Deletes an existing ShopOrder model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    /*public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }*/
-
-    /**
      * Finds the ShopOrder model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
      * @return ShopOrder the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    /*protected function findModel($id)
     {
         if (($model = ShopOrder::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-    }
+    }*/
 }

@@ -65,9 +65,10 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
 
         foreach ($elems[self::CO_WORKER_FUNCTION][$sseUserId] as $ordinalId => $eventList) {
             if (!$eventName = array_key_first($eventList)) {
-                Yii::error('No first element (event name) in function list!');
+                Yii::error('No first element (event name) in function list!', 'sse-order');
                 continue;
             }
+            Yii::info('Event for SSE: `' . $eventName . '`', 'sse-order');
             $eventData = json_encode([
                 'html' => $eventList[$eventName],
             ]);

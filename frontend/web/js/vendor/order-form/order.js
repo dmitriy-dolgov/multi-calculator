@@ -196,23 +196,12 @@ gl.functions.composeOrder = function () {
 
         var formData = elem.serialize();
 
-        //gl.functions.sse.startListen_OrdersAcceptance();
-
-        //gl.functions.websocket.send({newOrderId: 'test_order_id'}, 'customer/newOrderCreated');
-        //return false;
-
-        //gl.functions.sse.startOrderAccept('12345');
-        //return false;
-
         $.post('/site/order-create-ajax', formData, function (result) {
             if (result.status == 'success') {
                 //gl.functions.websocket.send({newOrderId: result.order_uid}, 'customer/newOrderCreated');
                 //gl.functions.longpoll.waitForMerchantOrderAccept(result.order_uid);
                 //gl.functions.sse.waitForMerchantOrderAccept(result.order_uid);
-                //gl.functions.sse.startListen_OrdersAcceptance();
-                //setTimeout(function () {
-                    //gl.functions.sse.startOrderAccept(result.order_uid);
-                //}, 10000);
+                gl.functions.sse.startListen_OrderStatusAcceptance();
 
                 /*gl.functions.fillOrderInfo(result, {
                     deliver_customer_name: deliver_customer_name,

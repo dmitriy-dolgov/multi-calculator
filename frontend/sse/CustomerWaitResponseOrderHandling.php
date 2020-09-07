@@ -61,9 +61,10 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
         foreach ($elems[$sseUserId] as $orderUid => $orderList) {
             foreach ($orderList as $ordinalId => $eventList) {
                 if (!$eventName = array_key_first($eventList)) {
-                    Yii::error('No first element (event name) in function list!');
+                    Yii::error('No first element (event name) in function list!', 'sse-order');
                     continue;
                 }
+                Yii::info('Event for SSE: `' . $eventName . '`', 'sse-order');
                 $eventData = json_encode([
                     'orderUid' => $orderUid,
                     'data' => $eventList[$eventName],
@@ -76,12 +77,13 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
         ob_flush();
         flush();
 
+        // Очистка всех событий
         $elems[$sseUserId] = [];
 
         Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
     }
 
-    public static function addNewOrder($html)
+    public static function acceptOrderByMerchant($acceptedOrderUid, $merchantData)
     {
         //TODO: блокировать кеш
 
@@ -89,11 +91,11 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
             $elems = [];
         }
 
-        foreach ($elems as $coWorkerFunction => $userList) {
-            if ($coWorkerFunction == self::CO_WORKER_FUNCTION) {
-                foreach ($userList as $sseUserId => $userItem) {
-                    $elems[$coWorkerFunction][$sseUserId][] = [
-                        'new-order' => $html,
+        foreach ($elems as $sseUserId => $orderList) {
+            foreach ($orderList as $orderUid => $orderEventList) {
+                if ($orderUid == $acceptedOrderUid) {
+                    $elems[$sseUserId][$orderUid][] = [
+                        'accepted-by-merchant' => $merchantData,
                     ];
                 }
             }
@@ -107,7 +109,7 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
         //TODO: блокировать кеш
 
         $elems = Yii::$app->cacheSse->get(self::STORE_KEY);
-        unset($elems[self::CO_WORKER_FUNCTION][self::getSseUserId()]);
+        unset($elems[self::getSseUserId()]);
         Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
     }
 }

@@ -65,6 +65,8 @@ $this->registerJs(<<<JS
               });*/
           } else if (data.status == 'warning') {
               alert('Заказ отправлен на выполнение но произошла ошибка: ' + data.msg);
+          } else if (data.status == 'warning-custom') {
+              alert(data.msg);
           } else {
               //TODO: to translate , maybe handle error
                 gl.handleFailCustom('Unknown error');

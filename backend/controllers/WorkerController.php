@@ -97,6 +97,8 @@ class WorkerController extends Controller
 
     public function actionAcceptOrderByMaker()
     {
+        //pizza-admin.local/worker/accept-order-by-maker
+
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $result = ['status' => 'error'];
@@ -184,7 +186,14 @@ class WorkerController extends Controller
                     ],
                 ];
 
-                CustomerWaitResponseOrderHandling::acceptOrderByMerchant($shopOrder->order_uid, $acceptedOrderData);
+                if (CustomerWaitResponseOrderHandling::acceptOrderByMerchant($shopOrder->order_uid,
+                    $acceptedOrderData)
+                ) {
+                    $result['status'] = 'success';
+                } else {
+                    $result['status'] = 'warning-custom';
+                    $result['msg'] = Yii::t('app', 'Nobody accepts the order online. It may be outdated.');
+                }
             }
 
             $transaction->commit();

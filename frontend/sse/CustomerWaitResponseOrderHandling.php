@@ -87,6 +87,8 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
     {
         //TODO: блокировать кеш
 
+        $accepted = false;
+
         if (!$elems = Yii::$app->cacheSse->get(self::STORE_KEY)) {
             $elems = [];
         }
@@ -97,13 +99,23 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
                     $elems[$sseUserId][$orderUid][] = [
                         'accepted-by-merchant' => $merchantData,
                     ];
+                    $accepted = true;
                 }
             }
         }
 
-        Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
+        if ($accepted) {
+            Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
+        }
+
+        return $accepted;
     }
 
+    /**
+     * Запуск заказчиком пиццы прослушки статуса заказа.
+     *
+     * @param $orderUid UID заказа
+     */
     public static function startListenOrderStatus($orderUid)
     {
         //TODO: блокировать кеш

@@ -6,12 +6,16 @@ use Yii;
 
 /**
  * TODO: stoppen on
- * <sseUserId>[                         // Уникальный ID пользователя (ID сессии напр.)
- *     [
- *         <eventName> =>               // Название события (ping, new-order ...)
- *             <any event data>         // Данные события
- *     ],
- *     ...
+ * <sseUserId>[                         // Уникальный ID пользователя (ID сессии напр.).
+ *                                      // Такие элементы, с ключем ID пользователя, представляют покупателей пиццы.
+ *      <orderUid>[                     // UID заказа
+ *          [
+ *                 <eventName> =>               // Название события (ping, accepted-by-merchant, ...)
+ *                      <any event data>        // Данные события
+ *          ],
+ *          ...
+ *      ],
+ *      ...
  * ],
  * ...
  */
@@ -31,14 +35,9 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
             $updated = true;
         }
 
-        if (!isset($elems[self::CO_WORKER_FUNCTION])) {
-            $elems[self::CO_WORKER_FUNCTION] = [];
-            $updated = true;
-        }
-
         $sseUserId = self::getSseUserId();
-        if (!isset($elems[self::CO_WORKER_FUNCTION][$sseUserId])) {
-            $elems[self::CO_WORKER_FUNCTION][$sseUserId] = [];
+        if (!isset($elems[$sseUserId])) {
+            $elems[$sseUserId] = [];
             $updated = true;
         }
 
@@ -46,7 +45,7 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
             Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
         }
 
-        return $elems[self::CO_WORKER_FUNCTION][$sseUserId];
+        return $elems[$sseUserId];
     }
 
     /**
@@ -59,22 +58,25 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
 
         $sseUserId = self::getSseUserId();
 
-        foreach ($elems[self::CO_WORKER_FUNCTION][$sseUserId] as $ordinalId => $eventList) {
-            if (!$eventName = array_key_first($eventList)) {
-                Yii::error('No first element (event name) in function list!');
-                continue;
+        foreach ($elems[$sseUserId] as $orderUid => $orderList) {
+            foreach ($orderList as $ordinalId => $eventList) {
+                if (!$eventName = array_key_first($eventList)) {
+                    Yii::error('No first element (event name) in function list!');
+                    continue;
+                }
+                $eventData = json_encode([
+                    'orderUid' => $orderUid,
+                    'data' => $eventList[$eventName],
+                ]);
+                echo "event: $eventName\n";
+                echo "data: $eventData\n\n";
             }
-            $eventData = json_encode([
-                'html' => $eventList[$eventName],
-            ]);
-            echo "event: $eventName\n";
-            echo "data: $eventData\n\n";
         }
 
         ob_flush();
         flush();
 
-        $elems[self::CO_WORKER_FUNCTION][$sseUserId] = [];
+        $elems[$sseUserId] = [];
 
         Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
     }

@@ -57,7 +57,7 @@ abstract class OrderHandling extends BaseObject
                 exit();
             }
 
-            $now = $this->getBaseUserElement();
+            $now = self::getBaseUserElement();
 
 //            echo "event: ping\n";
 //            echo 'data: ' . json_encode(['time' => time() . '_$sseUserId: ' . $sseUserId]) . "\n\n";

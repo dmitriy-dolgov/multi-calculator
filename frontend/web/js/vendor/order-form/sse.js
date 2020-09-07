@@ -36,33 +36,35 @@ gl.functions.sse.startListen_OrderStatusAcceptance = function () {
         //gl.log('ping at ' + obj.time);
     });
 
-    gl.functions.sse.es.addEventListener('order-status', function (event) {
+    gl.functions.sse.es.addEventListener('accepted-by-merchant', function (event) {
+        gl.log("data.order_status == 'accepted-by-merchant'");
         gl.log(['event.data:', event.data]);
 
         var data = JSON.parse(event.data);
 
-        if (data.order_status == 'accepted-by-merchant') {
-            gl.log("data.order_status == 'accepted-by-merchant'");
-            if (gl.functions.setUpPaneOnOrderAccepted(data.orderUid, data.merchantData)) {
-                gl.log("setUpPaneOnOrderAccepted() - true");
-                //gl.functions.sse.se.removeEventListener('merchant-order-accept', $.noop, false);
-                //gl.functions.longpoll.waitForCourierToGo(data.orderUid);
-            } else {
-                //TODO: обработка ошибок
-                gl.log("setUpPaneOnOrderAccepted() - false");
-            }
-        } else if (data.order_status == 'accepted-by-courier') {
-            if (gl.functions.setUpPaneOnOrderAcceptedByCourier(data.orderUid, data.merchantData, data.courierData)) {
-                gl.log("setUpPaneOnOrderAcceptedByCourier() - true");
-                //gl.functions.sse.se.removeEventListener('merchant-order-accept', $.noop, false);
-            } else {
-                //TODO: обработка ошибок
-                gl.log("setUpPaneOnOrderAcceptedByCourier() - false");
-            }
+        if (gl.functions.setUpPaneOnOrderAccepted(data.orderUid, data.merchantData)) {
+            gl.log("setUpPaneOnOrderAccepted() - true");
+            //gl.functions.sse.se.removeEventListener('merchant-order-accept', $.noop, false);
+            //gl.functions.longpoll.waitForCourierToGo(data.orderUid);
         } else {
             //TODO: обработка ошибок
+            gl.log("setUpPaneOnOrderAccepted() - false");
         }
+    });
 
+    gl.functions.sse.es.addEventListener('accepted-by-courier', function (event) {
+        gl.log("data.order_status == 'accepted-by-courier'");
+        gl.log(['event.data:', event.data]);
+
+        var data = JSON.parse(event.data);
+
+        if (gl.functions.setUpPaneOnOrderAcceptedByCourier(data.orderUid, data.merchantData, data.courierData)) {
+            gl.log("setUpPaneOnOrderAcceptedByCourier() - true");
+            //gl.functions.sse.se.removeEventListener('merchant-order-accept', $.noop, false);
+        } else {
+            //TODO: обработка ошибок
+            gl.log("setUpPaneOnOrderAcceptedByCourier() - false");
+        }
     });
 };
 

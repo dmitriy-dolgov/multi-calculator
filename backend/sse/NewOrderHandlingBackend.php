@@ -30,7 +30,7 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
 
         $updated = false;
 
-        if (!$elems = Yii::$app->cacheSse->get(self::STORE_KEY)) {
+        if (($elems = Yii::$app->cacheSse->get(self::STORE_KEY)) === false) {
             $elems = [];
             $updated = true;
         }
@@ -88,7 +88,7 @@ class NewOrderHandlingBackend extends OrderHandlingBackend
     {
         //TODO: блокировать кеш
 
-        if (!$elems = Yii::$app->cacheSse->get(self::STORE_KEY)) {
+        if (($elems = Yii::$app->cacheSse->get(self::STORE_KEY)) === false) {
             $elems = [];
         }
 

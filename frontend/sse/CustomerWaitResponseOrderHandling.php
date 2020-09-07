@@ -30,7 +30,7 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
 
         $updated = false;
 
-        if (!$elems = Yii::$app->cacheSse->get(self::STORE_KEY)) {
+        if (($elems = Yii::$app->cacheSse->get(self::STORE_KEY)) === false) {
             $elems = [];
             $updated = true;
         }
@@ -89,7 +89,7 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
 
         $accepted = false;
 
-        if (!$elems = Yii::$app->cacheSse->get(self::STORE_KEY)) {
+        if (($elems = Yii::$app->cacheSse->get(self::STORE_KEY)) === false) {
             $elems = [];
         }
 
@@ -120,12 +120,13 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
     {
         //TODO: блокировать кеш
 
-        if (!$elems = Yii::$app->cacheSse->get(self::STORE_KEY)) {
+        //if (!$elems = Yii::$app->cacheSse->get(self::STORE_KEY)) {
+        if (($elems = Yii::$app->cacheSse->get(self::STORE_KEY)) === false) {
             $elems = [];
         }
 
         $sseUserId = self::getSseUserId();
-        if (empty($elems[$sseUserId][$orderUid])) {
+        if (!isset($elems[$sseUserId][$orderUid])) {
             $elems[$sseUserId][$orderUid] = [];
         } else {
             Yii::info('Order already exists: `' . $orderUid . '`', 'sse-order');

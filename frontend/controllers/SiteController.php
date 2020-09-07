@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use backend\sse\NewOrderHandlingBackend;
 use common\models\db\Component;
 use common\models\db\ComponentSet;
+use common\models\db\CoWorker;
 use common\models\db\User;
 use frontend\models\ShopOrderForm;
 use Symfony\Component\CssSelector\Exception\InternalErrorException;
@@ -187,7 +188,9 @@ STR;
             $response['status'] = 'success';
             $response['order_uid'] = $shopOrder->order_uid;
 
-            NewOrderHandlingBackend::addNewOrder('<hr>SOME TEST<hr>++++++++++++++++++++++++++++++<br>');
+            //$worker = CoWorker::findOne($shopOrder->user_id);
+            //$orderHtml = $this->renderPartial('@backend/views/worker/_order_element', ['worker' => $worker, 'ord' => $ord]);
+            NewOrderHandlingBackend::addNewOrder('redirect html');
 
         } else {
             //$response['msg'] = 'Unknown server error';

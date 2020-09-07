@@ -41,7 +41,8 @@ gl.functions.sse.startListen_OrdersAcceptance = function () {
 
         try {
             var data = JSON.parse(event.data);
-            gl.functions.newOrderReceived(data.html);
+            //gl.functions.newOrderReceived(data.html);
+            location.reload();
         } catch (e) {
             gl.log(['message listener error: ', e]);
         }

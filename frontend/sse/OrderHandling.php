@@ -37,7 +37,7 @@ abstract class OrderHandling extends BaseObject
         // см. connection_aborted() - https://kevinchoppin.dev/blog/server-sent-events-in-php
         ignore_user_abort(true);
 
-        $sleep = 8;
+        $sleep = 4;
         $counter = 0;
 
         //TODO: реализовать

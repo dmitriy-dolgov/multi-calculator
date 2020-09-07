@@ -57,10 +57,11 @@ return [
                 ],
                 [
                     'class' => 'yii\log\FileTarget',
-                    'categories' => ['order-accept'],
-                    'logFile' => '@runtime/logs/order-accept.log',
+                    'categories' => ['sse-order'],
+                    'logFile' => '@runtime/logs/sse-order-frontend.log',
                     'exportInterval' => 1,
                     'levels' => ['trace'],
+                    'logVars' => [],
                 ],
             ],
         ],

@@ -49,7 +49,7 @@ return [
                 [
                     'class' => 'yii\log\FileTarget',
                     'categories' => ['sse-order'],
-                    'logFile' => '@runtime/logs/sse-order.log',
+                    'logFile' => '@runtime/logs/sse-order-backend.log',
                     'exportInterval' => 1,
                     'levels' => ['trace'],
                     'logVars' => [],

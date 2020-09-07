@@ -3,6 +3,8 @@
 namespace backend\controllers;
 
 use common\models\db\ShopOrderUser;
+use common\models\db\User;
+use frontend\sse\CustomerWaitResponseOrderHandling;
 use Yii;
 use common\models\db\CoWorker;
 use common\models\db\ShopOrder;
@@ -148,7 +150,7 @@ class WorkerController extends Controller
                         'merchantId' => $coWorker->user_id,
                     ]);*/
 
-                $alertUrl = \common\helpers\Web::getUrlToCustomerSite()
+                /*$alertUrl = \common\helpers\Web::getUrlToCustomerSite()
                     . Url::to([
                         '/make-order/order-accept',
                         'type' => 'accepted-by-merchant',
@@ -164,7 +166,25 @@ class WorkerController extends Controller
                     //TODO: !!!!!!!! обработка статуса 'warning'
                     $result['status'] = 'warning';
                     $result['msg'] = Yii::t('app', "Cound't send notice about an order to user!");
+                }*/
+
+                if (!$user = User::findOne($coWorker->user_id)) {
+                    Yii::error('User not found. User id: ' . $coWorker->user_id);
+                    throw new NotFoundHttpException('User not found!');
                 }
+
+                //TODO: !!! информацию о пользователе можно получить вверху
+                $acceptedOrderData = [
+                    'order_status' => 'accepted-by-merchant',
+                    'orderUid' => $shopOrder->order_uid,
+                    'merchantData' => [
+                        'name' => $user->profile->name,
+                        'address' => $user->profile->location,
+                        'company_lat_long' => $user->profile->company_lat_long,
+                    ],
+                ];
+
+                CustomerWaitResponseOrderHandling::acceptOrderByMerchant($shopOrder->order_uid, $acceptedOrderData);
             }
 
             $transaction->commit();

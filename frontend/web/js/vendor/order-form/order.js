@@ -201,7 +201,6 @@ gl.functions.composeOrder = function () {
                 //gl.functions.websocket.send({newOrderId: result.order_uid}, 'customer/newOrderCreated');
                 //gl.functions.longpoll.waitForMerchantOrderAccept(result.order_uid);
                 //gl.functions.sse.waitForMerchantOrderAccept(result.order_uid);
-                gl.functions.sse.startListen_OrderStatusAcceptance();
 
                 /*gl.functions.fillOrderInfo(result, {
                     deliver_customer_name: deliver_customer_name,

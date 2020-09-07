@@ -15,6 +15,7 @@ gl.functions.sse.se = null;
 
 gl.functions.sse.startListen_OrderStatusAcceptance = function () {
     if (gl.functions.sse.es) {
+        gl.log('gl.functions.sse.es already initialized');
         return;
     }
 
@@ -74,15 +75,17 @@ gl.functions.sse.startListen_OrderStatusAcceptance = function () {
 
 gl.functions.sse.startOrderAccept = function (orderUid) {
 
-    //gl.functions.sse.es.OPEN
+    gl.log('startOrderAccept: ' + orderUid);
 
-    /*$.get('/make-order/start-order-accept', {orderUid: orderUid}, function (data) {
+    $.post('/make-order/start-order-accept', {orderUid: orderUid}, function (data) {
         if (data.status != 'success') {
             alert('Unknown ajax error!');
+        } else {
+            gl.log('Order listening successfully started.');
         }
     }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
         gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown, 'alert');
-    });*/
+    });
 
     /*fetch('/make-order/start-order-accept?orderUid=' + encodeURIComponent(orderUid))
         .then(function (response) {

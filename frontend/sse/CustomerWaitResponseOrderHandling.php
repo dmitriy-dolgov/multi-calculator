@@ -104,6 +104,24 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
         Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
     }
 
+    public static function startListenOrderStatus($orderUid)
+    {
+        //TODO: блокировать кеш
+
+        if (!$elems = Yii::$app->cacheSse->get(self::STORE_KEY)) {
+            $elems = [];
+        }
+
+        $sseUserId = self::getSseUserId();
+        if (empty($elems[$sseUserId][$orderUid])) {
+            $elems[$sseUserId][$orderUid] = [];
+        } else {
+            Yii::info('Order already exists: `' . $orderUid . '`', 'sse-order');
+        }
+
+        Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
+    }
+
     public function cleanOnConnectionClose()
     {
         //TODO: блокировать кеш

@@ -39,16 +39,17 @@ class MakeOrderController extends Controller
      * @return array
      * @throws NotFoundHttpException
      */
-    public function actionStartOrderAccept($orderUid)
+    public function actionStartOrderAccept()
     {
         //pizza-customer.local/make-order/start-order-accept?orderUid=Glj4y20fg1io8hJ
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        $oh = new OrderHandling();
+        $orderUid = Yii::$app->request->post('orderUid', YII_DEBUG ? Yii::$app->request->get('orderUid') : null);
+        CustomerWaitResponseOrderHandling::startListenOrderStatus($orderUid);
 
         return [
-            'status' => $oh->startOrderAccept($orderUid) ? 'success' : 'error',
+            'status' => 'success',
         ];
     }
 

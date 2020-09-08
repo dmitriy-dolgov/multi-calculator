@@ -28,7 +28,7 @@ $declineCausesHtml = json_encode($declineCausesHtml);*/
 
 $this->registerJsFile(Url::to(['/js/worker/order-handling.js']),
     ['depends' => ['backend\assets\WorkerAsset'], 'appendTimestamp' => YII_DEBUG]);
-$this->registerJsFile(Url::to(['/js/order-handling/sse-backend.js', ['ver' => '1.1']]),
+$this->registerJsFile(Url::to(['/js/order-handling/sse-backend.js', 'ver' => '1.1']),
     ['depends' => ['backend\assets\WorkerAsset'], 'appendTimestamp' => YII_DEBUG]);
 
 

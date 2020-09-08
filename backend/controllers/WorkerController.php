@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\db\ShopOrderUser;
 use common\models\db\User;
+use common\models\shop_order\ShopOrderAcceptorders;
 use common\models\shop_order\ShopOrderMaker;
 use frontend\sse\CustomerWaitResponseOrderHandling;
 use Yii;
@@ -110,8 +111,22 @@ class WorkerController extends Controller
         $workerUid = Yii::$app->request->post('workerUid');
         $orderId = Yii::$app->request->post('orderId');
 
-        $shopOrderMaker = new ShopOrderMaker($workerUid);
-        $result = $shopOrderMaker->acceptOrder($orderId);
+        try {
+            $shopOrderMaker = new ShopOrderMaker($workerUid);
+            $result = $shopOrderMaker->acceptOrder($orderId);
+
+            if ($result['status'] == 'success') {
+                //TODO: ShopOrder::findOne() дублируется в $shopOrderMaker->acceptOrder() - проверить есть ли проблема и решить
+                $shopOrder = ShopOrder::findOne($orderId);
+                $orderData = ShopOrderAcceptorders::getAnOrder($shopOrder);
+                $orderHtml = $this->renderPartial('@backend/views/worker/_order_element',
+                    ['worker' => $shopOrderMaker->getWorkerObj(), 'ord' => $orderData]);
+                $result['order_html'] = $orderHtml;
+            }
+        } catch (\Exception $e) {
+            $result['status'] = 'error';
+            $result['msg'] = $e->getMessage();
+        }
 
         return $result;
     }

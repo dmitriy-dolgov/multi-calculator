@@ -17,17 +17,13 @@ class ShopOrderAcceptorders extends ShopOrderWorker
         'accept_orders',
     ];
 
+
     public function getActiveOrders()
     {
         $orders = [];
 
-        if (!$coWorker = CoWorker::findOne(['worker_site_uid' => $this->workerUid])) {
-            Yii::error('Worker user id not found: "' . $this->workerUid . '".');
-            throw new NotFoundHttpException('Worker user id not found.');
-        }
-
         //TODO: Проверка привилегий - улучшить
-        if (!CoWorkerCoWorkerFunction::find()->andWhere(['co_worker_id' => $coWorker->id])->andWhere([
+        if (!CoWorkerCoWorkerFunction::find()->andWhere(['co_worker_id' => $this->workerObj->id])->andWhere([
             'IN',
             'co_worker_function_id',
             self::FOR_ROLES
@@ -38,7 +34,7 @@ class ShopOrderAcceptorders extends ShopOrderWorker
 
         /*echo ShopOrderStatus::find()
             //->select('', 'shop_order_id')
-            ->andWhere(['user_id' => $coWorker->user_id])
+            ->andWhere(['user_id' => $this->workerObj->user_id])
             ->andWhere(['!=', 'type', 'finished'])
             //->groupBy('shop_order_id')
             //->orderBy(['shop_order_id' => SORT_DESC])
@@ -50,7 +46,7 @@ class ShopOrderAcceptorders extends ShopOrderWorker
 
         if ($newShopOrders = ShopOrderStatus::find()
             //->select('', 'shop_order_id')
-            ->andWhere(['user_id' => $coWorker->user_id])
+            ->andWhere(['user_id' => $this->workerObj->user_id])
             ->andWhere(['!=', 'type', 'finished'])
             //->groupBy('shop_order_id')
             //->orderBy(['shop_order_id' => SORT_DESC])
@@ -67,31 +63,37 @@ class ShopOrderAcceptorders extends ShopOrderWorker
             }
             $orderIds = [];
             foreach ($orderTypes as $shopOrderId => $ordType) {
-                if ($ordType == 'created') {
+                if ($ordType == 'created' || $ordType == 'offer-accepted-by-maker') {
                     $orderIds[] = $shopOrderId;
                 }
             }
 
             $orderObjs = ShopOrder::find()->andWhere(['IN', 'id', $orderIds])->orderBy(['id' => SORT_DESC])->all();
             foreach ($orderObjs as $shopOrder) {
-                $components = [];
-                if ($shopOrder->shopOrderComponents) {
-                    foreach ($shopOrder->shopOrderComponents as $soComponent) {
-                        $components[] = [
-                            // Данные непосредственно на момент подтверждения заказа
-                            'on_deal' => ArrayHelper::toArray($soComponent),
-                            // Данные на текущий момент
-                            'on_current' => ArrayHelper::toArray($soComponent->component),
-                        ];
-                    }
-                }
-                $orders[] = [
-                    'info' => ArrayHelper::toArray($shopOrder),
-                    'components' => $components,
-                ];
+                $orders[] = self::getAnOrder($shopOrder);
             }
         }
 
         return $orders;
+    }
+
+    public static function getAnOrder(ShopOrder $shopOrder)
+    {
+        $components = [];
+        if ($shopOrder->shopOrderComponents) {
+            foreach ($shopOrder->shopOrderComponents as $soComponent) {
+                $components[] = [
+                    // Данные непосредственно на момент подтверждения заказа
+                    'on_deal' => ArrayHelper::toArray($soComponent),
+                    // Данные на текущий момент
+                    'on_current' => ArrayHelper::toArray($soComponent->component),
+                ];
+            }
+        }
+
+        return [
+            'info' => ArrayHelper::toArray($shopOrder),
+            'components' => $components,
+        ];
     }
 }

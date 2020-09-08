@@ -92,9 +92,9 @@ $this->registerJs(<<<JS
                   // TODO: to remove
                   //this.remove();
               });*/
-          } else if (data.status == 'warning') {
+          } /*else if (data.status == 'warning') {
               alert('Заказ отправлен на выполнение но произошла ошибка: ' + data.msg);
-          } else if (data.status == 'warning-custom') {
+          }*/ else if (data.status == 'warning-custom') {
               alert(data.msg);
           } else {
               //TODO: to translate , maybe handle error
@@ -115,6 +115,6 @@ $this->registerJs(<<<JS
 JS
 );
 ?>
-<?php foreach ($orderList as $ord): ?>
-    <?= $this->render('_order_element', ['worker' => $worker, 'ord' => $ord]) ?>
+<?php foreach ($orderList as $orderData): ?>
+    <?= $this->render('_order_element', ['worker' => $worker, 'orderData' => $orderData]) ?>
 <?php endforeach; ?>

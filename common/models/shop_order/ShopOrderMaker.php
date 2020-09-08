@@ -24,13 +24,8 @@ class ShopOrderMaker extends ShopOrderWorker
     {
         $orders = [];
 
-        if (!$coWorker = CoWorker::findOne(['worker_site_uid' => $this->workerUid])) {
-            Yii::error('Worker user id not found: "' . $this->workerUid . '".');
-            throw new NotFoundHttpException('Worker user id not found.');
-        }
-
         //TODO: Проверка привилегий - улучшить
-        if (!CoWorkerCoWorkerFunction::find()->andWhere(['co_worker_id' => $coWorker->id])->andWhere([
+        if (!CoWorkerCoWorkerFunction::find()->andWhere(['co_worker_id' => $this->workerObj->id])->andWhere([
             'IN',
             'co_worker_function_id',
             self::FOR_ROLES,
@@ -41,7 +36,7 @@ class ShopOrderMaker extends ShopOrderWorker
 
         if ($newShopOrders = ShopOrderStatus::find()
             //->select('', 'shop_order_id')
-            ->andWhere(['user_id' => $coWorker->user_id])
+            ->andWhere(['user_id' => $this->workerObj->user_id])
             ->andWhere(['!=', 'type', 'finished'])
             ->orderBy(['id' => SORT_ASC])
             ->asArray()
@@ -87,14 +82,6 @@ class ShopOrderMaker extends ShopOrderWorker
     {
         $result = ['status' => 'error'];
 
-        if (!$coWorker = CoWorker::find()->select([
-            'id',
-            'user_id'
-        ])->andWhere(['worker_site_uid' => $this->workerUid])->one()) {
-            Yii::error('Co-worker not found: `' . $this->workerUid . '``');
-            throw new InternalErrorException('Co-worker not found.');
-        }
-
         $transaction = Yii::$app->db->beginTransaction();
         try {
             if ($shopOrder = ShopOrder::findOne($orderId)) {
@@ -103,16 +90,16 @@ class ShopOrderMaker extends ShopOrderWorker
                 //TODO: проверять, может уже занят заказ
                 $shopOrderStatus = new ShopOrderStatus();
                 $shopOrderStatus->type = 'offer-accepted-by-maker';
-                $shopOrderStatus->user_id = $coWorker->user_id;
+                $shopOrderStatus->user_id = $this->workerObj->user_id;
                 $shopOrderStatus->accepted_at = $currentTimestamp;
-                $shopOrderStatus->accepted_by = $coWorker->id;
+                $shopOrderStatus->accepted_by = $this->workerObj->id;
                 $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
                 //$shopOrderStatus->save();
 
                 // Установим статусы для других пользователей
                 $usersForStatuses = ShopOrderUser::find()
                     ->andWhere(['shop_order_id' => $orderId])
-                    ->andWhere(['!=', 'user_id', $coWorker->user_id])
+                    ->andWhere(['!=', 'user_id', $this->workerObj->user_id])
                     ->all();
                 foreach ($usersForStatuses as $user) {
                     $shopOrderStatus = new ShopOrderStatus();
@@ -122,8 +109,8 @@ class ShopOrderMaker extends ShopOrderWorker
                     $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
                 }
 
-                if (!$user = User::findOne($coWorker->user_id)) {
-                    Yii::error('User not found. User id: ' . $coWorker->user_id);
+                if (!$user = User::findOne($this->workerObj->user_id)) {
+                    Yii::error('User not found. User id: ' . $this->workerObj->user_id);
                     throw new InternalErrorException('User not found!');
                 }
 

@@ -10,41 +10,6 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Co-worker main page');
 
-//$coWorkerFunctions = \yii\helpers\ArrayHelper::map($worker->coWorkerFunctions, 'id', 'name');
-
-/*$this->registerJsFile(Url::to(['/js/order-handling/websocket.js']),
-    ['depends' => ['backend\assets\WorkerAsset'], 'appendTimestamp' => YII_DEBUG]);
-
-$userSocketId = json_encode($worker->user_id + 1);
-$yiiParams = json_encode(Yii::$app->params['websocket']);
-
-$this->registerJs(<<<JS
-    if (!window.gl) {
-        var gl = {};
-    }
-    
-    // For global functions
-    if (!gl.functions) {
-        gl.functions = {};
-    }
-    
-    // For global data
-    if (!gl.data) {
-        gl.data = {};
-    }
-
-    if (gl.functions.orders) {
-        alert('"gl.functions.orders" already set');
-    }
-    gl.functions.orders = {};
-    
-    gl.data.user_socket_id = $userSocketId;
-    gl.data.params = {
-        websocket: $yiiParams
-    };
-JS
-, \yii\web\View::POS_HEAD);*/
-
 $this->registerJs(<<<JS
     if (!gl.functions.orders) {
         gl.functions.orders = {};
@@ -52,8 +17,8 @@ $this->registerJs(<<<JS
 JS
 );
 
-$this->registerJsFile(Url::to(['/js/order-handling/longpoll.js']),
-    ['depends' => ['backend\assets\WorkerAsset'], 'appendTimestamp' => YII_DEBUG]);
+/*$this->registerJsFile(Url::to(['/js/order-handling/longpoll.js']),
+    ['depends' => ['backend\assets\WorkerAsset'], 'appendTimestamp' => YII_DEBUG]);*/
 
 ?>
 <header class="header">

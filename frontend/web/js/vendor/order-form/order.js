@@ -382,6 +382,7 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
         var html = '<h3>Заказ взят в обработку.</h3>'
             + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
             + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
+            + '<div class="info-message">ID заказа: ' + gl.escapeHtml(orderId) + '</div>'
             + '<div class="info-message red">Ожидайте когда пицца будет передана курьеру.</div>';
         elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
 

@@ -10,6 +10,7 @@ use yii\helpers\Html;
 $jsStrings = [
     //'worker/get-active-orders' => json_encode(Url::to(['worker/get-active-orders'])),
     'worker/accept-order-by-maker' => json_encode(Url::to(['worker/accept-order-by-maker'])),
+    'worker/accept-order-by-courier' => json_encode(Url::to(['worker/accept-order-by-courier'])),
     'worker_uid' => json_encode(Yii::$app->request->get('worker_uid')),
     'worker/decline-order' => json_encode(Url::to(['worker/decline-order'])),
 ];
@@ -53,15 +54,41 @@ $this->registerJs(<<<JS
             gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown);
         });
     };
-
-    gl.functions.orders.acceptOrders.acceptOrder = function(id) {
-        $.post({$jsStrings['worker/accept-order-by-maker']}, {id:id,worker_uid:{$jsStrings['worker_uid']}}, function(data) {
+    
+    gl.functions.orders.acceptOrders.acceptOrderByCourier = function(orderId) {
+        $.post({$jsStrings['worker/accept-order-by-courier']}, {orderId:orderId,worker_uid:{$jsStrings['worker_uid']}}, function(data) {
           if (data.status == 'success') {
               alert('Запрос отправлен на выполнение.');
               
               //TODO: показывать уже существующие выполняющиеся заказы
-              $('.function-orders-pane .order[data-id=' + id + '] .btn-accept-order-wrap').html('<i><b>Отправлен на выполнение.</b></i>');
-              /*$('.function-orders-pane .order[data-id=' + id + ']').fadeOut(400, function() {
+              $('.function-orders-pane .order[data-id=' + orderId + '] .btn-accept-order-wrap').html(
+                  '<i><b>Отправлен на выполнение.</b></i><br>'
+                  + '<button class="btn btn-warning" onclick="gl.functions.orders.acceptOrders.acceptOrderByCourier(' + orderId + ');return false;">Передать курьеру</button>'
+              );
+          } else if (data.status == 'warning') {
+              alert('Заказ отправлен курьеру но произошла ошибка: ' + data.msg);
+          } else if (data.status == 'warning-custom') {
+              alert(data.msg);
+          } else {
+              //TODO: to translate , maybe handle error
+              gl.handleFailCustom('Unknown error');
+          }
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown);
+        });
+    };
+
+    gl.functions.orders.acceptOrders.acceptOrder = function(orderId) {
+        $.post({$jsStrings['worker/accept-order-by-maker']}, {orderId:orderId,worker_uid:{$jsStrings['worker_uid']}}, function(data) {
+          if (data.status == 'success') {
+              alert('Запрос отправлен на выполнение.');
+              
+              //TODO: показывать уже существующие выполняющиеся заказы
+              $('.function-orders-pane .order[data-id=' + orderId + '] .btn-accept-order-wrap').html(
+                  '<i><b>Отправлен на выполнение.</b></i><br>'
+                  + '<button class="btn btn-warning" onclick="gl.functions.orders.acceptOrders.acceptOrderByCourier(' + orderId + ');return false;">Передать курьеру</button>'
+              );
+              /*$('.function-orders-pane .order[data-id=' + orderId + ']').fadeOut(400, function() {
                   // TODO: to remove
                   //this.remove();
               });*/
@@ -71,7 +98,7 @@ $this->registerJs(<<<JS
               alert(data.msg);
           } else {
               //TODO: to translate , maybe handle error
-                gl.handleFailCustom('Unknown error');
+              gl.handleFailCustom('Unknown error');
           }
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
             gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown);

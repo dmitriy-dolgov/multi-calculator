@@ -42,7 +42,6 @@ class WorkerController extends Controller
 
         $orders = [];
 
-        //foreach ($coWorkerFunctions as $id => $name) {
         foreach ($workerObj->coWorkerFunctions as $cwFunction) {
             $className = $cwFunction->getCoWorkerFunctionClassById();
             if (!class_exists($className)) {
@@ -112,7 +111,7 @@ class WorkerController extends Controller
             throw new NotFoundHttpException('Co-worker not found.');
         }
 
-        $orderId = Yii::$app->request->post('id');
+        $orderId = Yii::$app->request->post('orderId');
         //$type = Yii::$app->request->post('type');
 
         // новый заказ

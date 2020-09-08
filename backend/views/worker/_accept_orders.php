@@ -11,7 +11,7 @@ $jsStrings = [
     //'worker/get-active-orders' => json_encode(Url::to(['worker/get-active-orders'])),
     'worker/accept-order-by-maker' => json_encode(Url::to(['worker/accept-order-by-maker'])),
     'worker/accept-order-by-courier' => json_encode(Url::to(['worker/accept-order-by-courier'])),
-    'workerUid' => json_encode(Yii::$app->request->get('worker_uid')),
+    'workerUid' => json_encode(Yii::$app->request->get('workerUid')),
     'worker/decline-order' => json_encode(Url::to(['worker/decline-order'])),
 ];
 

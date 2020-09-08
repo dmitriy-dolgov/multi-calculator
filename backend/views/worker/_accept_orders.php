@@ -28,7 +28,7 @@ $declineCausesHtml = json_encode($declineCausesHtml);*/
 
 $this->registerJsFile(Url::to(['/js/worker/order-handling.js']),
     ['depends' => ['backend\assets\WorkerAsset'], 'appendTimestamp' => YII_DEBUG]);
-$this->registerJsFile(Url::to(['/js/order-handling/sse-backend.js', ['ver' => '1.0']]),
+$this->registerJsFile(Url::to(['/js/order-handling/sse-backend.js', ['ver' => '1.1']]),
     ['depends' => ['backend\assets\WorkerAsset'], 'appendTimestamp' => YII_DEBUG]);
 
 
@@ -84,14 +84,7 @@ $this->registerJs(<<<JS
               alert('Запрос отправлен на выполнение.');
               
               //TODO: показывать уже существующие выполняющиеся заказы
-              $('.function-orders-pane .order[data-id=' + orderId + '] .btn-accept-order-wrap').html(
-                  '<i><b>Отправлен на выполнение.</b></i><br>'
-                  + '<button class="btn btn-warning" onclick="gl.functions.orders.acceptOrders.acceptOrderByCourier(' + orderId + ');return false;">Передать курьеру</button>'
-              );
-              /*$('.function-orders-pane .order[data-id=' + orderId + ']').fadeOut(400, function() {
-                  // TODO: to remove
-                  //this.remove();
-              });*/
+              $('.function-orders-pane .order[data-id=' + orderId + ']').replaceWith(data.order_html);
           } /*else if (data.status == 'warning') {
               alert('Заказ отправлен на выполнение но произошла ошибка: ' + data.msg);
           }*/ else if (data.status == 'warning-custom') {

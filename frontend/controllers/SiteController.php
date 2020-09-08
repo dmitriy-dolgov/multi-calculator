@@ -6,7 +6,10 @@ use backend\sse\NewOrderHandlingBackend;
 use common\models\db\Component;
 use common\models\db\ComponentSet;
 use common\models\db\CoWorker;
+use common\models\db\ShopOrder;
 use common\models\db\User;
+use common\models\shop_order\ShopOrderAcceptorders;
+use common\models\shop_order\ShopOrderMaker;
 use frontend\models\ShopOrderForm;
 use Symfony\Component\CssSelector\Exception\InternalErrorException;
 use Yii;
@@ -188,9 +191,15 @@ STR;
             $response['status'] = 'success';
             $response['order_uid'] = $shopOrder->order_uid;
 
+            //$shopOrder = ShopOrder::findOne($orderId);
+            $orderData = ShopOrderAcceptorders::getAnOrder($shopOrder);
+            $orderData['status'] = 'created';
+
             //$worker = CoWorker::findOne($shopOrder->user_id);
-            //$orderHtml = $this->renderPartial('@backend/views/worker/_order_element', ['worker' => $worker, 'ord' => $ord]);
-            NewOrderHandlingBackend::addNewOrder('redirect html');
+            //$shopOrderMaker = new ShopOrderMaker($workerUid);
+
+            $orderHtml = $this->renderPartial('@backend/views/worker/_order_element', ['worker' => null, 'orderData' => $orderData]);
+            NewOrderHandlingBackend::addNewOrder($orderHtml);
 
         } else {
             //$response['msg'] = 'Unknown server error';

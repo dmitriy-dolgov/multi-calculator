@@ -22,7 +22,8 @@ use yii\helpers\Html;
     <hr>
     Компоненты:<br>
     <?php foreach ($orderData['components'] as $comp): ?>
-        <i><?= Html::encode($comp['on_current']['name'] ?? 'Без имени') ?></i> Цена: <?= Html::encode($comp['on_current']['price'] ?? Yii::t('app', 'For free')) ?> р.
+        <i><?= Html::encode($comp['on_current']['name'] ?? 'Без имени') ?></i> Цена: <?= Html::encode($comp['on_current']['price'] ?? Yii::t('app',
+            'For free')) ?> р.
         <?php if (($comp['on_deal']['amount'] ?? 1) > 1): ?>
             (<?= $comp['on_deal']['amount'] ?> шт.)
         <?php endif; ?>
@@ -30,10 +31,21 @@ use yii\helpers\Html;
     <?php endforeach; ?>
     <hr>
     <div class="btn-accept-order-wrap">
-        <button class="btn btn-warning"
-                onclick="gl.functions.orders.acceptOrders.acceptOrder(<?= $orderData['info']['id'] ?>);return false;">
-            Передать исполнителю
-        </button>
+        <?php if ($orderData['status'] == 'created'): ?>
+            <button class="btn btn-warning"
+                    onclick="gl.functions.orders.acceptOrders.acceptOrder(<?= $orderData['info']['id'] ?>);return false;">
+                Передать исполнителю
+            </button>
+        <?php elseif ($orderData['status'] == 'offer-accepted-by-maker'): ?>
+            <i><b>Отправлен на выполнение.</b></i><br>
+            <button class="btn btn-warning"
+                    onclick="gl.functions.orders.acceptOrders.acceptOrderByCourier(<?= $orderData['info']['id'] ?>);return false;">
+                Передать курьеру
+            </button>
+        <?php else: ?>
+            <?= Yii::t('app', 'Unknown order status "{status}". Please refer your manager.',
+                ['status' => $orderData['status']]) ?>
+        <?php endif; ?>
     </div>
     <hr>
     <div class="decline-order-panel">
@@ -44,7 +56,8 @@ use yii\helpers\Html;
         <select class="sel-decline-order-cause">
             <option value="">Новая причина отказа</option>
             <?php
-            if ($worker->coWorkerDeclineCauses) {
+            //TODO: при появлении нового заказа этого поля не будет - исправить
+            if ($worker && $worker->coWorkerDeclineCauses) {
                 foreach ($worker->coWorkerDeclineCauses as $dCause) {
                     echo '<option value="' . $dCause->id . '">' . Html::encode($dCause->cause) . '</option>';
                 }
@@ -54,6 +67,6 @@ use yii\helpers\Html;
         <br>
         Новая причина отказа:<br><textarea class="text-new-decline-order-cause"></textarea>
     </div>
+    <hr>
+    <hr>
 </div>
-<hr>
-<hr>

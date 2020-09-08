@@ -61,29 +61,28 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
         $updated = false;
 
         foreach ($elems[$sseUserId] as $orderUid => $orderList) {
-            foreach ($orderList as $ordinalId => $eventList) {
-                if (!$eventName = array_key_first($eventList)) {
-                    Yii::error('No first element (event name) in function list!', 'sse-order');
-                    continue;
+            if ($orderList) {
+                foreach ($orderList as $ordinalId => $eventList) {
+                    if (!$eventName = array_key_first($eventList)) {
+                        Yii::error('No first element (event name) in function list!', 'sse-order');
+                        continue;
+                    }
+                    Yii::info('Event for SSE: `' . $eventName . '`', 'sse-order');
+                    $eventData = json_encode([
+                        'orderUid' => $orderUid,
+                        'data' => $eventList[$eventName],
+                    ]);
+                    echo "event: $eventName\n";
+                    echo "data: $eventData\n\n";
                 }
-                Yii::info('Event for SSE: `' . $eventName . '`', 'sse-order');
-                $eventData = json_encode([
-                    'orderUid' => $orderUid,
-                    'data' => $eventList[$eventName],
-                ]);
-                echo "event: $eventName\n";
-                echo "data: $eventData\n\n";
-            }
 
-            $elems[$sseUserId][$orderUid] = [];
-            $updated = true;
+                $elems[$sseUserId][$orderUid] = [];
+                $updated = true;
+            }
        }
 
         ob_flush();
         flush();
-
-        // Очистка всех событий
-        //$elems[$sseUserId] = [];
 
         if ($updated) {
             Yii::$app->cacheSse->set(self::STORE_KEY, $elems);

@@ -119,8 +119,9 @@ class WorkerController extends Controller
                 //TODO: ShopOrder::findOne() дублируется в $shopOrderMaker->acceptOrder() - проверить есть ли проблема и решить
                 $shopOrder = ShopOrder::findOne($orderId);
                 $orderData = ShopOrderAcceptorders::getAnOrder($shopOrder);
+                $orderData['status'] = 'offer-accepted-by-maker';
                 $orderHtml = $this->renderPartial('@backend/views/worker/_order_element',
-                    ['worker' => $shopOrderMaker->getWorkerObj(), 'ord' => $orderData]);
+                    ['worker' => $shopOrderMaker->getWorkerObj(), 'orderData' => $orderData]);
                 $result['order_html'] = $orderHtml;
             }
         } catch (\Exception $e) {

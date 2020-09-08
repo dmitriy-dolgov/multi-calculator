@@ -46,7 +46,6 @@ abstract class OrderHandling extends BaseObject
         //TODO: реализовать
         //$eventId = 1;
 
-        $sseUserId = $this->getSseUserId();
         Yii::$app->session->close();
 
         // см. https://kevinchoppin.dev/blog/server-sent-events-in-php для использования полифила

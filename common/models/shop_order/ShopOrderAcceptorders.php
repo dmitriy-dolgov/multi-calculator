@@ -57,6 +57,7 @@ class ShopOrderAcceptorders extends ShopOrderWorker
         ) {
             //$orderIds = ArrayHelper::getColumn($newShopOrders, 'shop_order_id');
 
+            // Получаем последний статус заказа
             $orderTypes = [];
             foreach ($newShopOrders as $ord) {
                 $orderTypes[$ord['shop_order_id']] = $ord['type'];
@@ -70,7 +71,9 @@ class ShopOrderAcceptorders extends ShopOrderWorker
 
             $orderObjs = ShopOrder::find()->andWhere(['IN', 'id', $orderIds])->orderBy(['id' => SORT_DESC])->all();
             foreach ($orderObjs as $shopOrder) {
-                $orders[] = self::getAnOrder($shopOrder);
+                $orderData = self::getAnOrder($shopOrder);
+                $orderData['status'] = $orderTypes[$shopOrder->id];
+                $orders[] = $orderData;
             }
         }
 

@@ -17,12 +17,12 @@ class ShopOrderAcceptorders extends ShopOrderWorker
         'accept_orders',
     ];
 
-    public function getActiveOrders($worker_uid)
+    public function getActiveOrders()
     {
         $orders = [];
 
-        if (!$coWorker = CoWorker::findOne(['worker_site_uid' => $worker_uid])) {
-            Yii::error('Worker user id not found: "' . $worker_uid . '".');
+        if (!$coWorker = CoWorker::findOne(['worker_site_uid' => $this->workerUid])) {
+            Yii::error('Worker user id not found: "' . $this->workerUid . '".');
             throw new NotFoundHttpException('Worker user id not found.');
         }
 
@@ -32,7 +32,7 @@ class ShopOrderAcceptorders extends ShopOrderWorker
             'co_worker_function_id',
             self::FOR_ROLES
         ])->exists()) {
-            Yii::error('Privilege not found for user with worker_uid: "' . $worker_uid . '", privilege is "' . self::FOR_ROLES . '".');
+            Yii::error('Privilege not found for user with worker_uid: "' . $this->workerUid . '", privilege is "' . self::FOR_ROLES . '".');
             throw new NotFoundHttpException('Privilege not found.');
         }
 

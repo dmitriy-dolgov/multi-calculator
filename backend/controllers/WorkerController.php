@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\db\ShopOrderUser;
 use common\models\db\User;
+use common\models\shop_order\ShopOrderMaker;
 use frontend\sse\CustomerWaitResponseOrderHandling;
 use Yii;
 use common\models\db\CoWorker;
@@ -32,9 +33,9 @@ class WorkerController extends Controller
         ];
     }
 
-    public function actionIndex($worker_uid)
+    public function actionIndex($workerUid)
     {
-        if (!$workerObj = CoWorker::findOne(['worker_site_uid' => $worker_uid])) {
+        if (!$workerObj = CoWorker::findOne(['worker_site_uid' => $workerUid])) {
             throw new NotFoundHttpException();
         }
 
@@ -49,8 +50,8 @@ class WorkerController extends Controller
                 throw new NotFoundHttpException();
             }
 
-            $shopOrders = new $className;
-            $orders[$cwFunction->id] = $shopOrders->getActiveOrders($worker_uid);
+            $shopOrders = new $className($workerUid);
+            $orders[$cwFunction->id] = $shopOrders->getActiveOrders();
         }
 
         return $this->render('index', [
@@ -94,124 +95,31 @@ class WorkerController extends Controller
         return User::findOne($worker->user_id);
     }*/
 
+    /**
+     * Новый заказ.
+     *
+     * @return array
+     * @throws NotFoundHttpException
+     */
     public function actionAcceptOrderByMaker()
     {
         //pizza-admin.local/worker/accept-order-by-maker
 
         Yii::$app->response->format = Response::FORMAT_JSON;
 
-        $result = ['status' => 'error'];
-
-        $workerUid = Yii::$app->request->post('worker_uid');
-        if (!$coWorker = CoWorker::find()->select([
-            'id',
-            'user_id'
-        ])->andWhere(['worker_site_uid' => $workerUid])->one()) {
-            Yii::error('Co-worker not found: `' . $workerUid . '``');
-            throw new NotFoundHttpException('Co-worker not found.');
-        }
-
+        $workerUid = Yii::$app->request->post('workerUid');
         $orderId = Yii::$app->request->post('orderId');
-        //$type = Yii::$app->request->post('type');
 
-        // новый заказ
-
-        $transaction = Yii::$app->db->beginTransaction();
-        try {
-            if ($shopOrder = ShopOrder::findOne($orderId)) {
-                $currentTimestamp = date('Y-m-d H:i:s');
-
-                //TODO: проверять, может уже занят заказ
-                $shopOrderStatus = new ShopOrderStatus();
-                $shopOrderStatus->type = 'offer-accepted-by-maker';
-                $shopOrderStatus->user_id = $coWorker->user_id;
-                $shopOrderStatus->accepted_at = $currentTimestamp;
-                $shopOrderStatus->accepted_by = $coWorker->id;
-                $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
-                //$shopOrderStatus->save();
-
-                // Установим статусы для других пользователей
-                $usersForStatuses = ShopOrderUser::find()
-                    ->andWhere(['shop_order_id' => $orderId])
-                    ->andWhere(['!=', 'user_id', $coWorker->user_id])
-                    ->all();
-                foreach ($usersForStatuses as $user) {
-                    $shopOrderStatus = new ShopOrderStatus();
-                    $shopOrderStatus->type = 'offer-blocked-with-other-pizzeria';
-                    $shopOrderStatus->user_id = $user->user_id;
-                    $shopOrderStatus->accepted_at = $currentTimestamp;
-                    $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
-                }
-
-                // Сигнал отправившему заявку пользователю что пицца принята в разработку
-                /*$alertUrl = \common\helpers\Web::getUrlToCustomerSite()
-                    . Url::to([
-                        '/make-order/accept-order-by-merchant',
-                        'orderUid' => $shopOrder->order_uid,
-                        'merchantId' => $coWorker->user_id,
-                    ]);*/
-
-                /*$alertUrl = \common\helpers\Web::getUrlToCustomerSite()
-                    . Url::to([
-                        '/make-order/order-accept',
-                        'type' => 'accepted-by-merchant',
-                        'orderUid' => $shopOrder->order_uid,
-                        'merchantId' => $coWorker->user_id,
-                    ]);
-
-                if (file_get_contents($alertUrl) == 'success') {
-                    $result['status'] = 'success';
-                } else {
-                    //throw new \Exception(Yii::t('app', "Cound't send notice about an order to user!"));
-                    Yii::error("Cound't send notice about an order to user! Url: " . $alertUrl);
-                    //TODO: !!!!!!!! обработка статуса 'warning'
-                    $result['status'] = 'warning';
-                    $result['msg'] = Yii::t('app', "Cound't send notice about an order to user!");
-                }*/
-
-                if (!$user = User::findOne($coWorker->user_id)) {
-                    Yii::error('User not found. User id: ' . $coWorker->user_id);
-                    throw new NotFoundHttpException('User not found!');
-                }
-
-                //TODO: !!! информацию о пользователе можно получить вверху
-                $acceptedOrderData = [
-                    'order_status' => 'accepted-by-merchant',
-                    'orderUid' => $shopOrder->order_uid,
-                    'merchantData' => [
-                        'name' => $user->profile->name,
-                        'address' => $user->profile->location,
-                        'company_lat_long' => $user->profile->company_lat_long,
-                    ],
-                ];
-
-                if (CustomerWaitResponseOrderHandling::acceptOrderByMerchant($shopOrder->order_uid,
-                    $acceptedOrderData)
-                ) {
-                    $result['status'] = 'success';
-                } else {
-                    $result['status'] = 'warning-custom';
-                    $result['msg'] = Yii::t('app', 'Nobody accepts the order online. It may be outdated.');
-                }
-            }
-
-            $transaction->commit();
-        } catch (\Exception $e) {
-            $transaction->rollBack();
-            $result['msg'] = $e->getMessage();
-            //throw $e;
-        } catch (\Throwable $e) {
-            $transaction->rollBack();
-            $result['msg'] = $e->getMessage();
-            //throw $e;
-        }
-
+        $shopOrderMaker = new ShopOrderMaker($workerUid);
+        $result = $shopOrderMaker->acceptOrder($orderId);
 
         return $result;
     }
 
     public function actionAcceptOrderByCourier()
     {
+        //pizza-admin.local/worker/accept-order-by-maker
+
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $result = ['status' => 'error'];

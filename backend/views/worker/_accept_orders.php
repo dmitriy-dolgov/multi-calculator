@@ -11,7 +11,7 @@ $jsStrings = [
     //'worker/get-active-orders' => json_encode(Url::to(['worker/get-active-orders'])),
     'worker/accept-order-by-maker' => json_encode(Url::to(['worker/accept-order-by-maker'])),
     'worker/accept-order-by-courier' => json_encode(Url::to(['worker/accept-order-by-courier'])),
-    'worker_uid' => json_encode(Yii::$app->request->get('worker_uid')),
+    'workerUid' => json_encode(Yii::$app->request->get('worker_uid')),
     'worker/decline-order' => json_encode(Url::to(['worker/decline-order'])),
 ];
 
@@ -56,7 +56,7 @@ $this->registerJs(<<<JS
     };
     
     gl.functions.orders.acceptOrders.acceptOrderByCourier = function(orderId) {
-        $.post({$jsStrings['worker/accept-order-by-courier']}, {orderId:orderId,worker_uid:{$jsStrings['worker_uid']}}, function(data) {
+        $.post({$jsStrings['worker/accept-order-by-courier']}, {orderId:orderId,workerUid:{$jsStrings['workerUid']}}, function(data) {
           if (data.status == 'success') {
               alert('Запрос отправлен на выполнение.');
               
@@ -79,7 +79,7 @@ $this->registerJs(<<<JS
     };
 
     gl.functions.orders.acceptOrders.acceptOrder = function(orderId) {
-        $.post({$jsStrings['worker/accept-order-by-maker']}, {orderId:orderId,worker_uid:{$jsStrings['worker_uid']}}, function(data) {
+        $.post({$jsStrings['worker/accept-order-by-maker']}, {orderId:orderId,workerUid:{$jsStrings['workerUid']}}, function(data) {
           if (data.status == 'success') {
               alert('Запрос отправлен на выполнение.');
               

@@ -60,7 +60,7 @@ return [
                     'categories' => ['sse-order'],
                     'logFile' => '@runtime/logs/sse-order-frontend.log',
                     'exportInterval' => 1,
-                    'levels' => ['trace'],
+                    'levels' => ['error', 'warning', 'trace'],
                     'logVars' => [],
                 ],
             ],

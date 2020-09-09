@@ -51,7 +51,7 @@ return [
                     'categories' => ['sse-order'],
                     'logFile' => '@runtime/logs/sse-order-backend.log',
                     'exportInterval' => 1,
-                    'levels' => ['trace'],
+                    'levels' => ['error', 'warning', 'trace'],
                     'logVars' => [],
                 ],
             ],

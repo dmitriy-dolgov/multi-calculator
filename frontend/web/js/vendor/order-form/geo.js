@@ -1,6 +1,8 @@
 gl.functions.correctGeolocation = function () {
+    //gl.log('correctGeolocation before');
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
+            //gl.log('correctGeolocation IN FUNCTION');
             var lat = position.coords.latitude;
             var lng = position.coords.longitude;
             if (gl.data.worldMap) {
@@ -10,18 +12,25 @@ gl.functions.correctGeolocation = function () {
     } else {
         alert(gl.data['geolocation-is-not-accessible']);
     }
+
+    //gl.log('correctGeolocation return');
 };
 
 gl.functions.getCurrentGeoLocation = function () {
     var coords = {lat: 55.107540130615, lng: 33.267589569092};
 
+    gl.log('getCurrentGeoLocation before');
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
+            gl.log('getCurrentGeoLocation IN FUNCTION');
             coords.lat = position.coords.latitude;
             coords.lng = position.coords.longitude;
+            this.courierMarker = this.addMarkerByCoords(coords.lat, coords.lng, this.icons.courier);
         });
     }
 
+    gl.log('getCurrentGeoLocation return');
     return coords;
 };
 
@@ -66,7 +75,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
 gl.functions.placesMap.prototype.showCourier = function () {
     var latLng = gl.functions.getCurrentGeoLocation();
-    this.courierMarker = this.addMarkerByCoords(latLng.lat, latLng.lng, this.icons.courier);
+    //this.courierMarker = this.addMarkerByCoords(latLng.lat, latLng.lng, this.icons.courier);
 };
 
 gl.functions.placesMap.prototype.hideCourier = function () {

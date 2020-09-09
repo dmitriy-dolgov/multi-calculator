@@ -1075,4 +1075,12 @@
   animation: blink-yellow 0.5s step-end infinite alternate;
 }
 
+.order-hint {
+  margin: 10px 0;
+}
+
+.order-hint-2 {
+  margin-top: 10px;
+}
+
 /*# sourceMappingURL=order-form.css.map */

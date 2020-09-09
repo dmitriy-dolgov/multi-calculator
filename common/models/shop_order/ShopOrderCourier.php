@@ -47,7 +47,7 @@ class ShopOrderCourier extends ShopOrderWorker
             }
             $orderIds = [];
             foreach ($orderTypes as $shopOrderId => $ordType) {
-                if ($ordType == 'offer-accepted-by-courier') {
+                if ($ordType == 'accepted-by-courier') {
                     $orderIds[] = $shopOrderId;
                 }
             }
@@ -70,13 +70,13 @@ class ShopOrderCourier extends ShopOrderWorker
         $transaction = Yii::$app->db->beginTransaction();
         try {
             if ($shopOrder = ShopOrder::findOne($orderId)) {
-                $currentTimestamp = date('Y-m-d H:i:s');
+                //$currentTimestamp = date('Y-m-d H:i:s');
 
                 //TODO: проверять, может уже занят заказ
                 $shopOrderStatus = new ShopOrderStatus();
-                $shopOrderStatus->type = 'offer-accepted-by-courier';
+                $shopOrderStatus->type = 'accepted-by-courier';
                 $shopOrderStatus->user_id = $this->workerObj->user_id;
-                $shopOrderStatus->accepted_at = $currentTimestamp;
+                $shopOrderStatus->accepted_at = date('Y-m-d H:i:s');
                 $shopOrderStatus->accepted_by = $this->workerObj->id;
                 $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
 

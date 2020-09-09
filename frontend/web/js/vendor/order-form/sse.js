@@ -63,7 +63,7 @@ gl.functions.sse.startListen_OrderStatusAcceptance = function () {
 
         var data = JSON.parse(event.data);
 
-        if (gl.functions.setUpPaneOnOrderAcceptedByCourier(data.orderUid, data.merchantData, data.courierData)) {
+        if (gl.functions.setUpPaneOnOrderAcceptedByCourier(data.orderUid, data.data.merchantData, data.data.courierData)) {
             gl.log("setUpPaneOnOrderAcceptedByCourier() - true");
             //gl.functions.sse.se.removeEventListener('merchant-order-accept', $.noop, false);
         } else {

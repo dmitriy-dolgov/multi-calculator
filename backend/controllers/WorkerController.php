@@ -121,7 +121,7 @@ class WorkerController extends Controller
                 //TODO: ShopOrder::findOne() дублируется в $shopOrderMaker->acceptOrder() - проверить есть ли проблема и решить
                 $shopOrder = ShopOrder::findOne($orderId);
                 $orderData = ShopOrderAcceptorders::getAnOrder($shopOrder);
-                $orderData['status'] = 'offer-accepted-by-maker';
+                $orderData['status'] = 'accepted-by-maker';
                 $orderHtml = $this->renderPartial('@backend/views/worker/_order_element',
                     ['worker' => $shopOrderMaker->getWorkerObj(), 'orderData' => $orderData]);
                 $result['order_html'] = $orderHtml;
@@ -142,21 +142,21 @@ class WorkerController extends Controller
 
         $result = ['status' => 'error'];
 
-        $workerUid = Yii::$app->request->post('worker_uid');
+        $workerUid = Yii::$app->request->post('workerUid');
         //TODO: заменить здесь и в других местах на order UID
-        $orderId = Yii::$app->request->post('id');
+        $orderId = Yii::$app->request->post('orderId');
 
         try {
-            $shopOrderMaker = new ShopOrderCourier($workerUid);
-            $result = $shopOrderMaker->acceptOrder($orderId);
+            $shopOrderCourier = new ShopOrderCourier($workerUid);
+            $result = $shopOrderCourier->acceptOrder($orderId);
 
             if ($result['status'] == 'success') {
                 //TODO: ShopOrder::findOne() дублируется в $shopOrderMaker->acceptOrder() - проверить есть ли проблема и решить
                 $shopOrder = ShopOrder::findOne($orderId);
                 $orderData = ShopOrderAcceptorders::getAnOrder($shopOrder);
-                $orderData['status'] = 'offer-accepted-by-courier';
+                $orderData['status'] = 'accepted-by-courier';
                 $orderHtml = $this->renderPartial('@backend/views/worker/_order_element',
-                    ['worker' => $shopOrderMaker->getWorkerObj(), 'orderData' => $orderData]);
+                    ['worker' => $shopOrderCourier->getWorkerObj(), 'orderData' => $orderData]);
                 $result['order_html'] = $orderHtml;
             }
         } catch (\Exception $e) {
@@ -173,7 +173,7 @@ class WorkerController extends Controller
 
                 //TODO: проверять, может уже занят заказ
                 $shopOrderStatus = new ShopOrderStatus();
-                $shopOrderStatus->type = 'offer-accepted-by-courier';
+                $shopOrderStatus->type = 'accepted-by-courier';
                 $shopOrderStatus->user_id = $coWorker->user_id;
                 $shopOrderStatus->accepted_at = $currentTimestamp;
                 $shopOrderStatus->accepted_by = $coWorker->id;
@@ -235,7 +235,7 @@ class WorkerController extends Controller
             if ($shopOrder = ShopOrder::findOne($orderId)) {
                 //TODO: проверять, может уже занят заказ
                 $shopOrderStatus = new ShopOrderStatus();
-                $shopOrderStatus->type = 'offer-accepted-by-courier';
+                $shopOrderStatus->type = 'accepted-by-courier';
                 $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
                 //$shopOrderStatus->save();
 

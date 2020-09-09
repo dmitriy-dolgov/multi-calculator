@@ -36,11 +36,17 @@ use yii\helpers\Html;
                     onclick="gl.functions.orders.acceptOrders.acceptOrder(<?= $orderData['info']['id'] ?>);return false;">
                 Передать исполнителю
             </button>
-        <?php elseif ($orderData['status'] == 'offer-accepted-by-maker'): ?>
+        <?php elseif ($orderData['status'] == 'accepted-by-maker'): ?>
             <i><b>Отправлен на выполнение.</b></i><br>
             <button class="btn btn-warning"
                     onclick="gl.functions.orders.acceptOrders.acceptOrderByCourier(<?= $orderData['info']['id'] ?>);return false;">
                 Передать курьеру
+            </button>
+        <?php elseif ($orderData['status'] == 'accepted-by-courier'): ?>
+            <i><b>Передан курьеру.</b></i><br>
+            <button class="btn btn-warning"
+                    onclick="gl.functions.orders.acceptOrders.completeOrder(<?= $orderData['info']['id'] ?>);return false;">
+                Завершить заказ
             </button>
         <?php else: ?>
             <?= Yii::t('app', 'Unknown order status "{status}". Please refer your manager.',

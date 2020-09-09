@@ -1075,6 +1075,14 @@
   animation: blink-yellow 0.5s step-end infinite alternate;
 }
 
+.order-hint {
+  margin: 10px 0;
+}
+
+.order-hint-2 {
+  margin-top: 10px;
+}
+
 @media screen and (max-width: 1000px) {
   .registration-info,
 .capt-price {

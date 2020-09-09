@@ -64,7 +64,7 @@ class ShopOrderAcceptorders extends ShopOrderWorker
             }
             $orderIds = [];
             foreach ($orderTypes as $shopOrderId => $ordType) {
-                if ($ordType == 'created' || $ordType == 'offer-accepted-by-maker') {
+                if ($ordType == 'created' || $ordType == 'accepted-by-maker') {
                     $orderIds[] = $shopOrderId;
                 }
             }

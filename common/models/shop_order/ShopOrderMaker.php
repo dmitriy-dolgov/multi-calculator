@@ -49,7 +49,7 @@ class ShopOrderMaker extends ShopOrderWorker
             }
             $orderIds = [];
             foreach ($orderTypes as $shopOrderId => $ordType) {
-                if ($ordType == 'offer-accepted-by-maker') {
+                if ($ordType == 'accepted-by-maker') {
                     $orderIds[] = $shopOrderId;
                 }
             }
@@ -88,7 +88,7 @@ class ShopOrderMaker extends ShopOrderWorker
 
                 //TODO: проверять, может уже занят заказ
                 $shopOrderStatus = new ShopOrderStatus();
-                $shopOrderStatus->type = 'offer-accepted-by-maker';
+                $shopOrderStatus->type = 'accepted-by-maker';
                 $shopOrderStatus->user_id = $this->workerObj->user_id;
                 $shopOrderStatus->accepted_at = $currentTimestamp;
                 $shopOrderStatus->accepted_by = $this->workerObj->id;
@@ -102,7 +102,7 @@ class ShopOrderMaker extends ShopOrderWorker
                     ->all();
                 foreach ($usersForStatuses as $user) {
                     $shopOrderStatus = new ShopOrderStatus();
-                    $shopOrderStatus->type = 'offer-blocked-with-other-pizzeria';
+                    $shopOrderStatus->type = 'blocked-with-other-pizzeria';
                     $shopOrderStatus->user_id = $user->user_id;
                     $shopOrderStatus->accepted_at = $currentTimestamp;
                     $shopOrder->link('shopOrderStatuses', $shopOrderStatus);

@@ -60,7 +60,13 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
 
         $updated = false;
 
-        foreach ($elems[$sseUserId] as $orderUid => $orderList) {
+//        echo "event: ping\n";
+//        echo 'data: ' . 'IN HIS: ' . json_encode(['time' => $sseUserId . '__data: ' . print_r($elems, true)]) . "\n\n";
+//        ob_flush();
+//        flush();
+
+        $elemsSseUserIdCopy = $elems[$sseUserId];
+        foreach ($elemsSseUserIdCopy as $orderUid => $orderList) {
             if ($orderList) {
                 foreach ($orderList as $ordinalId => $eventList) {
                     if (!$eventName = array_key_first($eventList)) {
@@ -79,10 +85,15 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
                 $elems[$sseUserId][$orderUid] = [];
                 $updated = true;
             }
-       }
+        }
 
         ob_flush();
         flush();
+
+//        echo "event: ping\n";
+//        echo 'data: ' . 'IN HIS AFTER: ' . json_encode(['time' => $sseUserId . '__data: ' . print_r($elems, true)]) . "\n\n";
+//        ob_flush();
+//        flush();
 
         if ($updated) {
             Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
@@ -152,8 +163,8 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
     {
         //TODO: блокировать кеш
 
-        $elems = Yii::$app->cacheSse->get(self::STORE_KEY);
+        /*$elems = Yii::$app->cacheSse->get(self::STORE_KEY);
         unset($elems[self::getSseUserId()]);
-        Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
+        Yii::$app->cacheSse->set(self::STORE_KEY, $elems);*/
     }
 }

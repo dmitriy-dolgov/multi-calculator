@@ -21,14 +21,26 @@ gl.functions.getCurrentGeoLocation = function () {
 
     gl.log('getCurrentGeoLocation before');
 
-    if (navigator.geolocation) {
+    /*if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             gl.log('getCurrentGeoLocation IN FUNCTION');
             coords.lat = position.coords.latitude;
             coords.lng = position.coords.longitude;
-            this.courierMarker = this.addMarkerByCoords(coords.lat, coords.lng, this.icons.courier);
+            if (gl.data.worldMap) {
+                gl.functions.placesMap.addMarkerByCoords(coords.lat, coords.lng, gl.functions.placesMap.icons.courier);
+                gl.data.worldMap.flyTo([coords.lat, coords.lng]);
+            }
         });
-    }
+    }*/
+
+    var ff = function() {
+        if (gl.data.worldMap) {
+            gl.data.worldMap.addMarkerByCoords(coords.lat, coords.lng, gl.data.worldMap.icons.courier);
+            gl.data.worldMap.flyTo([coords.lat, coords.lng]);
+        }
+    };
+    ff();
+
 
     gl.log('getCurrentGeoLocation return');
     return coords;

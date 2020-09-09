@@ -47,6 +47,8 @@ abstract class OrderHandling extends BaseObject
         //TODO: реализовать
         //$eventId = 1;
 
+        self::getSseUserId();
+
         Yii::$app->session->close();
 
         // см. https://kevinchoppin.dev/blog/server-sent-events-in-php для использования полифила
@@ -63,7 +65,7 @@ abstract class OrderHandling extends BaseObject
             $now = static::getBaseUserElement();
 
             echo "event: ping\n";
-            echo 'data: ' . json_encode(['time' => time() . '_data: ' . print_r($now, true)]) . "\n\n";
+            echo 'data: ' . json_encode(['time' => self::$sseUserId . '__data: ' . print_r($now, true)]) . "\n\n";
             ob_flush();
             flush();
 

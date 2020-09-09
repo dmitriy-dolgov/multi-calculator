@@ -31,6 +31,7 @@ abstract class OrderHandlingBackend extends BaseObject
 
         header('Content-Type: text/event-stream');
         header('Cache-Control: no-cache');
+        header('X-Accel-Buffering: no');
         //header('Access-Control-Allow-Origin: *');
         //header('Connection: keep-alive');
 

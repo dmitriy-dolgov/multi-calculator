@@ -32,7 +32,7 @@ use yii\helpers\Html;
     <hr>
     <div class="btn-accept-order-wrap">
         <?php if ($orderData['status'] == 'created'): ?>
-            <button class="btn btn-warning"
+            <button class="btn btn-primary"
                     onclick="gl.functions.orders.acceptOrders.acceptOrder(<?= $orderData['info']['id'] ?>);return false;">
                 Передать исполнителю
             </button>
@@ -45,9 +45,15 @@ use yii\helpers\Html;
         <?php elseif ($orderData['status'] == 'accepted-by-courier'): ?>
             <i><b>Передан курьеру.</b></i><br>
             <button class="btn btn-warning"
+                    onclick="gl.functions.orders.acceptOrders.signalTheUser('courier-arrived', <?= $orderData['info']['id'] ?>);return false;">
+                Сигнал покупателю о прибытии курьера
+            </button>
+            <button class="btn btn-danger"
                     onclick="gl.functions.orders.acceptOrders.completeOrder(<?= $orderData['info']['id'] ?>);return false;">
                 Завершить заказ
             </button>
+        <?php elseif ($orderData['status'] == 'finished'): ?>
+            <i><b>Заказ завершен.</b></i>
         <?php else: ?>
             <?= Yii::t('app', 'Unknown order status "{status}". Please refer your manager.',
                 ['status' => $orderData['status']]) ?>
@@ -55,7 +61,7 @@ use yii\helpers\Html;
     </div>
     <hr>
     <div class="decline-order-panel">
-        <button class="btn btn-decline-order"
+        <button class="btn btn-warning btn-decline-order"
                 onclick="gl.functions.orders.acceptOrders.declineOrder(<?= $orderData['info']['id'] ?>);return false;">
             Отложить/отказаться
         </button>

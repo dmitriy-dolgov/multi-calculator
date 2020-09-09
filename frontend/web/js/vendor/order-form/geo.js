@@ -69,6 +69,11 @@ gl.functions.placesMap.prototype.showCourier = function () {
     this.courierMarker = this.addMarkerByCoords(latLng.lat, latLng.lng, this.icons.courier);
 };
 
+gl.functions.placesMap.prototype.hideCourier = function () {
+    //var latLng = gl.functions.getCurrentGeoLocation();
+    //this.courierMarker = this.addMarkerByCoords(latLng.lat, latLng.lng, this.icons.courier);
+};
+
 gl.functions.placesMap.prototype.moveCourier = function () {
     var latLng = gl.functions.getCurrentGeoLocation();
     //this.courierMarker

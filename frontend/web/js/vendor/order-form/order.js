@@ -373,7 +373,7 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
         container.data('order-info', orderInfoObj);
 
         //TODO: здесь мигает окно "заказы" и если окно с текущим заказом открыто, то мигает и оно
-        $('#popup-compose-form .modal-content').addClass('blinking-border-order-accepted');
+        $('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-accepted');
         /*setTimeout(function () {
             $('#popup-compose-form .modal-content').removeClass('blinking-border');
         }, 7000);*/
@@ -412,7 +412,7 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         container.data('order-info', orderInfoObj);
 
         //TODO: здесь мигает окно "заказы" и если окно с текущим заказом открыто, то мигает и оно
-        $('#popup-compose-form .modal-content').addClass('blinking-border-order-accepted-by-courier');
+        $('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-accepted-by-courier');
 
         //TODO: перевод
         var html = '<h3>Заказ принят курьером и в пути.</h3>'
@@ -431,6 +431,38 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         /*setInterval(function () {
             gl.data.worldMap.moveCourier();
         }, 5000);*/
+
+        result = true;
+    }
+
+    return result;
+};
+
+// Завершение (успешное) заказа.
+gl.functions.setUpPaneOnOrderSuccessfullyFinished = function (orderId, merchantData, courierData) {
+    var result = false;
+
+    var container = $('.orders-container .elem');
+    if (container.length) {
+        var orderInfoJson = container.data('order-info');
+        var orderInfoObj = orderInfoJson;
+        orderInfoObj.orderStatus = 'finished';
+        container.data('order-info', orderInfoObj);
+
+        $('#popup-compose-form .modal-content').removeClass().addClass('modal-content');
+
+        //TODO: перевод
+        var html = '<h3>Заказ успешно завершен.</h3>'
+            + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
+            + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
+            + '<div class="info-message">ID заказа: ' + gl.escapeHtml(orderId) + '</div>'
+            + '<div class="info-message">Курьер: ' + gl.escapeHtml(courierData.name) + '</div>'
+            + '<div class="info-message red order-hint-2">СПАСИБО ЗА ПОКУПКУ!</div>';
+        elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
+
+        $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
+        elems['#order-form-submit'].find('.order-data-container.info-panel').removeClass().addClass('order-data-container info-panel');
+        gl.data.worldMap.hideCourier();
 
         result = true;
     }

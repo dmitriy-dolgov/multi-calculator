@@ -47,7 +47,7 @@ gl.functions.sse.startListen_OrderStatusAcceptance = function () {
 
         var data = JSON.parse(event.data);
 
-        if (gl.functions.setUpPaneOnOrderAccepted(data.data.orderUid, data.data.merchantData)) {
+        if (gl.functions.setUpPaneOnOrderAccepted(data.orderUid, data.data.merchantData)) {
             gl.log("setUpPaneOnOrderAccepted() - true");
             //gl.functions.sse.se.removeEventListener('merchant-order-accept', $.noop, false);
             //gl.functions.longpoll.waitForCourierToGo(data.orderUid);
@@ -71,6 +71,22 @@ gl.functions.sse.startListen_OrderStatusAcceptance = function () {
             gl.log("setUpPaneOnOrderAcceptedByCourier() - false");
         }
     });
+
+    gl.functions.sse.es.addEventListener('successfully-finished', function (event) {
+        gl.log("data.order_status == 'successfully-finished'");
+        gl.log(['event.data:', event.data]);
+
+        var data = JSON.parse(event.data);
+
+        if (gl.functions.setUpPaneOnOrderSuccessfullyFinished(data.orderUid, data.data.merchantData, data.data.courierData)) {
+            gl.log("setUpPaneOnOrderSuccessfullyFinished() - true");
+            //gl.functions.sse.se.removeEventListener('merchant-order-accept', $.noop, false);
+        } else {
+            //TODO: обработка ошибок
+            gl.log("setUpPaneOnOrderSuccessfullyFinished() - false");
+        }
+    });
+
 };
 
 gl.functions.sse.startOrderAccept = function (orderUid) {

@@ -165,61 +165,6 @@ class WorkerController extends Controller
         }
 
         return $result;
-
-        $transaction = Yii::$app->db->beginTransaction();
-        try {
-            if ($shopOrder = ShopOrder::findOne($orderId)) {
-                $currentTimestamp = date('Y-m-d H:i:s');
-
-                //TODO: проверять, может уже занят заказ
-                $shopOrderStatus = new ShopOrderStatus();
-                $shopOrderStatus->type = 'accepted-by-courier';
-                $shopOrderStatus->user_id = $coWorker->user_id;
-                $shopOrderStatus->accepted_at = $currentTimestamp;
-                $shopOrderStatus->accepted_by = $coWorker->id;
-                $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
-
-                // Сигнал отправившему заявку пользователю что пицца принята в разработку
-                /*$alertUrl = \common\helpers\Web::getUrlToCustomerSite()
-                    . Url::to([
-                        '/make-order/accept-order-by-courier',
-                        'orderUid' => $shopOrder->order_uid,
-                        'merchantId' => $coWorker->user_id,
-                        'courierId' => $coWorker->id,
-                    ]);*/
-
-                $alertUrl = \common\helpers\Web::getUrlToCustomerSite()
-                    . Url::to([
-                        '/make-order/order-accept',
-                        'type' => 'accepted-by-courier',
-                        'orderUid' => $shopOrder->order_uid,
-                        'merchantId' => $coWorker->user_id,
-                        'courierId' => $coWorker->id,
-                    ]);
-
-                if (file_get_contents($alertUrl) == 'success') {
-                    $result['status'] = 'success';
-                } else {
-                    //throw new \Exception(Yii::t('app', "Cound't send notice about an order to user!"));
-                    Yii::error("Cound't send notice about an order to user! Url: " . $alertUrl);
-                    //TODO: !!!!!!!! обработка статуса 'warning'
-                    $result['status'] = 'warning';
-                    $result['msg'] = Yii::t('app', "Cound't send notice about an order to user!");
-                }
-            }
-
-            $transaction->commit();
-        } catch (\Exception $e) {
-            $transaction->rollBack();
-            $result['msg'] = $e->getMessage();
-            //throw $e;
-        } catch (\Throwable $e) {
-            $transaction->rollBack();
-            $result['msg'] = $e->getMessage();
-            //throw $e;
-        }
-
-        return $result;
     }
 
     /*public function actionPassOrderToCourier()
@@ -247,4 +192,40 @@ class WorkerController extends Controller
 
         return $result;
     }*/
+
+    public function actionCompleteOrder()
+    {
+        //pizza-admin.local/worker/complete-order
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $result = ['status' => 'error'];
+
+        $workerUid = Yii::$app->request->post('workerUid');
+        //TODO: заменить здесь и в других местах на order UID
+        $orderId = Yii::$app->request->post('orderId');
+
+        try {
+            $shopOrderCourier = new ShopOrderCourier($workerUid);
+            $result = $shopOrderCourier->completeOrder($orderId);
+
+            if ($result['status'] == 'success') {
+                //TODO: ShopOrder::findOne() дублируется в $shopOrderMaker->acceptOrder() - проверить есть ли проблема и решить
+                $shopOrder = ShopOrder::findOne($orderId);
+                $orderData = ShopOrderAcceptorders::getAnOrder($shopOrder);
+                $orderData['status'] = 'finished';
+                $orderHtml = $this->renderPartial('@backend/views/worker/_order_element',
+                    ['worker' => $shopOrderCourier->getWorkerObj(), 'orderData' => $orderData]);
+                $result['order_html'] = $orderHtml;
+            } else {
+                //TODO: потенциальная обработка ошибки
+                Yii::error('Error complete order!');
+            }
+        } catch (\Exception $e) {
+            $result['status'] = 'error';
+            $result['msg'] = $e->getMessage();
+        }
+
+        return $result;
+    }
 }

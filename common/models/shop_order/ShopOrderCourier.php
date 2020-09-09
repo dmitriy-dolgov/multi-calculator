@@ -87,7 +87,7 @@ class ShopOrderCourier extends ShopOrderWorker
 
                 $acceptedOrderData = [
                     //'order_status' => 'accepted-by-courier',
-                    'orderUid' => $shopOrder->order_uid,
+                    //'orderUid' => $shopOrder->order_uid,
                     'merchantData' => [
                         'name' => $merchant->profile->name,
                         'address' => $merchant->profile->location,
@@ -101,6 +101,66 @@ class ShopOrderCourier extends ShopOrderWorker
                 if (CustomerWaitResponseOrderHandling::sendOrderStateChangeToCustomer(
                     $shopOrder->order_uid,
                     'accepted-by-courier',
+                    $acceptedOrderData
+                )) {
+                    $result['status'] = 'success';
+                } else {
+                    $result['status'] = 'warning-custom';
+                    $result['msg'] = Yii::t('app', 'Nobody accepts the order online. It may be outdated.');
+                }
+            }
+
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            $result['msg'] = $e->getMessage();
+            //throw $e;
+        } catch (\Throwable $e) {
+            $transaction->rollBack();
+            $result['msg'] = $e->getMessage();
+            //throw $e;
+        }
+
+        return $result;
+    }
+
+    public function completeOrder($orderId)
+    {
+        $result = ['status' => 'error'];
+
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            if ($shopOrder = ShopOrder::findOne($orderId)) {
+
+                //TODO: проверять, может уже занят заказ
+                $shopOrderStatus = new ShopOrderStatus();
+                $shopOrderStatus->type = 'finished';
+                $shopOrderStatus->user_id = $this->workerObj->user_id;
+                $shopOrderStatus->accepted_at = date('Y-m-d H:i:s');
+                $shopOrderStatus->accepted_by = $this->workerObj->id;
+                $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
+
+                //TODO: проставить завершение заказа для всех других пользователей
+
+                if (!$merchant = User::findOne($this->workerObj->user_id)) {
+                    Yii::error('User not found. User id: ' . $this->workerObj->user_id);
+                    throw new InternalErrorException('User not found!');
+                }
+
+                $acceptedOrderData = [
+                    'merchantData' => [
+                        'name' => $merchant->profile->name,
+                        'address' => $merchant->profile->location,
+                        'company_lat_long' => $merchant->profile->company_lat_long,
+                    ],
+                    'courierData' => [
+                        'name' => $this->workerObj->name,
+                    ],
+                ];
+
+                if (CustomerWaitResponseOrderHandling::sendOrderStateChangeToCustomer(
+                    $shopOrder->order_uid,
+                    'successfully-finished',
                     $acceptedOrderData
                 )) {
                     $result['status'] = 'success';

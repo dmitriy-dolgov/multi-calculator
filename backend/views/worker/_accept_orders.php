@@ -93,11 +93,32 @@ $this->registerJs(<<<JS
         });
     };
     
-    gl.functions.orders.acceptOrders.declineOrder = function(id) {
+    gl.functions.orders.acceptOrders.declineOrder = function(orderId) {
         alert('Вы отклонили/отложили заказ.');
-        elems['#orders-pane'].find('.order[data-id=' + id + ']').fadeOut(400, function() {
+        elems['#orders-pane'].find('.order[data-id=' + orderId + ']').fadeOut(400, function() {
             // TODO: to remove
             //this.remove();
+        });
+    };
+    
+    gl.functions.orders.acceptOrders.completeOrder = function(orderId) {
+      if (!confirm('Вы уверены что хотите завершить заказ?')) {
+          return false;
+      }
+      
+      $.post('worker/complete-order', {orderId:orderId,workerUid:{$jsStrings['workerUid']}}, function(data) {
+          if (data.status == 'success') {
+              alert('Заказ завершен.');
+              
+              $('.function-orders-pane .order[data-id=' + orderId + ']').replaceWith(data.order_html);
+          } else if (data.status == 'warning-custom') {
+              alert(data.msg);
+          } else {
+              //TODO: to translate , maybe handle error
+              gl.handleFailCustom('Unknown error');
+          }
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown);
         });
     };
 JS

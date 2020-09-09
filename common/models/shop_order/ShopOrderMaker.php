@@ -115,7 +115,7 @@ class ShopOrderMaker extends ShopOrderWorker
 
                 $acceptedOrderData = [
                     //'order_status' => 'accepted-by-merchant',
-                    'orderUid' => $shopOrder->order_uid,
+                    //'orderUid' => $shopOrder->order_uid,
                     'merchantData' => [
                         'name' => $merchant->profile->name,
                         'address' => $merchant->profile->location,

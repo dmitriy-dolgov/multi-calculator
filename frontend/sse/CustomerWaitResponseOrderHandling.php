@@ -89,7 +89,15 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
         }
     }
 
-    public static function acceptOrderByMerchant($acceptedOrderUid, $merchantData)
+    /**
+     * Вызвать у заказчика событие заказа.
+     *
+     * @param string $eventOrderUid UID обрабатываемого заказа
+     * @param string $eventName название события, вызываемого у пользователя (напр. 'accepted-by-merchant')
+     * @param mixed $eventData данные, передаваемыые событию $eventName
+     * @return bool
+     */
+    public static function sendOrderStateChangeToCustomer(string $eventOrderUid, string $eventName, $eventData)
     {
         //TODO: блокировать кеш
 
@@ -101,9 +109,9 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
 
         foreach ($elems as $sseUserId => $orderList) {
             foreach ($orderList as $orderUid => $orderEventList) {
-                if ($orderUid == $acceptedOrderUid) {
+                if ($orderUid == $eventOrderUid) {
                     $elems[$sseUserId][$orderUid][] = [
-                        'accepted-by-merchant' => $merchantData,
+                        $eventName => $eventData,
                     ];
                     $accepted = true;
                 }

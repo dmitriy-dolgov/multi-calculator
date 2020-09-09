@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\db\ShopOrderUser;
 use common\models\db\User;
 use common\models\shop_order\ShopOrderAcceptorders;
+use common\models\shop_order\ShopOrderCourier;
 use common\models\shop_order\ShopOrderMaker;
 use frontend\sse\CustomerWaitResponseOrderHandling;
 use Yii;
@@ -109,6 +110,7 @@ class WorkerController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $workerUid = Yii::$app->request->post('workerUid');
+        //TODO: заменить здесь и в других местах на order UID
         $orderId = Yii::$app->request->post('orderId');
 
         try {
@@ -134,22 +136,35 @@ class WorkerController extends Controller
 
     public function actionAcceptOrderByCourier()
     {
-        //pizza-admin.local/worker/accept-order-by-maker
+        //pizza-admin.local/worker/accept-order-by-courier
 
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $result = ['status' => 'error'];
 
         $workerUid = Yii::$app->request->post('worker_uid');
-        if (!$coWorker = CoWorker::find()->select([
-            'id',
-            'user_id'
-        ])->andWhere(['worker_site_uid' => $workerUid])->one()) {
-            Yii::error('Co-worker not found: `' . $workerUid . '``');
-            throw new NotFoundHttpException('Co-worker not found.');
+        //TODO: заменить здесь и в других местах на order UID
+        $orderId = Yii::$app->request->post('id');
+
+        try {
+            $shopOrderMaker = new ShopOrderCourier($workerUid);
+            $result = $shopOrderMaker->acceptOrder($orderId);
+
+            if ($result['status'] == 'success') {
+                //TODO: ShopOrder::findOne() дублируется в $shopOrderMaker->acceptOrder() - проверить есть ли проблема и решить
+                $shopOrder = ShopOrder::findOne($orderId);
+                $orderData = ShopOrderAcceptorders::getAnOrder($shopOrder);
+                $orderData['status'] = 'offer-accepted-by-courier';
+                $orderHtml = $this->renderPartial('@backend/views/worker/_order_element',
+                    ['worker' => $shopOrderMaker->getWorkerObj(), 'orderData' => $orderData]);
+                $result['order_html'] = $orderHtml;
+            }
+        } catch (\Exception $e) {
+            $result['status'] = 'error';
+            $result['msg'] = $e->getMessage();
         }
 
-        $orderId = Yii::$app->request->post('id');
+        return $result;
 
         $transaction = Yii::$app->db->beginTransaction();
         try {
@@ -203,7 +218,6 @@ class WorkerController extends Controller
             $result['msg'] = $e->getMessage();
             //throw $e;
         }
-
 
         return $result;
     }

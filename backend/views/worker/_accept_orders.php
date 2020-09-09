@@ -55,18 +55,13 @@ $this->registerJs(<<<JS
         });
     };
     
+    //TODO: orderId => orderUid
     gl.functions.orders.acceptOrders.acceptOrderByCourier = function(orderId) {
         $.post({$jsStrings['worker/accept-order-by-courier']}, {orderId:orderId,workerUid:{$jsStrings['workerUid']}}, function(data) {
           if (data.status == 'success') {
-              alert('Запрос отправлен на выполнение.');
+              alert('Заказ передан курьеру.');
               
-              //TODO: показывать уже существующие выполняющиеся заказы
-              $('.function-orders-pane .order[data-id=' + orderId + '] .btn-accept-order-wrap').html(
-                  '<i><b>Отправлен на выполнение.</b></i><br>'
-                  + '<button class="btn btn-warning" onclick="gl.functions.orders.acceptOrders.acceptOrderByCourier(' + orderId + ');return false;">Передать курьеру</button>'
-              );
-          } else if (data.status == 'warning') {
-              alert('Заказ отправлен курьеру но произошла ошибка: ' + data.msg);
+              $('.function-orders-pane .order[data-id=' + orderId + ']').replaceWith(data.order_html);
           } else if (data.status == 'warning-custom') {
               alert(data.msg);
           } else {
@@ -78,12 +73,12 @@ $this->registerJs(<<<JS
         });
     };
 
+    //TODO: orderId => orderUid
     gl.functions.orders.acceptOrders.acceptOrder = function(orderId) {
         $.post({$jsStrings['worker/accept-order-by-maker']}, {orderId:orderId,workerUid:{$jsStrings['workerUid']}}, function(data) {
           if (data.status == 'success') {
-              alert('Запрос отправлен на выполнение.');
+              alert('Заказ отправлен на выполнение поварам.');
               
-              //TODO: показывать уже существующие выполняющиеся заказы
               $('.function-orders-pane .order[data-id=' + orderId + ']').replaceWith(data.order_html);
           } /*else if (data.status == 'warning') {
               alert('Заказ отправлен на выполнение но произошла ошибка: ' + data.msg);

@@ -2,7 +2,6 @@
 
 namespace common\models\shop_order;
 
-use common\models\db\CoWorker;
 use common\models\db\CoWorkerCoWorkerFunction;
 use common\models\db\ShopOrder;
 use common\models\db\ShopOrderStatus;
@@ -109,24 +108,26 @@ class ShopOrderMaker extends ShopOrderWorker
                     $shopOrder->link('shopOrderStatuses', $shopOrderStatus);
                 }
 
-                if (!$user = User::findOne($this->workerObj->user_id)) {
+                if (!$merchant = User::findOne($this->workerObj->user_id)) {
                     Yii::error('User not found. User id: ' . $this->workerObj->user_id);
                     throw new InternalErrorException('User not found!');
                 }
 
                 $acceptedOrderData = [
-                    'order_status' => 'accepted-by-merchant',
+                    //'order_status' => 'accepted-by-merchant',
                     'orderUid' => $shopOrder->order_uid,
                     'merchantData' => [
-                        'name' => $user->profile->name,
-                        'address' => $user->profile->location,
-                        'company_lat_long' => $user->profile->company_lat_long,
+                        'name' => $merchant->profile->name,
+                        'address' => $merchant->profile->location,
+                        'company_lat_long' => $merchant->profile->company_lat_long,
                     ],
                 ];
 
-                if (CustomerWaitResponseOrderHandling::acceptOrderByMerchant($shopOrder->order_uid,
-                    $acceptedOrderData)
-                ) {
+                if (CustomerWaitResponseOrderHandling::sendOrderStateChangeToCustomer(
+                    $shopOrder->order_uid,
+                    'accepted-by-merchant',
+                    $acceptedOrderData
+                )) {
                     $result['status'] = 'success';
                 } else {
                     $result['status'] = 'warning-custom';

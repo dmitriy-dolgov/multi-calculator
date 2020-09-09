@@ -79,24 +79,4 @@ class ShopOrderAcceptorders extends ShopOrderWorker
 
         return $orders;
     }
-
-    public static function getAnOrder(ShopOrder $shopOrder)
-    {
-        $components = [];
-        if ($shopOrder->shopOrderComponents) {
-            foreach ($shopOrder->shopOrderComponents as $soComponent) {
-                $components[] = [
-                    // Данные непосредственно на момент подтверждения заказа
-                    'on_deal' => ArrayHelper::toArray($soComponent),
-                    // Данные на текущий момент
-                    'on_current' => ArrayHelper::toArray($soComponent->component),
-                ];
-            }
-        }
-
-        return [
-            'info' => ArrayHelper::toArray($shopOrder),
-            'components' => $components,
-        ];
-    }
 }

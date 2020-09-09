@@ -3,9 +3,11 @@
 namespace common\models\shop_order;
 
 use Yii;
+use common\models\db\ShopOrder;
 use common\models\db\CoWorker;
 use Symfony\Component\CssSelector\Exception\InternalErrorException;
 use yii\base\Component;
+use yii\helpers\ArrayHelper;
 
 abstract class ShopOrderWorker extends Component
 {
@@ -40,4 +42,25 @@ abstract class ShopOrderWorker extends Component
     {
         $this->workerObj = $workerObj;
     }
+
+    public static function getAnOrder(ShopOrder $shopOrder)
+    {
+        $components = [];
+        if ($shopOrder->shopOrderComponents) {
+            foreach ($shopOrder->shopOrderComponents as $soComponent) {
+                $components[] = [
+                    // Данные непосредственно на момент подтверждения заказа
+                    'on_deal' => ArrayHelper::toArray($soComponent),
+                    // Данные на текущий момент
+                    'on_current' => ArrayHelper::toArray($soComponent->component),
+                ];
+            }
+        }
+
+        return [
+            'info' => ArrayHelper::toArray($shopOrder),
+            'components' => $components,
+        ];
+    }
+
 }

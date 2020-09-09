@@ -438,6 +438,37 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
     return result;
 };
 
+gl.functions.setUpPaneOnOrderCourierArrived = function (orderId, merchantData, courierData) {
+    var result = false;
+
+    var container = $('.orders-container .elem');
+    if (container.length) {
+        var orderInfoJson = container.data('order-info');
+        var orderInfoObj = orderInfoJson;
+        orderInfoObj.orderStatus = 'finished';
+        container.data('order-info', orderInfoObj);
+
+        $('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-courier-arrived');
+
+        //TODO: перевод
+        var html = '<h3 class="red">Курьер прибыл!</h3>'
+            + '<h5 class="order-hint">Пожалуйста, встретьте курьера.</h5>'
+            + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
+            + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
+            + '<div class="info-message">ID заказа: ' + gl.escapeHtml(orderId) + '</div>'
+            + '<div class="info-message">Курьер: ' + gl.escapeHtml(courierData.name) + '</div>'
+            + '<div class="info-message red order-hint-2">Принимайте заказ.</div>';
+        elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
+
+        $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
+        elems['#order-form-submit'].find('.order-data-container.info-panel').removeClass().addClass('order-data-container info-panel blinking-border-order-courier-arrived');
+
+        result = true;
+    }
+
+    return result;
+};
+
 // Завершение (успешное) заказа.
 gl.functions.setUpPaneOnOrderSuccessfullyFinished = function (orderId, merchantData, courierData) {
     var result = false;
@@ -457,7 +488,7 @@ gl.functions.setUpPaneOnOrderSuccessfullyFinished = function (orderId, merchantD
             + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
             + '<div class="info-message">ID заказа: ' + gl.escapeHtml(orderId) + '</div>'
             + '<div class="info-message">Курьер: ' + gl.escapeHtml(courierData.name) + '</div>'
-            + '<div class="info-message red order-hint-2">СПАСИБО ЗА ПОКУПКУ!</div>';
+            + '<div class="info-message red order-hint-2"><strong>СПАСИБО ЗА ПОКУПКУ!</strong></div>';
         elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
 
         $('#popup-compose-form').animate({scrollTop: 0}, 'slow');

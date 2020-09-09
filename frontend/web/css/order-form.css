@@ -887,6 +887,12 @@
   text-shadow: 1px 1px 5px black;
   margin-top: 0;
 }
+#order-form-submit .order-data-container .order-hint {
+  margin: 10px 0;
+}
+#order-form-submit .order-data-container .order-hint-2 {
+  margin-top: 10px;
+}
 #order-form-submit .order-data-container .info-message {
   font-size: smaller;
   font-weight: normal;
@@ -1075,12 +1081,14 @@
   animation: blink-yellow 0.5s step-end infinite alternate;
 }
 
-.order-hint {
-  margin: 10px 0;
+@keyframes blink-red {
+  50% {
+    -webkit-box-shadow: 0 5px 15px red;
+    box-shadow: 0 5px 15px red;
+  }
 }
-
-.order-hint-2 {
-  margin-top: 10px;
+.blinking-border-order-courier-arrived {
+  animation: blink-red 0.5s step-end infinite alternate;
 }
 
 /*# sourceMappingURL=order-form.css.map */

@@ -807,6 +807,14 @@ $catalog-name_height: 25px;
       margin-top: 0;
     }
 
+    .order-hint {
+      margin: 10px 0;
+    }
+
+    .order-hint-2 {
+      margin-top: 10px;
+    }
+
     .info-message {
       font-size: smaller;
       font-weight: normal;
@@ -1016,10 +1024,14 @@ $catalog-name_height: 25px;
   animation: blink-yellow .5s step-end infinite alternate;
 }
 
-.order-hint {
-  margin: 10px 0;
+@keyframes blink-red {
+  50% {
+    -webkit-box-shadow: 0 5px 15px rgb(255, 0, 0, 1);
+    box-shadow: 0 5px 15px rgb(255, 0, 0, 1);
+  }
+}
+.blinking-border-order-courier-arrived {
+  animation: blink-red .5s step-end infinite alternate;
 }
 
-.order-hint-2 {
-  margin-top: 10px;
-}
+

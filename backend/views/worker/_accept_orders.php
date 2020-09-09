@@ -121,6 +121,23 @@ $this->registerJs(<<<JS
             gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown);
         });
     };
+    
+    gl.functions.orders.acceptOrders.signalTheUser = function(type, orderId) {
+        $.post('worker/' + type, {orderId:orderId,workerUid:{$jsStrings['workerUid']}}, function(data) {
+          if (data.status == 'success') {
+              //TODO: как и везде, выдавать только после подтверждения со стороны пользователя
+              alert('Сигнал отправлен пользователю.');
+              
+          } else if (data.status == 'warning-custom') {
+              alert(data.msg);
+          } else {
+              //TODO: to translate , maybe handle error
+              gl.handleFailCustom('Unknown error');
+          }
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown);
+        });
+    };
 JS
 );
 ?>

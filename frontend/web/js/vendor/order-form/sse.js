@@ -72,6 +72,21 @@ gl.functions.sse.startListen_OrderStatusAcceptance = function () {
         }
     });
 
+    gl.functions.sse.es.addEventListener('courier-arrived', function (event) {
+        gl.log("data.order_status == 'successfully-finished'");
+        gl.log(['event.data:', event.data]);
+
+        var data = JSON.parse(event.data);
+
+        if (gl.functions.setUpPaneOnOrderCourierArrived(data.orderUid, data.data.merchantData, data.data.courierData)) {
+            gl.log("setUpPaneOnOrderCourierArrived() - true");
+            //gl.functions.sse.se.removeEventListener('merchant-order-accept', $.noop, false);
+        } else {
+            //TODO: обработка ошибок
+            gl.log("setUpPaneOnOrderCourierArrived() - false");
+        }
+    });
+
     gl.functions.sse.es.addEventListener('successfully-finished', function (event) {
         gl.log("data.order_status == 'successfully-finished'");
         gl.log(['event.data:', event.data]);

@@ -2,19 +2,13 @@
 
 namespace backend\controllers;
 
-use common\models\db\ShopOrderUser;
-use common\models\db\User;
+use common\models\db\CoWorker;
+use common\models\db\ShopOrder;
 use common\models\shop_order\ShopOrderAcceptorders;
 use common\models\shop_order\ShopOrderCourier;
 use common\models\shop_order\ShopOrderMaker;
-use frontend\sse\CustomerWaitResponseOrderHandling;
-use Yii;
-use common\models\db\CoWorker;
-use common\models\db\ShopOrder;
-use common\models\db\ShopOrderStatus;
 use common\models\shop_order\ShopOrderOrders;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -192,6 +186,29 @@ class WorkerController extends Controller
 
         return $result;
     }*/
+
+    public function actionCourierArrived()
+    {
+        //pizza-admin.local/worker/courier-arrived
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $result = ['status' => 'error'];
+
+        $workerUid = Yii::$app->request->post('workerUid');
+        //TODO: заменить здесь и в других местах на order UID
+        $orderId = Yii::$app->request->post('orderId');
+
+        try {
+            $shopOrderCourier = new ShopOrderCourier($workerUid);
+            $result = $shopOrderCourier->courierArrived($orderId);
+        } catch (\Exception $e) {
+            $result['status'] = 'error';
+            $result['msg'] = $e->getMessage();
+        }
+
+        return $result;
+    }
 
     public function actionCompleteOrder()
     {

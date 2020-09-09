@@ -124,6 +124,56 @@ class ShopOrderCourier extends ShopOrderWorker
         return $result;
     }
 
+    public function courierArrived($orderId)
+    {
+        $result = ['status' => 'error'];
+
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            if ($shopOrder = ShopOrder::findOne($orderId)) {
+
+                if (!$merchant = User::findOne($this->workerObj->user_id)) {
+                    Yii::error('User not found. User id: ' . $this->workerObj->user_id);
+                    throw new InternalErrorException('User not found!');
+                }
+
+                $acceptedOrderData = [
+                    'merchantData' => [
+                        'name' => $merchant->profile->name,
+                        'address' => $merchant->profile->location,
+                        'company_lat_long' => $merchant->profile->company_lat_long,
+                    ],
+                    'courierData' => [
+                        'name' => $this->workerObj->name,
+                    ],
+                ];
+
+                if (CustomerWaitResponseOrderHandling::sendOrderStateChangeToCustomer(
+                    $shopOrder->order_uid,
+                    'courier-arrived',
+                    $acceptedOrderData
+                )) {
+                    $result['status'] = 'success';
+                } else {
+                    $result['status'] = 'warning-custom';
+                    $result['msg'] = Yii::t('app', 'Nobody accepts the order online. It may be outdated.');
+                }
+            }
+
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            $result['msg'] = $e->getMessage();
+            //throw $e;
+        } catch (\Throwable $e) {
+            $transaction->rollBack();
+            $result['msg'] = $e->getMessage();
+            //throw $e;
+        }
+
+        return $result;
+    }
+
     public function completeOrder($orderId)
     {
         $result = ['status' => 'error'];

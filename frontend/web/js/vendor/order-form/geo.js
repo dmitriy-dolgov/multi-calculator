@@ -27,15 +27,23 @@ gl.functions.getCurrentGeoLocation = function () {
             coords.lat = position.coords.latitude;
             coords.lng = position.coords.longitude;
             if (gl.data.worldMap) {
-                gl.data.worldMap.addMarkerByCoords(coords.lat, coords.lng, gl.data.worldMap.icons.courier);
-                gl.data.worldMap.flyTo([coords.lat, coords.lng]);
+                if (gl.data.worldMap.courierMarker) {
+                    gl.log('gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker)');
+                    gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker);
+                }
+                gl.data.worldMap.courierMarker = gl.data.worldMap.addMarkerByCoords(coords.lat, coords.lng, gl.data.worldMap.icons.courier);
+                //gl.data.worldMap.flyTo([coords.lat, coords.lng]);
             }
         });
     }
 
     /*var ff = function() {
         if (gl.data.worldMap) {
-            gl.data.worldMap.addMarkerByCoords(coords.lat, coords.lng, gl.data.worldMap.icons.courier);
+            if (gl.data.worldMap.courierMarker) {
+                gl.log('gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker)');
+                gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker);
+            }
+            gl.data.worldMap.courierMarker = gl.data.worldMap.addMarkerByCoords(coords.lat, coords.lng, gl.data.worldMap.icons.courier);
             gl.data.worldMap.flyTo([coords.lat, coords.lng]);
         }
     };

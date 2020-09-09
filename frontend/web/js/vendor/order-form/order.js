@@ -428,9 +428,9 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         elems['#order-form-submit'].find('.order-data-container.info-panel').addClass('blinking-border-order-accepted-by-courier');
         gl.data.worldMap.showCourier();
 
-        /*setInterval(function () {
+        setInterval(function () {
             gl.data.worldMap.moveCourier();
-        }, 5000);*/
+        }, 6000);
 
         result = true;
     }

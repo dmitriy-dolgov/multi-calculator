@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="make-order-form">
+<div class="shop-order-form">
 
     <?php $form = ActiveForm::begin(); ?>
 

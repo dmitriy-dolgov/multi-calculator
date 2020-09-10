@@ -35,8 +35,8 @@ class AcceptOrderController extends Controller
      */
     public function actionOrderCommand()
     {
-        //pizza-customer.local/make-order/order-command?type=accepted-by-merchant&merchantId=2&orderUid=
-        //pizza-customer.local/make-order/order-command?type=accepted-by-courier&merchantId=2&courierId=2&orderUid=
+        //pizza-customer.local/accept-order/order-command?type=accepted-by-merchant&merchantId=2&orderUid=
+        //pizza-customer.local/accept-order/order-command?type=accepted-by-courier&merchantId=2&courierId=2&orderUid=
 
         $type = Yii::$app->request->post('type', Yii::$app->request->get('type'));
         $orderUid = Yii::$app->request->post('orderUid', Yii::$app->request->get('orderUid'));
@@ -132,7 +132,7 @@ class AcceptOrderController extends Controller
 
     public function actionAcceptOrderByMerchant($orderUid, $merchantId)
     {
-        //pizza-customer.local/make-order/accept-order-by-merchant
+        //pizza-customer.local/accept-order/accept-order-by-merchant
 
         if (!$user = User::findOne($merchantId)) {
             Yii::error('User not found. User id: ' . $merchantId);
@@ -158,7 +158,7 @@ class AcceptOrderController extends Controller
 
     public function actionAcceptOrderByCourier($orderUid, $merchantId, $courierId)
     {
-        //pizza-customer.local/make-order/accept-order-by-courier
+        //pizza-customer.local/accept-order/accept-order-by-courier
 
         if (!$user = User::findOne($merchantId)) {
             Yii::error('User not found. User id: ' . $merchantId);

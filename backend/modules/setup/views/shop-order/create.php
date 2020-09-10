@@ -9,7 +9,7 @@ $this->title = Yii::t('app', 'Create Shop Order');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Shop Orders'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="make-order-create">
+<div class="shop-order-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -170,7 +170,7 @@ CSS
                 </section>
                 <?php endif; ?>
                 <section id="pane-order-watch" class="view-pane">
-                    <iframe class="total-frame" src="<?= Url::to(['/setup/make-order/index']) ?>"></iframe>
+                    <iframe class="total-frame" src="<?= Url::to(['/setup/shop-order/index', 'sort' => '-created_at']) ?>"></iframe>
                     <i class="pane-switch icon-arrow-up-circle btn-wrap-order-watch-form" title="Развернуть панель"></i>
                 </section>
             </div>

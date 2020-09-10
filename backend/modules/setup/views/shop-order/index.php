@@ -14,7 +14,7 @@ $this->title = Yii::t('app', 'Order List');
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerCss(<<<CSS
-.make-order-index td hr {
+.shop-order-index td hr {
     margin: 7px 0;
     border-top: 1px solid #848484;
 }
@@ -31,7 +31,7 @@ CSS
 );
 
 ?>
-<div class="make-order-index">
+<div class="shop-order-index">
 
     <!--<h1><?php /*= Html::encode($this->title) */ ?></h1>-->
 
@@ -53,7 +53,7 @@ CSS
                 'detail' => function ($model, $key, $index, $column) {
                     //return Yii::$app->controller->renderPartial('_expand-row-details', ['model' => $model]);
 //                    return '<iframe class="iframe-detail" src="' . Html::encode(Url::to([
-//                            '/setup/make-order/view',
+//                            '/setup/shop-order/view',
 //                            'id' => $model->id
 //                        ])) . '"></iframe>';
                     //return Yii::$app->controller->renderPartial('_view', ['model' => $model]);
@@ -119,7 +119,7 @@ CSS
                 'dropdown' => false,
                 /*'urlCreator' => function ($action, $model, $key, $index) {
 //                    if ($action == 'view') {
-//                        return Url::to(['/setup/make-order/view', 'id' => $model->id]);
+//                        return Url::to(['/setup/shop-order/view', 'id' => $model->id]);
 //                    }
                     return '#';
                 },*/

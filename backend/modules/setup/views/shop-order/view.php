@@ -14,14 +14,14 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 
 $this->registerCss(<<<CSS
-.make-order-view td hr {
+.shop-order-view td hr {
     margin: 7px 0;
     border-top: 1px solid #848484;
 }
 CSS
 );
 
-$changeStatusUrl = json_encode(Url::to(['/setup/make-order/status-change']));
+$changeStatusUrl = json_encode(Url::to(['/setup/shop-order/status-change']));
 
 //TODO: обработка ошибок типа 404
 $this->registerJs(<<<JS
@@ -46,7 +46,7 @@ $htmlTexts['offer-sent-wait-for-approval'] = Html::encode(Yii::t('app', 'Offer s
 $htmlTexts['order-cancelled-by-user'] = Html::encode(Yii::t('app', 'Order cancelled by user.'));
 
 ?>
-<div class="make-order-view">
+<div class="shop-order-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

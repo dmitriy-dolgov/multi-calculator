@@ -141,7 +141,7 @@ foreach ($cityList as $cityId => $cityData) {
 ?>
 <div id="elems-container" style="display: none">
     <div class="order-data-container-wrp">
-        <div class="order-data-container">
+        <div class="order-data-container your-data">
             <div class="title"><?= Html::encode(Yii::t('app', 'Your data')) ?></div>
             <div class="order-data-data">
                 <!--<button class="correct-geolocation" onclick="gl.functions.correctGeolocation();return false;"><?php /*= Yii::t('app', 'Скорректировать геолокацию') */ ?></button>-->

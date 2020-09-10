@@ -203,6 +203,13 @@ gl.functions.composeOrder = function () {
                 //gl.functions.sse.waitForMerchantOrderAccept(result.order_uid);
                 gl.functions.sse.startOrderAccept(result.order_uid);
 
+                var mapDetached = elems['#order-form-submit'].find('.component-container .map-placeholder').fadeOut(300, function () {
+                    var mapDetached = elems['#order-form-submit'].find('.component-container .map-placeholder').detach();
+                    //elems['#order-form-submit'].find('.component-container .your-data').after(mapDetached);
+                    elems['#order-form-submit'].find('.component-container').prepend(mapDetached);
+                    mapDetached.fadeIn(1300);
+                });
+
                 /*gl.functions.fillOrderInfo(result, {
                     deliver_customer_name: deliver_customer_name,
                     deliver_address: deliver_address,
@@ -362,11 +369,9 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
     var result = false;
 
     var container = $('.orders-container .elem[data-order-id="' + orderId + '"]');
-    //var container = $('.orders-container [data-order-id="' + orderId + '"]');
     if (container.length) {
         var orderInfoJson = container.data('order-info');
         gl.log(['orderInfoJson', orderInfoJson]);
-        //var orderInfoObj = JSON.parse(orderInfoJson);
         var orderInfoObj = orderInfoJson;
         orderInfoObj.orderStatus = 'accepted-by-merchant';
         //container.data('order-info', JSON.stringify(orderInfoObj));
@@ -374,9 +379,6 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
 
         //TODO: здесь мигает окно "заказы" и если окно с текущим заказом открыто, то мигает и оно
         $('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-accepted');
-        /*setTimeout(function () {
-            $('#popup-compose-form .modal-content').removeClass('blinking-border');
-        }, 7000);*/
 
         //TODO: перевод
         var html = '<h3>Заказ взят в обработку.</h3>'
@@ -390,7 +392,12 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
         $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
 
         //TODO: move to bottom
-        elems['#order-form-submit'].find('.component-container .order-data-container').remove();
+        //elems['#order-form-submit'].find('.component-container .order-data-container').remove();
+        /*var mapDetached = elems['#order-form-submit'].find('.component-container .map-placeholder').fadeOut(function(){
+
+        });*/
+        /*var mapDetached = elems['#order-form-submit'].find('.component-container .map-placeholder').detach();
+        elems['#order-form-submit'].find('.component-container').prepend(mapDetached);*/
 
         result = true;
     }

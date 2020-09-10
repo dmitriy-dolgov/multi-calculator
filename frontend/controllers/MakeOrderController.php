@@ -53,6 +53,26 @@ class MakeOrderController extends Controller
         ];
     }
 
+    /*public function actionDummy()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+
+        $sessId = Yii::$app->session->getId();
+
+        if (($elems = Yii::$app->cacheSse->get(':sse-frontend-CustomerWaitResponseOrderHandling')) === false) {
+            $elems = [];
+        }
+
+        Yii::debug('actionDummy(); ELS: ' . print_r($elems, true), 'sse-order');
+
+
+        return [
+            'status' => 'success',
+            'sessId' => $sessId,
+        ];
+    }*/
+
     /**
      * Обработать команду по статусу заказа.
      * Вызывается пиццерией.

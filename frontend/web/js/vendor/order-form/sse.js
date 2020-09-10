@@ -118,21 +118,13 @@ gl.functions.sse.startOrderAccept = function (orderUid) {
         gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown, 'alert');
     });
 
-    /*fetch('/make-order/start-order-accept?orderUid=' + encodeURIComponent(orderUid))
-        .then(function (response) {
-            gl.log('response:');
-            gl.log(response);
-            gl.log('response.json():');
-            gl.log(response.json());
-        });*/
+    /*setInterval(function () {
+        $.post('/make-order/dummy', {orderUid: orderUid}, function (data) {
+            gl.log('DUMMY PASSED');
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown, 'alert');
+        });
+    }, 7000);*/
 };
-
-/*gl.functions.sse.waitForMerchantOrderAccept = function (orderUid) {
-
-    $.post('/make-order/order-accept', {type: 'merchant', orderUid: orderUid}, function (data) {
-
-    });
-
-};*/
 
 gl.functions.sse.startListen_OrderStatusAcceptance();

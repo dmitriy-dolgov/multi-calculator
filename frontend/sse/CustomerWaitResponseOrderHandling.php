@@ -42,6 +42,7 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
         }
 
         if ($updated) {
+            //Yii::debug('getBaseUserElement(). $sseUserId: `' . $sseUserId . '`', 'sse-order');
             Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
         }
 
@@ -73,7 +74,7 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
                         Yii::error('No first element (event name) in function list!', 'sse-order');
                         continue;
                     }
-                    Yii::info('Event for SSE: `' . $eventName . '`', 'sse-order');
+                    //Yii::debug('Event for SSE: `' . $eventName . '`', 'sse-order');
                     $eventData = json_encode([
                         'orderUid' => $orderUid,
                         'data' => $eventList[$eventName],
@@ -96,6 +97,7 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
 //        flush();
 
         if ($updated) {
+            //Yii::debug('handleIncomingSignals(). $sseUserId: `' . $sseUserId . '`; ELS: ' . print_r($elems, true), 'sse-order');
             Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
         }
     }
@@ -130,6 +132,7 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
         }
 
         if ($accepted) {
+            //Yii::debug('sendOrderStateChangeToCustomer(); ELS: ' . print_r($elems, true), 'sse-order');
             Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
         }
 
@@ -153,18 +156,24 @@ class CustomerWaitResponseOrderHandling extends OrderHandling
         if (!isset($elems[$sseUserId][$orderUid])) {
             $elems[$sseUserId][$orderUid] = [];
         } else {
-            Yii::info('Order already exists: `' . $orderUid . '`', 'sse-order');
+            Yii::debug('Order already exists: `' . $orderUid . '`', 'sse-order');
         }
 
+        //Yii::debug('startListenOrderStatus(); ELS: ' . print_r($elems, true), 'sse-order');
         Yii::$app->cacheSse->set(self::STORE_KEY, $elems);
     }
 
+    /**
+     * Соединение обрывается внезапно, подозреваю потому что запрос выполняется дольше 3 секунд (retry для браузера по умолчанию)
+     * TODO: очищать очередь как-нибудь по-другому
+     */
     public function cleanOnConnectionClose()
     {
         //TODO: блокировать кеш
 
         /*$elems = Yii::$app->cacheSse->get(self::STORE_KEY);
         unset($elems[self::getSseUserId()]);
+        Yii::debug('cleanOnConnectionClose(). $sseUserId: `' . self::getSseUserId() . '`; ELS: ' . print_r($elems, true), 'sse-order');
         Yii::$app->cacheSse->set(self::STORE_KEY, $elems);*/
     }
 }

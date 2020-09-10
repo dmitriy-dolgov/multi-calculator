@@ -30,10 +30,10 @@ echo \yii\bootstrap\ButtonDropdown::widget([
     ],
 ]);*/
 
-$this->registerJs(<<<JS
+/*$this->registerJs(<<<JS
     $('#wrap').css('padding-top', $('.pane-mobile-switcher').height());
 JS
-);
+);*/
 
 ?>
 <?= Html::img(['/img/pizza-logo-white-border.png'], [

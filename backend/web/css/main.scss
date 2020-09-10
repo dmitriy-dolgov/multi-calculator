@@ -157,6 +157,7 @@ $default-side-panel-size: 30px;
 @media screen and (max-width: 5600px) {
   #wrap {
     flex-direction: column;
+    padding-top: 74px;
   }
 
   .pane-switch {
@@ -199,6 +200,7 @@ $default-side-panel-size: 30px;
     top: 0;
     left: 0;
     width: 100%;
+    height: 74px;
 
     .switch-elem {
       /*height: 30px;*/

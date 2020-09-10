@@ -22,32 +22,6 @@ use Yii;
  */
 class ShopOrderStatus extends \yii\db\ActiveRecord
 {
-    // Список используемых статусов с пояснением
-    const STATUSES_IN_USE = [
-        // Заказ создан покупателем пиццы, этот статус получают все пиццерии в области доступности покупателя (определеятся программно).
-        // В коде закомментирована возможность выбирать пиццерию пользователем.
-        'created',
-
-        // Заказ принят и отправлен в обработку к исполнителю (повару).
-        // (будет без этого этапа, предположим что тот кто сидит на заказах сразу назначает повару)
-        //'sent-to-maker',
-
-        // Заказ принят исполнителем (поваром) к обработке.
-        'accepted-by-maker',
-
-        // Заказ уже принят в обработку другой пиццерией. Возможен откат к состоянию 'created'.
-        'blocked-with-other-pizzeria',
-        // Заказ передан курьеру.
-        'accepted-by-courier',
-        // Заказ принят (куплен) пользователем.
-        'accepted-with-customer',
-        // Заказ обработан и закрыт (удачно или неудачно). С этой точки возможно только переоткрытие заказа с нуля.
-        'finished',
-
-        // Исключение в обработке заказа (отмена, откат, отказ - должно быть прописано)
-        'exception',
-    ];
-
     /**
      * {@inheritdoc}
      */
@@ -81,7 +55,13 @@ class ShopOrderStatus extends \yii\db\ActiveRecord
                 'targetClass' => ShopOrder::className(),
                 'targetAttribute' => ['shop_order_id' => 'id']
             ],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [
+                ['user_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => User::className(),
+                'targetAttribute' => ['user_id' => 'id']
+            ],
         ];
     }
 
@@ -144,15 +124,28 @@ class ShopOrderStatus extends \yii\db\ActiveRecord
     public static function getStatusTypeList()
     {
         return [
-            'created' => Yii::t('app', 'Created.'),
-            // Создано предложение
-            'offer-sent-to-customer' => Yii::t('app', 'Offer sent to customer.'),
-            // Предложение принято пользователем
-            'offer-accepted-by-customer' => Yii::t('app', 'Offer accepted by customer.'),
-            // Предложение отменено, потому что клиент выбрал другую пиццерию
-            'offer-abandoned-because-customer-selected' => Yii::t('app', 'Offer abandoned because customer selected another pizzeria.'),
-            // Заказ отменен пользователем
-            'order-cancelled-by-user' => Yii::t('app', 'Order cancelled by user.'),
+            // Заказ создан покупателем пиццы, этот статус получают все пиццерии в области доступности покупателя (определеятся программно).
+            // В коде закомментирована возможность выбирать пиццерию пользователем.
+            'created' => Yii::t('app', 'Created'),
+
+            // Заказ принят и отправлен в обработку к исполнителю (повару).
+            // (будет без этого этапа, предположим что тот кто сидит на заказах сразу назначает повару)
+            //'sent-to-maker' => Yii::t('app', 'Sent to maker'),
+
+            // Заказ принят исполнителем (поваром) к обработке.
+            'accepted-by-maker' => Yii::t('app', 'Accepted by maker'),
+
+            // Заказ уже принят в обработку другой пиццерией. Возможен откат к состоянию 'created'.
+            'blocked-with-another-pizzeria' => Yii::t('app', 'Blocked with another pizzeria'),
+            // Заказ передан курьеру.
+            'accepted-by-courier' => Yii::t('app', 'Accepted by courier'),
+            // Заказ принят (куплен) пользователем.
+            'accepted-by-customer' => Yii::t('app', 'Accepted by customer'),
+            // Заказ обработан и закрыт (удачно или неудачно). С этой точки возможно только переоткрытие заказа с нуля.
+            'finished' => Yii::t('app', 'Finished'),
+
+            // Исключение в обработке заказа (отмена, откат, отказ - должно быть прописано)
+            'exception' => Yii::t('app', 'Exception'),
         ];
     }
 

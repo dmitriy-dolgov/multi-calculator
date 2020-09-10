@@ -10,7 +10,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Shop Order Signals')
 $this->params['breadcrumbs'][] = ['label' => $model->user_id, 'url' => ['view', 'id' => $model->user_id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
-<div class="make-order-signal-update">
+<div class="shop-order-signal-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

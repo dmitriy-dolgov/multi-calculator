@@ -102,7 +102,7 @@ class ShopOrderMaker extends ShopOrderWorker
                     ->all();
                 foreach ($usersForStatuses as $user) {
                     $shopOrderStatus = new ShopOrderStatus();
-                    $shopOrderStatus->type = 'blocked-with-other-pizzeria';
+                    $shopOrderStatus->type = 'blocked-with-another-pizzeria';
                     $shopOrderStatus->user_id = $user->user_id;
                     $shopOrderStatus->accepted_at = $currentTimestamp;
                     $shopOrder->link('shopOrderStatuses', $shopOrderStatus);

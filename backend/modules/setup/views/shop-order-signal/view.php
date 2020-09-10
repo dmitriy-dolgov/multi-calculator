@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Signal Contacts'), '
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="make-order-signal-view">
+<div class="shop-order-signal-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

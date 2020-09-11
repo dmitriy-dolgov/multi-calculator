@@ -203,12 +203,12 @@ gl.functions.composeOrder = function () {
                 //gl.functions.sse.waitForMerchantOrderAccept(result.order_uid);
                 gl.functions.sse.startOrderAccept(result.order_uid);
 
-                /*var mapDetached = elems['#order-form-submit'].find('.component-container .map-placeholder').fadeOut(300, function () {
+                var mapDetached = elems['#order-form-submit'].find('.component-container .map-placeholder').fadeOut(300, function () {
                     var mapDetached = elems['#order-form-submit'].find('.component-container .map-placeholder').detach();
                     //elems['#order-form-submit'].find('.component-container .your-data').after(mapDetached);
                     elems['#order-form-submit'].find('.component-container').prepend(mapDetached);
                     mapDetached.fadeIn(1300);
-                });*/
+                });
 
                 /*gl.functions.fillOrderInfo(result, {
                     deliver_customer_name: deliver_customer_name,

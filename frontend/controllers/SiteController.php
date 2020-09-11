@@ -11,6 +11,7 @@ use common\models\db\User;
 use common\models\shop_order\ShopOrderAcceptorders;
 use common\models\shop_order\ShopOrderMaker;
 use frontend\models\ShopOrderForm;
+use frontend\sse\CustomerWaitResponseOrderHandling;
 use Symfony\Component\CssSelector\Exception\InternalErrorException;
 use Yii;
 use yii\web\Controller;
@@ -134,6 +135,8 @@ STR;
                 $city = $sypexGeo->getCityFull($_SERVER['REMOTE_ADDR']);
                 $sypexGeo->getCity('185.174.210.231');*/
         //$city = Yii::$app->sypexGeo->getCity($_SERVER['REMOTE_ADDR']);
+
+        CustomerWaitResponseOrderHandling::cleanUserData();
 
         $form = new ShopOrderForm();
 

@@ -18,9 +18,9 @@ abstract class OrderHandling extends BaseObject
     abstract public static function getBaseUserElement();
 
     /**
-     * Очистить ненужные данные при окончательном закрытии соединения.
+     * Очистить установленные данные.
      */
-    abstract public function cleanOnConnectionClose();
+    //abstract public function cleanUserData();
 
     abstract public function handleIncomingSignals();
 
@@ -57,7 +57,7 @@ abstract class OrderHandling extends BaseObject
 
         for (; ;) {
             if (connection_aborted()) {
-                $this->cleanOnConnectionClose();
+                //$this->cleanOnConnectionClose();
                 Yii::debug('connection_aborted()', 'sse-order');
                 exit();
             }

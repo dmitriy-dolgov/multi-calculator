@@ -1091,6 +1091,39 @@
   animation: blink-red 0.5s step-end infinite alternate;
 }
 
+/** ----------------------------------- **/
+@keyframes blink-green-background {
+  50% {
+    background-color: rgba(0, 255, 0, 0.1);
+  }
+  /*from {opacity: .5;}
+  to {opacity: 0;}*/
+}
+.blinking-background-order-accepted {
+  background-color: rgba(0, 255, 0, 0.6);
+  animation: blink-green-background 1s infinite;
+}
+
+@keyframes blink-yellow-background {
+  50% {
+    background-color: rgba(255, 255, 0, 0.1);
+  }
+}
+.blinking-background-order-accepted-by-courier {
+  background-color: rgba(255, 255, 0, 0.6);
+  animation: blink-yellow-background 1s infinite;
+}
+
+@keyframes blink-red-background {
+  50% {
+    background-color: rgba(255, 0, 0, 0.1);
+  }
+}
+.blinking-background-order-courier-arrived {
+  background-color: rgba(255, 0, 0, 0.6);
+  animation: blink-red-background 1s infinite;
+}
+
 @media screen and (max-width: 1000px) {
   .registration-info,
 .capt-price {

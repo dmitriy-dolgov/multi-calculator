@@ -378,7 +378,11 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
         container.data('order-info', orderInfoObj);
 
         //TODO: здесь мигает окно "заказы" и если окно с текущим заказом открыто, то мигает и оно
-        $('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-accepted');
+        //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-accepted');
+        elems['#order-form-submit'].find('.order-data-container.info-panel').removeClass('blinking-border-order-accepted');
+        $('.modal-backdrop').removeClass(function (index, className) {
+            return (className.match(/(^|\s)blinking-background-\S+/g) || []).join(' ');
+        }).addClass('blinking-background-order-accepted');
 
         //TODO: перевод
         var html = '<h3>Заказ взят в обработку.</h3>'
@@ -419,7 +423,10 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         container.data('order-info', orderInfoObj);
 
         //TODO: здесь мигает окно "заказы" и если окно с текущим заказом открыто, то мигает и оно
-        $('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-accepted-by-courier');
+        //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-accepted-by-courier');
+        $('.modal-backdrop').removeClass(function (index, className) {
+            return (className.match(/(^|\s)blinking-background-\S+/g) || []).join(' ');
+        }).addClass('blinking-background-order-accepted-by-courier');
 
         //TODO: перевод
         var html = '<h3>Заказ принят курьером и в пути.</h3>'
@@ -432,7 +439,8 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
 
         $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
-        elems['#order-form-submit'].find('.order-data-container.info-panel').addClass('blinking-border-order-accepted-by-courier');
+        //elems['#order-form-submit'].find('.order-data-container.info-panel').addClass('blinking-border-order-accepted-by-courier');
+
         gl.data.worldMap.showCourier();
 
         setInterval(function () {
@@ -455,7 +463,10 @@ gl.functions.setUpPaneOnOrderCourierArrived = function (orderId, merchantData, c
         orderInfoObj.orderStatus = 'finished';
         container.data('order-info', orderInfoObj);
 
-        $('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-courier-arrived');
+        //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-courier-arrived');
+        $('.modal-backdrop').removeClass(function (index, className) {
+            return (className.match(/(^|\s)blinking-background-\S+/g) || []).join(' ');
+        }).addClass('blinking-background-order-courier-arrived');
 
         //TODO: перевод
         var html = '<h3 class="red">Курьер прибыл!</h3>'
@@ -468,7 +479,7 @@ gl.functions.setUpPaneOnOrderCourierArrived = function (orderId, merchantData, c
         elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
 
         $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
-        elems['#order-form-submit'].find('.order-data-container.info-panel').removeClass().addClass('order-data-container info-panel blinking-border-order-courier-arrived');
+        //elems['#order-form-submit'].find('.order-data-container.info-panel').removeClass().addClass('order-data-container info-panel blinking-border-order-courier-arrived');
 
         result = true;
     }
@@ -487,7 +498,10 @@ gl.functions.setUpPaneOnOrderSuccessfullyFinished = function (orderId, merchantD
         orderInfoObj.orderStatus = 'finished';
         container.data('order-info', orderInfoObj);
 
-        $('#popup-compose-form .modal-content').removeClass().addClass('modal-content');
+        //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content');
+        $('.modal-backdrop').removeClass(function (index, className) {
+            return (className.match(/(^|\s)blinking-background-\S+/g) || []).join(' ');
+        });
 
         //TODO: перевод
         var html = '<h3>Заказ успешно завершен.</h3>'
@@ -499,7 +513,7 @@ gl.functions.setUpPaneOnOrderSuccessfullyFinished = function (orderId, merchantD
         elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
 
         $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
-        elems['#order-form-submit'].find('.order-data-container.info-panel').removeClass().addClass('order-data-container info-panel');
+        //elems['#order-form-submit'].find('.order-data-container.info-panel').removeClass().addClass('order-data-container info-panel');
         gl.data.worldMap.hideCourier();
 
         result = true;

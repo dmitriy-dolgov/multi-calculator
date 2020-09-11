@@ -200,6 +200,7 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markers) {
 };
 
 gl.functions.placesMap.prototype.connectMarkersWithCustomer = function () {
+    //return;
     //this.customerMarksConnectors = [];
 
     /*for (var i in this.map._layers) {
@@ -298,15 +299,41 @@ gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (mercha
         this.map.removeLayer(this.flowmapLayer);
     }
 
-    /*var geoJsonFeatureCollection = {
+    var geoJsonFeatureCollection = {
         type: 'FeatureCollection',
         features: []
     };
 
     var customerLatLon = this.customerMarker.getLatLng();
     for (var mId in this.markers) {
+        gl.log('this.markers[mId].id: ' + this.markers[mId].id);
+        if (this.markers[mId].id != merchantId) {
+            continue;
+        }
+        gl.log('PASSED');
+
         var mrkLanLng = this.markers[mId].marker.getLatLng();
 
+        gl.log('mrkLanLng.lng: ' + mrkLanLng.lng + '; mrkLanLng.lat: ' + mrkLanLng.lat);
+        gl.log('customerLatLon.lng: ' + customerLatLon.lng + '; customerLatLon.lat: ' + customerLatLon.lat);
+
+        /*geoJsonFeatureCollection.features.push({
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [mrkLanLng.lng, mrkLanLng.lat]
+                    //"coordinates": [customerLatLon.lng, customerLatLon.lat]
+                },
+                "properties": {
+                    "origin_id": this.markers[mId].id,
+                    "origin_lon": mrkLanLng.lng,
+                    "origin_lat": mrkLanLng.lat,
+                    "destination_id": 9999999,
+                    "destination_lon": customerLatLon.lng,
+                    "destination_lat": customerLatLon.lat
+                }
+            }
+        );*/
         geoJsonFeatureCollection.features.push({
                 "type": "Feature",
                 "geometry": {
@@ -325,7 +352,7 @@ gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (mercha
         );
     }
 
-    var exampleFlowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
+    this.flowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
         originAndDestinationFieldIds: {
             originUniqueIdField: 'origin_id',
             originGeometry: {
@@ -347,5 +374,5 @@ gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (mercha
         animationDuration: 2000
     }).addTo(this.map);
 
-    exampleFlowmapLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');*/
+    this.flowmapLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
 };

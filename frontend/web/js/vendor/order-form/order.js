@@ -422,6 +422,9 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         orderInfoObj.orderStatus = 'accepted-by-courier';
         container.data('order-info', orderInfoObj);
 
+        //TODO: Здесь надо убрать все соединяющие линии и установить связь обратную от пиццерии к пользователю.
+        gl.functions.worldMap.connectAPizzeriaWithCustomer(merchantData.id);
+
         //TODO: здесь мигает окно "заказы" и если окно с текущим заказом открыто, то мигает и оно
         //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-accepted-by-courier');
         $('.modal-backdrop').removeClass(function (index, className) {

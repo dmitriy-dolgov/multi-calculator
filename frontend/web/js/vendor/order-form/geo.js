@@ -19,7 +19,7 @@ gl.functions.correctGeolocation = function () {
 gl.functions.getCurrentGeoLocation = function () {
     var coords = {lat: 55.107540130615, lng: 33.267589569092};
 
-    gl.log('getCurrentGeoLocation before');
+    //gl.log('getCurrentGeoLocation before');
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -50,7 +50,7 @@ gl.functions.getCurrentGeoLocation = function () {
     ff();*/
 
 
-    gl.log('getCurrentGeoLocation return');
+    //gl.log('getCurrentGeoLocation return');
     return coords;
 };
 
@@ -279,4 +279,73 @@ gl.functions.placesMap.prototype.connectMarkersWithCustomer = function () {
     }).addTo(this.map);
 
     exampleFlowmapLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
+};
+
+/**
+ * Удалить все соединения и установить соединение от пиццерии до пользователя.
+ *
+ * @param $merchantId ID пиццерии
+ */
+gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function ($merchantId) {
+
+    for (var i in this.map._layers) {
+        if (this.map._layers[i]._path != undefined) {
+            try {
+                this.map.removeLayer(this.map._layers[i]);
+            } catch (e) {
+                console.log("problem with " + e + this.map._layers[i]);
+            }
+        }
+    }
+
+    /*var geoJsonFeatureCollection = {
+        type: 'FeatureCollection',
+        features: []
+    };
+
+    var customerLatLon = this.customerMarker.getLatLng();
+    for (var mId in this.markers) {
+        var mrkLanLng = this.markers[mId].marker.getLatLng();
+
+        geoJsonFeatureCollection.features.push({
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [customerLatLon.lng, customerLatLon.lat]
+                },
+                "properties": {
+                    "origin_id": 0,
+                    "origin_lon": customerLatLon.lng,
+                    "origin_lat": customerLatLon.lat,
+                    "destination_id": this.markers[mId].id,
+                    "destination_lon": mrkLanLng.lng,
+                    "destination_lat": mrkLanLng.lat
+                }
+            }
+        );
+    }
+
+    var exampleFlowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
+        originAndDestinationFieldIds: {
+            originUniqueIdField: 'origin_id',
+            originGeometry: {
+                x: 'origin_lon',
+                y: 'origin_lat'
+            },
+            destinationUniqueIdField: 'destination_id',
+            destinationGeometry: {
+                x: 'destination_lon',
+                y: 'destination_lat'
+            }
+        },
+
+        // some custom options
+        pathDisplayMode: 'selection',
+        animationStarted: true,
+        animationEasingFamily: 'Cubic',
+        animationEasingType: 'In',
+        animationDuration: 2000
+    }).addTo(this.map);
+
+    exampleFlowmapLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');*/
 };

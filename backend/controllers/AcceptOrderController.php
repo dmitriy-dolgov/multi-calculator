@@ -69,6 +69,7 @@ class AcceptOrderController extends Controller
                     'order_status' => 'accepted-by-merchant',
                     'orderUid' => $orderUid,
                     'merchantData' => [
+                        'id' => $user->id,
                         'name' => $user->profile->name,
                         'address' => $user->profile->location,
                         'company_lat_long' => $user->profile->company_lat_long,
@@ -87,6 +88,7 @@ class AcceptOrderController extends Controller
                     'order_status' => 'accepted-by-merchant',
                     'orderUid' => $orderUid,
                     'merchantData' => [
+                        'id' => $user->id,
                         'name' => $user->profile->name,
                         'address' => $user->profile->location,
                         'company_lat_long' => $user->profile->company_lat_long,
@@ -108,6 +110,7 @@ class AcceptOrderController extends Controller
                     'order_status' => 'accepted-by-merchant',
                     'orderUid' => $orderUid,
                     'merchantData' => [
+                        'id' => $user->id,
                         'name' => $user->profile->name,
                         'address' => $user->profile->location,
                         'company_lat_long' => $user->profile->company_lat_long,
@@ -143,6 +146,7 @@ class AcceptOrderController extends Controller
             'order_status' => 'accepted-by-merchant',
             'orderUid' => $orderUid,
             'merchantData' => [
+                'id' => $user->id,
                 'name' => $user->profile->name,
                 'address' => $user->profile->location,
                 'company_lat_long' => $user->profile->company_lat_long,
@@ -174,6 +178,7 @@ class AcceptOrderController extends Controller
             'order_status' => 'accepted-by-courier',
             'orderUid' => '$orderUid',
             'merchantData' => [
+                'id' => $user->id,
                 'name' => $user->profile->name,
                 'address' => $user->profile->location,
                 'company_lat_long' => $user->profile->company_lat_long,

@@ -89,6 +89,7 @@ class ShopOrderCourier extends ShopOrderWorker
                     //'order_status' => 'accepted-by-courier',
                     //'orderUid' => $shopOrder->order_uid,
                     'merchantData' => [
+                        'id' => $merchant->id,
                         'name' => $merchant->profile->name,
                         'address' => $merchant->profile->location,
                         'company_lat_long' => $merchant->profile->company_lat_long,
@@ -139,6 +140,7 @@ class ShopOrderCourier extends ShopOrderWorker
 
                 $acceptedOrderData = [
                     'merchantData' => [
+                        'id' => $merchant->id,
                         'name' => $merchant->profile->name,
                         'address' => $merchant->profile->location,
                         'company_lat_long' => $merchant->profile->company_lat_long,
@@ -199,6 +201,7 @@ class ShopOrderCourier extends ShopOrderWorker
 
                 $acceptedOrderData = [
                     'merchantData' => [
+                        'id' => $merchant->id,
                         'name' => $merchant->profile->name,
                         'address' => $merchant->profile->location,
                         'company_lat_long' => $merchant->profile->company_lat_long,

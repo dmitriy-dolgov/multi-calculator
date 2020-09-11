@@ -202,15 +202,19 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markers) {
 gl.functions.placesMap.prototype.connectMarkersWithCustomer = function () {
     //this.customerMarksConnectors = [];
 
-    for (var i in this.map._layers) {
+    /*for (var i in this.map._layers) {
+        gl.log('LAYER ' + i);
         if (this.map._layers[i]._path != undefined) {
+            gl.log('L path: ' + this.map._layers[i]._path);
             try {
                 this.map.removeLayer(this.map._layers[i]);
             } catch (e) {
                 console.log("problem with " + e + this.map._layers[i]);
             }
+        } else {
+            gl.log('L UNDEFINED');
         }
-    }
+    }*/
 
     var geoJsonFeatureCollection = {
         type: 'FeatureCollection',
@@ -256,7 +260,7 @@ gl.functions.placesMap.prototype.connectMarkersWithCustomer = function () {
         //myMovingMarker.start();*/
     }
 
-    var exampleFlowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
+    this.flowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
         originAndDestinationFieldIds: {
             originUniqueIdField: 'origin_id',
             originGeometry: {
@@ -278,7 +282,7 @@ gl.functions.placesMap.prototype.connectMarkersWithCustomer = function () {
         animationDuration: 2000
     }).addTo(this.map);
 
-    exampleFlowmapLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
+    this.flowmapLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
 };
 
 /**
@@ -286,16 +290,12 @@ gl.functions.placesMap.prototype.connectMarkersWithCustomer = function () {
  *
  * @param $merchantId ID пиццерии
  */
-gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function ($merchantId) {
+gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (merchantId) {
 
-    for (var i in this.map._layers) {
-        if (this.map._layers[i]._path != undefined) {
-            try {
-                this.map.removeLayer(this.map._layers[i]);
-            } catch (e) {
-                console.log("problem with " + e + this.map._layers[i]);
-            }
-        }
+    gl.log('connectAPizzeriaWithCustomer(), merchantId: ' + merchantId);
+
+    if (this.flowmapLayer) {
+        this.map.removeLayer(this.flowmapLayer);
     }
 
     /*var geoJsonFeatureCollection = {

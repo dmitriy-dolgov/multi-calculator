@@ -203,12 +203,12 @@ gl.functions.composeOrder = function () {
                 //gl.functions.sse.waitForMerchantOrderAccept(result.order_uid);
                 gl.functions.sse.startOrderAccept(result.order_uid);
 
-                var mapDetached = elems['#order-form-submit'].find('.component-container .map-placeholder').fadeOut(300, function () {
+                /*var mapDetached = elems['#order-form-submit'].find('.component-container .map-placeholder').fadeOut(300, function () {
                     var mapDetached = elems['#order-form-submit'].find('.component-container .map-placeholder').detach();
                     //elems['#order-form-submit'].find('.component-container .your-data').after(mapDetached);
                     elems['#order-form-submit'].find('.component-container').prepend(mapDetached);
                     mapDetached.fadeIn(1300);
-                });
+                });*/
 
                 /*gl.functions.fillOrderInfo(result, {
                     deliver_customer_name: deliver_customer_name,
@@ -377,6 +377,9 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
         //container.data('order-info', JSON.stringify(orderInfoObj));
         container.data('order-info', orderInfoObj);
 
+        //TODO: Здесь надо убрать все соединяющие линии и установить связь обратную от пиццерии к пользователю.
+        gl.data.worldMap.connectAPizzeriaWithCustomer(merchantData.id);
+
         //TODO: здесь мигает окно "заказы" и если окно с текущим заказом открыто, то мигает и оно
         //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-accepted');
         elems['#order-form-submit'].find('.order-data-container.info-panel').removeClass('blinking-border-order-accepted');
@@ -421,9 +424,6 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         var orderInfoObj = orderInfoJson;
         orderInfoObj.orderStatus = 'accepted-by-courier';
         container.data('order-info', orderInfoObj);
-
-        //TODO: Здесь надо убрать все соединяющие линии и установить связь обратную от пиццерии к пользователю.
-        gl.functions.worldMap.connectAPizzeriaWithCustomer(merchantData.id);
 
         //TODO: здесь мигает окно "заказы" и если окно с текущим заказом открыто, то мигает и оно
         //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-accepted-by-courier');

@@ -17,9 +17,6 @@ $this->registerJs(<<<JS
 JS
 );
 
-/*$this->registerJsFile(Url::to(['/js/order-handling/longpoll.js']),
-    ['depends' => ['backend\assets\WorkerAsset'], 'appendTimestamp' => YII_DEBUG]);*/
-
 ?>
 <header class="header">
     <div class="caption"><?= Html::encode(Yii::t('app', 'Individual Co-Worker`s Site')) ?></div>
@@ -43,32 +40,17 @@ JS
 
     <?= \common\widgets\Alert::widget() ?>
 
-    <?php foreach ($orders as $id => $orderList): ?>
-        <div class="function-orders-pane <?= $id ?>">
+    <?php foreach ($orders as $workerType => $orderList): ?>
+        <div class="function-orders-pane <?= $workerType ?>">
             <?php
-            if ($id == 'accept_orders') {
+            if ($workerType == 'accept_orders') {
                 echo $this->render('_accept_orders', ['orderList' => $orderList, 'worker' => $worker]);
-            } elseif ($id == 'maker') {
-                echo $this->render('_cook', ['orderList' => $orderList, 'worker' => $worker]);
-            } elseif ($id == 'courier') {
+            } elseif ($workerType == 'maker') {
+                echo $this->render('_maker', ['orderList' => $orderList, 'worker' => $worker]);
+            } elseif ($workerType == 'courier') {
                 echo $this->render('_courier', ['orderList' => $orderList, 'worker' => $worker]);
             }
             ?>
         </div>
     <?php endforeach; ?>
-
-    <?php /*if (isset($coWorkerFunctions['accept_orders'])): */ ?><!--
-        <hr>
-        <? /*= $this->render('_accept_orders', ['worker' => $worker]) */ ?>
-    <?php /*endif; */ ?>
-
-    <?php /*if (isset($coWorkerFunctions['maker'])): */ ?>
-        <hr>
-        <? /*= $this->render('_cook', ['worker' => $worker]) */ ?>
-    <?php /*endif; */ ?>
-
-    <?php /*if (isset($coWorkerFunctions['courier'])): */ ?>
-        <hr>
-        <? /*= $this->render('_courier', ['worker' => $worker]) */ ?>
-    --><?php /*endif; */ ?>
 </main>

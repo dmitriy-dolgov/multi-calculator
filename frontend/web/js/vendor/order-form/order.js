@@ -377,6 +377,9 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
         //container.data('order-info', JSON.stringify(orderInfoObj));
         container.data('order-info', orderInfoObj);
 
+        gl.log('audioElement.play();');
+        audioElement.play();
+
         //TODO: Здесь надо убрать все соединяющие линии и установить связь обратную от пиццерии к пользователю.
         gl.data.worldMap.connectAPizzeriaWithCustomer(merchantData.id);
 
@@ -425,6 +428,8 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         orderInfoObj.orderStatus = 'accepted-by-courier';
         container.data('order-info', orderInfoObj);
 
+        audioElement.play();
+
         //TODO: здесь мигает окно "заказы" и если окно с текущим заказом открыто, то мигает и оно
         //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-accepted-by-courier');
         $('.modal-backdrop').removeClass(function (index, className) {
@@ -466,6 +471,8 @@ gl.functions.setUpPaneOnOrderCourierArrived = function (orderId, merchantData, c
         orderInfoObj.orderStatus = 'finished';
         container.data('order-info', orderInfoObj);
 
+        audioElement.play();
+
         //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-courier-arrived');
         $('.modal-backdrop').removeClass(function (index, className) {
             return (className.match(/(^|\s)blinking-background-\S+/g) || []).join(' ');
@@ -501,6 +508,8 @@ gl.functions.setUpPaneOnOrderSuccessfullyFinished = function (orderId, merchantD
         orderInfoObj.orderStatus = 'finished';
         container.data('order-info', orderInfoObj);
 
+        audioElement.play();
+
         //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content');
         $('.modal-backdrop').removeClass(function (index, className) {
             return (className.match(/(^|\s)blinking-background-\S+/g) || []).join(' ');
@@ -533,3 +542,36 @@ if (gl.orderFormHistory.ifSomethingInStore) {
 }
 
 gl.functions.orderCalculatePrice();
+
+
+// AUDIO
+var audioElement = document.createElement('audio');
+audioElement.setAttribute('src', '/sound/33244__ljudman__dingding.wav');
+
+/*audioElement.addEventListener('ended', function() {
+    this.play();
+}, false);*/
+
+/*audioElement.addEventListener("canplay",function(){
+    $("#length").text("Duration:" + audioElement.duration + " seconds");
+    $("#source").text("Source:" + audioElement.src);
+    $("#status").text("Status: Ready to play").css("color","green");
+});*/
+
+/*audioElement.addEventListener("timeupdate",function(){
+    $("#currentTime").text("Current second:" + audioElement.currentTime);
+});*/
+
+/*$('#play').click(function() {
+    audioElement.play();
+    //$("#status").text("Status: Playing");
+});*/
+
+/*$('#pause').click(function() {
+    audioElement.pause();
+    //$("#status").text("Status: Paused");
+});*/
+
+/*$('#restart').click(function() {
+    audioElement.currentTime = 0;
+});*/

@@ -310,14 +310,10 @@ gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (mercha
         if (this.markers[mId].id != merchantId) {
             continue;
         }
-        gl.log('PASSED');
 
         var mrkLanLng = this.markers[mId].marker.getLatLng();
 
-        gl.log('mrkLanLng.lng: ' + mrkLanLng.lng + '; mrkLanLng.lat: ' + mrkLanLng.lat);
-        gl.log('customerLatLon.lng: ' + customerLatLon.lng + '; customerLatLon.lat: ' + customerLatLon.lat);
-
-        /*geoJsonFeatureCollection.features.push({
+        geoJsonFeatureCollection.features.push({
                 "type": "Feature",
                 "geometry": {
                     "type": "Point",
@@ -328,51 +324,37 @@ gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (mercha
                     "origin_id": this.markers[mId].id,
                     "origin_lon": mrkLanLng.lng,
                     "origin_lat": mrkLanLng.lat,
-                    "destination_id": 9999999,
+                    "destination_id": 0,
                     "destination_lon": customerLatLon.lng,
                     "destination_lat": customerLatLon.lat
                 }
             }
-        );*/
-        geoJsonFeatureCollection.features.push({
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [customerLatLon.lng, customerLatLon.lat]
-                },
-                "properties": {
-                    "origin_id": 0,
-                    "origin_lon": customerLatLon.lng,
-                    "origin_lat": customerLatLon.lat,
-                    "destination_id": this.markers[mId].id,
-                    "destination_lon": mrkLanLng.lng,
-                    "destination_lat": mrkLanLng.lat
-                }
-            }
         );
-    }
 
-    this.flowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
-        originAndDestinationFieldIds: {
-            originUniqueIdField: 'origin_id',
-            originGeometry: {
-                x: 'origin_lon',
-                y: 'origin_lat'
+        this.flowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
+            originAndDestinationFieldIds: {
+                originUniqueIdField: 'origin_id',
+                originGeometry: {
+                    x: 'origin_lon',
+                    y: 'origin_lat'
+                },
+                destinationUniqueIdField: 'destination_id',
+                destinationGeometry: {
+                    x: 'destination_lon',
+                    y: 'destination_lat'
+                }
             },
-            destinationUniqueIdField: 'destination_id',
-            destinationGeometry: {
-                x: 'destination_lon',
-                y: 'destination_lat'
-            }
-        },
 
-        // some custom options
-        pathDisplayMode: 'selection',
-        animationStarted: true,
-        animationEasingFamily: 'Cubic',
-        animationEasingType: 'In',
-        animationDuration: 2000
-    }).addTo(this.map);
+            // some custom options
+            pathDisplayMode: 'selection',
+            animationStarted: true,
+            animationEasingFamily: 'Cubic',
+            animationEasingType: 'In',
+            animationDuration: 2000
+        }).addTo(this.map);
 
-    this.flowmapLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
+        this.flowmapLayer.selectFeaturesForPathDisplayById('origin_id', this.markers[mId].id, true, 'SELECTION_NEW');
+
+        break;
+    }
 };

@@ -291,4 +291,8 @@ return [
     'Nobody accepts the order online. It may be outdated.' => 'Заказ никто не принимает онлайн. Возможно, он устарел.',
     'Unknown order status "{status}". Please refer your manager.' => 'Неизвестный статус заказа "{status}". Обратитесь к менеджеру.',
     'Monitoring' => 'Мониторинг',
+    'Expand orders' => 'Развернуть заказы',
+    'Collapse orders' => 'Свернуть заказы',
+    'Expand all orders' => 'Развернуть все заказы',
+    'Collapse all orders' => 'Свернуть все заказы',
 ];

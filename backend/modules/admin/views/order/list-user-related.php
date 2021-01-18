@@ -2,6 +2,8 @@
 
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
+use common\models\db\User;
+use common\models\db\ShopOrder;
 
 /**
  * @var $this         yii\web\View
@@ -32,21 +34,43 @@ $module = Yii::$app->getModule('user');
                     'value' => function ($model, $key, $index, $column) {
                         return GridView::ROW_COLLAPSED;
                     },
-                    'detail' => function ($model, $key, $index) {
-                        return 'sdfkjsdfl';
+                    'detail' => function (User $modelUser, $key, $index) {
+
+                        $shopOrderList = [];
+
+                        /** @var ShopOrder $modelShopOrder */
+                        foreach ($modelUser->shopOrders as $modelShopOrder) {
+                            $usersText = '<div class="amount-caption">'
+                                . Yii::t('app', 'Total pizzerias: {amount}',
+                                    ['amount' => $modelShopOrder->getAmountOfUsers()])
+                                . '</div>';
+
+                            $shoStatuses = $modelShopOrder->getShopOrderStatuses()->andWhere(['shop_order_id' => $modelShopOrder->getPrimaryKey()])->all();
+                            //Yii::$app->user->identity->getShopOrderStatuses()
+
+                            $statusList = [];
+                            foreach ($shoStatuses as $status) {
+                                $statusList[] = $status->getStatusName();
+                            }
+
+                            if ($statusList) {
+                                $shopOrderList[] = $usersText . '<hr>' . implode('<br>', $statusList);
+                            } else {
+                                $shopOrderList[] = Yii::t('app', 'No order statuses');
+                            }
+
+                        }
+
+                        if (!$shopOrderList) {
+                            $shopOrderList[] = Yii::t('app', 'No orders');
+                        }
+
+                        return implode('<hr><hr>', $shopOrderList);
                     },
                     'expandTitle' => Yii::t('app', 'Expand orders'),
                     'expandAllTitle' => Yii::t('app', 'Expand all orders'),
                     'collapseTitle' => Yii::t('app', 'Collapse orders'),
                     'collapseAllTitle' => Yii::t('app', 'Collapse all orders'),
-                    // show row expanded for even numbered keys
-                    //'detailUrl' => Url::to(['/site/book-details']),
-                    /*'value' => function ($model, $key, $index) {
-                        if ($key % 2 === 0) {
-                            return GridView::ROW_EXPANDED;
-                        }
-                        return GridView::ROW_COLLAPSED;
-                    },*/
                     'headerOptions' => ['class' => 'kartik-sheet-style'],
                     'expandOneOnly' => true,
                 ],

@@ -110,6 +110,22 @@ CSS
                     </div>
 
                     <div class="menu_section">
+                        <h3><?= Yii::t('app', 'Monitoring') ?></h3>
+                        <?= Menu::widget(
+                            [
+                                'items' => [
+                                    [
+                                        'label' => Yii::t('app', 'Orders'),
+                                        'url' => '/admin/order/list-user-related',
+                                        'icon' => 'handshake-o',
+                                    ],
+                                ],
+                            ]
+                        )
+                        ?>
+                    </div>
+
+                    <div class="menu_section">
                         <h3><?= Yii::t('app', 'Management') ?></h3>
                         <?= Menu::widget(
                             [

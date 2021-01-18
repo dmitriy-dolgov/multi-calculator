@@ -290,4 +290,5 @@ return [
     "Cound't send notice about an order to user!" => 'Не удалось отправить извещение пользователю о заказе!',
     'Nobody accepts the order online. It may be outdated.' => 'Заказ никто не принимает онлайн. Возможно, он устарел.',
     'Unknown order status "{status}". Please refer your manager.' => 'Неизвестный статус заказа "{status}". Обратитесь к менеджеру.',
+    'Monitoring' => 'Мониторинг',
 ];

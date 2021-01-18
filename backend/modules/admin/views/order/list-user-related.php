@@ -39,13 +39,14 @@ $module = Yii::$app->getModule('user');
                         $shopOrderList = [];
 
                         /** @var ShopOrder $modelShopOrder */
-                        foreach ($modelUser->shopOrders as $modelShopOrder) {
+                        foreach ($modelUser->shopOrders0 as $modelShopOrder) {
                             $usersText = '<div class="amount-caption">'
                                 . Yii::t('app', 'Total pizzerias: {amount}',
                                     ['amount' => $modelShopOrder->getAmountOfUsers()])
                                 . '</div>';
 
-                            $shoStatuses = $modelShopOrder->getShopOrderStatuses()->andWhere(['shop_order_id' => $modelShopOrder->getPrimaryKey()])->all();
+                            //TODO: что за костыль с user_id ?
+                            $shoStatuses = $modelShopOrder->getShopOrderStatuses()->andWhere(['user_id' => $modelUser->id, 'shop_order_id' => $modelShopOrder->getPrimaryKey()])->all();
                             //Yii::$app->user->identity->getShopOrderStatuses()
 
                             $statusList = [];

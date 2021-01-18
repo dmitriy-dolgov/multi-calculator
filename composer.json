@@ -53,7 +53,8 @@
         "izumi-kun/yii2-longpoll": "dev-master",
         "odannyc/yii2-sse": "dev-master",
         "morozovsk/yii2-websocket": "dev-master",
-        "workerman/workerman": "dev-master"
+        "workerman/workerman": "dev-master",
+        "kartik-v/yii2-slider": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

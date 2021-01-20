@@ -46,29 +46,16 @@ JS
 
                         /** @var ShopOrder $modelShopOrder */
                         foreach ($modelUser->shopOrders0 as $modelShopOrder) {
-                            /*$usersText = '<div class="amount-caption">'
-                                . Yii::t('app', 'Total pizzerias: {amount}',
-                                    ['amount' => $modelShopOrder->getAmountOfUsers()])
-                                . '</div>';*/
                             $orderData['amount_of_pizzerias'] = $modelShopOrder->getAmountOfUsers();
                             $orderData['order_uid'] = $modelShopOrder->order_uid;
 
                             //TODO: что за костыль с user_id ?
                             $shoStatuses = $modelShopOrder->getShopOrderStatuses()->andWhere(['user_id' => $modelUser->id, 'shop_order_id' => $modelShopOrder->getPrimaryKey()])->all();
-                            //Yii::$app->user->identity->getShopOrderStatuses()
 
                             $orderData['status_list'] = [];
                             foreach ($shoStatuses as $status) {
                                 $orderData['status_list'][] = $status->getStatusName();
                             }
-
-                            /*if ($statusList) {
-                                $shopOrderList[] = [
-                                        $usersText . '<hr>' . implode('<br>', $statusList)
-                                ];
-                            } else {
-                                $shopOrderList[] = Yii::t('app', 'No order statuses');
-                            }*/
 
                             $shopOrderList[] = $orderData;
                         }
@@ -79,10 +66,10 @@ JS
                             $htmlOrders = Yii::t('app', 'No orders');
                         }
 
-                        foreach ($shopOrderList as $shopOrder) {
+                        foreach ($shopOrderList as $orderData) {
                             $htmlOrderAmount = '<div class="order-amount-caption">'
                                 . Yii::t('app', 'Total pizzerias: {amount}',
-                                    ['amount' => $shopOrder['amount_of_pizzerias']])
+                                    ['amount' => $orderData['amount_of_pizzerias']])
                                 . '</div>';
                             $htmlOrderList = '';
                             if ($orderData['status_list']) {
@@ -94,13 +81,12 @@ JS
                             }
 
                             $htmlOrders .= '<div class="wrapper-order-fold">'
-                                . '<button class="btn btn-default btn-order-info">' . Yii::t('app', 'Order № {order_uid}', ['order_uid' => $shopOrder['order_uid']]) . '</button>'
-                                . '<div class="order-fold">' . $htmlOrderAmount . $htmlOrderList . '</div>'
+                                . '<button class="btn btn-default btn-order-info">' . Yii::t('app', 'Order № {order_uid}', ['order_uid' => $orderData['order_uid']]) . '</button>'
+                                . '<div class="order-fold" style="display: none">' . $htmlOrderAmount . $htmlOrderList . '</div>'
                                 . '</div>';
                         }
 
                         return $htmlOrders;
-                        //return implode('<hr><hr>', $shopOrderList);
                     },
                     'expandTitle' => Yii::t('app', 'Expand orders'),
                     'expandAllTitle' => Yii::t('app', 'Expand all orders'),

@@ -45,7 +45,8 @@ JS
                         $shopOrderList = [];
 
                         /** @var ShopOrder $modelShopOrder */
-                        foreach ($modelUser->shopOrders0 as $modelShopOrder) {
+                        //foreach ($modelUser->shopOrders0 as $modelShopOrder) {
+                        foreach ($modelUser->getShopOrders0()->orderBy(['id' => SORT_DESC])->limit(10)->all() as $modelShopOrder) {
                             $orderData['amount_of_pizzerias'] = $modelShopOrder->getAmountOfUsers();
                             $orderData['order_data'] = $modelShopOrder;
 

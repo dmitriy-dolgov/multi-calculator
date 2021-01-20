@@ -47,7 +47,7 @@ JS
                         /** @var ShopOrder $modelShopOrder */
                         foreach ($modelUser->shopOrders0 as $modelShopOrder) {
                             $orderData['amount_of_pizzerias'] = $modelShopOrder->getAmountOfUsers();
-                            $orderData['order_uid'] = $modelShopOrder->order_uid;
+                            $orderData['order_data'] = $modelShopOrder;
 
                             //TODO: что за костыль с user_id ?
                             $shoStatuses = $modelShopOrder->getShopOrderStatuses()->andWhere(['user_id' => $modelUser->id, 'shop_order_id' => $modelShopOrder->getPrimaryKey()])->all();
@@ -81,7 +81,7 @@ JS
                             }
 
                             $htmlOrders .= '<div class="wrapper-order-fold">'
-                                . '<button class="btn btn-default btn-order-info">' . Yii::t('app', 'Order № {order_uid}', ['order_uid' => $orderData['order_uid']]) . '</button>'
+                                . '<button class="btn btn-default btn-order-info">' . Yii::t('app', 'Order № {order_uid}', [$orderData['order_uid'] => $orderData['order_uid']]) . '</button>'
                                 . '<div class="order-fold" style="display: none">' . $htmlOrderAmount . $htmlOrderList . '</div>'
                                 . '</div>';
                         }

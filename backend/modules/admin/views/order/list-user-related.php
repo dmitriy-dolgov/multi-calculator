@@ -81,7 +81,7 @@ JS
                             }
 
                             $htmlOrders .= '<div class="wrapper-order-fold">'
-                                . '<button class="btn btn-default btn-order-info">' . Yii::t('app', 'Order № {order_uid}', [$orderData['order_uid'] => $orderData['order_uid']]) . '</button>'
+                                . '<button class="btn btn-default btn-order-info">' . Yii::t('app', 'Order № {order_uid}', ['order_uid' => $orderData['order_data']['order_uid']]) . '</button>'
                                 . '<div class="order-fold" style="display: none">' . $htmlOrderAmount . $htmlOrderList . '</div>'
                                 . '</div>';
                         }

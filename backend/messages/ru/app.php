@@ -295,4 +295,7 @@ return [
     'Collapse orders' => 'Свернуть заказы',
     'Expand all orders' => 'Развернуть все заказы',
     'Collapse all orders' => 'Свернуть все заказы',
+    'No orders' => 'Нет заказов',
+    'No order statuses' => 'Нет статусов для заказа',
+    'Order № {order_uid}' => 'Заказ № {order_uid}',
 ];

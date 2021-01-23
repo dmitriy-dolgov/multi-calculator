@@ -298,4 +298,5 @@ return [
     'No orders' => 'Нет заказов',
     'No order statuses' => 'Нет статусов для заказа',
     'Order № {order_uid}' => 'Заказ № {order_uid}',
+    'List of orders by users.' => 'Список заказов по пользователям.',
 ];

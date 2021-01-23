@@ -3,6 +3,7 @@
 namespace backend\modules\admin\controllers;
 
 use common\models\db\Category;
+use common\models\db\User;
 use Da\User\Controller\AdminController as BaseController;
 use Da\User\Search\UserSearch;
 use Yii;
@@ -22,6 +23,17 @@ class OrderController extends BaseController
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionOrdersByUser()
+    {
+        $userId = Yii::$app->request->post('expandRowKey');
+
+        $modelUser = User::findOne($userId);
+
+        //$finished
+
+        return $this->renderPartial('_orders-for-user', compact('modelUser'));
     }
 
     /**

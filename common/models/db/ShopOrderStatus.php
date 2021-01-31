@@ -152,7 +152,7 @@ class ShopOrderStatus extends \yii\db\ActiveRecord
     public function setStatus($type)
     {
         if (!isset(self::getStatusTypeList()[$type])) {
-            throw new \LogicException('No such status: ' . $type);
+            throw new \DomainException('No such status: ' . $type);
         }
         $this->type = $type;
     }
@@ -160,6 +160,15 @@ class ShopOrderStatus extends \yii\db\ActiveRecord
     public function getStatusName()
     {
         return self::getStatusTypeList()[$this->type];
+    }
+
+    public static function getStatusNameByType($type)
+    {
+        if (!isset(self::getStatusTypeList()[$type])) {
+            throw new \DomainException('No such status: ' . $type);
+        }
+
+        return self::getStatusTypeList()[$type];
     }
 
     //TODO: рассмотреть нужна ли эта функция

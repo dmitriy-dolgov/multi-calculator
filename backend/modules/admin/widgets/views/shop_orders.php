@@ -4,7 +4,7 @@ use backend\modules\admin\widgets\models\ShopOrderHtmlElemData;
 
 /**
  * @var \yii\web\View $this
- * @var ShopOrderHtmlElemData $shopOrderHtmlElemData[]
+ * @var ShopOrderHtmlElemData $shopOrderHtmlElemData []
  */
 
 $htmlOrders = '';
@@ -47,3 +47,39 @@ foreach ($shopOrderList as $orderData) {
 }
 
 echo $htmlOrders;*/
+?>
+<div style="width: 100%">
+    <button style="width: 100%; text-align: center">Оплачен пользователем</button>
+    <button class="btn btn-default" style="width: 80%; float: right">
+        <div style="font-weight: bold">yN-jDwbby1nRb7d</div>
+        <div style="font-style: italic; margin-left: 2em">2021-01-17 20:50:49</div>
+    </button>
+    <ul style="width: 60%; float: right">
+        <li>Создан (2021-01-17 20:50:49)</li>
+        <li>Принят поваром (2021-01-17 21:25:27)</li>
+        <li>Принят курьером (2021-01-17 21:52:02)</li>
+        <li>Доставлен пользователю (2021-01-17 22:28:22)</li>
+        <li>Оплачен пользователем (2021-01-17 22:30:30)</li>
+    </ul>
+    <button class="btn btn-success" style="width: 80%; float: right">Завершить</button>
+</div>
+<div style="width: 100%; margin-top: 20px; display: inline-block">
+    <button style="width: 100%; text-align: center">Создан</button>
+    <button class="btn btn-default" style="width: 80%; float: right">
+        <div style="font-weight: bold">BD_8pCIrhF2gE1T</div>
+        <div style="font-style: italic; margin-left: 2em">2021-01-19 19:08:35</div>
+    </button>
+    <ul style="width: 60%; float: right">
+        <li>Создан (2021-01-17 20:50:49)</li>
+    </ul>
+    <div style="width: 80%; float: right">
+        <button class="btn btn-success" style="width: 30%">Принять поваром</button>
+        <select>
+            <option> - Выбрать повара -</option>
+            <option>Ladlen</option>
+            <option>daiviz</option>
+            <option>335533</option>
+            <option>id20013921</option>
+        </select>
+    </div>
+</div>

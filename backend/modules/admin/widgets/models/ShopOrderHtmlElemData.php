@@ -5,17 +5,21 @@ namespace backend\modules\admin\widgets\models;
 use common\models\db\ShopOrder;
 use common\models\db\ShopOrderStatus;
 use yii\base\BaseObject;
+use yii\helpers\ArrayHelper;
 
 class ShopOrderHtmlElemData extends BaseObject
 {
     /** @var string */
-    public $orderStatusType;
+    protected $_orderStatusType;
 
     /** @var ShopOrder[] */
-    public $orderList = [];
+    protected $_orderList = [];
+
+    /** @var string */
+    protected $_orderStatusName;
 
     /** @var ShopOrderStatus[] */
-    public $orderStatusList = false;
+    public $_orderStatusList = [];
 
 
     public function __construct(string $orderStatusType, array $orderList, $config = [])
@@ -29,53 +33,75 @@ class ShopOrderHtmlElemData extends BaseObject
     /**
      * @return string
      */
-//    public function getOrderStatusType(): string
-//    {
-//        return $this->_orderStatusType;
-//    }
-//
-//    /**
-//     * @param string $orderStatusType
-//     */
-//    private function setOrderStatusType(string $orderStatusType): void
-//    {
-//        $this->_orderStatusType = $orderStatusType;
-//    }
-//
-//    /**
-//     * @return ShopOrder[]
-//     */
-//    public function getOrderList(): array
-//    {
-//        return $this->_orderList;
-//    }
-//
-//    /**
-//     * @param ShopOrder[] $orderList
-//     */
-//    public function setOrderList(array $orderList): void
-//    {
-//        $this->_orderList = $orderList;
-//    }
+    public function getOrderStatusType(): string
+    {
+        return $this->_orderStatusType;
+    }
+
+    /**
+     * @param string $orderStatusType
+     */
+    protected function setOrderStatusType(string $orderStatusType): void
+    {
+        $this->_orderStatusType = $orderStatusType;
+    }
+
+    /**
+     * @return ShopOrder[]
+     */
+    public function getOrderList(): array
+    {
+        return $this->_orderList;
+    }
+
+    /**
+     * @param ShopOrder[] $orderList
+     */
+    protected function setOrderList(array $orderList): void
+    {
+        $orderListNewKeys = ArrayHelper::getColumn($orderList, function ($orderElement) {
+            return [$orderElement->id => $orderElement];
+        });
+
+        $this->_orderList = $orderListNewKeys;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderStatusName(): string
+    {
+        if (!$this->_orderStatusName) {
+            $this->_orderStatusName = ShopOrderStatus::getStatusNameByType($this->getOrderStatusType());
+        }
+
+        return $this->_orderStatusName;
+    }
 
     /**
      * @return ShopOrderStatus[]
      */
-    public function getOrderStatusList(): array
+    public function getOrderStatusList($orderId): array
     {
-        if ($this->_orderStatusList === false) {
-            $this->_orderStatusList = $this->_orderList->modelUser->getShopOrders0()->orderBy(['created_at' => SORT_DESC])->all();
+        if (!isset($this->getOrderList()[$orderId])) {
+            throw new \DomainException('No order with id ' . $orderId);
         }
 
-        return $this->_orderStatusList;
+        if (!isset($this->_orderStatusList[$orderId])) {
+            /*$orderObj = $this->getOrderList()[$orderId];
+            if (!isset($this->_orderStatusList[$orderId])) {
+                if ($this->_orderStatusList === null) {
+                    $this->_orderStatusList = $this->_orderList->modelUser->getShopOrders0()->orderBy(['created_at' => SORT_DESC])->all();
+                }
+            }*/
+
+            //TODO: здесь остановился
+            $orderObj = $this->getOrderList()[$orderId];
+            //$this->_orderStatusList[$orderId] = $this->_orderList->modelUser->getShopOrders0()->orderBy(['created_at' => SORT_DESC])->all();
+        }
+
+        //$this->_orderStatusList[$orderId] = $orderObj->shopOrderStatuses;
+
+        return $this->_orderStatusList[$orderId];
     }
-
-    /**
-     * @param ShopOrderStatus[] $orderStatusList
-     */
-    /*private function setOrderStatusList(array $orderStatusList): void
-    {
-        $this->_orderStatusList = $orderStatusList;
-    }*/
-
 }

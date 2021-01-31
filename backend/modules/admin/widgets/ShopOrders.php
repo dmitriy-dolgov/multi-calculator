@@ -2,6 +2,8 @@
 
 namespace backend\modules\admin\widgets;
 
+use common\models\db\ShopOrderStatus;
+use Yii;
 use yii\base\Widget;
 use common\models\db\User;
 use backend\modules\admin\widgets\models\ShopOrderHtmlElemData;
@@ -19,14 +21,17 @@ class ShopOrders extends Widget
 
         $ordersByStatusType = $this->getOrdersGroupedByStatusType();
         foreach ($ordersByStatusType as $orderStatusType => $orderList) {
-            $shopOrderHtmlElemData[] = \Yii::createObject(ShopOrderHtmlElemData::class,
+            $shopOrderHtmlElemData[] = Yii::createObject(ShopOrderHtmlElemData::class,
                 [
-                    'orderStatusType' => $orderStatusType,
-                    'orderList' => $orderList,
+                    $orderStatusType,
+                    $orderList,
+                    //'orderStatusType' => $orderStatusType,
+                    //'orderStatusName' => ShopOrderStatus::getStatusNameByType($orderStatusType),
+                    //'orderList' => $orderList,
                 ]);
         }
 
-        return $this->renderPartial('shop_orders', [
+        return $this->render('shop_orders', [
                 'shopOrderHtmlElemData' => $shopOrderHtmlElemData,
             ]
         );

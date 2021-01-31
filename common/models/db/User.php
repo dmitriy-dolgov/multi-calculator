@@ -135,15 +135,15 @@ class User extends BaseUser
         return $this->hasMany(ComponentSwitchGroup::className(), ['user_id' => 'id']);
     }
 
-    /**
-     * Gets query for [[ShopOrders]].
-     *
-     * @return \yii\db\ActiveQuery|ShopOrderQuery
-     */
-    public function getShopOrders()
-    {
-        return $this->hasMany(ShopOrder::className(), ['user_id' => 'id']);
-    }
+//    /**
+//     * Gets query for [[ShopOrders]].
+//     *
+//     * @return \yii\db\ActiveQuery|ShopOrderQuery
+//     */
+//    public function getShopOrders()
+//    {
+//        return $this->hasMany(ShopOrder::className(), ['user_id' => 'id']);
+//    }
 
     /**
      * Gets query for [[ShopOrderSignal]].

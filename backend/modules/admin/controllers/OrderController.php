@@ -28,11 +28,13 @@ class OrderController extends BaseController
 
     public function actionOrdersByUser()
     {
-        $userId = Yii::$app->request->post('expandRowKey');
+        if (!$userId = Yii::$app->request->post('expandRowKey')) {
+            throw new NotFoundHttpException('Not found');
+        }
 
         $modelUser = User::findOne($userId);
 
-        return ShopOrders::widget($modelUser);
+        return ShopOrders::widget(['modelUser' => $modelUser]);
         //return $this->renderPartial('_orders-for-user', compact('modelUser'));
     }
 

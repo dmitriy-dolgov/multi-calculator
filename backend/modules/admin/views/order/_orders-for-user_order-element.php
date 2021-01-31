@@ -5,12 +5,10 @@
  * @var $modelUser common\models\db\User
  */
 
-
 $shopOrderList = [];
 
-/** @var \common\models\db\ShopOrder $modelShopOrder */
-//foreach ($modelUser->getShopOrders0()->orderBy(['id' => SORT_DESC])->limit(10)->all() as $modelShopOrder) {
-foreach ($modelUser->getShopOrders0()->orderBy(['id' => SORT_DESC])->all() as $modelShopOrder) {
+/** @var ShopOrder $modelShopOrder */
+foreach ($modelUser->getShopOrders0()->orderBy(['id' => SORT_DESC])->limit(10)->all() as $modelShopOrder) {
     $orderData['amount_of_pizzerias'] = $modelShopOrder->getAmountOfUsers();
     $orderData['order_data'] = $modelShopOrder;
 
@@ -20,30 +18,12 @@ foreach ($modelUser->getShopOrders0()->orderBy(['id' => SORT_DESC])->all() as $m
         'shop_order_id' => $modelShopOrder->getPrimaryKey()
     ])->all();
 
-    //$orderData = [];
+    $orderData['status_list'] = [];
     foreach ($shoStatuses as $status) {
-        if (!isset($shopOrderList[$status->type])) {
-            $shopOrderList[$status->type] = [
-                'name' => $status->getStatusName(),
-                'list' => [],
-            ];
-        }
-        /*if (!isset($orderData[$status->type])) {
-            $orderData[$status->type] = [
-                'name' => $status->getStatusName(),
-                'list' => [],
-            ];
-        }*/
-        $shopOrderList[$status->type]['list'][] = $status;
+        $orderData['status_list'][] = $status->getStatusName();
     }
 
-    //$shopOrderList[] = $orderData;
-}
-
-//print_r($shopOrderList);exit;
-
-foreach ($shopOrderList as $shoElem) {
-    $this->render('_orders-for-user_order-element');
+    $shopOrderList[] = $orderData;
 }
 
 $htmlOrders = '';
@@ -58,12 +38,9 @@ foreach ($shopOrderList as $orderData) {
             ['amount' => $orderData['amount_of_pizzerias']])
         . '</div>';
     $htmlOrderList = '';
-    if ($orderData['status_info_list']) {
-        foreach ($orderData['status_info_list'] as $statusType => $statusInfo) {
-
-            /*foreach ($orderData['status_info_list'] as $status) {
-                $htmlOrderList .= '<div class="order-status">' . $status . '</div>';
-            }*/
+    if ($orderData['status_list']) {
+        foreach ($orderData['status_list'] as $status) {
+            $htmlOrderList .= '<div class="order-status">' . $status . '</div>';
         }
     } else {
         $htmlOrderList = Yii::t('app', 'No order statuses');

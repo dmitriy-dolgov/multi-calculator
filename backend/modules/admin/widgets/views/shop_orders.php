@@ -1,13 +1,24 @@
 <?php
 
+use backend\modules\admin\widgets\models\ShopOrderHtmlElemData;
+
 /**
  * @var \yii\web\View $this
- * @var string $content
+ * @var ShopOrderHtmlElemData $shopOrderHtmlElemData[]
  */
 
 $htmlOrders = '';
 
-if (!$shopOrderList) {
+if (!$shopOrderHtmlElemData) {
+    echo Yii::t('app', 'No orders yet.');
+    return;
+}
+
+foreach ($shopOrderHtmlElemData as $statusType => $orderList) {
+    //$orderList->
+}
+
+/*if (!$shopOrderList) {
     $htmlOrders = Yii::t('app', 'No orders');
 }
 
@@ -20,9 +31,9 @@ foreach ($shopOrderList as $orderData) {
     if ($orderData['status_info_list']) {
         foreach ($orderData['status_info_list'] as $statusType => $statusInfo) {
 
-            /*foreach ($orderData['status_info_list'] as $status) {
-                $htmlOrderList .= '<div class="order-status">' . $status . '</div>';
-            }*/
+//            foreach ($orderData['status_info_list'] as $status) {
+//                $htmlOrderList .= '<div class="order-status">' . $status . '</div>';
+//            }
         }
     } else {
         $htmlOrderList = Yii::t('app', 'No order statuses');
@@ -35,4 +46,4 @@ foreach ($shopOrderList as $orderData) {
         . '</div>';
 }
 
-echo $htmlOrders;
+echo $htmlOrders;*/

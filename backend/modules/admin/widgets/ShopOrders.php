@@ -10,45 +10,67 @@ use backend\modules\admin\widgets\models\ShopOrderHtmlElemData;
 class ShopOrders extends Widget
 {
     /** @var User пользователь данных о заказах */
-    protected $modelUser;
+    public $modelUser;
 
-
-    public function __construct(User $modelUser, $config = [])
-    {
-        $this->modelUser = $modelUser;
-
-        parent::__construct($config);
-    }
 
     public function run()
     {
         $shopOrderHtmlElemData = [];
 
         $ordersByStatusType = $this->getOrdersGroupedByStatusType();
-        foreach ($ordersByStatusType as $orderStatusType => $orderInfo) {
-            $orderInfo = \Yii::createObject(ShopOrderHtmlElemData::class, ['orderStatusType' => $orderStatusType]);
-            $shopOrderHtmlElemData[] = $order['statuses'];
+        foreach ($ordersByStatusType as $orderStatusType => $orderList) {
+            $shopOrderHtmlElemData[] = \Yii::createObject(ShopOrderHtmlElemData::class,
+                [
+                    'orderStatusType' => $orderStatusType,
+                    'orderList' => $orderList,
+                ]);
         }
 
+        return $this->renderPartial('shop_orders', [
+                'shopOrderHtmlElemData' => $shopOrderHtmlElemData,
+            ]
+        );
     }
 
     protected function getOrdersGroupedByStatusType()
     {
         $orderListGroupedByStatuses = [];
 
-        $totalOrderList = $this->modelUser->getShopOrders0()->orderBy(['created_at' => SORT_DESC])->all();
+        $totalOrderList = $this->modelUser->getShopOrders0()->orderBy([
+            'created_at' => SORT_DESC,
+            'id' => SORT_DESC
+        ])->all();
+        //echo print_r($totalOrderList, true);exit;
         foreach ($totalOrderList as $order) {
-            $statusList = $order->getShopOrderStatuses()->orderBy(['id' => SORT_DESC])->asArray()->all();
-            $orderListGroupedByStatuses[$statusList[count($statusList) - 1]['type']][] = [
-                'order' => $order,
-                //'statusList' => $statusList,
-            ];
+            if ($statusList = $order->getShopOrderStatuses()->orderBy(['id' => SORT_DESC])->asArray()->all()) {
+                /*$orderListGroupedByStatuses[$statusList[count($statusList) - 1]['type']][] = [
+                    'order' => $order,
+                    //'statusList' => $statusList,
+                ];*/
+                $orderListGroupedByStatuses[$statusList[count($statusList) - 1]['type']][] = $order;
+            }
         }
 
         return $orderListGroupedByStatuses;
     }
 
-    protected function getHtmlInfo()
+    protected function getHtmlInfo(array $orderListGroupedByStatuses)
+    {
+        $htmlInfo = [];
+
+        foreach ($orderListGroupedByStatuses as $statusId => $orders) {
+            $htmlNewElement = [
+                'status' => [
+                    'id' => $statusId,
+                    'name'
+                ]
+            ];
+        }
+
+        return $htmlInfo;
+    }
+
+    protected function getHtmlInfoOld()
     {
         $shopOrderList = [];
 
@@ -83,8 +105,8 @@ class ShopOrders extends Widget
             //$shopOrderList[] = $orderData;
         }
 
-        return $this->render('shop_orders', [
+        /*return $this->render('shop_orders', [
             //$shopOrderList[]
-        ]);
+        ]);*/
     }
 }

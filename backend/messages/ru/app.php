@@ -268,6 +268,8 @@ return [
     'Overriding parameters for component "{compo}"' => 'Перегруженные параметры для компонента "{compo}"',
     'Update Chosen Component: {name}' => 'Обновить выбранный компонент: {name}',
     'Co-worker functions' => 'Виды деятельности сотрудников',
+    'Update Text: {name}' => 'Обновить текст: {name}',
+    'Texts' => 'Тексты',
     'Co-worker function' => 'Вид деятельности сотрудника',
     'Create Co-worker function' => 'Создать вид деятельности сотрудника',
     'Worker Site Unique ID' => 'Уникальный идентификатор личного сайта сотрудника',
@@ -300,4 +302,8 @@ return [
     'Order № {order_uid}' => 'Заказ № {order_uid}',
     'List of orders by users.' => 'Список заказов по пользователям.',
     'No orders yet.' => 'Заказов пока нет.',
+    'Group' => 'Группа',
+    'Type' => 'Тип',
+    'Data' => 'Данные',
+    'Create Text' => 'Создать текст',
 ];

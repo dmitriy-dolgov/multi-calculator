@@ -191,4 +191,7 @@ order_price:decimal(8,2),order_price_discount:decimal(8,2)"
 
 ./yii migrate/create update_co_worker_function_table_rows
 
+--
+
+./yii migrate/create create_texts_table --fields="group:string(50):comment('Группа к которой относится текст'),type:string(255):comment('text html т п'),data:text"
 

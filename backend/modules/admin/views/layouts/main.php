@@ -103,6 +103,11 @@ CSS
                                         'url' => '/admin/co-worker-function',
                                         'icon' => 'vcard-o',
                                     ],
+                                    [
+                                        'label' => Yii::t('app', 'Texts'),
+                                        'url' => '/admin/texts',
+                                        'icon' => 'file-text-o',
+                                    ],
                                 ],
                             ]
                         )

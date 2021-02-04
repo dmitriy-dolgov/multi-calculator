@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c1f47ed0585f64eeea2591b1e1f3f473",
+    "content-hash": "981ffb852ba84977170e755869881849",
     "packages": [
         {
             "name": "2amigos/2fa-library",
@@ -337,14 +337,13 @@
             "version": "v3.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
+                "url": "git@github.com:twbs/bootstrap.git",
                 "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/twbs/bootstrap/zipball/68b0d231a13201eb14acd3dc84e51543d16e5f7e",
-                "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e",
-                "shasum": null
+                "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e"
             },
             "require": {
                 "bower-asset/jquery": ">=1.9.1,<4.0"
@@ -365,8 +364,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/maboa/circleplayer/zipball/4ca1bb5205253d2cf8437f32f3f9a57115b9d975",
-                "reference": "4ca1bb5205253d2cf8437f32f3f9a57115b9d975",
-                "shasum": null
+                "reference": "4ca1bb5205253d2cf8437f32f3f9a57115b9d975"
             },
             "type": "bower-asset",
             "time": "2012-10-02T15:15:10+00:00"
@@ -382,8 +380,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/b3f81d10556e007c460444ec22489e68520eb79d",
-                "reference": "b3f81d10556e007c460444ec22489e68520eb79d",
-                "shasum": null
+                "reference": "b3f81d10556e007c460444ec22489e68520eb79d"
             },
             "type": "bower-asset"
         },
@@ -392,14 +389,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github.com:puikinsh/gentelella.git",
+                "url": "https://github.com/ColorlibHQ/gentelella.git",
                 "reference": "2118ba38d0f6b7b4b3545335da8e472e303bc986"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/puikinsh/gentelella/zipball/2118ba38d0f6b7b4b3545335da8e472e303bc986",
-                "reference": "2118ba38d0f6b7b4b3545335da8e472e303bc986",
-                "shasum": null
+                "url": "https://api.github.com/repos/ColorlibHQ/gentelella/zipball/2118ba38d0f6b7b4b3545335da8e472e303bc986",
+                "reference": "2118ba38d0f6b7b4b3545335da8e472e303bc986"
             },
             "type": "bower-asset",
             "license": [
@@ -418,8 +414,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/5e670ad62f50c738388d4dcec78d2888505ad77b",
-                "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b",
-                "shasum": null
+                "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "require": {
                 "bower-asset/jquery": ">=1.7"
@@ -440,8 +435,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/happyworm/jPlayer/zipball/4eb52eca89d27fd2a6c714bffa7927b2bd7fba4a",
-                "reference": "4eb52eca89d27fd2a6c714bffa7927b2bd7fba4a",
-                "shasum": null
+                "reference": "4eb52eca89d27fd2a6c714bffa7927b2bd7fba4a"
             },
             "require": {
                 "bower-asset/jquery": ">=1.7.2"
@@ -457,14 +451,13 @@
             "version": "3.5.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:jquery/jquery-dist.git",
+                "url": "https://github.com/jquery/jquery-dist.git",
                 "reference": "4c0e4becb8263bb5b3e6dadc448d8e7305ef8215"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/4c0e4becb8263bb5b3e6dadc448d8e7305ef8215",
-                "reference": "4c0e4becb8263bb5b3e6dadc448d8e7305ef8215",
-                "shasum": null
+                "reference": "4c0e4becb8263bb5b3e6dadc448d8e7305ef8215"
             },
             "type": "bower-asset",
             "license": [
@@ -476,14 +469,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github.com:jquery/jquery-mousewheel.git",
+                "url": "https://github.com/jquery/jquery-mousewheel.git",
                 "reference": "6e7672e46858203dd815c3d130200e94b1cf7eec"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/jquery/jquery-mousewheel/zipball/6e7672e46858203dd815c3d130200e94b1cf7eec",
-                "reference": "6e7672e46858203dd815c3d130200e94b1cf7eec",
-                "shasum": null
+                "reference": "6e7672e46858203dd815c3d130200e94b1cf7eec"
             },
             "require": {
                 "bower-asset/jquery": ">=1.7.2"
@@ -502,8 +494,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/components/jqueryui/zipball/44ecf3794cc56b65954cc19737234a3119d036cc",
-                "reference": "44ecf3794cc56b65954cc19737234a3119d036cc",
-                "shasum": null
+                "reference": "44ecf3794cc56b65954cc19737234a3119d036cc"
             },
             "require": {
                 "bower-asset/jquery": ">=1.6"
@@ -524,8 +515,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/blittle/jscrollpane/zipball/89486c453e48f930d0e7cdee394e19718cc6baf9",
-                "reference": "89486c453e48f930d0e7cdee394e19718cc6baf9",
-                "shasum": null
+                "reference": "89486c453e48f930d0e7cdee394e19718cc6baf9"
             },
             "require": {
                 "bower-asset/jquery": ">=1.8.0"
@@ -544,8 +534,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/brianreavis/microplugin.js/zipball/d8671e6cc769938648f8735610534427cdeeaf67",
-                "reference": "d8671e6cc769938648f8735610534427cdeeaf67",
-                "shasum": null
+                "reference": "d8671e6cc769938648f8735610534427cdeeaf67"
             },
             "type": "bower-asset",
             "license": [
@@ -557,14 +546,13 @@
             "version": "v1.3.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:bestiejs/punycode.js.git",
+                "url": "https://github.com/bestiejs/punycode.js.git",
                 "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/bestiejs/punycode.js/zipball/38c8d3131a82567bfef18da09f7f4db68c84f8a3",
-                "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3",
-                "shasum": null
+                "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
             "type": "bower-asset"
         },
@@ -573,14 +561,13 @@
             "version": "v0.12.6",
             "source": {
                 "type": "git",
-                "url": "git@github.com:selectize/selectize.js.git",
+                "url": "https://github.com/selectize/selectize.js.git",
                 "reference": "eb0fca364f9bd6864ae197ea58c853f2717052a9"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/selectize/selectize.js/zipball/eb0fca364f9bd6864ae197ea58c853f2717052a9",
-                "reference": "eb0fca364f9bd6864ae197ea58c853f2717052a9",
-                "shasum": null
+                "reference": "eb0fca364f9bd6864ae197ea58c853f2717052a9"
             },
             "require": {
                 "bower-asset/jquery": ">=1.7.0",
@@ -603,8 +590,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/brianreavis/sifter.js/zipball/2009705c24ba9bb0fbe71fa3c60b1dfa682538d2",
-                "reference": "2009705c24ba9bb0fbe71fa3c60b1dfa682538d2",
-                "shasum": null
+                "reference": "2009705c24ba9bb0fbe71fa3c60b1dfa682538d2"
             },
             "type": "bower-asset",
             "license": [
@@ -616,14 +602,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/kenwheeler/slick.git",
+                "url": "git@github.com:kenwheeler/slick.git",
                 "reference": "7daf56cb83e1365e7b7b0ef551f4a6b6b82a0f78"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/kenwheeler/slick/zipball/7daf56cb83e1365e7b7b0ef551f4a6b6b82a0f78",
-                "reference": "7daf56cb83e1365e7b7b0ef551f4a6b6b82a0f78",
-                "shasum": null
+                "reference": "7daf56cb83e1365e7b7b0ef551f4a6b6b82a0f78"
             },
             "require": {
                 "bower-asset/jquery": ">=1.7"
@@ -645,8 +630,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/aef7b953107264f00234902a3880eb50dafc48be",
-                "reference": "aef7b953107264f00234902a3880eb50dafc48be",
-                "shasum": null
+                "reference": "aef7b953107264f00234902a3880eb50dafc48be"
             },
             "require": {
                 "bower-asset/jquery": ">=1.8"
@@ -2983,9 +2967,7 @@
             "version": "4.5.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.5.0.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.5.0.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -2997,9 +2979,7 @@
             "version": "0.3.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/jquery-longpoll-client/-/jquery-longpoll-client-0.3.0.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/jquery-longpoll-client/-/jquery-longpoll-client-0.3.0.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -3335,7 +3315,7 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/select2/select2.git",
+                "url": "git@github.com:select2/select2.git",
                 "reference": "1c0c2a94d1b70a185baff5b13c654411e2c01339"
             },
             "dist": {
@@ -3924,6 +3904,61 @@
                 "sse"
             ],
             "time": "2017-02-21T12:28:27+00:00"
+        },
+        {
+            "name": "vova07/yii2-imperavi-widget",
+            "version": "2.0.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vova07/yii2-imperavi-widget.git",
+                "reference": "c4fe4a9f64a4c53d9686c80b8744e2c1366184e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vova07/yii2-imperavi-widget/zipball/c4fe4a9f64a4c53d9686c80b8744e2c1366184e5",
+                "reference": "c4fe4a9f64a4c53d9686c80b8744e2c1366184e5",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "~1",
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "vova07\\imperavi\\": "src",
+                    "vova07\\imperavi\\tests\\": "tests"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Crudu Vasile",
+                    "email": "bazillio07@yandex.ru",
+                    "homepage": "https://github.com/vova07",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The imperavi redactor widget for Yii 2 framework.",
+            "homepage": "https://github.com/vova07/yii2-imperavi-widget",
+            "keywords": [
+                "Redactor",
+                "extension",
+                "imperavi",
+                "widget",
+                "wysiwyg",
+                "yii",
+                "yii 2",
+                "yii2"
+            ],
+            "time": "2019-03-26T11:39:06+00:00"
         },
         {
             "name": "wertex/yii2-fias",
@@ -8354,5 +8389,6 @@
     "platform": {
         "php": ">=7.2.29"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

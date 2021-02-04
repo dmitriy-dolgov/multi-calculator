@@ -46,7 +46,7 @@ class TextsController extends Controller
 
     /**
      * Displays a single Texts model.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -78,7 +78,7 @@ class TextsController extends Controller
     /**
      * Updates an existing Texts model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -98,7 +98,7 @@ class TextsController extends Controller
     /**
      * Deletes an existing Texts model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -112,7 +112,7 @@ class TextsController extends Controller
     /**
      * Finds the Texts model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
+     * @param string $id
      * @return Texts the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

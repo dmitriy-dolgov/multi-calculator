@@ -17,8 +17,7 @@ class TextsSearch extends Texts
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['group', 'type', 'data'], 'safe'],
+            [['id', 'group', 'type', 'content'], 'safe'],
         ];
     }
 
@@ -57,13 +56,10 @@ class TextsSearch extends Texts
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-        ]);
-
-        $query->andFilterWhere(['like', 'group', $this->group])
+        $query->andFilterWhere(['like', 'id', $this->id])
+            ->andFilterWhere(['like', 'group', $this->group])
             ->andFilterWhere(['like', 'type', $this->type])
-            ->andFilterWhere(['like', 'data', $this->data]);
+            ->andFilterWhere(['like', 'content', $this->content]);
 
         return $dataProvider;
     }

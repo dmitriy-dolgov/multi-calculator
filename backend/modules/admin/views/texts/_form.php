@@ -18,13 +18,15 @@ $model->type = 'html';
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'id')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'group')->textInput(['maxlength' => true, 'readonly' => true]) ?>
 
     <?= $form->field($model, 'type')->textInput(['maxlength' => true, 'readonly' => true]) ?>
 
-    <?php /*$form->field($model, 'data')->textarea(['rows' => 6]) */?>
+    <?php /*$form->field($model, 'content')->textarea(['rows' => 6]) */?>
 
-    <?= $form->field($model, 'data')->widget(Widget::class, [
+    <?= $form->field($model, 'content')->widget(Widget::class, [
         'settings' => [
             'lang' => 'ru', //TODO: при интернационализации менять
             'minHeight' => 350,
@@ -32,12 +34,12 @@ $model->type = 'html';
                 'clips',
                 'fullscreen',
             ],*/
-            'clips' => [
+            /*'clips' => [
                 ['Lorem ipsum...', 'Lorem...'],
                 ['red', '<span class="label-red">red</span>'],
                 ['green', '<span class="label-green">green</span>'],
                 ['blue', '<span class="label-blue">blue</span>'],
-            ],
+            ],*/
         ],
     ]) ?>
 

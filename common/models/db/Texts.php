@@ -7,10 +7,10 @@ use Yii;
 /**
  * This is the model class for table "texts".
  *
- * @property int $id
- * @property string|null $group Группа, к которой относится текст
- * @property string|null $type text, html и т. п.
- * @property string|null $data
+ * @property string $id
+ * @property string|null $group Группа, к которой относится текст (договор, страница и т.п.)
+ * @property string|null $type text, html, mime-type и т.п.
+ * @property string|null $content
  */
 class Texts extends \yii\db\ActiveRecord
 {
@@ -28,9 +28,12 @@ class Texts extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['data'], 'string'],
+            [['id'], 'required'],
+            [['content'], 'string'],
+            [['id'], 'string', 'max' => 100],
             [['group'], 'string', 'max' => 50],
             [['type'], 'string', 'max' => 255],
+            [['id'], 'unique'],
         ];
     }
 
@@ -43,7 +46,7 @@ class Texts extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'group' => Yii::t('app', 'Group'),
             'type' => Yii::t('app', 'Type'),
-            'data' => Yii::t('app', 'Data'),
+            'content' => Yii::t('app', 'Content'),
         ];
     }
 

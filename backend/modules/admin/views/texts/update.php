@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\db\Texts */
 
-$name = $model->group . ' ' . $model->id;
+$name = $model->id;
 
 $this->title = Yii::t('app', 'Update Text: {name}', [
     'name' => $name,

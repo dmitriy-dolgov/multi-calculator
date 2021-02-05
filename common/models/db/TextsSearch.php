@@ -17,7 +17,7 @@ class TextsSearch extends Texts
     public function rules()
     {
         return [
-            [['id', 'group', 'type', 'content'], 'safe'],
+            [['id', 'group', 'type', 'description', 'content'], 'safe'],
         ];
     }
 
@@ -59,6 +59,7 @@ class TextsSearch extends Texts
         $query->andFilterWhere(['like', 'id', $this->id])
             ->andFilterWhere(['like', 'group', $this->group])
             ->andFilterWhere(['like', 'type', $this->type])
+            ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'content', $this->content]);
 
         return $dataProvider;

@@ -10,6 +10,7 @@ use Yii;
  * @property string $id
  * @property string|null $group Группа, к которой относится текст (договор, страница и т.п.)
  * @property string|null $type text, html, mime-type и т.п.
+ * @property string|null $description
  * @property string|null $content
  */
 class Texts extends \yii\db\ActiveRecord
@@ -29,7 +30,7 @@ class Texts extends \yii\db\ActiveRecord
     {
         return [
             [['id'], 'required'],
-            [['content'], 'string'],
+            [['description', 'content'], 'string'],
             [['id'], 'string', 'max' => 100],
             [['group'], 'string', 'max' => 50],
             [['type'], 'string', 'max' => 255],
@@ -46,6 +47,7 @@ class Texts extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'group' => Yii::t('app', 'Group'),
             'type' => Yii::t('app', 'Type'),
+            'description' => Yii::t('app', 'Description'),
             'content' => Yii::t('app', 'Content'),
         ];
     }

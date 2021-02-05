@@ -24,7 +24,7 @@ $model->type = 'html';
 
     <?= $form->field($model, 'type')->textInput(['maxlength' => true, 'readonly' => true]) ?>
 
-    <?php /*$form->field($model, 'content')->textarea(['rows' => 6]) */?>
+    <?= $form->field($model, 'description')->textarea(['rows' => 3]) ?>
 
     <?= $form->field($model, 'content')->widget(Widget::class, [
         'settings' => [

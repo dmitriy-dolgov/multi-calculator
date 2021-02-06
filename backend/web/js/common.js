@@ -47,6 +47,29 @@ gl.log = function (msg) {
     }
 };
 
+gl.inIframe = function () {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+        return true;
+    }
+};
+
+gl.get = function(obj, key) {
+    return key.split('.').reduce(function(o, x) {
+        return (typeof o == 'undefined' || o === null) ? o : o[x];
+    }, obj);
+};
+
+gl.has = function(obj, key) {
+    return key.split('.').every(function(x) {
+        if(typeof obj != 'object' || obj === null || ! x in obj)
+            return false;
+        obj = obj[x];
+        return true;
+    });
+};
+
 gl.createMapMarkerPopupHtml = function (data) {
     var html = '';
     if (data.name) {

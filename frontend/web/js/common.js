@@ -50,6 +50,29 @@ gl.log = function (msg) {
     }
 };
 
+gl.inIframe = function () {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+        return true;
+    }
+};
+
+gl.get = function(obj, key) {
+    return key.split('.').reduce(function(o, x) {
+        return (typeof o == 'undefined' || o === null) ? o : o[x];
+    }, obj);
+};
+
+gl.has = function(obj, key) {
+    return key.split('.').every(function(x) {
+        if(typeof obj != 'object' || obj === null || ! x in obj)
+            return false;
+        obj = obj[x];
+        return true;
+    });
+};
+
 gl.createMapMarkerPopupHtml = function (data) {
     var html = '';
     if (data.name) {
@@ -241,3 +264,70 @@ gl.handleFailCustom = function(message, howToHandle) {
         this.log('Fail Custom Message: ' + message);
     }
 };
+
+
+$(function () {
+    $('.button-checkbox').each(function () {
+
+        // Settings
+        var $widget = $(this),
+            $button = $widget.find('button'),
+            $checkbox = $widget.find('input:checkbox'),
+            color = $button.data('color'),
+            settings = {
+                on: {
+                    icon: 'glyphicon glyphicon-check'
+                },
+                off: {
+                    icon: 'glyphicon glyphicon-unchecked'
+                }
+            };
+
+        // Event Handlers
+        $button.on('click', function () {
+            $checkbox.prop('checked', !$checkbox.is(':checked'));
+            $checkbox.triggerHandler('change');
+            updateDisplay();
+        });
+        $checkbox.on('change', function () {
+            updateDisplay();
+        });
+
+        // Actions
+        function updateDisplay() {
+            var isChecked = $checkbox.is(':checked');
+
+            // Set the button's state
+            $button.data('state', (isChecked) ? "on" : "off");
+
+            // Set the button's icon
+            $button.find('.state-icon')
+                .removeClass()
+                .addClass('state-icon ' + settings[$button.data('state')].icon);
+
+            // Update the button's color
+            if (isChecked) {
+                $button
+                    .removeClass('btn-default')
+                    .addClass('btn-' + color + ' active');
+            }
+            else {
+                $button
+                    .removeClass('btn-' + color + ' active')
+                    .addClass('btn-default');
+            }
+        }
+
+        // Initialization
+        function init() {
+
+            updateDisplay();
+
+            // Inject the icon if applicable
+            if ($button.find('.state-icon').length == 0) {
+                $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
+            }
+        }
+        init();
+    });
+});

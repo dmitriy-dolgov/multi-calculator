@@ -30,6 +30,17 @@ $this->registerCss(<<<CSS
 body {
     height: 100%;
 }
+
+.contract-modal .modal-header {
+    color: #333;
+}
+.contract-modal .modal-body {
+    color: #2a2a2a;
+}
+#contractModal {
+    padding-left: 0;
+}
+
 CSS
 );
 
@@ -87,6 +98,10 @@ $('.components-in-stock .collapse-head').click(function() {
     }, 50
   );
 });
+
+gl.functions.showBsModal = function(type) {
+    $('#' + type + 'Modal').modal('show');
+}
 
 JS
 );
@@ -684,6 +699,22 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
             </div>
             <div class="modal-body frame-content">
                 <!--<iframe class="frame-fill" src=""></iframe>-->
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="userContractModal" class="contract-modal modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><?= Yii::t('app', 'Contract') ?></h4>
+            </div>
+            <div class="modal-body">
+                <?= \common\models\db\Texts::findOne('registering-customer-agreement')->content ?>
             </div>
         </div>
 

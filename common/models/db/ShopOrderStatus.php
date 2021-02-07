@@ -74,7 +74,7 @@ class ShopOrderStatus extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'shop_order_id' => Yii::t('app', 'Shop Order ID'),
             'user_id' => Yii::t('app', 'User ID'),
-            'type' => Yii::t('app', 'Type'),
+            'type' => Yii::t('app_c', 'Type'),
             'accepted_at' => Yii::t('app', 'Accepted At'),
             'accepted_by' => Yii::t('app', 'Accepted By'),
             'data' => Yii::t('app', 'Data'),

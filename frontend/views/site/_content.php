@@ -711,7 +711,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><?= Yii::t('app', 'Contract') ?></h4>
+                <h4 class="modal-title"><?= Yii::t('app_c', 'Contract') ?></h4>
             </div>
             <div class="modal-body">
                 <?= \common\models\db\Texts::findOne('registering-customer-agreement')->content ?>

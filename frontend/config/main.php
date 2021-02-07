@@ -115,6 +115,22 @@ return [
                         'db' => 'db.php',
                     ],
                 ],
+
+                // Общие переводы
+                'app_c' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@common/messages',
+                    'fileMap' => [
+                        'app' => 'app_c.php',
+                    ],
+                ],
+                'app_i-c_c' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@common/messages',
+                    'fileMap' => [
+                        'app_i-c_c' => 'app-alt-1.php',
+                    ],
+                ],
             ],
         ],
 

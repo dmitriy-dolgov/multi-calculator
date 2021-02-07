@@ -45,8 +45,8 @@ class Texts extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'group' => Yii::t('app', 'Group'),
-            'type' => Yii::t('app', 'Type'),
+            'group' => Yii::t('app_c', 'Group'),
+            'type' => Yii::t('app_c', 'Type'),
             'description' => Yii::t('app', 'Description'),
             'content' => Yii::t('app', 'Content'),
         ];

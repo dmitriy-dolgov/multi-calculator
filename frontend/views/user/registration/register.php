@@ -92,7 +92,7 @@ JS
                         <button type="button" class="btn" data-color="primary"><?= Yii::t('app', 'Согласен') ?></button>
                         <input type="checkbox" class="hidden confirm-contract-agreement"/>
                     </span>
-                        <?= Html::a(Yii::t('app', 'Please confirm your agreement with contract.'), '#', [
+                        <?= Html::a(Yii::t('app_c', 'Please confirm your agreement with contract.'), '#', [
                             'class' => 'elem-show-contract',
                             'style' => 'margin-left: 15px',
                             //'data-toggle' => 'modal',
@@ -118,7 +118,7 @@ JS
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><?= Yii::t('app', 'Contract') ?></h4>
+                <h4 class="modal-title"><?= Yii::t('app_c', 'Contract') ?></h4>
             </div>
             <div class="modal-body">
                 <?= \common\models\db\Texts::findOne('registering-customer-agreement')->content ?>

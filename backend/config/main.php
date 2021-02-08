@@ -105,14 +105,14 @@ return [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@common/messages',
                     'fileMap' => [
-                        'app_c' => 'app.php',
+                        'app_c' => 'app_c.php',
                     ],
                 ],
                 'app_i-c_c' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@common/messages',
                     'fileMap' => [
-                        'app_i-c_c' => 'app-alt-1.php',
+                        'app_i-c_c' => 'app_i-c_c.php',
                     ],
                 ],
             ],

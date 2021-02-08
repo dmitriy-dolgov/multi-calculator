@@ -36,6 +36,9 @@ $this->registerCss(<<<CSS
 #RegistrationForm {
     color: #2a2a2a;
 }
+.modal-content {
+    color: black;
+}
 CSS
 );
 
@@ -65,7 +68,7 @@ JS
                     [
                         'id' => $formName,
                         'enableAjaxValidation' => true,
-                        'enableClientValidation' => false,
+                        'enableClientValidation' => true,
                     ]
                 ); ?>
 
@@ -83,7 +86,7 @@ JS
 
                 <div class="form-group">
                     <div class="container">
-                    <span class="button-checkbox">
+                    <span class="button-checkbox" style="margin-right: 15px;">
                         <button type="button" class="btn" data-color="primary"><?= Yii::t('app', 'Согласен') ?></button>
                         <input type="checkbox" class="hidden confirm-contract-agreement"/>
                     </span>
@@ -92,7 +95,7 @@ JS
                             [
                                 'contract' => Html::a(Yii::t('app_i-c_c', 'contract'), '#', [
                                     'class' => 'elem-show-contract',
-                                    'style' => 'margin-left: 15px',
+                                    //'style' => 'margin-left: 15px',
                                     'data-toggle' => 'modal',
                                     'data-target' => '#contractModal',
                                 ])

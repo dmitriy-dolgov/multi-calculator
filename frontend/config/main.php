@@ -116,6 +116,7 @@ return [
                     ],
                 ],
 
+                //TODO: вынести в общий конфиг
                 // Общие переводы
                 'app_c' => [
                     'class' => 'yii\i18n\PhpMessageSource',

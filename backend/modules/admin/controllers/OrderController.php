@@ -2,7 +2,7 @@
 
 namespace backend\modules\admin\controllers;
 
-use backend\modules\admin\widgets\ShopOrders;
+use backend\modules\admin\widgets\shopOrders\ShopOrders;
 use common\models\db\Category;
 use common\models\db\User;
 use Da\User\Controller\AdminController as BaseController;
@@ -32,9 +32,7 @@ class OrderController extends BaseController
             throw new NotFoundHttpException('Not found');
         }
 
-        $modelUser = User::findOne($userId);
-
-        return ShopOrders::widget(['modelUser' => $modelUser]);
+        return ShopOrders::widget(['modelUser' => User::getOrFail($userId)]);
         //return $this->renderPartial('_orders-for-user', compact('modelUser'));
     }
 

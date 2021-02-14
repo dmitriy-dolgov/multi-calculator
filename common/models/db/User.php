@@ -2,6 +2,7 @@
 
 namespace common\models\db;
 
+use common\models\traits\ObjectHandling;
 use common\models\UploadProfileIconImageForm;
 use Da\User\Model\User as BaseUser;
 use Yii;
@@ -23,6 +24,9 @@ use Yii;
  */
 class User extends BaseUser
 {
+    use ObjectHandling;
+
+
     /**
      * {@inheritdoc}
      */

@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\admin\widgets\models;
+namespace backend\modules\admin\widgets\shopOrders\models;
 
 use common\models\db\ShopOrder;
 use common\models\db\ShopOrderStatus;

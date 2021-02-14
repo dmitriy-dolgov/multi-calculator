@@ -1,12 +1,11 @@
 <?php
 
-namespace backend\modules\admin\widgets;
+namespace backend\modules\admin\widgets\shopOrders;
 
-use common\models\db\ShopOrderStatus;
+use backend\modules\admin\widgets\shopOrders\models\ShopOrderHtmlElemData;
+use common\models\db\User;
 use Yii;
 use yii\base\Widget;
-use common\models\db\User;
-use backend\modules\admin\widgets\models\ShopOrderHtmlElemData;
 
 
 class ShopOrders extends Widget

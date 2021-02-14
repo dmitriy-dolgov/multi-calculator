@@ -1,6 +1,7 @@
 <?php
 
-use backend\modules\admin\widgets\models\ShopOrderHtmlElemData;
+use backend\modules\admin\widgets\shopOrders\models\ShopOrderHtmlElemData;
+use yii\helpers\Html;
 
 /**
  * @var \yii\web\View $this
@@ -13,10 +14,29 @@ if (!$shopOrderHtmlElemData) {
     echo Yii::t('app', 'No orders yet.');
     return;
 }
-
-foreach ($shopOrderHtmlElemData as $statusType => $orderList) {
-    //$orderList->
-}
+?>
+<?php
+/** @var ShopOrderHtmlElemData $orderByTypeList */
+foreach ($shopOrderHtmlElemData as $orderByTypeList):
+    ?>
+    <div class="row">
+        <div class="col-md-3"><?= Html::encode($orderByTypeList->getOrderStatusName()) ?></div>
+        <div class="col-md-9">
+            <?php foreach ($orderByTypeList->getOrderList() as $order): ?>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="order-uid"><?= Html::encode($order->order_uid) ?></div>
+                        <div class="order-datetime"><?= Html::encode($order->created_at) ?></div>
+                    </div>
+                    <div class="col-md-9">
+                        <?php foreach ($order->): ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php endforeach; ?>
 
 /*if (!$shopOrderList) {
     $htmlOrders = Yii::t('app', 'No orders');

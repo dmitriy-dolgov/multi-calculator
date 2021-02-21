@@ -1,6 +1,7 @@
 <?php
 
 use backend\modules\admin\widgets\shopOrders\models\ShopOrderHtmlElemData;
+use yiister\gentelella\widgets\Accordion;
 use yii\helpers\Html;
 
 /**
@@ -22,37 +23,81 @@ if (!$shopOrderHtmlElemData) {
     echo Yii::t('app', 'No orders yet.');
     return;
 }
+
 ?>
 <?php
 /** @var ShopOrderHtmlElemData $orderByTypeList */
-foreach ($shopOrderHtmlElemData
-         as $orderByTypeList):
+foreach ($shopOrderHtmlElemData as $orderByTypeList):
+    $accordionItems = [];
+    foreach ($orderByTypeList->getOrderList() as $order) {
+        /*$accordionItems[] = [
+            'header' => <<<HTML
+<button>
+    <div class="order-uid"><?= Html::encode({$order->order_uid}) ?></div>
+    <div class="order-datetime"><?= Html::encode({$order->created_at}) ?></div>
+</button>
+HTML
+,
+            'content' => '',
+        ];*/
+        /*$content = '';
+        foreach ($order->shopOrderStatuses as $shOrdStatus) {
+            $content .= $shOrdStatus->getStatusName() . "\n";
+        }*/
+        $accordionItems[] = [
+            'title' => $order->order_uid,
+            //'content' => $content,
+            'content' => (function () use ($order) {
+                $content = '';
+                foreach ($order->shopOrderStatuses as $shOrdStatus) {
+                    $content .= $shOrdStatus->getStatusName() . "\n";
+                }
+                return $content;
+            })(),
+        ];
+    }
     ?>
     <fieldset>
         <legend>
             <button class="order-status-name"><?= Html::encode($orderByTypeList->getOrderStatusName()) ?></button>
         </legend>
-        <?php foreach ($orderByTypeList->getOrderList() as $order): ?>
+        <?= Accordion::widget([
+            'items' => $accordionItems,
+            /*'options' => ['tag' => 'div'],
+            'itemOptions' => ['tag' => 'div'],
+            'headerOptions' => ['tag' => 'h3'],
+            'clientOptions' => ['collapsible' => false],*/
+        ]) ?>
+        <?php /*foreach ($orderByTypeList->getOrderList() as $order): */
+        ?><!--
             <div class="row">
                 <div class="col-md-3">
                     <button>
-                        <div class="order-uid"><?= Html::encode($order->order_uid) ?></div>
-                        <div class="order-datetime"><?= Html::encode($order->created_at) ?></div>
+                        <div class="order-uid"><?/*= Html::encode($order->order_uid) */
+        ?></div>
+                        <div class="order-datetime"><?/*= Html::encode($order->created_at) */
+        ?></div>
                     </button>
                 </div>
                 <div class="col-md-9">
                     <ul>
-                        <?php foreach ($order->shopOrderStatuses as $shOrdStatus): ?>
-                            <li><?= $shOrdStatus->getStatusName() ?>
-
+                        <?php /*foreach ($order->shopOrderStatuses as $shOrdStatus): */
+        ?>
+                            <li>
+                                <?/*= $shOrdStatus->getStatusName() */
+        ?>
                             </li>
-                        <?php endforeach; ?>
+                        <?php /*endforeach; */
+        ?>
                     </ul>
                 </div>
             </div>
-        <?php endforeach; ?>
+        --><?php /*endforeach; */
+        ?>
     </fieldset>
-<?php endforeach; ?>
+<?php
+endforeach;
+?>
 
 
 <?php
@@ -62,18 +107,19 @@ $htmlOrders = Yii::t('app', 'No orders');
 
 foreach ($shopOrderList as $orderData) {
 $htmlOrderAmount = '
-<div class="order-amount-caption">'
-    . Yii::t('app', 'Total pizzerias: {amount}',
+        < div class="order-amount-caption" > '
+    . Yii::t('app', 'Total pizzerias: {
+            amount}',
     ['amount' => $orderData['amount_of_pizzerias']])
     . '
-</div>';
+        </div > ';
 $htmlOrderList = '';
 if ($orderData['status_info_list']) {
 foreach ($orderData['status_info_list'] as $statusType => $statusInfo) {
 
 //            foreach ($orderData['status_info_list'] as $status) {
 //                $htmlOrderList .= '
-<div class="order-status">' . $status . '</div>';
+        < div class="order-status" > ' . $status . '</div > ';
 //            }
 }
 } else {
@@ -81,18 +127,19 @@ $htmlOrderList = Yii::t('app', 'No order statuses');
 }
 
 $htmlOrders .= '
-<div class="wrapper-order-fold">'
+        < div class="wrapper-order-fold" > '
     . '
-    <button class="btn btn-default btn-order-info" onclick="gl.functions.unwrapOrderInfo(this)">' . Yii::t('app', 'Order
-        № {order_uid}',
+    <button class="btn btn-default btn-order-info" onclick = "gl.functions.unwrapOrderInfo(this)" > ' . Yii::t('app', 'Order
+        № {
+            order_uid}',
         ['order_uid' => $orderData['order_data']['order_uid']]) . '
-    </button>
-    '
+        </button >
+        '
     . '
-    <div class="order-fold" style="display: none">' . $htmlOrderAmount . $htmlOrderList . '</div>
-    '
+    <div class="order-fold" style = "display: none" > ' . $htmlOrderAmount . $htmlOrderList . '</div >
+        '
     . '
-</div>';
+</div > ';
 }
 
 echo $htmlOrders;*/

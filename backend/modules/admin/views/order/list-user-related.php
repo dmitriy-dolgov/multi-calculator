@@ -1,5 +1,7 @@
 <?php
 
+use backend\modules\admin\widgets\shopOrders\ShopOrders;
+use common\models\db\User;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
 
@@ -7,7 +9,6 @@ use yii\widgets\Pjax;
  * @var $this         yii\web\View
  * @var $dataProvider yii\data\ActiveDataProvider
  * @var $searchModel  Da\User\Search\UserSearch
- * @var $module       Da\User\Module
  */
 
 $this->title = Yii::t('app', 'List of orders by users.');
@@ -36,7 +37,10 @@ JS
                     'value' => function ($model, $key, $index, $column) {
                         return GridView::ROW_COLLAPSED;
                     },
-                    'detailUrl' => \yii\helpers\Url::to(['/admin/order/orders-by-user']),
+                    //'detailUrl' => \yii\helpers\Url::to(['/admin/order/orders-by-user']),
+                    'detail' => function(User $userModel) {
+                        return ShopOrders::widget(['modelUser' => User::getOrFail($userModel->id)]);
+                    },
                     'expandTitle' => Yii::t('app', 'Expand orders'),
                     'expandAllTitle' => Yii::t('app', 'Expand all orders'),
                     'collapseTitle' => Yii::t('app', 'Collapse orders'),

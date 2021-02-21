@@ -115,16 +115,16 @@ use yii\helpers\Html;
                                 'template' => '<a><i class="fa fa-handshake-o"></i><span>{label}</span><span class="fa fa-chevron-down"></span></a>',
                                 'items' => [
                                     [
+                                        'label' => Yii::t('app', 'Order list'),
+                                        'url' => ['/setup/shop-order/index', 'sort' => '-created_at'],
+                                    ],
+                                    [
                                         'label' => Yii::t('app', 'Reasons for rejection'),
                                         'url' => ['/setup/co-worker-decline-cause']
                                     ],
                                     [
                                         'label' => Yii::t('app', 'Signal Contacts'),
                                         'url' => ['/setup/shop-order-signal']
-                                    ],
-                                    [
-                                        'label' => Yii::t('app', 'Order list'),
-                                        'url' => ['/setup/shop-order/index', 'sort' => '-created_at'],
                                     ],
                                 ],
                             ],

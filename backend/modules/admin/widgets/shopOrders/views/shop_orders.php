@@ -31,7 +31,7 @@ foreach ($shopOrderHtmlElemData as $orderByTypeList):
     $accordionItems = [];
     foreach ($orderByTypeList->getOrderList() as $order) {
         $accordionItems[] = [
-            'title' => $order->order_uid . '<br>'. Html::encode($order->created_at),
+            'title' => Html::encode($order->order_uid) . '<div style="font-size:small">'. Html::encode($order->created_at) . '</div>',
             'content' => (function () use ($order) {
                 $content = '<ul>';
                 foreach ($order->shopOrderStatuses as $shOrdStatus) {

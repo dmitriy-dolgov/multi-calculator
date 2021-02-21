@@ -58,12 +58,14 @@ class ShopOrders extends Widget
                     //'statusList' => $statusList,
                 ];*/
 
-                $orderListGroupedByStatuses[$statusList[count($statusList) - 1]['type']][] = $order;
+                #if ($order->user_id == $this->modelUser->id) {
+                    $orderListGroupedByStatuses[$statusList[count($statusList) - 1]['type']][] = $order;
 
-                // Order creation time
-                if ($statusList[count($statusList) - 1]['type'] == 'created') {
-                    $timeCreated = $statusList[count($statusList) - 1]['accepted_at'];
-                }
+                    // Order creation time
+                    if ($statusList[count($statusList) - 1]['type'] == 'created') {
+                        $timeCreated = $statusList[count($statusList) - 1]['accepted_at'];
+                    }
+                #}
             }
         }
 

@@ -18,7 +18,9 @@ class ShopOrders extends Widget
     {
         $shopOrderHtmlElemData = [];
 
-        $ordersByStatusType = $this->getOrdersGroupedByStatusType();
+        $ordersInfo = $this->getOrdersInfo();
+
+        $ordersByStatusType = $ordersInfo['orderListGroupedByStatuses'];
         foreach ($ordersByStatusType as $orderStatusType => $orderList) {
             $shopOrderHtmlElemData[] = Yii::createObject(ShopOrderHtmlElemData::class,
                 [
@@ -36,9 +38,13 @@ class ShopOrders extends Widget
         );
     }
 
-    protected function getOrdersGroupedByStatusType()
+    protected function getOrdersInfo()
     {
         $orderListGroupedByStatuses = [];
+
+        //TODO: пересмотреть зависимость $timeCreated и $timeLastStatus от порядкового номера идентификатова
+        $timeCreated = false;
+        $timeLastStatus = false;
 
         $totalOrderList = $this->modelUser->getShopOrders0()->orderBy([
             'created_at' => SORT_DESC,
@@ -51,11 +57,26 @@ class ShopOrders extends Widget
                     'order' => $order,
                     //'statusList' => $statusList,
                 ];*/
+
                 $orderListGroupedByStatuses[$statusList[count($statusList) - 1]['type']][] = $order;
+
+                // Order creation time
+                if ($statusList[count($statusList) - 1]['type'] == 'created') {
+                    $timeCreated = $statusList[count($statusList) - 1]['accepted_at'];
+                }
             }
         }
 
-        return $orderListGroupedByStatuses;
+        // Find last order event time
+        if (!empty($statusList)) {
+            $timeLastStatus = $statusList[count($statusList) - 1]['accepted_at'];
+        }
+
+        return [
+            'timeCreated' => $timeCreated,
+            'timeLastStatus' => $timeLastStatus,
+            'orderListGroupedByStatuses' => $orderListGroupedByStatuses,
+        ];
     }
 
     protected function getHtmlInfo(array $orderListGroupedByStatuses)

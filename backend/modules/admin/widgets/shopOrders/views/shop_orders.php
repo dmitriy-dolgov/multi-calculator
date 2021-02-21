@@ -30,28 +30,15 @@ if (!$shopOrderHtmlElemData) {
 foreach ($shopOrderHtmlElemData as $orderByTypeList):
     $accordionItems = [];
     foreach ($orderByTypeList->getOrderList() as $order) {
-        /*$accordionItems[] = [
-            'header' => <<<HTML
-<button>
-    <div class="order-uid"><?= Html::encode({$order->order_uid}) ?></div>
-    <div class="order-datetime"><?= Html::encode({$order->created_at}) ?></div>
-</button>
-HTML
-,
-            'content' => '',
-        ];*/
-        /*$content = '';
-        foreach ($order->shopOrderStatuses as $shOrdStatus) {
-            $content .= $shOrdStatus->getStatusName() . "\n";
-        }*/
         $accordionItems[] = [
-            'title' => $order->order_uid,
-            //'content' => $content,
+            'title' => $order->order_uid . '<br>'. Html::encode($order->created_at),
             'content' => (function () use ($order) {
-                $content = '';
+                $content = '<ul>';
                 foreach ($order->shopOrderStatuses as $shOrdStatus) {
-                    $content .= $shOrdStatus->getStatusName() . "\n";
+                    $content .= '<li>' . $shOrdStatus->getStatusName() . '</li>';
                 }
+                $content .= '</ul>';
+
                 return $content;
             })(),
         ];

@@ -151,4 +151,17 @@ class ShopOrder extends \yii\db\ActiveRecord
     {
         return $this->getUsers()->count();
     }
+
+    //TODO: refactoring - см. где используется
+    public function ifBelongsToUser($userId)
+    {
+        return true;
+        foreach ($this->users as $user) {
+            if ($user->id == $userId) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -24,18 +24,23 @@ if (!$shopOrderHtmlElemData) {
     return;
 }
 
+$uid = Yii::$app->user->id;
+
 ?>
 <?php
 /** @var ShopOrderHtmlElemData $orderByTypeList */
 foreach ($shopOrderHtmlElemData as $orderByTypeList):
     $accordionItems = [];
     foreach ($orderByTypeList->getOrderList() as $order) {
+        $tt = $order->user_id;
         $accordionItems[] = [
             'title' => Html::encode($order->order_uid) . '<div style="font-size:small">'. Html::encode($order->created_at) . '</div>',
-            'content' => (function () use ($order) {
+            'content' => (function () use ($order, $uid) {
                 $content = '<ul>';
                 foreach ($order->shopOrderStatuses as $shOrdStatus) {
-                    $content .= '<li>' . $shOrdStatus->getStatusName() . '</li>';
+                    if ($uid == $shOrdStatus->user_id) {
+                        $content .= '<li>' . $shOrdStatus->getStatusName() . ' : ' . $shOrdStatus->shopOrder->order_uid . '</li>';
+                    }
                 }
                 $content .= '</ul>';
 

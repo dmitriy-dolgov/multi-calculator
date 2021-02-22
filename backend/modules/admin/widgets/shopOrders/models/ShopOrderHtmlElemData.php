@@ -60,7 +60,8 @@ class ShopOrderHtmlElemData extends BaseObject
     protected function setOrderList(array $orderList): void
     {
         $orderListNewKeys = ArrayHelper::getColumn($orderList, function ($orderElement) {
-            return [$orderElement->id => $orderElement];
+            //return [$orderElement->id => $orderElement];
+            return $orderElement;
         });
 
         $this->_orderList = $orderListNewKeys;

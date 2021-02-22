@@ -52,20 +52,20 @@ class ShopOrders extends Widget
         ])->all();
         //echo print_r($totalOrderList, true);exit;
         foreach ($totalOrderList as $order) {
-            if ($statusList = $order->getShopOrderStatuses()->orderBy(['id' => SORT_DESC])->asArray()->all()) {
+            if ($statusList = $order->getShopOrderStatuses()->orderBy(['id' => SORT_DESC])->limit(5)->asArray()->all()) {
                 /*$orderListGroupedByStatuses[$statusList[count($statusList) - 1]['type']][] = [
                     'order' => $order,
                     //'statusList' => $statusList,
                 ];*/
 
-                #if ($order->user_id == $this->modelUser->id) {
+                if ($order->ifBelongsToUser($this->modelUser->id)) {
                     $orderListGroupedByStatuses[$statusList[count($statusList) - 1]['type']][] = $order;
 
                     // Order creation time
                     if ($statusList[count($statusList) - 1]['type'] == 'created') {
                         $timeCreated = $statusList[count($statusList) - 1]['accepted_at'];
                     }
-                #}
+                }
             }
         }
 

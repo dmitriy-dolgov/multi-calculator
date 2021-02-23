@@ -10,6 +10,13 @@ use yii\base\Widget;
 
 class ShopOrders extends Widget
 {
+    /**
+     * Максимальное кол-во показов для обработки.
+     * TODO: это временный показатель
+     */
+    const MAX_ORDERS_TEMP = 5;
+
+
     /** @var User пользователь данных о заказах */
     public $modelUser;
 
@@ -47,9 +54,9 @@ class ShopOrders extends Widget
         $timeLastStatus = false;
 
         $totalOrderList = $this->modelUser->getShopOrders0()->orderBy([
-            'created_at' => SORT_DESC,
-            'id' => SORT_DESC
-        ])->all();
+            //'created_at' => SORT_DESC,
+            'id' => SORT_DESC,
+        ])->limit(self::MAX_ORDERS_TEMP)->all();
         //echo print_r($totalOrderList, true);exit;
         foreach ($totalOrderList as $order) {
             if ($statusList = $order->getShopOrderStatuses()->orderBy(['id' => SORT_DESC])->limit(5)->asArray()->all()) {

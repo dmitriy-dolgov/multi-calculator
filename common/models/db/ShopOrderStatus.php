@@ -135,14 +135,14 @@ class ShopOrderStatus extends \yii\db\ActiveRecord
             // Заказ принят исполнителем (поваром) к обработке.
             'accepted-by-maker' => Yii::t('app', 'Accepted by maker'),
             //TODO: косяк, исправить (дубликат названия статуса)
-            'offer-accepted-by-cook' => Yii::t('app', 'Accepted by maker'),
+            //'offer-accepted-by-cook' => Yii::t('app', 'Accepted by maker'),
             //TODO: косяк, исправить (дубликат названия статуса)
-            'offer-sent-to-cook' => Yii::t('app', 'Accepted by maker'),
+            //'offer-sent-to-cook' => Yii::t('app', 'Accepted by maker'),
 
             // Заказ уже принят в обработку другой пиццерией. Возможен откат к состоянию 'created'.
             'blocked-with-another-pizzeria' => Yii::t('app', 'Blocked with another pizzeria'),
             //TODO: косяк, исправить (дубликат названия статуса)
-            'blocked-with-other-pizzeria' => Yii::t('app', 'Blocked with another pizzeria'),
+            //'blocked-with-other-pizzeria' => Yii::t('app', 'Blocked with another pizzeria'),
 
             // Заказ передан курьеру.
             'accepted-by-courier' => Yii::t('app', 'Accepted by courier'),

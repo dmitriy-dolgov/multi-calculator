@@ -14,7 +14,7 @@ class ShopOrders extends Widget
      * Максимальное кол-во показов для обработки.
      * TODO: это временный показатель
      */
-    const MAX_ORDERS_TEMP = 5;
+    const MAX_ORDERS_TEMP = 7;
 
 
     /** @var User пользователь данных о заказах */

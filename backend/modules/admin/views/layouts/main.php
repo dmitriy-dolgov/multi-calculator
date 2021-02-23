@@ -121,7 +121,7 @@ CSS
                                 'items' => [
                                     [
                                         'label' => Yii::t('app', 'Orders'),
-                                        'url' => '/admin/order/list-user-related',
+                                        'url' => '/admin/order/list-user-worker-related',
                                         'icon' => 'handshake-o',
                                     ],
                                 ],

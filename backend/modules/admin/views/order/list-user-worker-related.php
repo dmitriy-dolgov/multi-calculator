@@ -14,16 +14,6 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('app', 'List of orders by users.');
 $this->params['breadcrumbs'][] = $this->title;
 
-/**
- * TODO: правильно что закомментил?
- * $this->registerJs(<<<JS
-gl.functions.unwrapOrderInfo = function(elem) {
-    gl.log('unwrapOrderInfo');
-    $(elem).parent().find('.order-fold').toggle('fold');
-}
-JS
-);*/
-
 ?>
 <?php Pjax::begin() ?>
 <div class="table-responsive">
@@ -39,10 +29,7 @@ JS
                     'value' => function ($model, $key, $index, $column) {
                         return GridView::ROW_COLLAPSED;
                     },
-                    //'detailUrl' => \yii\helpers\Url::to(['/admin/order/orders-by-user']),
-                    'detail' => function(User $userModel) {
-                        return ShopOrders::widget(['modelUser' => User::getOrFail($userModel->id)]);
-                    },
+                    'detailUrl' => \yii\helpers\Url::to(['/admin/order/orders-workers-by-user']),
                     'expandTitle' => Yii::t('app', 'Expand orders'),
                     'expandAllTitle' => Yii::t('app', 'Expand all orders'),
                     'collapseTitle' => Yii::t('app', 'Collapse orders'),
@@ -51,7 +38,6 @@ JS
                     'expandOneOnly' => true,
                 ],
                 'username',
-                'email:email',
             ],
         ]
     ); ?>

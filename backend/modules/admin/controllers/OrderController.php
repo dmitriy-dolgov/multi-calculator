@@ -12,6 +12,17 @@ use yii\web\NotFoundHttpException;
 
 class OrderController extends BaseController
 {
+    public function actionListUserWorkerRelated()
+    {
+        $searchModel = $this->make(UserSearch::class);
+        $dataProvider = $searchModel->search(Yii::$app->request->get());
+
+        return $this->render('list-user-worker-related', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     public function actionListUserRelated()
     {
         //$searchModel = ShopOrder::;
@@ -28,12 +39,26 @@ class OrderController extends BaseController
 
     public function actionOrdersByUser()
     {
+        //admin/order/orders-by-user
+
         if (!$userId = Yii::$app->request->post('expandRowKey')) {
             throw new NotFoundHttpException('Not found');
         }
 
         return ShopOrders::widget(['modelUser' => User::getOrFail($userId)]);
         //return $this->renderPartial('_orders-for-user', compact('modelUser'));
+    }
+
+    public function actionOrdersWorkersByUser()
+    {
+        //admin/order/orders-workers-by-user
+
+        //TODO: реализовать, пока хардков во вью
+        if (!$userId = Yii::$app->request->post('expandRowKey')) {
+            throw new NotFoundHttpException('Not found');
+        }
+
+        return $this->renderPartial('_orders-workers-for-user');
     }
 
     /**

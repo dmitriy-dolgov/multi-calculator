@@ -130,6 +130,9 @@ $this->registerJs(<<<JS
 JS
 );
 ?>
-<?php foreach ($orderList as $orderData): ?>
+<?php foreach ($orderList as $key => $orderData): ?>
     <?= $this->render('_order_element', ['worker' => $worker, 'orderData' => $orderData]) ?>
+    <?php if ($key > 10) {
+        break;
+    } ?>
 <?php endforeach; ?>

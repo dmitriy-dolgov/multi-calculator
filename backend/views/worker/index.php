@@ -23,12 +23,30 @@ $this->registerJs(<<<JS
     }
     if (!gl.functions.startTimerOut) {
         gl.functions.startTimerOut = function (orderUid, createdAt) {
-            console.log(orderUid + ' > ' + createdAt);
+            document.addEventListener("DOMContentLoaded", function() {
+                var orderCreationDateTimeElem = $('.time-passed[data-uid=' + orderUid + ']');
+                var date = new Date(createdAt);
+                //console.log('date: ' + date);
+                setInterval(function() {
+                    var currentDateTime = new Date();
+                    orderCreationDateTimeElem.text(parseInt((currentDateTime - date) / 1000) + ' сек.');
+                }, 3000);
+            });
         };
     }
-    
 JS
     , \yii\web\View::POS_HEAD
+);
+
+$this->registerJs(<<<JS
+$('.panel-collapse').on('show.bs.collapse', function () {
+    $(this).siblings('.panel-heading').addClass('active');
+});
+
+$('.panel-collapse').on('hide.bs.collapse', function () {
+    $(this).siblings('.panel-heading').removeClass('active');
+});
+JS
 );
 
 $this->registerCss(<<<CSS
@@ -45,6 +63,34 @@ $this->registerCss(<<<CSS
 .order-properties .value {
     text-align: right;
     font-weight: bold;
+}
+
+
+.panel-heading {
+  padding: 0;
+	border:0;
+}
+.panel-title>a, .panel-title>a:active{
+	display:block;
+	padding:15px;
+  color:#555;
+  font-size:16px;
+  font-weight:bold;
+	text-transform:uppercase;
+	letter-spacing:1px;
+  word-spacing:3px;
+	text-decoration:none;
+}
+.panel-heading  a:before {
+   font-family: 'Glyphicons Halflings';
+   content: "\e114";
+   float: right;
+   transition: all 0.5s;
+}
+.panel-heading.active a:before {
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	transform: rotate(180deg);
 }
 CSS
 );

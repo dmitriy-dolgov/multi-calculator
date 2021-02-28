@@ -132,7 +132,7 @@ JS
 ?>
 <?php foreach ($orderList as $key => $orderData): ?>
     <?= $this->render('_order_element', ['worker' => $worker, 'orderData' => $orderData]) ?>
-    <?php if ($key > 10) {
+    <?php if ($key > 7) {
         break;
     } ?>
 <?php endforeach; ?>

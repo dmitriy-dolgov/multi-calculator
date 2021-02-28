@@ -38,24 +38,50 @@ use yii\helpers\Html;
     <div class="o-info created_at">Создан: <?= Html::encode($orderData['info']['created_at']) ?></div>
     <?php */ ?>
 
-    <div class="o-info deliver_customer_name">
-        Имя: <?= Html::encode($orderData['info']['deliver_customer_name']) ?></div>
-    <div class="o-info deliver_address">
-        Адрес: <?= Html::encode($orderData['info']['deliver_address']) ?></div>
-    <div class="o-info deliver_phone">Телефон: <?= Html::encode($orderData['info']['deliver_phone']) ?></div>
-    <div class="o-info deliver_email">Email: <?= Html::encode($orderData['info']['deliver_email']) ?></div>
-    <div class="o-info deliver_comment">
-        Комментарий: <?= Html::encode($orderData['info']['deliver_comment']) ?></div>
-    <hr>
-    Компоненты:<br>
-    <?php foreach ($orderData['components'] as $comp): ?>
-        <i><?= Html::encode($comp['on_current']['name'] ?? 'Без имени') ?></i> Цена: <?= Html::encode($comp['on_current']['price'] ?? Yii::t('app',
-            'For free')) ?> р.
-        <?php if (($comp['on_deal']['amount'] ?? 1) > 1): ?>
-            (<?= $comp['on_deal']['amount'] ?> шт.)
-        <?php endif; ?>
-        <br>
-    <?php endforeach; ?>
+    <div class="panel-group" id="accordion<?= $orderData['info']['id'] ?>" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading active" role="tab" id="heading<?= $orderData['info']['id'] ?>">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse"
+                       data-parent="#accordion<?= $orderData['info']['id'] ?>"
+                       href="#collapse<?= $orderData['info']['id'] ?>" aria-expanded="false"
+                       aria-controls="collapse<?= $orderData['info']['id'] ?>">
+                        Заказ <?= $orderData['info']['id'] ?>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse<?= $orderData['info']['id'] ?>" class="panel-collapse collapse" role="tabpanel"
+                 aria-labelledby="heading<?= $orderData['info']['id'] ?>">
+                <div class="panel-body">
+                    <div class="to-unwrap">
+                        <div class="o-info deliver_customer_name">
+                            Имя: <?= Html::encode($orderData['info']['deliver_customer_name']) ?></div>
+                        <div class="o-info deliver_address">
+                            Адрес: <?= Html::encode($orderData['info']['deliver_address']) ?></div>
+                        <div class="o-info deliver_phone">
+                            Телефон: <?= Html::encode($orderData['info']['deliver_phone']) ?></div>
+                        <div class="o-info deliver_email">
+                            Email: <?= Html::encode($orderData['info']['deliver_email']) ?></div>
+                        <div class="o-info deliver_comment">
+                            Комментарий: <?= Html::encode($orderData['info']['deliver_comment']) ?></div>
+                    </div>
+
+                    <hr>
+                    Компоненты:<br>
+                    <?php foreach ($orderData['components'] as $comp): ?>
+                        <i><?= Html::encode($comp['on_current']['name'] ?? 'Без имени') ?></i> Цена: <?= Html::encode($comp['on_current']['price'] ?? Yii::t('app',
+                            'For free')) ?> р.
+                        <?php if (($comp['on_deal']['amount'] ?? 1) > 1): ?>
+                            (<?= $comp['on_deal']['amount'] ?> шт.)
+                        <?php endif; ?>
+                        <br>
+                    <?php endforeach; ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <hr>
     <div class="btn-accept-order-wrap">
         <?php if ($orderData['status'] == 'created'): ?>

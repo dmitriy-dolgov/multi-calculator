@@ -11,10 +11,42 @@ use yii\helpers\Html;
 $this->title = Yii::t('app', 'Co-worker main page');
 
 $this->registerJs(<<<JS
+    if (!window.gl) {
+        window.gl = {};
+    }
+    if (!gl.functions) {
+        gl.functions = {};
+    }
+    
     if (!gl.functions.orders) {
         gl.functions.orders = {};
-    };
+    }
+    if (!gl.functions.startTimerOut) {
+        gl.functions.startTimerOut = function (orderUid, createdAt) {
+            console.log(orderUid + ' > ' + createdAt);
+        };
+    }
+    
 JS
+    , \yii\web\View::POS_HEAD
+);
+
+$this->registerCss(<<<CSS
+.order-properties {
+    width: 100%;
+}
+.btn-accept-order-wrap {
+    width: 100%;
+}
+.btn-accept-order-wrap button {
+    width: 100%;
+    margin-top: 10px;
+}
+.order-properties .value {
+    text-align: right;
+    font-weight: bold;
+}
+CSS
 );
 
 ?>

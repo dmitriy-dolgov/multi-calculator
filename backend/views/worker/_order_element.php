@@ -8,9 +8,36 @@ use yii\helpers\Html;
 
 ?>
 <div class="order" data-id="<?= $orderData['info']['id'] ?>">
+
+    <table class="order-properties">
+        <tr>
+            <td class="name">ID:</td>
+            <td class="value"><?= $orderData['info']['id'] ?></td>
+        </tr>
+        <tr>
+            <td class="name">UID:</td>
+            <td class="value"><?= $orderData['info']['order_uid'] ?></td>
+        </tr>
+        <tr>
+            <td class="name">Создан:</td>
+            <td class="value"><?= $orderData['info']['created_at'] ?></td>
+        </tr>
+        <tr>
+            <td class="name">Прошло:</td>
+            <td class="value time-passed" data-uid="<?= $orderData['info']['order_uid'] ?>"></td>
+        </tr>
+    </table>
+
+    <script>
+        gl.functions.startTimerOut(<?= json_encode($orderData['info']['order_uid']) ?>, <?= json_encode($orderData['info']['created_at']) ?>);
+    </script>
+
+    <?php /* ?>
     <div class="o-info id">ID: <?= $orderData['info']['id'] ?></div>
     <div class="o-info order_uid">UID: <?= Html::encode($orderData['info']['order_uid']) ?></div>
     <div class="o-info created_at">Создан: <?= Html::encode($orderData['info']['created_at']) ?></div>
+    <?php */ ?>
+
     <div class="o-info deliver_customer_name">
         Имя: <?= Html::encode($orderData['info']['deliver_customer_name']) ?></div>
     <div class="o-info deliver_address">
@@ -59,26 +86,29 @@ use yii\helpers\Html;
                 ['status' => $orderData['status']]) ?>
         <?php endif; ?>
     </div>
-    <hr>
-    <div class="decline-order-panel">
-        <button class="btn btn-warning btn-decline-order"
-                onclick="gl.functions.orders.acceptOrders.declineOrder(<?= $orderData['info']['id'] ?>);return false;">
-            Отложить/отказаться
-        </button>
-        <select class="sel-decline-order-cause">
-            <option value="">Новая причина отказа</option>
-            <?php
-            //TODO: при появлении нового заказа этого поля не будет - исправить
-            if ($worker && $worker->coWorkerDeclineCauses) {
-                foreach ($worker->coWorkerDeclineCauses as $dCause) {
-                    echo '<option value="' . $dCause->id . '">' . Html::encode($dCause->cause) . '</option>';
+    <?php if ($orderData['status'] != 'finished'): ?>
+        <hr>
+        <div class="decline-order-panel">
+            <button class="btn btn-danger btn-decline-order" style="margin-bottom:10px; width:100%"
+                    onclick="gl.functions.orders.acceptOrders.declineOrder(<?= $orderData['info']['id'] ?>);return false;">
+                Отложить/отказаться
+            </button>
+            <br>
+            <select class="sel-decline-order-cause" style="margin-bottom:10px; width:100%">
+                <option value="">Новая причина отказа</option>
+                <?php
+                //TODO: при появлении нового заказа этого поля не будет - исправить
+                if ($worker && $worker->coWorkerDeclineCauses) {
+                    foreach ($worker->coWorkerDeclineCauses as $dCause) {
+                        echo '<option value="' . $dCause->id . '">' . Html::encode($dCause->cause) . '</option>';
+                    }
                 }
-            }
-            ?>
-        </select>
-        <br>
-        Новая причина отказа:<br><textarea class="text-new-decline-order-cause"></textarea>
-    </div>
-    <hr>
+                ?>
+            </select>
+            <br>
+            <textarea placeholder="Новая причина отказа" class="text-new-decline-order-cause"
+                      style="width:100%"></textarea>
+        </div>
+    <?php endif; ?>
     <hr>
 </div>

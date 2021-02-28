@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'collapseTitle' => Yii::t('app', 'Collapse orders'),
                     'collapseAllTitle' => Yii::t('app', 'Collapse all orders'),
                     'headerOptions' => ['class' => 'kartik-sheet-style'],
-                    'expandOneOnly' => true,
+                    'expandOneOnly' => false,
                 ],
                 'username',
             ],

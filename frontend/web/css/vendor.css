@@ -192,6 +192,7 @@
 #order-form {
   width: 75%;
   float: left;
+  position: relative;
 }
 
 .jspContainer {
@@ -624,6 +625,7 @@
 .standard-pizzas-panel,
 .customer-orders-panel,
 .categories-panel {
+  display: none;
   position: absolute;
   top: 123px;
   left: 0;
@@ -1122,6 +1124,38 @@
 .blinking-background-order-courier-arrived {
   background-color: rgba(255, 0, 0, 0.6);
   animation: blink-red-background 1s infinite;
+}
+
+.menu-unwrap-panel {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.menu-unwrap-panel .menu-unwrap-button {
+  position: absolute;
+  /*width: 30px;*/
+  height: 120px;
+  color: yellow;
+  background-color: #098009;
+  text-transform: uppercase;
+  font-weight: bold;
+  z-index: 1;
+  writing-mode: vertical-lr;
+  padding: 0 6px;
+  letter-spacing: 3px;
+  text-align: center;
+}
+.menu-unwrap-panel .menu-unwrap-elems {
+  position: absolute;
+  background-color: red;
+  height: 120px;
+  top: 0;
+  right: 0;
+  width: calc(100% - 32px);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
 }
 
 @media screen and (max-width: 1000px) {

@@ -239,6 +239,15 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
 
     <div id="order-form">
 
+        <div class="menu-unwrap-panel">
+            <div class="menu-unwrap-button"><?= Yii::t('app', 'Menu') ?></div>
+            <div class="menu-unwrap-elems">
+                <div><?= Yii::t('app', 'Pizzas') ?></div>
+                <div><?= Yii::t('app', 'Orders') ?></div>
+                <div><?= Yii::t('app', 'You') ?></div>
+            </div>
+        </div>
+
         <div class="sidebar">
 
             <?php /*Slick::widget([
@@ -439,6 +448,15 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
         </div>
     </div>
 
+<!--    <div class="menu-unwrap-panel">
+        <div class="menu-unwrap-button"><?/*= Yii::t('app', 'Menu') */?></div>
+        <div class="menu-unwrap-elems">
+            <div><?/*= Yii::t('app', 'Pizzas') */?></div>
+            <div><?/*= Yii::t('app', 'Orders') */?></div>
+            <div><?/*= Yii::t('app', 'You') */?></div>
+        </div>
+    </div>-->
+
     <div class="standard-pizzas-panel wrp-pane">
         <div class="btn-head"><?= Yii::t('app', 'Pizzas') ?></div>
         <div class="panel-elements-list">
@@ -570,6 +588,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
             ?>
         </div>
     </div>
+
 </div>
 
 <div id="switch-component-modal" class="switch-component-modal modal fade" role="dialog">

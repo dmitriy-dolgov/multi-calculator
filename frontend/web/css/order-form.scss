@@ -72,6 +72,7 @@ $catalog-name_height: 25px;
 #order-form {
   width: 100% - $components-pane-width;
   float: left;
+  position: relative;
 }
 
 .jspContainer {
@@ -114,8 +115,12 @@ $catalog-name_height: 25px;
 
 @keyframes blinker {
   /*50% { opacity: 0.4; }*/
-  15% { opacity: 0; }
-  30% { opacity: 1; }
+  15% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
   /*95% { opacity: 1; }
   100% { opacity: 0; }*/
 }
@@ -529,6 +534,7 @@ $catalog-name_height: 25px;
 .standard-pizzas-panel,
 .customer-orders-panel,
 .categories-panel {
+  display: none;
   position: absolute;
   top: $order-pane-common-height;
   left: 0;
@@ -597,7 +603,7 @@ $catalog-name_height: 25px;
 }
 
 .customer-orders-panel {
-/*.categories-panel {*/
+  /*.categories-panel {*/
   top: 0;
   z-index: 3;
 
@@ -1010,6 +1016,7 @@ $catalog-name_height: 25px;
     box-shadow: 0 5px 15px rgba(0, 255, 0, 1);
   }
 }
+
 .blinking-border-order-accepted {
   animation: blink-green .5s step-end infinite alternate;
 }
@@ -1020,6 +1027,7 @@ $catalog-name_height: 25px;
     box-shadow: 0 5px 15px rgba(255, 255, 0, 1);
   }
 }
+
 .blinking-border-order-accepted-by-courier {
   animation: blink-yellow .5s step-end infinite alternate;
 }
@@ -1030,6 +1038,7 @@ $catalog-name_height: 25px;
     box-shadow: 0 5px 15px rgba(255, 0, 0, 1);
   }
 }
+
 .blinking-border-order-courier-arrived {
   animation: blink-red .5s step-end infinite alternate;
 }
@@ -1043,6 +1052,7 @@ $catalog-name_height: 25px;
   /*from {opacity: .5;}
   to {opacity: 0;}*/
 }
+
 .blinking-background-order-accepted {
   background-color: rgba(0, 255, 0, .6);
   animation: blink-green-background 1s infinite;
@@ -1053,6 +1063,7 @@ $catalog-name_height: 25px;
     background-color: rgba(255, 255, 0, .1);
   }
 }
+
 .blinking-background-order-accepted-by-courier {
   background-color: rgba(255, 255, 0, .6);
   animation: blink-yellow-background 1s infinite;
@@ -1063,7 +1074,42 @@ $catalog-name_height: 25px;
     background-color: rgba(255, 0, 0, .1);
   }
 }
+
 .blinking-background-order-courier-arrived {
   background-color: rgba(255, 0, 0, .6);
   animation: blink-red-background 1s infinite;
+}
+
+.menu-unwrap-panel {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+
+  .menu-unwrap-button {
+    position: absolute;
+    /*width: 30px;*/
+    height: $order-pane-height;
+    color: $wrapping-panel_color;
+    background-color: $wrapping-panel_bgColor;
+    text-transform: uppercase;
+    font-weight: bold;
+    z-index: 1;
+    writing-mode: vertical-lr;
+    padding: 0 6px;
+    letter-spacing: 3px;
+    text-align: center;
+  }
+
+  .menu-unwrap-elems {
+    position: absolute;
+    background-color: red;
+    height: $order-pane-height;
+    top: 0;
+    right: 0;
+    width: calc(100% - 32px);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+  }
 }

@@ -251,4 +251,5 @@ return [
     'Pizzerias not found' => 'Пиццерии не найдены',
     'User {user} not found' => 'Пользователь {user} не найден',
     'Unknown error. Please try again later or refer to administrator.' => 'Неизвестная ошибка. Пожалуйста, попробуйте позже или обратитесь к администратору.',
+    'Menu' => 'Меню',
 ];

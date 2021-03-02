@@ -65,3 +65,11 @@ if (!window.L) {
         }
     };
 }
+
+$('.menu-unwrap-panel .menu-unwrap-button').click(function () {
+    $(this).parent().toggleClass('folded');
+});
+
+$('.menu-item.pizzas').click(function () {
+    $('.pizza-panel-elements-list').toggleClass('unwrap');
+});

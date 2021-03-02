@@ -114,7 +114,7 @@ $this->registerJsFile(Url::to(['/js/vendor/order-form.js']), ['depends' => ['fro
 $this->registerJsFile(Url::to(['/js/vendor/order-form/component.drag-n-drop.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/scrollbar.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/positioning.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
-$this->registerJsFile(Url::to(['/js/vendor/order-form/geo.js', 'ver' => '1.3']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
+$this->registerJsFile(Url::to(['/js/vendor/order-form/geo.js', 'ver' => '1.4']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/components.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/order.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/categories.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
@@ -228,3 +228,6 @@ foreach ($cityList as $cityId => $cityData) {
         <br>
     </div>
 </div>
+<!--<audio controls autoplay id="myaudio">
+    <source src="/sound/fire_bow_sound-mike-koenig.mp3">
+</audio>-->

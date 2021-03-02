@@ -239,12 +239,12 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
 
     <div id="order-form">
 
-        <div class="menu-unwrap-panel">
+        <div class="menu-unwrap-panel folded">
             <div class="menu-unwrap-button"><?= Yii::t('app', 'Menu') ?></div>
             <div class="menu-unwrap-elems">
-                <div><?= Yii::t('app', 'Pizzas') ?></div>
-                <div><?= Yii::t('app', 'Orders') ?></div>
-                <div><?= Yii::t('app', 'You') ?></div>
+                <div class="menu-item pizzas"><?= Yii::t('app', 'Pizzas') ?></div>
+                <div class="menu-item orders"><?= Yii::t('app', 'Orders') ?></div>
+                <div class="menu-item you"><?= Yii::t('app', 'You') ?></div>
             </div>
         </div>
 
@@ -456,6 +456,8 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
             <div><?/*= Yii::t('app', 'You') */?></div>
         </div>
     </div>-->
+
+    <?= $this->render('__pizza_panel_elements_list', ['componentSets' => $componentSets]) ?>
 
     <div class="standard-pizzas-panel wrp-pane">
         <div class="btn-head"><?= Yii::t('app', 'Pizzas') ?></div>

@@ -1145,10 +1145,11 @@
   padding: 0 6px;
   letter-spacing: 3px;
   text-align: center;
+  cursor: pointer;
 }
 .menu-unwrap-panel .menu-unwrap-elems {
   position: absolute;
-  background-color: red;
+  /*background-color: red;*/
   height: 120px;
   top: 0;
   right: 0;
@@ -1156,6 +1157,81 @@
   z-index: 2;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+.menu-unwrap-panel .menu-unwrap-elems .menu-item {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  background-color: green;
+  border-radius: 80px;
+  justify-content: center;
+  align-items: center;
+  margin: 0 3%;
+  cursor: pointer;
+}
+.menu-unwrap-panel.folded .menu-unwrap-elems {
+  display: none;
+}
+
+.pizza-panel-elements-list {
+  overflow: hidden;
+  position: absolute;
+  top: 123px;
+  left: 0;
+  width: 0;
+  background-color: #2C4257;
+  transition: 0.3s;
+  z-index: 2;
+  max-width: 400px;
+}
+.pizza-panel-elements-list .header {
+  font-style: italic;
+  font-weight: 600;
+}
+.pizza-panel-elements-list.unwrap {
+  width: calc(100% - 31px);
+  transition: 0.3s;
+  padding: 10px;
+}
+.pizza-panel-elements-list.unwrap .btn-head {
+  left: 100%;
+  transition: 0.3s;
+}
+.pizza-panel-elements-list .btn-head {
+  cursor: pointer;
+  text-align: center;
+  color: yellow;
+  background-color: #098009;
+  font-weight: bold;
+  /*transform: rotate(90deg);
+  transform-origin: 0 0;*/
+  text-transform: uppercase;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: 0.3s;
+  -webkit-writing-mode: vertical-lr;
+  writing-mode: vertical-lr;
+  padding: 20px 6px;
+  letter-spacing: 3px;
+}
+.pizza-panel-elements-list .panel-elements-list {
+  width: 100%;
+  overflow: hidden;
+  line-height: 2.2;
+}
+.pizza-panel-elements-list .panel-elements-list .header-tip {
+  text-align: right;
+  color: yellow;
+  font-size: smaller;
+  line-height: 0;
+}
+.pizza-panel-elements-list .panel-elements-list .elem {
+  cursor: pointer;
+}
+.pizza-panel-elements-list .panel-elements-list .elem:hover {
+  background-color: #999999;
 }
 
 /*# sourceMappingURL=order-form.css.map */

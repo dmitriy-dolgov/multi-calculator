@@ -1174,7 +1174,9 @@
   display: none;
 }
 
-.pizza-panel-elements-list {
+.pizzas-panel-elements-list,
+.orders-panel-elements-list,
+.you-panel-elements-list {
   overflow: hidden;
   position: absolute;
   top: 123px;
@@ -1185,20 +1187,28 @@
   z-index: 2;
   max-width: 400px;
 }
-.pizza-panel-elements-list .header {
+.pizzas-panel-elements-list .header,
+.orders-panel-elements-list .header,
+.you-panel-elements-list .header {
   font-style: italic;
   font-weight: 600;
 }
-.pizza-panel-elements-list.unwrap {
+.pizzas-panel-elements-list.unwrap,
+.orders-panel-elements-list.unwrap,
+.you-panel-elements-list.unwrap {
   width: calc(100% - 31px);
   transition: 0.3s;
   padding: 10px;
 }
-.pizza-panel-elements-list.unwrap .btn-head {
+.pizzas-panel-elements-list.unwrap .btn-head,
+.orders-panel-elements-list.unwrap .btn-head,
+.you-panel-elements-list.unwrap .btn-head {
   left: 100%;
   transition: 0.3s;
 }
-.pizza-panel-elements-list .btn-head {
+.pizzas-panel-elements-list .btn-head,
+.orders-panel-elements-list .btn-head,
+.you-panel-elements-list .btn-head {
   cursor: pointer;
   text-align: center;
   color: yellow;
@@ -1216,21 +1226,29 @@
   padding: 20px 6px;
   letter-spacing: 3px;
 }
-.pizza-panel-elements-list .panel-elements-list {
+.pizzas-panel-elements-list .panel-elements-list,
+.orders-panel-elements-list .panel-elements-list,
+.you-panel-elements-list .panel-elements-list {
   width: 100%;
   overflow: hidden;
   line-height: 2.2;
 }
-.pizza-panel-elements-list .panel-elements-list .header-tip {
+.pizzas-panel-elements-list .panel-elements-list .header-tip,
+.orders-panel-elements-list .panel-elements-list .header-tip,
+.you-panel-elements-list .panel-elements-list .header-tip {
   text-align: right;
   color: yellow;
   font-size: smaller;
   line-height: 0;
 }
-.pizza-panel-elements-list .panel-elements-list .elem {
+.pizzas-panel-elements-list .panel-elements-list .elem,
+.orders-panel-elements-list .panel-elements-list .elem,
+.you-panel-elements-list .panel-elements-list .elem {
   cursor: pointer;
 }
-.pizza-panel-elements-list .panel-elements-list .elem:hover {
+.pizzas-panel-elements-list .panel-elements-list .elem:hover,
+.orders-panel-elements-list .panel-elements-list .elem:hover,
+.you-panel-elements-list .panel-elements-list .elem:hover {
   background-color: #999999;
 }
 

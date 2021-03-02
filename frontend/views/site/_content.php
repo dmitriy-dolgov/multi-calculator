@@ -457,7 +457,9 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
         </div>
     </div>-->
 
-    <?= $this->render('__pizza_panel_elements_list', ['componentSets' => $componentSets]) ?>
+    <?= $this->render('__pizzas_panel_elements_list', ['componentSets' => $componentSets]) ?>
+    <?= $this->render('__orders_panel_elements_list') ?>
+    <?= $this->render('__you_panel_elements_list') ?>
 
     <div class="standard-pizzas-panel wrp-pane">
         <div class="btn-head"><?= Yii::t('app', 'Pizzas') ?></div>

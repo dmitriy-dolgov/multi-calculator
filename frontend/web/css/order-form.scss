@@ -1136,7 +1136,9 @@ $catalog-name_height: 25px;
   }
 }
 
-.pizza-panel-elements-list {
+.pizzas-panel-elements-list,
+.orders-panel-elements-list,
+.you-panel-elements-list {
   overflow: hidden;
   position: absolute;
   top: $order-pane-common-height;

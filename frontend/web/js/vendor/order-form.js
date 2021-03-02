@@ -71,5 +71,16 @@ $('.menu-unwrap-panel .menu-unwrap-button').click(function () {
 });
 
 $('.menu-item.pizzas').click(function () {
-    $('.pizza-panel-elements-list').toggleClass('unwrap');
+    $('.unwrapped-panel').removeClass('unwrap');
+    $('.pizzas-panel-elements-list').toggleClass('unwrap');
+});
+
+$('.menu-item.orders').click(function () {
+    $('.unwrapped-panel').removeClass('unwrap');
+    $('.orders-panel-elements-list').toggleClass('unwrap');
+});
+
+$('.menu-item.you').click(function () {
+    $('.unwrapped-panel').removeClass('unwrap');
+    $('.you-panel-elements-list').toggleClass('unwrap');
 });

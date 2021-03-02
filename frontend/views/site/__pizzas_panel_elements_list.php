@@ -6,7 +6,7 @@ use yii\helpers\Html;
 
 ?>
 
-<div class="pizza-panel-elements-list">
+<div class="pizzas-panel-elements-list unwrapped-panel">
     <div class="header"><?= Yii::t('app', 'Choose your pizza') ?></div>
     <div class="header-tip"><?= Yii::t('app', 'Or create it yourself ⇒') ?></div>
     <hr>

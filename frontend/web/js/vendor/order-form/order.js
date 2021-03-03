@@ -169,7 +169,7 @@ gl.functions.composeOrder = function () {
             errorMessages.push(gl.data['email-or-phone']);
         }
 
-        //TODO: включить
+        //TODO: переключатель проверки ввода адреса здесь
         //if (hasError) {
         if (0) {
             var errText = '<span class="err-title">' + gl.data['please-enter'] + '</span><br>';
@@ -193,6 +193,17 @@ gl.functions.composeOrder = function () {
         elem.fadeOut(200, function () {
             $('#frm-confirmed-order').fadeIn();
         });*/
+
+        gl.functionss.storage.handleAddress(
+            '.order-data-data',
+            'ShopOrderForm',
+            [
+                'deliver_address',
+                'deliver_customer_name'
+            ]
+        );
+
+        gl.functionss.storage.setAddresses();
 
         var formData = elem.serialize();
 
@@ -377,8 +388,7 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
         //container.data('order-info', JSON.stringify(orderInfoObj));
         container.data('order-info', orderInfoObj);
 
-        gl.log('audioElement.play();');
-        audioElement.play();
+        //gl.data.setupAudio.play();
 
         //TODO: Здесь надо убрать все соединяющие линии и установить связь обратную от пиццерии к пользователю.
         gl.data.worldMap.connectAPizzeriaWithCustomer(merchantData.id);
@@ -428,7 +438,7 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         orderInfoObj.orderStatus = 'accepted-by-courier';
         container.data('order-info', orderInfoObj);
 
-        audioElement.play();
+        //audioElement.play();
 
         //TODO: здесь мигает окно "заказы" и если окно с текущим заказом открыто, то мигает и оно
         //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-accepted-by-courier');
@@ -471,7 +481,7 @@ gl.functions.setUpPaneOnOrderCourierArrived = function (orderId, merchantData, c
         orderInfoObj.orderStatus = 'finished';
         container.data('order-info', orderInfoObj);
 
-        audioElement.play();
+        //audioElement.play();
 
         //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-courier-arrived');
         $('.modal-backdrop').removeClass(function (index, className) {
@@ -508,7 +518,7 @@ gl.functions.setUpPaneOnOrderSuccessfullyFinished = function (orderId, merchantD
         orderInfoObj.orderStatus = 'finished';
         container.data('order-info', orderInfoObj);
 
-        audioElement.play();
+        //audioElement.play();
 
         //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content');
         $('.modal-backdrop').removeClass(function (index, className) {
@@ -544,34 +554,58 @@ if (gl.orderFormHistory.ifSomethingInStore) {
 gl.functions.orderCalculatePrice();
 
 
-// AUDIO
-var audioElement = document.createElement('audio');
-audioElement.setAttribute('src', '/sound/33244__ljudman__dingding.wav');
+gl.functions.setupAudio = function () {
 
-/*audioElement.addEventListener('ended', function() {
-    this.play();
-}, false);*/
+    //var audioElement = document.createElement('audio');
+    //audioElement.setAttribute('src', '/sound/33244__ljudman__dingding.wav');
 
-/*audioElement.addEventListener("canplay",function(){
-    $("#length").text("Duration:" + audioElement.duration + " seconds");
-    $("#source").text("Source:" + audioElement.src);
-    $("#status").text("Status: Ready to play").css("color","green");
-});*/
+    var audioElement = document.getElementById("myaudio");
 
-/*audioElement.addEventListener("timeupdate",function(){
-    $("#currentTime").text("Current second:" + audioElement.currentTime);
-});*/
+    /*var volume = .1;
+    audioElement.addEventListener('ended', function() {
+        volume -= .003;
+        if (volume < 0) {
+            return;
+        }
+        gl.log('volume 4: ' + volume);
+        //$(audioElement).prop('volume', volume);
+        audioElement.volume = volume;
+        audioElement.setAttribute('volume', volume);
+        audioElement.play();
+    }, false);*/
 
-/*$('#play').click(function() {
-    audioElement.play();
-    //$("#status").text("Status: Playing");
-});*/
+    return {
+        play: function () {
+            audioElement.play();
+        },
+        volume: function (val) {
+            audioElement.volume = val / 10; //TODO: / 10 - непонятный глюк с непропорционально уменьшающимся звуком
+        }
+    };
 
-/*$('#pause').click(function() {
-    audioElement.pause();
-    //$("#status").text("Status: Paused");
-});*/
+    /*audioElement.addEventListener("canplay",function(){
+        $("#length").text("Duration:" + audioElement.duration + " seconds");
+        $("#source").text("Source:" + audioElement.src);
+        $("#status").text("Status: Ready to play").css("color","green");
+    });*/
 
-/*$('#restart').click(function() {
-    audioElement.currentTime = 0;
-});*/
+    /*audioElement.addEventListener("timeupdate",function(){
+        $("#currentTime").text("Current second:" + audioElement.currentTime);
+    });*/
+
+    /*$('#play').click(function() {
+        audioElement.play();
+        //$("#status").text("Status: Playing");
+    });*/
+
+    /*$('#pause').click(function() {
+        audioElement.pause();
+        //$("#status").text("Status: Paused");
+    });*/
+
+    /*$('#restart').click(function() {
+        audioElement.currentTime = 0;
+    });*/
+};
+
+gl.data.setupAudio = new gl.functions.setupAudio();

@@ -111,6 +111,7 @@ $jsCode = "var gl = {data:{}};\n"
 
 $this->registerJs($jsCode, \yii\web\View::POS_HEAD);
 $this->registerJsFile(Url::to(['/js/vendor/order-form.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
+$this->registerJsFile(Url::to(['/js/vendor/order-form/storage.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/component.drag-n-drop.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/scrollbar.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/positioning.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
@@ -147,12 +148,13 @@ foreach ($cityList as $cityId => $cityData) {
                 <!--<button class="correct-geolocation" onclick="gl.functions.correctGeolocation();return false;"><?php /*= Yii::t('app', 'Скорректировать геолокацию') */ ?></button>-->
                 <label class="preview-element-yd">
                     <div class="label"><?= Html::encode(Yii::t('app', 'Your city:')) ?></div>
-                    <select class="select-deliver_city_id" name="ShopOrderForm[deliver_city_id]">
-                        <?php foreach ($cityList as $cityId => $cityData): ?>
-                            <option value="<?= $cityId ?>" data-lat="<?= $cityData['coords']['lat'] ?>"
-                                    data-lon="<?= $cityData['coords']['lon'] ?>"><?= Html::encode($cityData['name']) ?></option>
-                        <?php endforeach; ?>
-                    </select>
+                    Москва
+                    <!--<select class="select-deliver_city_id" name="ShopOrderForm[deliver_city_id]">
+                        <?php /*foreach ($cityList as $cityId => $cityData): */?>
+                            <option value="<?/*= $cityId */?>" data-lat="<?/*= $cityData['coords']['lat'] */?>"
+                                    data-lon="<?/*= $cityData['coords']['lon'] */?>"><?/*= Html::encode($cityData['name']) */?></option>
+                        <?php /*endforeach; */?>
+                    </select>-->
                     <?php /*Select2::widget([
                     'name' => 'ShopOrderForm[deliver_city_id]',
                     'data' => $cityListSelect,

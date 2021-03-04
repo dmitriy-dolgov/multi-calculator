@@ -1,21 +1,31 @@
 gl.functionss = {};
 gl.functionss.storage = {
     'setAddresses': function () {
+
+        console.log(11);
+
         var orderAddresses = gl.container.localStorage.getItem('order_addresses');
         if (!Array.isArray(orderAddresses)) {
             orderAddresses = [];
             gl.container.localStorage.setItem('order_addresses', orderAddresses);
         }
 
+        console.log(22);
+
         var html = '';
         for (var i in orderAddresses) {
+            console.log("90: +");
             for (var j in orderAddresses[i]) {
+                console.log("91: ++");
                 html += orderAddresses[i][j] + '<br>';
+                console.log('html: ' + html);
             }
             html += '<hr>';
         }
 
-        $('.you-panel-elements-list .content').html(html ? html : 'Нет адресов.');
+        console.log(23);
+
+        $('.you-panel-elements-list .content').html(html ? html : 'Нет адресов 1.');
     },
     'handleAddress': function (parentElemSelectorStr, classNameStr, elemNameStrArr) {
         var orderAddresses = gl.container.localStorage.getItem('order_addresses');

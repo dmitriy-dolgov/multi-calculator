@@ -50,8 +50,7 @@ if (!window.L) {
     window.L = {
         icon: function () {
         },
-        Icon: {
-        },
+        Icon: {},
         Marker: {
             extend: function () {
 
@@ -84,3 +83,115 @@ $('.menu-item.you').click(function () {
     $('.unwrapped-panel').removeClass('unwrap');
     $('.you-panel-elements-list').toggleClass('unwrap');
 });
+
+
+gl.functions.getLocalStorage = function () {
+    var storage;
+    try {
+        var testStorage = window['localStorage'];
+        var x = '__storage_test__';
+        testStorage.setItem(x, x);
+        testStorage.removeItem(x);
+
+        storage = {
+            //TODO: параметр length как здесь работает?
+            setItem: function (key, data) {
+                //TODO: обработка ошибок JSON
+                testStorage.setItem(key, JSON.stringify(data));
+                //TODO: нормально сделать, this возвращать
+                return null;
+            },
+            getItem: function (key) {
+                //TODO: обработка ошибок JSON
+                return JSON.parse(testStorage.getItem(key));
+            },
+            removeItem: function (key) {
+                //TODO: проверить на возвращаемое значение
+                testStorage.getItem(key);
+            },
+            clear: function () {
+                //TODO: проверить на возвращаемое значение
+                testStorage.clear();
+            }
+        };
+
+    } catch (e) {
+        storage = {
+            //TODO: параметр length как здесь работает?
+            setItem: function (elem) {
+                gl.log(['Storage do not work: setItem()', elem]);
+                //TODO: нормально сделать, this возвращать
+                return null;
+            },
+            getItem: function (name) {
+                gl.log(['Storage do not work: getItem()', name]);
+                return null;
+            },
+            removeItem: function (name) {
+                gl.log(['Storage do not work: removeItem()', name]);
+                //TODO: нормально сделать, this возвращать
+                return null;
+            },
+            clear: function () {
+                gl.log(['Storage do not work: clear()', name]);
+                //TODO: нормально сделать, this возвращать
+                return null;
+            }
+        };
+        //TODO: рассмотреть закомментированый код ниже (https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API):
+        /*var hasStorage = e instanceof DOMException && (
+                // everything except Firefox
+            e.code === 22 ||
+            // Firefox
+            e.code === 1014 ||
+            // test name field too, because code might not be present
+            // everything except Firefox
+            e.name === 'QuotaExceededError' ||
+            // Firefox
+            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+            // acknowledge QuotaExceededError only if there's something already stored
+            (storage && storage.length !== 0);*/
+    }
+
+    return storage;
+};
+
+if (!gl.container) {
+    gl.container = {};
+}
+
+gl.container.localStorage = new gl.functions.getLocalStorage();
+
+/**
+ * Удаление лишних пробелов.
+ * TODO: Возможно, и других элементов типа двойных пробелов.
+ *
+ * @param data
+ * @returns {*}
+ */
+gl.functions.refineObjectValuesData = function (data) {
+    //return String.trim(data);
+    return data;
+};
+
+/**
+ * Получение значения элемента и его очистка от ненежных элементов.
+ *
+ * @param parentElem
+ * @param className
+ * @param elemName
+ * @returns {*}
+ */
+gl.functions.setAndGetRefinedDataToElement = function (parentElemSelector, className, elemName) {
+    //TODO: parentElemSelector - рассмотреть добавление в кеш
+    var elemObj = $(parentElemSelector).find('input[name="' + className + '[' + elemName + ']"]');
+    elemObj = $(elemObj[1]);
+    //TODO: мегакостыль. Убрать неопределенность при выборе элемента elemObj
+    var elemValues = gl.container.localStorage.getItem('order_addresses');
+    var newElemValue = gl.functions.refineObjectValuesData(elemObj.val());
+    elemObj.val(elemValues.push({elemName: newElemValue}));
+
+    gl.container.localStorage.setItem('order_addresses', elemValues);
+
+    return newElemValue;
+};

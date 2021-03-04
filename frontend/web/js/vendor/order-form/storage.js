@@ -2,30 +2,23 @@ gl.functionss = {};
 gl.functionss.storage = {
     'setAddresses': function () {
 
-        console.log(11);
-
         var orderAddresses = gl.container.localStorage.getItem('order_addresses');
         if (!Array.isArray(orderAddresses)) {
             orderAddresses = [];
             gl.container.localStorage.setItem('order_addresses', orderAddresses);
         }
 
-        console.log(22);
-
-        var html = '';
+        var html = '', data = {};
         for (var i in orderAddresses) {
-            console.log("90: +");
+            gl.log("I:" + i);
             for (var j in orderAddresses[i]) {
-                console.log("91: ++");
-                html += orderAddresses[i][j] + '<br>';
-                console.log('html: ' + html);
+                gl.log("J:" + j);
+                html += j + ': ' + orderAddresses[i][j] + '<br>';
             }
             html += '<hr>';
         }
 
-        console.log(23);
-
-        $('.you-panel-elements-list .content').html(html ? html : 'Нет адресов 1.');
+        $('.you-panel-elements-list .content').html(html ? html : 'Нет адресов.');
     },
     'handleAddress': function (parentElemSelectorStr, classNameStr, elemNameStrArr) {
         var orderAddresses = gl.container.localStorage.getItem('order_addresses');

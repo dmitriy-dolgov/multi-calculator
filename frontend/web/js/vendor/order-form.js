@@ -186,11 +186,19 @@ gl.functions.setAndGetRefinedDataToElement = function (parentElemSelector, class
     //TODO: parentElemSelector - рассмотреть добавление в кеш
     var elemObj = $(parentElemSelector).find('input[name="' + className + '[' + elemName + ']"]');
     elemObj = $(elemObj[1]);
+
+    var newElemValue = gl.functions.refineObjectValuesData(elemObj.val());
+    elemObj.val(newElemValue);
+
+    //elemValues.push({elemName: newElemValue}));
+
+    console.log('NNNNNNNNNNNN: ' + elemName);
+
     //TODO: мегакостыль. Убрать неопределенность при выборе элемента elemObj
     var elemValues = gl.container.localStorage.getItem('order_addresses');
-    var newElemValue = gl.functions.refineObjectValuesData(elemObj.val());
-    elemObj.val(elemValues.push({elemName: newElemValue}));
-
+    var ny = {};
+    ny[elemName] = newElemValue;
+    elemValues.push(ny);
     gl.container.localStorage.setItem('order_addresses', elemValues);
 
     return newElemValue;

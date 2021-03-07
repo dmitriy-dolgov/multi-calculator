@@ -67,6 +67,7 @@ if (!window.L) {
 
 $('.menu-unwrap-panel .menu-unwrap-button').click(function () {
     $(this).parent().toggleClass('folded');
+    $('.unwrapped-panel').removeClass('unwrap');
 });
 
 $('.menu-item.pizzas').click(function () {
@@ -84,7 +85,11 @@ $('.menu-item.you').click(function () {
     $('.you-panel-elements-list').toggleClass('unwrap');
 });
 
-
+/**
+ * Объект для хранилища строк.
+ *
+ * @returns {{removeItem: removeItem, clear: clear, getItem: getItem, setItem: (function(*=, *=): null)}}
+ */
 gl.functions.getLocalStorage = function () {
     var storage;
     try {
@@ -102,13 +107,18 @@ gl.functions.getLocalStorage = function () {
                 return null;
             },
             getItem: function (key) {
+                if (testStorage.getItem(key) === null) {
+                    return null;
+                }
+
                 //TODO: обработка ошибок JSON
                 return JSON.parse(testStorage.getItem(key));
             },
             removeItem: function (key) {
                 //TODO: проверить на возвращаемое значение
-                testStorage.getItem(key);
+                testStorage.removeItem(key);
             },
+            //TODO: сделать метод статическим, типа того
             clear: function () {
                 //TODO: проверить на возвращаемое значение
                 testStorage.clear();
@@ -160,6 +170,10 @@ if (!gl.container) {
     gl.container = {};
 }
 
+if (!gl.fContainer) {
+    gl.fContainer = {};
+}
+
 gl.container.localStorage = new gl.functions.getLocalStorage();
 
 /**
@@ -182,6 +196,27 @@ gl.functions.refineObjectValuesData = function (data) {
  * @param elemName
  * @returns {*}
  */
+// gl.functions.setAndGetRefinedDataToElement = function (parentElemSelector, className, elemName) {
+//     //TODO: parentElemSelector - рассмотреть добавление в кеш
+//     var elemObj = $(parentElemSelector).find('input[name="' + className + '[' + elemName + ']"]');
+//     elemObj = $(elemObj[1]);
+//
+//     var newElemValue = gl.functions.refineObjectValuesData(elemObj.val());
+//     elemObj.val(newElemValue);
+//
+//     //elemValues.push({elemName: newElemValue}));
+//
+//     console.log('NNNNNNNNNNNN: ' + elemName);
+//
+//     //TODO: мегакостыль. Убрать неопределенность при выборе элемента elemObj
+//     var elemValues = gl.container.localStorage.getItem('order_addresses');
+//     var ny = {};
+//     ny[elemName] = newElemValue;
+//     elemValues.push(ny);
+//     gl.container.localStorage.setItem('order_addresses', elemValues);
+//
+//     return newElemValue;
+// };
 gl.functions.setAndGetRefinedDataToElement = function (parentElemSelector, className, elemName) {
     //TODO: parentElemSelector - рассмотреть добавление в кеш
     var elemObj = $(parentElemSelector).find('input[name="' + className + '[' + elemName + ']"]');
@@ -190,16 +225,6 @@ gl.functions.setAndGetRefinedDataToElement = function (parentElemSelector, class
     var newElemValue = gl.functions.refineObjectValuesData(elemObj.val());
     elemObj.val(newElemValue);
 
-    //elemValues.push({elemName: newElemValue}));
-
-    console.log('NNNNNNNNNNNN: ' + elemName);
-
-    //TODO: мегакостыль. Убрать неопределенность при выборе элемента elemObj
-    var elemValues = gl.container.localStorage.getItem('order_addresses');
-    var ny = {};
-    ny[elemName] = newElemValue;
-    elemValues.push(ny);
-    gl.container.localStorage.setItem('order_addresses', elemValues);
-
     return newElemValue;
 };
+

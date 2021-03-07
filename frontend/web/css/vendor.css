@@ -1268,6 +1268,20 @@
   cursor: pointer;
 }
 
+.unwrap-panel__delete-button.address {
+  width: 35px;
+  float: right;
+  top: -12px;
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+}
+
+.unwrap-panel-content {
+  position: relative;
+  margin-bottom: 15px;
+}
+
 @media screen and (max-width: 1000px) {
   .registration-info,
 .capt-price {

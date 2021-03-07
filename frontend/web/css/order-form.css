@@ -1268,4 +1268,18 @@
   cursor: pointer;
 }
 
+.unwrap-panel__delete-button.address {
+  width: 35px;
+  float: right;
+  top: -12px;
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+}
+
+.unwrap-panel-content {
+  position: relative;
+  margin-bottom: 15px;
+}
+
 /*# sourceMappingURL=order-form.css.map */

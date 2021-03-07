@@ -1260,4 +1260,12 @@
   background-color: #2C4257F0;
 }
 
+.unwrap-panel__close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45px;
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=order-form.css.map */

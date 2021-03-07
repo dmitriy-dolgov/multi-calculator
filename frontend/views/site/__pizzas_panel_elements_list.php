@@ -3,10 +3,12 @@
 use yii\helpers\Html;
 
 /* @var $componentSets common\models\db\ComponentSet[] */
+/* @var $this yii\web\View */
 
 ?>
 
 <div class="pizzas-panel-elements-list unwrapped-panel">
+    <?= Html::img('/img/ok-btn.svg', ['title' => Yii::t('app', 'Свернуть'), 'class' => 'unwrap-panel__close-button']) ?>
     <div class="header"><?= Yii::t('app', 'Choose your pizza') ?></div>
     <div class="header-tip"><?= Yii::t('app', 'Or create it yourself ⇒') ?></div>
     <hr>

@@ -103,6 +103,10 @@ gl.functions.showBsModal = function(type) {
     $('#' + type + 'Modal').modal('show');
 }
 
+$('.unwrap-panel__close-button').click(function() {
+    $('.unwrapped-panel').removeClass('unwrap');
+});
+
 JS
 );
 

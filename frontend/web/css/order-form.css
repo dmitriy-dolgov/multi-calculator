@@ -1252,4 +1252,12 @@
   background-color: #999999;
 }
 
+.unwrapped-panel.unwrap {
+  width: 100%;
+  max-width: none;
+  height: calc(100% - 124px);
+  overflow-y: auto;
+  background-color: #2C4257F0;
+}
+
 /*# sourceMappingURL=order-form.css.map */

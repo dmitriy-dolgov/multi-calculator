@@ -17,6 +17,35 @@ if (!gl.data) {
     gl.data = {};
 }
 
+gl.config = {};
+gl.config.debug = true;
+
+//TODO: проверка на типизацию
+
+//TODO: встроить везде где необходимо; возможно, расширить для создания последовательных цепочек объектов.
+//TODO: также реализовать gl.getArray
+gl.getObject = function(name) {
+
+    if (typeof this[name] === 'undefined') {
+        this[name] = {};
+    } else {
+        //TODO: проверка на объектность
+    }
+
+    return this[name];
+};
+
+gl.assert = function (value, msg) {
+    if (!value) {
+        msg = 'Error: ' + (msg ? msg : 'Unknown');
+        if (gl.config.debug) {
+            alert(msg);
+        } else {
+            gl.log(msg);
+        }
+    }
+};
+
 gl.escapeHtml = function (text) {
     var map = {
         '&': '&amp;',

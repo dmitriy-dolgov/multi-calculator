@@ -20,19 +20,26 @@ if (!gl.data) {
 gl.config = {};
 gl.config.debug = true;
 
-//TODO: проверка на типизацию
+gl.log = function (msg) {
+    if (window.console) {
+        if (typeof msg == 'string') {
+            console.log(msg);
+        } else {    // must be an array
+            for (var id in msg) {
+                console.log(msg[id]);
+            }
+        }
+    }
+};
 
-//TODO: встроить везде где необходимо; возможно, расширить для создания последовательных цепочек объектов.
 //TODO: также реализовать gl.getArray
 gl.getObject = function(name) {
+    var nameList = name.split('.');
 
-    if (typeof this[name] === 'undefined') {
-        this[name] = {};
-    } else {
-        //TODO: проверка на объектность
-    }
+    var object = {};
+    nameList.reduce(function(o, s) { return o[s] = {}; }, object);
 
-    return this[name];
+    return object;
 };
 
 gl.assert = function (value, msg) {
@@ -65,18 +72,6 @@ gl.escapeHtml = function (text) {
     return result.replace(/[&<>"']/g, function (m) {
         return map[m];
     });
-};
-
-gl.log = function (msg) {
-    if (window.console) {
-        if (typeof msg == 'string') {
-            console.log(msg);
-        } else {    // must be an array
-            for (var id in msg) {
-                console.log(msg[id]);
-            }
-        }
-    }
 };
 
 gl.inIframe = function () {

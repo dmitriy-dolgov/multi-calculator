@@ -6,30 +6,48 @@ gl.getObject('funcContainer').storageArray = function (storageName) {
 
     var lst = gl.container.localStorage;
 
+    function init() {
+        lst.setItem(storageName, []);
+    }
+
     var storageContent = lst.getItem(storageName);
     if (storageContent === null) {
-        lst.setItem(storageContent = []);
+        init();
+    } else {
+        if (!Array.isArray(storageContent)) {
+            var storageContentString = JSON.stringify(storageContent);
+            gl.assert(true, `Broken element. Changed to []. storageName: "${storageName}"; storageContent: "${storageContentString}".`);
+            init();
+        }
     }
+
+    this.getStorageArray = function () {
+        return lst.getItem(storageName);
+    };
 
     this.getStorageName = function () {
         return storageName;
     };
 
-    this.removeItem = function () {
+    this.clearAll = function () {
+        init();
+    };
+
+    this.removeAll = function () {
         lst.removeItem(storageName);
     };
 
-    this.createItem = function () {
-
+    this.addElem = function (elemData) {
+        var elems = this.getStorageArray();
+        elems.push(elemData);
+        lst.setItem(storageName, elems);
     };
 
-    //TODO: проработать удаление, чтобы не на каком-то объекте происходило (статическая функция)
-    /*this.clear = function () {
-        gl.assert('Simple Storage clear!!!');
-        gl.container.localStorage.clear();
-    };*/
-
-
+    this.removeElem = function (elemIndex) {
+        var elems = this.getStorageArray();
+        elems.splice(elemIndex, 1);
+        lst.setItem(storageName, elems);
+    };
 
     this.setAddresses = function () {
 
@@ -107,14 +125,4 @@ gl.getObject('funcContainer').storageArray = function (storageName) {
 //gl.functions.storage.setAddresses();
 
 
-gl.getObject('functions').storage = {
-    'orderAddresses': new gl.funcContainer.storageArray('order_addresses')
-};
-
-//console.log('setAddresses 1');
-//gl.functions.storage.orderAddresses.setAddresses();
-console.log('setAddresses 2');
-//gl.functions.storage.orderAddresses.removeStorage();
-console.log('setAddresses 3');
-//console.log(gl.functions.storage.orderAddresses.storageName);
-console.log('setAddresses 4444');
+gl.funcContainer.storage = {};

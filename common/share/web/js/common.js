@@ -33,14 +33,36 @@ gl.log = function (msg) {
 };
 
 //TODO: также реализовать gl.getArray
-gl.getObject = function(name) {
+gl.getObject = function (name) {
+    var currName = ['gl'];
     var nameList = name.split('.');
 
-    var object = {};
-    nameList.reduce(function(o, s) { return o[s] = {}; }, object);
+
+    //gl.log(['nameList', nameList]);
+
+    //Array.prototype.push.apply(currName, nameList);
+    //gl.log(['nameList 2', nameList]);
+
+    var object = this;
+    nameList.reduce(function (o, s) {
+        if (typeof o[s] !== 'undefined') {
+            return o[s];
+        }
+        return o[s] = {};
+    }, object);
 
     return object;
 };
+
+/*var $obj33 = gl.getObject('q.we.rty.yui');
+gl.log(['$obj33_1: ', $obj33]);
+$obj33.q.tst = 123;
+$obj33.q.we.rty.yui.locss = 'tes str90';
+gl.log(['$obj33_2: ', $obj33]);
+var $obj44 = gl.getObject('q.we.rty.yui.opas');
+gl.log(['$obj44: ', $obj44]);
+gl.log(['$obj33_2: ', $obj33]);*/
+
 
 gl.assert = function (value, msg) {
     if (!value) {
@@ -82,15 +104,15 @@ gl.inIframe = function () {
     }
 };
 
-gl.get = function(obj, key) {
-    return key.split('.').reduce(function(o, x) {
+gl.get = function (obj, key) {
+    return key.split('.').reduce(function (o, x) {
         return (typeof o == 'undefined' || o === null) ? o : o[x];
     }, obj);
 };
 
-gl.has = function(obj, key) {
-    return key.split('.').every(function(x) {
-        if(typeof obj != 'object' || obj === null || ! x in obj)
+gl.has = function (obj, key) {
+    return key.split('.').every(function (x) {
+        if (typeof obj != 'object' || obj === null || !x in obj)
             return false;
         obj = obj[x];
         return true;
@@ -132,7 +154,7 @@ gl.orderFormHistory = {
     /*addComponent: function (data, append) {
         gl.history.components.push({data:data, append:append});
     }*/
-    ifSomethingInStore:  function () {
+    ifSomethingInStore: function () {
         var orderFormStateJson = localStorage.getItem('orderFormState');
         if (!orderFormStateJson) {
             return false;
@@ -147,10 +169,10 @@ gl.orderFormHistory = {
 
         return orderFormState.length;
     },
-    cleanStore:  function () {
+    cleanStore: function () {
         localStorage.removeItem('orderFormState');
     },
-    restoreFromStore:  function () {
+    restoreFromStore: function () {
         var orderFormStateJson = localStorage.getItem('orderFormState');
         if (!orderFormStateJson) {
             return;
@@ -263,7 +285,7 @@ gl.orderFormHistory = {
     }
 };
 
-gl.handleJqueryAjaxFail = function(XMLHttpRequest, textStatus, errorThrown, howToHandle) {
+gl.handleJqueryAjaxFail = function (XMLHttpRequest, textStatus, errorThrown, howToHandle) {
     howToHandle = typeof howToHandle !== 'undefined' ? howToHandle : 'console';
     if (howToHandle == 'alert') {
         alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
@@ -280,7 +302,7 @@ gl.handleJqueryAjaxFail = function(XMLHttpRequest, textStatus, errorThrown, howT
     }
 };
 
-gl.handleFailCustom = function(message, howToHandle) {
+gl.handleFailCustom = function (message, howToHandle) {
     howToHandle = typeof howToHandle !== 'undefined' ? howToHandle : 'console';
     if (howToHandle == 'alert') {
         alert(message);
@@ -334,8 +356,7 @@ $(function () {
                 $button
                     .removeClass('btn-default')
                     .addClass('btn-' + color + ' active');
-            }
-            else {
+            } else {
                 $button
                     .removeClass('btn-' + color + ' active')
                     .addClass('btn-default');
@@ -352,15 +373,16 @@ $(function () {
                 $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
             }
         }
+
         init();
     });
 });
 
 // Полифил для trim()
 if (!String.prototype.trim) {
-    (function() {
+    (function () {
         // Вырезаем BOM и неразрывный пробел
-        String.prototype.trim = function() {
+        String.prototype.trim = function () {
             return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
         };
     })();

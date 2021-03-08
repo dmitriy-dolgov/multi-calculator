@@ -1,3 +1,5 @@
+// Создание нового заказа.
+// Если есть заказ не завершенной - показывать окно с ним.
 elems['.btn-order'].click(function (e) {
     if (!getAddedComponentsCount()) {
         elems['.ingredients'].removeClass('red');
@@ -194,16 +196,18 @@ gl.functions.composeOrder = function () {
             $('#frm-confirmed-order').fadeIn();
         });*/
 
-        gl.functionss.storage.handleAddress(
+        gl.functions.storage.handleAddress(
             '.order-data-data',
             'ShopOrderForm',
             [
                 'deliver_address',
-                'deliver_customer_name'
+                'deliver_customer_name',
+                'deliver_phone',
+                'deliver_email'
             ]
         );
 
-        gl.functionss.storage.setAddresses();
+        gl.functions.storage.setAddresses();
 
         var formData = elem.serialize();
 
@@ -255,7 +259,13 @@ gl.functions.composeOrder = function () {
         return false;
     });
 
+    //$('#popup-compose-form').modal('show');
+    if (window.globalRt) {
+        //$('#popup-compose-form')window.globalRt.reverse();
+        window.globalRt.reverse();
+    }
     $('#popup-compose-form').modal('show');
+
 
     setTimeout(function () {
         $('#' + orderDataContainerId + ' .map-placeholder').html('<div class="places-map" id="' + placesMapId + '"></div>');
@@ -607,5 +617,12 @@ gl.functions.setupAudio = function () {
         audioElement.currentTime = 0;
     });*/
 };
+
+/*$('#popup-compose-form').on('hidden.bs.modal', function () {
+    globalRt = $('#popup-compose-form').toArray();
+    //globalRt = $('#popup-compose-form').contents();
+    //var rt = $('#popup-compose-form').contents();
+    console.log("globalRt: ", globalRt);
+});*/
 
 gl.data.setupAudio = new gl.functions.setupAudio();

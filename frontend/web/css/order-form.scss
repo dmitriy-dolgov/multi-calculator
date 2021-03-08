@@ -1210,7 +1210,7 @@ $catalog-name_height: 25px;
 .unwrapped-panel.unwrap {
   width: 100%;
   max-width: none;
-  height: calc(100% - 124px);
+  height: calc(100% - #{$order-pane-common-height});
   overflow-y: auto;
   background-color: #2C4257F0;
 }

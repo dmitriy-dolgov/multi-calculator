@@ -73,6 +73,7 @@ $('.menu-unwrap-panel .menu-unwrap-button').click(function () {
 $('.menu-item.pizzas').click(function () {
     $('.unwrapped-panel').removeClass('unwrap');
     $('.pizzas-panel-elements-list').toggleClass('unwrap');
+    gl.funcContainer.storage.uiState()
 });
 
 $('.menu-item.orders').click(function () {

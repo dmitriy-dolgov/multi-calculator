@@ -1,13 +1,18 @@
 //TODO: сделать всю инициализацию цепочки через gl.getObject()
-gl.getObject('functions').handlers = {};
-gl.getObject('functions').handlers.orderAddresses = function () {
+//var hObj = gl.getObject('functions.handlers');
+gl.log(["hObj 1: ", gl]);
+//gl.functions.handlers.orderAddresses = new (function () {
+gl.getObject('functions.handlers').orderAddresses = new (function () {
+
+    //var storageName = 'order_addresses';
+
 
     //gl.funcContainer.storage.orderAddresses = new gl.funcContainer.storageArray('order_addresses');
 
     this.setAddresses = function() {
-        alert('this.setAddresses');
+        //alert('this.setAddresses');
 
-        /*var orderAddresses = gl.container.localStorage.getItem(storageName);
+        var orderAddresses = gl.container.localStorage.getItem(storageName);
         if (!Array.isArray(orderAddresses)) {
             orderAddresses = [];
             gl.container.localStorage.setItem(storageName, orderAddresses);
@@ -24,7 +29,7 @@ gl.getObject('functions').handlers.orderAddresses = function () {
             html += '<hr>';
         }
 
-        $('.you-panel-elements-list .content').html(html ? html : 'Нет адресов.');*/
+        $('.you-panel-elements-list .content').html(html ? html : 'Нет адресов.');
     };
 
     this.handleAddress = function (parentElemSelectorStr, classNameStr, elemNameStrArr) {
@@ -76,6 +81,16 @@ gl.getObject('functions').handlers.orderAddresses = function () {
         //     }*/
         // }
     };
-};
+})();
 
-gl.functions.handlers.orderAddresses.setAddresses();
+gl.functions.handlers.orderAddressesTT = 234;
+
+gl.functions.handlers.test = {};
+
+gl.log(["hObj 2: ", gl]);
+
+
+
+//gl.functions.handlers.orderAddresses.setAddresses();
+
+

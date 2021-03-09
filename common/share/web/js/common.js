@@ -44,13 +44,14 @@ gl.getObject = function (name) {
     //gl.log(['nameList 2', nameList]);
 
     var lastElem;
-    var object = gl;
+    //var object = gl;
     nameList.reduce(function (o, s) {
         if (typeof o[s] === 'undefined') {
             o[s] = {};
         }
         return lastElem = o[s];
-    }, object);
+    //}, object);
+    }, this);
 
     //gl.log(['lastElem: ', lastElem]);
 

@@ -68,22 +68,39 @@ if (!window.L) {
 $('.menu-unwrap-panel .menu-unwrap-button').click(function () {
     $(this).parent().toggleClass('folded');
     $('.unwrapped-panel').removeClass('unwrap');
+
+    gl.container.localStorage.setItem('user_interface',
+        {'.menu-unwrap-panel': {add: false, '.menu-unwrap-panel': 'folded'}}
+    );
+
 });
 
 $('.menu-item.pizzas').click(function () {
     $('.unwrapped-panel').removeClass('unwrap');
     $('.pizzas-panel-elements-list').toggleClass('unwrap');
-    gl.funcContainer.storage.uiState()
+    //gl.funcContainer.storage.uiState()
+
+    gl.container.localStorage.setItem('user_interface',
+        {'.pizzas-panel-elements-list': {add: true, className: 'unwrap'}}
+    );
 });
 
 $('.menu-item.orders').click(function () {
     $('.unwrapped-panel').removeClass('unwrap');
     $('.orders-panel-elements-list').toggleClass('unwrap');
+
+    gl.container.localStorage.setItem('user_interface',
+        {'.orders-panel-elements-list': {add: true, className: 'unwrap'}}
+    );
 });
 
 $('.menu-item.you').click(function () {
     $('.unwrapped-panel').removeClass('unwrap');
     $('.you-panel-elements-list').toggleClass('unwrap');
+
+    gl.container.localStorage.setItem('user_interface',
+        {'.you-panel-elements-list': {add: true, className: 'unwrap'}}
+    );
 });
 
 /**

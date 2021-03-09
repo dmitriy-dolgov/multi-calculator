@@ -125,4 +125,4 @@ gl.getObject('funcContainer').storageArray = function (storageName) {
 //gl.functions.storage.setAddresses();
 
 
-gl.funcContainer.storage = {};
+//gl.funcContainer.storage = {};

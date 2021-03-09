@@ -34,7 +34,7 @@ gl.log = function (msg) {
 
 //TODO: также реализовать gl.getArray
 gl.getObject = function (name) {
-    var currName = ['gl'];
+    //var currName = ['gl'];
     var nameList = name.split('.');
 
 
@@ -43,21 +43,24 @@ gl.getObject = function (name) {
     //Array.prototype.push.apply(currName, nameList);
     //gl.log(['nameList 2', nameList]);
 
-    var object = this;
+    var lastElem;
+    var object = gl;
     nameList.reduce(function (o, s) {
-        if (typeof o[s] !== 'undefined') {
-            return o[s];
+        if (typeof o[s] === 'undefined') {
+            o[s] = {};
         }
-        return o[s] = {};
+        return lastElem = o[s];
     }, object);
 
-    return object;
+    //gl.log(['lastElem: ', lastElem]);
+
+    return lastElem;
 };
 
 /*var $obj33 = gl.getObject('q.we.rty.yui');
 gl.log(['$obj33_1: ', $obj33]);
 $obj33.q.tst = 123;
-$obj33.q.we.rty.yui.locss = 'tes str90';
+//$obj33.q.we.rty.yui = 'tes str90';
 gl.log(['$obj33_2: ', $obj33]);
 var $obj44 = gl.getObject('q.we.rty.yui.opas');
 gl.log(['$obj44: ', $obj44]);

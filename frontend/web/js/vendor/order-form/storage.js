@@ -1,4 +1,4 @@
-//TODO: проверка на типизацию
+//!!!! TODO: проверка на типизацию (удалить скорее всего)
 gl.getObject('funcContainer').storageArray = function (storageName) {
 
     // может сохраниться со старой версии
@@ -126,3 +126,143 @@ gl.getObject('funcContainer').storageArray = function (storageName) {
 
 
 //gl.funcContainer.storage = {};
+
+
+/**
+ * Для хранилища объектов целиком.
+ *
+ * @returns {{removeItem: removeItem, clear: clear, getItem: getItem, setItem: (function(*=, *=): null)}}
+ */
+gl.getObject('utils').localStorageObj = function () {
+    var storage;
+    try {
+        var mainStorage = window['localStorage'];
+        var x = '__storage_test__';
+        mainStorage.setItem(x, x);
+        mainStorage.removeItem(x);
+
+        storage = {
+            //TODO: параметр length как здесь работает?
+            setItem: function (key, data) {
+                //TODO: обработка ошибок JSON
+                mainStorage.setItem(key, JSON.stringify(data));
+                //TODO: нормально сделать, this возвращать
+                return null;
+            },
+            getItem: function (key) {
+                var storedData = mainStorage.getItem(key);
+                if (storedData === null) {
+                    return null;
+                }
+
+                //TODO: обработка ошибок JSON
+                return JSON.parse(storedData);
+            },
+            removeItem: function (key) {
+                //TODO: проверить на возвращаемое значение
+                // добавить return?
+                mainStorage.removeItem(key);
+            },
+            //TODO: сделать метод статическим, типа того
+            clear: function () {
+                //TODO: проверить на возвращаемое значение
+                mainStorage.clear();
+            }
+        };
+    } catch (e) {
+        storage = {
+            //TODO: параметр length как здесь работает?
+            setItem: function (elem) {
+                gl.log(['Storage do not work: setItem()', elem]);
+                //TODO: нормально сделать, this возвращать
+                return null;
+            },
+            getItem: function (name) {
+                gl.log(['Storage do not work: getItem()', name]);
+                return null;
+            },
+            removeItem: function (name) {
+                gl.log(['Storage do not work: removeItem()', name]);
+                //TODO: нормально сделать, this возвращать
+                return null;
+            },
+            clear: function () {
+                gl.log(['Storage do not work: clear()', name]);
+                //TODO: нормально сделать, this возвращать
+                return null;
+            }
+        };
+        //TODO: рассмотреть закомментированый код ниже (https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API):
+        /*var hasStorage = e instanceof DOMException && (
+                // everything except Firefox
+            e.code === 22 ||
+            // Firefox
+            e.code === 1014 ||
+            // test name field too, because code might not be present
+            // everything except Firefox
+            e.name === 'QuotaExceededError' ||
+            // Firefox
+            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+            // acknowledge QuotaExceededError only if there's something already stored
+            (storage && storage.length !== 0);*/
+    }
+
+    return storage;
+};
+
+/**
+ * Объект для хранения массивов.
+ * TODO: реализовать невозможным хранилище с одним name
+ *
+ * @param storageName
+ * @returns {{addItem: (function(*=): void), getAllItems: (function(): any), removeAllItems: removeAllItems}}
+ */
+gl.utils.localStorageArray = function (storageName) {
+    var localStorage = new gl.utils.localStorage();
+
+    //var mainArray = localStorage.getItem(storageName);
+
+    //TODO: проверить, нужно ли !mainArray
+    //TODO: а также изучить при каких условиях Array может превратиться в Object и что с этим делать.
+    /*
+        Закомментил исходя из соображений что этот код уже дублируется в getItems() и в любом случае будет (должен!!!)
+        вызван до операций размещения.
+    if (!mainArray || !Array.isArray(mainArray)) {
+        gl.log(['Wrong mainArray! Set to default [].', mainArray]);
+
+        mainArray = [];
+        localStorage.setItem(storageName, mainArray);
+    }*/
+
+    return {
+        addItem: function (data) {
+            var itemData = this.getAllItems(storageName);
+            itemData.push(data);
+
+            return localStorage.setItem(storageName, itemData);
+        },
+        getAllItems: function () {
+            var storedData = localStorage.getItem(storageName);
+
+            //TODO: проверить, нужно ли !storedData
+            //TODO: а также изучить при каких условиях Array может превратиться в Object и что с этим делать.
+            if (!storedData || !Array.isArray(storedData)) {
+                gl.log(['Wrong storedData (in getItems())! Set to default [].', storedData]);
+
+                storedData = '[]';
+                localStorage.setItem(storageName, []);
+            }
+
+            return JSON.parse(storedData);
+        },
+        removeAllItems: function () {
+            //TODO: проверить на возвращаемое значение
+            localStorage.removeItem(storageName);
+        },
+        //TODO: сделать метод статическим, типа того. Пока от греха закомментим.
+        /*clear: function () {
+            //TODO: проверить на возвращаемое значение
+            localStorage.clear();
+        }*/
+    };
+};

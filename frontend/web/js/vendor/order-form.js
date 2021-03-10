@@ -69,7 +69,7 @@ $('.menu-unwrap-panel .menu-unwrap-button').click(function () {
     $(this).parent().toggleClass('folded');
     $('.unwrapped-panel').removeClass('unwrap');
 
-    gl.container.localStorage.setItem('user_interface',
+    gl.container.localStorage.addItem('user_interface',
         {'.menu-unwrap-panel': {add: false, '.menu-unwrap-panel': 'folded'}}
     );
 
@@ -80,7 +80,7 @@ $('.menu-item.pizzas').click(function () {
     $('.pizzas-panel-elements-list').toggleClass('unwrap');
     //gl.funcContainer.storage.uiState()
 
-    gl.container.localStorage.setItem('user_interface',
+    gl.container.localStorage.addItem('user_interface',
         {'.pizzas-panel-elements-list': {add: true, className: 'unwrap'}}
     );
 });
@@ -89,7 +89,7 @@ $('.menu-item.orders').click(function () {
     $('.unwrapped-panel').removeClass('unwrap');
     $('.orders-panel-elements-list').toggleClass('unwrap');
 
-    gl.container.localStorage.setItem('user_interface',
+    gl.container.localStorage.addItem('user_interface',
         {'.orders-panel-elements-list': {add: true, className: 'unwrap'}}
     );
 });
@@ -98,91 +98,10 @@ $('.menu-item.you').click(function () {
     $('.unwrapped-panel').removeClass('unwrap');
     $('.you-panel-elements-list').toggleClass('unwrap');
 
-    gl.container.localStorage.setItem('user_interface',
+    gl.container.localStorage.addItem('user_interface',
         {'.you-panel-elements-list': {add: true, className: 'unwrap'}}
     );
 });
-
-/**
- * Объект для хранилища строк.
- *
- * @returns {{removeItem: removeItem, clear: clear, getItem: getItem, setItem: (function(*=, *=): null)}}
- */
-gl.functions.getLocalStorage = function () {
-    var storage;
-    try {
-        var testStorage = window['localStorage'];
-        var x = '__storage_test__';
-        testStorage.setItem(x, x);
-        testStorage.removeItem(x);
-
-        storage = {
-            //TODO: параметр length как здесь работает?
-            setItem: function (key, data) {
-                //TODO: обработка ошибок JSON
-                testStorage.setItem(key, JSON.stringify(data));
-                //TODO: нормально сделать, this возвращать
-                return null;
-            },
-            getItem: function (key) {
-                if (testStorage.getItem(key) === null) {
-                    return null;
-                }
-
-                //TODO: обработка ошибок JSON
-                return JSON.parse(testStorage.getItem(key));
-            },
-            removeItem: function (key) {
-                //TODO: проверить на возвращаемое значение
-                testStorage.removeItem(key);
-            },
-            //TODO: сделать метод статическим, типа того
-            clear: function () {
-                //TODO: проверить на возвращаемое значение
-                testStorage.clear();
-            }
-        };
-
-    } catch (e) {
-        storage = {
-            //TODO: параметр length как здесь работает?
-            setItem: function (elem) {
-                gl.log(['Storage do not work: setItem()', elem]);
-                //TODO: нормально сделать, this возвращать
-                return null;
-            },
-            getItem: function (name) {
-                gl.log(['Storage do not work: getItem()', name]);
-                return null;
-            },
-            removeItem: function (name) {
-                gl.log(['Storage do not work: removeItem()', name]);
-                //TODO: нормально сделать, this возвращать
-                return null;
-            },
-            clear: function () {
-                gl.log(['Storage do not work: clear()', name]);
-                //TODO: нормально сделать, this возвращать
-                return null;
-            }
-        };
-        //TODO: рассмотреть закомментированый код ниже (https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API):
-        /*var hasStorage = e instanceof DOMException && (
-                // everything except Firefox
-            e.code === 22 ||
-            // Firefox
-            e.code === 1014 ||
-            // test name field too, because code might not be present
-            // everything except Firefox
-            e.name === 'QuotaExceededError' ||
-            // Firefox
-            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-            // acknowledge QuotaExceededError only if there's something already stored
-            (storage && storage.length !== 0);*/
-    }
-
-    return storage;
-};
 
 if (!gl.container) {
     gl.container = {};
@@ -191,8 +110,6 @@ if (!gl.container) {
 if (!gl.fContainer) {
     gl.fContainer = {};
 }
-
-gl.container.localStorage = new gl.functions.getLocalStorage();
 
 /**
  * Удаление лишних пробелов.

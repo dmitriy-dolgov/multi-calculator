@@ -110,12 +110,10 @@ $jsCode = "var gl = {data:{}};\n"
     ]);
 
 $this->registerJs($jsCode, \yii\web\View::POS_HEAD);
+$this->registerJsFile(Url::to(['/js/vendor/order-form/storage.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 
-$this->registerJsFile(Url::to(['/js/vendor/order-form/storage.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
-
-$this->registerJsFile(Url::to(['/js/vendor/order-form/handlers/orderInterface.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
-$this->registerJsFile(Url::to(['/js/vendor/order-form/handlers/orderAddressHandler.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
+$this->registerJsFile(Url::to(['/js/vendor/events.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 
 $this->registerJsFile(Url::to(['/js/vendor/order-form/component.drag-n-drop.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/scrollbar.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
@@ -128,9 +126,13 @@ $this->registerJsFile(Url::to(['/js/vendor/order-form/categories.js']), ['depend
 //$this->registerJsFile(Url::to(['/js/vendor/order-form/longpoll.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/sse.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 
+$this->registerJsFile(Url::to(['/js/vendor/order-form/handlers/orderInterface.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
+$this->registerJsFile(Url::to(['/js/vendor/order-form/handlers/orderAddressHandler.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
+
 $this->registerJsFile(Url::to(['/js/leaflet/MovingMarker.js']), ['depends' => ['frontend\assets\VendorAsset']]);
 $this->registerJsFile(Url::to(['/js/leaflet/L.Icon.Pulse.js']), ['depends' => ['frontend\assets\VendorAsset']]);
 $this->registerCssFile(Url::to(['/js/leaflet/L.Icon.Pulse.css']));
+
 
 $cityList = (new \common\models\Geo())->getCityList();
 

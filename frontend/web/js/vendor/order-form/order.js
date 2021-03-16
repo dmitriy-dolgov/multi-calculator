@@ -196,7 +196,8 @@ gl.functions.composeOrder = function () {
             $('#frm-confirmed-order').fadeIn();
         });*/
 
-        gl.functions.storage.handleAddress(
+        //gl.functions.storage.handleAddress(
+        gl.functions.handlers.handleAddress(
             '.order-data-data',
             'ShopOrderForm',
             [

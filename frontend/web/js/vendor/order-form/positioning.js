@@ -84,7 +84,7 @@ gl.functions.addOrderToPanel = function () {
         + '" data-order-info="' + gl.escapeHtml(orderInfoJson) +
         '" onclick="gl.functions.showOrderPanel(this);return false;" class="">' + gl.escapeHtml($('.pizza-name').text()) + '</div>';
     elems['.customer-orders-panel'].find('.orders-container').append(btnHtml);
-    elems['.customer-orders-panel'].show();
+    //elems['.customer-orders-panel'].show();
 };
 
 gl.functions.minimizeOrderPanel = function () {

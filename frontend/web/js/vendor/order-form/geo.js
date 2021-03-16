@@ -280,7 +280,34 @@ gl.functions.placesMap.prototype.connectMarkersWithCustomer = function () {
         animationStarted: true,
         animationEasingFamily: 'Cubic',
         animationEasingType: 'In',
-        animationDuration: 2000
+        animationDuration: 2000,
+
+        canvasBezierStyle: {
+            type: 'simple',
+            symbol: {
+                // use canvas styling options (compare to CircleMarker styling below)
+                strokeStyle: 'rgba(100, 100, 100, 0.8)',
+                lineWidth: 0.75,
+                lineCap: 'round',
+                shadowColor: 'rgb(10, 10, 10)',
+                shadowBlur: 1.5
+            }
+        },
+
+        animatedCanvasBezierStyle: {
+            type: 'simple',
+            symbol: {
+                // use canvas styling options (compare to CircleMarker styling below)
+                strokeStyle: 'rgb(255, 88, 88)',
+                //lineWidth: 1.25,
+                lineWidth: 3,
+                //lineDashOffsetSize: 4, // custom property used with animation sprite sizes
+                lineDashOffsetSize: 7,
+                lineCap: 'round',
+                shadowColor: 'rgb(255, 88, 88)',
+                shadowBlur: 2
+            }
+        }
     }).addTo(this.map);
 
     this.flowmapLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
@@ -291,7 +318,7 @@ gl.functions.placesMap.prototype.connectMarkersWithCustomer = function () {
  *
  * @param $merchantId ID пиццерии
  */
-gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (merchantId) {
+gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (merchantId, ) {
 
     gl.log('connectAPizzeriaWithCustomer(), merchantId: ' + merchantId);
 
@@ -350,7 +377,32 @@ gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (mercha
             animationStarted: true,
             animationEasingFamily: 'Cubic',
             animationEasingType: 'In',
-            animationDuration: 2000
+            animationDuration: 2000,
+
+            canvasBezierStyle: {
+                type: 'simple',
+                symbol: {
+                    // use canvas styling options (compare to CircleMarker styling below)
+                    strokeStyle: 'rgba(0, 255, 51, 0.8)',
+                    lineWidth: 0.75,
+                    lineCap: 'round',
+                    shadowColor: 'rgb(0, 255, 51)',
+                    shadowBlur: 1.5
+                }
+            },
+
+            animatedCanvasBezierStyle: {
+                type: 'simple',
+                symbol: {
+                    // use canvas styling options (compare to CircleMarker styling below)
+                    strokeStyle: 'rgb(0, 255, 88)',
+                    lineWidth: 1.25,
+                    lineDashOffsetSize: 4, // custom property used with animation sprite sizes
+                    lineCap: 'round',
+                    shadowColor: 'rgb(0, 255, 51)',
+                    shadowBlur: 2
+                }
+            }
         }).addTo(this.map);
 
         this.flowmapLayer.selectFeaturesForPathDisplayById('origin_id', this.markers[mId].id, true, 'SELECTION_NEW');

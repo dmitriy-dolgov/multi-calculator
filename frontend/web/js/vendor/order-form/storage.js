@@ -1,5 +1,6 @@
 //!!!! TODO: проверка на типизацию (удалить скорее всего)
-gl.getObject('funcContainer').storageArray = function (storageName) {
+//TODO: наверное эту фукнцияю надо удалить.
+gl.getObject('funcContainer').storageArray_removed = function (storageName) {
 
     // может сохраниться со старой версии
     //gl.assert((gl.container.localStorage.getItem(storageName) !== null), '"' + storageName + '" storage name already exists.');
@@ -133,7 +134,7 @@ gl.getObject('funcContainer').storageArray = function (storageName) {
  *
  * @returns {{removeItem: removeItem, clear: clear, getItem: getItem, setItem: (function(*=, *=): null)}}
  */
-gl.getObject('utils').localStorageObj = function () {
+gl.getObject('container').localStorageObj = function () {
     var storage;
     try {
         var mainStorage = window['localStorage'];
@@ -217,17 +218,16 @@ gl.getObject('utils').localStorageObj = function () {
  * @param storageName
  * @returns {{addItem: (function(*=): void), getAllItems: (function(): any), removeAllItems: removeAllItems}}
  */
-gl.utils.localStorageArray = function (storageName) {
-    var localStorage = new gl.utils.localStorage();
+gl.getObject('container').localStorageArray = function (storageName) {
+    var localStorage = new gl.container.localStorageObj();
 
     //var mainArray = localStorage.getItem(storageName);
 
-    //TODO: проверить, нужно ли !mainArray
     //TODO: а также изучить при каких условиях Array может превратиться в Object и что с этим делать.
     /*
         Закомментил исходя из соображений что этот код уже дублируется в getItems() и в любом случае будет (должен!!!)
         вызван до операций размещения.
-    if (!mainArray || !Array.isArray(mainArray)) {
+    if (!Array.isArray(mainArray)) {
         gl.log(['Wrong mainArray! Set to default [].', mainArray]);
 
         mainArray = [];
@@ -239,21 +239,21 @@ gl.utils.localStorageArray = function (storageName) {
             var itemData = this.getAllItems(storageName);
             itemData.push(data);
 
-            return localStorage.setItem(storageName, itemData);
+            localStorage.setItem(storageName, itemData);
         },
         getAllItems: function () {
             var storedData = localStorage.getItem(storageName);
 
-            //TODO: проверить, нужно ли !storedData
-            //TODO: а также изучить при каких условиях Array может превратиться в Object и что с этим делать.
-            if (!storedData || !Array.isArray(storedData)) {
-                gl.log(['Wrong storedData (in getItems())! Set to default [].', storedData]);
+            if (!Array.isArray(storedData)) {
+                if (storedData) {
+                    gl.log(['Wrong storedData (in getItems())! Set to default [].', storedData]);
+                }
 
-                storedData = '[]';
-                localStorage.setItem(storageName, []);
+                storedData = [];
+                localStorage.setItem(storageName, storedData);
             }
 
-            return JSON.parse(storedData);
+            return storedData;
         },
         removeAllItems: function () {
             //TODO: проверить на возвращаемое значение

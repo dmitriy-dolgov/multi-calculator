@@ -34,6 +34,10 @@ var elems = {
     '.components-in-stock .collapse-content': $('.components-in-stock .collapse-content')
 };
 
+/*if (!gl.container) {
+    gl.container = {};
+}*/
+
 gl.functions.setLogged = function () {
     location.reload();
 };
@@ -65,13 +69,13 @@ if (!window.L) {
     };
 }
 
+gl.getObject('storage.interface').actual = new gl.container.localStorageArray('interface.actual');
+
 $('.menu-unwrap-panel .menu-unwrap-button').click(function () {
     $(this).parent().toggleClass('folded');
     $('.unwrapped-panel').removeClass('unwrap');
 
-    gl.container.localStorage.addItem('user_interface',
-        {'.menu-unwrap-panel': {add: false, '.menu-unwrap-panel': 'folded'}}
-    );
+    gl.storage.interface.actual.addItem({type: 'css_1', '.menu-unwrap-panel': {add: false, '.menu-unwrap-panel': 'folded'}});
 
 });
 
@@ -80,7 +84,7 @@ $('.menu-item.pizzas').click(function () {
     $('.pizzas-panel-elements-list').toggleClass('unwrap');
     //gl.funcContainer.storage.uiState()
 
-    gl.container.localStorage.addItem('user_interface',
+    gl.container.localStorageArray.addItem('user_interface',
         {'.pizzas-panel-elements-list': {add: true, className: 'unwrap'}}
     );
 });
@@ -102,14 +106,6 @@ $('.menu-item.you').click(function () {
         {'.you-panel-elements-list': {add: true, className: 'unwrap'}}
     );
 });
-
-if (!gl.container) {
-    gl.container = {};
-}
-
-if (!gl.fContainer) {
-    gl.fContainer = {};
-}
 
 /**
  * Удаление лишних пробелов.

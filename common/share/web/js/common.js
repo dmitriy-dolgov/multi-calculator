@@ -7,31 +7,6 @@ if (!window.gl) {
     var gl = {};
 }
 
-// For global functions
-if (!gl.functions) {
-    gl.functions = {};
-}
-
-// For global data
-if (!gl.data) {
-    gl.data = {};
-}
-
-gl.config = {};
-gl.config.debug = true;
-
-gl.log = function (msg) {
-    if (window.console) {
-        if (typeof msg == 'string') {
-            console.log(msg);
-        } else {    // must be an array
-            for (var id in msg) {
-                console.log(msg[id]);
-            }
-        }
-    }
-};
-
 //TODO: также реализовать gl.getArray
 gl.getObject = function (name) {
     //var currName = ['gl'];
@@ -50,13 +25,54 @@ gl.getObject = function (name) {
             o[s] = {};
         }
         return lastElem = o[s];
-    //}, object);
+        //}, object);
     }, this);
 
     //gl.log(['lastElem: ', lastElem]);
 
     return lastElem;
 };
+
+// For global functions
+if (!gl.functions) {
+    gl.functions = {};
+}
+
+// For global data
+if (!gl.data) {
+    gl.data = {};
+}
+
+if (!gl.config) {
+    gl.config = {};
+}
+
+if (!gl.info) {
+    gl.info = {};
+}
+
+
+gl.config.debug = true;
+
+
+gl.log = function (msg) {
+    if (window.console) {
+        if (typeof msg == 'string') {
+            console.log(msg);
+        } else {    // must be an array
+            for (var id in msg) {
+                console.log(msg[id]);
+            }
+        }
+    }
+};
+
+gl.info.debugMsg = function (msg) {
+    if (gl.config.debug) {
+        gl.log(msg);
+    }
+};
+
 
 /*var $obj33 = gl.getObject('q.we.rty.yui');
 gl.log(['$obj33_1: ', $obj33]);
@@ -67,16 +83,21 @@ var $obj44 = gl.getObject('q.we.rty.yui.opas');
 gl.log(['$obj44: ', $obj44]);
 gl.log(['$obj33_2: ', $obj33]);*/
 
-
+//TODO: усовершенствовать - добавить отсылку писем и т. д.
 gl.assert = function (value, msg) {
     if (!value) {
         msg = 'Error: ' + (msg ? msg : 'Unknown');
         if (gl.config.debug) {
             alert(msg);
+            gl.log(msg);
         } else {
             gl.log(msg);
         }
     }
+};
+
+gl.error = function (msg) {
+    gl.error(msg);
 };
 
 gl.escapeHtml = function (text) {
@@ -108,19 +129,23 @@ gl.inIframe = function () {
     }
 };
 
-gl.get = function (obj, key) {
+gl.object.get = function (obj, key) {
     return key.split('.').reduce(function (o, x) {
         return (typeof o == 'undefined' || o === null) ? o : o[x];
     }, obj);
 };
 
-gl.has = function (obj, key) {
+gl.object.has = function (obj, key) {
     return key.split('.').every(function (x) {
         if (typeof obj != 'object' || obj === null || !x in obj)
             return false;
         obj = obj[x];
         return true;
     });
+};
+
+gl.object.isFunction = function(obj) {
+    return !!(obj && obj.constructor && obj.call && obj.apply);
 };
 
 gl.createMapMarkerPopupHtml = function (data) {

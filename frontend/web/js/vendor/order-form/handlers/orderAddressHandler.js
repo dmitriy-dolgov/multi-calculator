@@ -5,11 +5,36 @@ gl.log(["hObj 1: ", gl]);
 gl.getObject('functions.handlers').orderAddresses = new (function () {
 
     //var storageName = 'order_addresses';
-
-
     //gl.funcContainer.storage.orderAddresses = new gl.funcContainer.storageArray('order_addresses');
 
+    var storage = gl.container.localStorageArray('order_addresses');
+
     this.setAddresses = function() {
+        //alert('this.setAddresses');
+
+        /*var orderAddresses = gl.container.localStorage.getItem(storageName);
+        if (!Array.isArray(orderAddresses)) {
+            orderAddresses = [];
+            gl.container.localStorage.setItem(storageName, orderAddresses);
+        }*/
+
+        var orderAddresses = storage.getAllItems();
+
+        var html = '<button onclick="">Удалить всё</button><br>';
+        for (var i in orderAddresses) {
+            gl.log("I:" + i);
+            html += 'Адрес №' + i + '<button>Удалить</button><br>';
+            for (var j in orderAddresses[i]) {
+                gl.log("J:" + j);
+                html += j + ': ' + orderAddresses[i][j] + '<br>';
+            }
+            html += '<hr>';
+        }
+
+        $('.you-panel-elements-list .content').html(html ? html : 'Нет адресов.');
+    };
+
+    /*this.setAddresses = function() {
         //alert('this.setAddresses');
 
         var orderAddresses = gl.container.localStorage.getItem(storageName);
@@ -30,14 +55,14 @@ gl.getObject('functions.handlers').orderAddresses = new (function () {
         }
 
         $('.you-panel-elements-list .content').html(html ? html : 'Нет адресов.');
-    };
+    };*/
 
     this.handleAddress = function (parentElemSelectorStr, classNameStr, elemNameStrArr) {
-        var orderAddresses = gl.container.localStorage.getItem(storageName);
+        /*var orderAddresses = gl.container.localStorage.getItem(storageName);
         if (!Array.isArray(orderAddresses)) {
             orderAddresses = [];
             gl.container.localStorage.setItem(storageName, orderAddresses);
-        }
+        }*/
 
         var newAddressInfo = {};
         for (var i in elemNameStrArr) {
@@ -45,8 +70,10 @@ gl.getObject('functions.handlers').orderAddresses = new (function () {
             newAddressInfo[elemNameStrArr[i]] = elemValue;
         }
 
-        orderAddresses.push(newAddressInfo);
-        gl.container.localStorage.setItem(storageName, orderAddresses);
+        storage.addItem(newAddressInfo);
+
+        //orderAddresses.push(newAddressInfo);
+        //gl.container.localStorage.setItem(storageName, orderAddresses);
 
         //newElemValue
         /*var newAddressElem = {};

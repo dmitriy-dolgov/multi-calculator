@@ -8,13 +8,15 @@ gl.getObject('functions.handlers').userInterface = new (function () {
 
     var storageName = 'user_interface';
 
+    var storageObject = new gl.container.localStorageArray(storageName);
+
 
     //gl.funcContainer.storage.orderAddresses = new gl.funcContainer.storageArray('order_addresses');
 
     this.setUp = function() {
         //alert('this.setUp()');
 
-        var userInterfaceData = gl.container.localStorage.getItem(storageName);
+        var userInterfaceData = storageObject.getAllItems();
         if (userInterfaceData) {
             for (var uiName in userInterfaceData) {
                 var elemObj = $(uiName);

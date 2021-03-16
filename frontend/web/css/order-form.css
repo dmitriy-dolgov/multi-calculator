@@ -163,6 +163,7 @@
 
 #content {
   background: none;
+  position: relative;
 }
 
 .main-container {

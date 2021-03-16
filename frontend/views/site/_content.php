@@ -747,3 +747,5 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
 
     </div>
 </div>
+
+<div class="close-all-global-btn" title="<?= Yii::t('app', 'Свернуть всё') ?>"></div>

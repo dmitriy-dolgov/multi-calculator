@@ -163,6 +163,7 @@
 
 #content {
   background: none;
+  position: relative;
 }
 
 .main-container {
@@ -1709,6 +1710,23 @@ a {
 }
 .link-revert:hover {
   text-decoration: none;
+}
+
+.close-all-global-btn {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  background-image: url("/img/arr.svg");
+  z-index: 999999;
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: contain;
+  cursor: pointer;
+  -webkit-filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
+  filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
 }
 
 /*# sourceMappingURL=vendor.css.map */

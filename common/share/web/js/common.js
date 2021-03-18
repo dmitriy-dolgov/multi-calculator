@@ -129,7 +129,7 @@ gl.inIframe = function () {
     }
 };
 
-gl.object.get = function (obj, key) {
+gl.getObject('object').get = function (obj, key) {
     return key.split('.').reduce(function (o, x) {
         return (typeof o == 'undefined' || o === null) ? o : o[x];
     }, obj);

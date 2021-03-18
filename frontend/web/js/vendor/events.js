@@ -4,7 +4,9 @@ gl.getObject('events').base = (function () {
     var events = {
         ui: {
             native: {
+                // Сворачивает все элементы
                 'restore_to_initial': []
+                //'restore_to_initial': []
             },
             registered: {}
         }
@@ -58,6 +60,9 @@ gl.getObject('events').base = (function () {
             return false;
         },
         evokeNativeEventHandlers: function (eventScope, eventName) {
+
+            gl.info.debugMsg('evokeNativeEventHandlers evoke');
+
             if (!ifEventRepositoryExists(eventScope, eventName, 'native')) {
                 return false;
             }
@@ -77,6 +82,6 @@ $('.close-all-global-btn').click(function () {
 });
 
 gl.events.base.addNativeEventHandler('ui', 'restore_to_initial', function () {
-    alert('restore_to_initial IS HERE');
+    //alert('restore_to_initial IS HERE');
 });
 gl.events.base.evokeNativeEventHandlers('ui', 'restore_to_initial');

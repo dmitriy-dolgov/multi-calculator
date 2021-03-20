@@ -34,8 +34,13 @@ class DemoController extends Controller
         return $this->render('index');
     }
 
-    public function actionPizzeria()
+    public function actionVendor()
     {
-        return $this->render('index');
+        return $this->render('vendor');
+    }
+
+    public function actionCustomer()
+    {
+        return $this->render('customer');
     }
 }

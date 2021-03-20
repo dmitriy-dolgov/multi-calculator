@@ -1,0 +1,37 @@
+#tp {
+
+  /* Верхнее окно (основная страница)*/
+
+  $frameMinWidth: 20%;
+  $frameInitWidth: (
+          left: $frameMinWidth,
+          right: 100% - $frameMinWidth
+  );
+
+  .frame {
+    height: 100vh;
+    min-width: $frameMinWidth;
+  }
+
+  #vendor {
+    width: map-get($frameInitWidth, left);
+    float: left;
+  }
+
+  #customer {
+    width: map-get($frameInitWidth, right);
+    float: right;
+  }
+
+  /* Подокно во фрейме */
+  $handleHead: 30px;
+
+  #handle-head {
+    height: $handleHead;
+    display: flex;
+    justify-items: center;
+    background-color: black;
+    color: white;
+  }
+
+}

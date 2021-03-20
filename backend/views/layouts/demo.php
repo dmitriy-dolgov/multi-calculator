@@ -10,6 +10,8 @@ if (class_exists('yii\debug\Module')) {
 }
 
 //\backend\assets\WorkerAsset::register($this);
+$this->registerCssFile('/css/reset.css', ['appendTimestamp' => YII_DEBUG]);
+$this->registerCssFile('/css/demo/wrapper.css', ['appendTimestamp' => YII_DEBUG]);
 
 ?>
 <?php $this->beginPage() ?>
@@ -23,7 +25,8 @@ if (class_exists('yii\debug\Module')) {
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<?php // "tp" is "two panels"  ?>
+<body id="tp">
 <?php $this->beginBody() ?>
 <?= $content ?>
 <?php $this->endBody() ?>

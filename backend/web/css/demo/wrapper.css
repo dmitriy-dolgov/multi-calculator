@@ -16,11 +16,16 @@
   float: right;
 }
 #tp #handle-head {
-  height: 30px;
+  height: 40px;
   display: flex;
-  justify-items: center;
+  justify-content: center;
+  align-items: center;
   background-color: black;
   color: white;
+}
+#tp .body {
+  width: 100%;
+  height: calc(100vh - 40px);
 }
 
 /*# sourceMappingURL=wrapper.css.map */

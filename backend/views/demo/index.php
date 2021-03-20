@@ -1,13 +1,25 @@
 <?php
 
 use yii\helpers\Url;
+use yii\helpers\Html;
+use common\helpers\HtmlHelper;
 
 /* @var $this yii\web\View */
 
 $this->title = Yii::t('app', 'Пицца Майя - тест');
 
-?>
-<iframe class="frame left" id="vendor" src="<?= Url::to(['/demo/vendor', '_' => time()]) ?>" marginwidth="0" height="300"
-        marginheight="0" align="top" scrolling="No" frameborder="0" hspace="0" vspace="0"></iframe>
-<iframe class="frame right" id="customer" src="<?= Url::to(['/demo/customer', '_' => time()]) ?>" marginwidth="0" height="300"
-        marginheight="0" align="top" scrolling="No" frameborder="0" hspace="0" vspace="0"></iframe>
+echo Html::tag('iframe', '', array_merge(HtmlHelper::iframeParamsCleaned(),
+        [
+            'src' => Url::to(['/demo/vendor', '_' => time()]),
+            'id' => 'vendor',
+            'class' => 'frame left',
+        ])
+);
+
+echo Html::tag('iframe', '', array_merge(HtmlHelper::iframeParamsCleaned(),
+        [
+            'src' => Url::to(['/demo/customer', '_' => time()]),
+            'id' => 'customer',
+            'class' => 'frame right',
+        ])
+);

@@ -24,14 +24,20 @@
   }
 
   /* Подокно во фрейме */
-  $handleHead: 30px;
+  $handleHead: 40px;
 
   #handle-head {
     height: $handleHead;
     display: flex;
-    justify-items: center;
+    justify-content: center;
+    align-items: center;
     background-color: black;
     color: white;
+  }
+
+  .body {
+    width: 100%;
+    height: calc(100vh - #{$handleHead});
   }
 
 }

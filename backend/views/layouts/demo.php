@@ -9,9 +9,7 @@ if (class_exists('yii\debug\Module')) {
     $this->off(\yii\web\View::EVENT_END_BODY, [\yii\debug\Module::getInstance(), 'renderToolbar']);
 }
 
-//\backend\assets\WorkerAsset::register($this);
-$this->registerCssFile('/css/reset.css', ['appendTimestamp' => YII_DEBUG]);
-$this->registerCssFile('/css/demo/wrapper.css', ['appendTimestamp' => YII_DEBUG]);
+\backend\assets\DemoAsset::register($this);
 
 ?>
 <?php $this->beginPage() ?>

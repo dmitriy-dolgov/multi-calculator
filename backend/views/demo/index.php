@@ -8,6 +8,15 @@ use common\helpers\HtmlHelper;
 
 $this->title = Yii::t('app', 'Пицца Майя - тест');
 
+$this->registerJs(<<<JS
+gl.functions.panelsSwitch = function (direction) {
+    console.log('direction:', direction);
+    $('#vendor').toggleClass('switched');
+    $('#customer').toggleClass('switched');
+}
+JS
+);
+
 echo Html::tag('iframe', '', array_merge(HtmlHelper::iframeParamsCleaned(),
         [
             'src' => Url::to(['/demo/vendor', '_' => time()]),

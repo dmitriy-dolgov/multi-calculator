@@ -25,13 +25,11 @@
 
   &.switched {
     #vendor {
-      width: map-get($frameInitWidth, right);
-      float: left;
+      width: map-get($frameInitWidth, right) !important;
     }
 
     #customer {
-      width: map-get($frameInitWidth, left);
-      float: right;
+      width: map-get($frameInitWidth, left) !important;
     }
   }
 

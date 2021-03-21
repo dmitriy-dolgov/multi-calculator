@@ -16,12 +16,10 @@
   float: right;
 }
 #tp.switched #vendor {
-  width: 80%;
-  float: left;
+  width: 80% !important;
 }
 #tp.switched #customer {
-  width: 20%;
-  float: right;
+  width: 20% !important;
 }
 #tp #handle-head {
   height: 40px;

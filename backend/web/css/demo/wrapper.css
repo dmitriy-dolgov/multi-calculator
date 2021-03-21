@@ -15,11 +15,11 @@
   width: 80%;
   float: right;
 }
-#tp #vendor.switched {
+#tp.switched #vendor {
   width: 80%;
   float: left;
 }
-#tp #customer.switched {
+#tp.switched #customer {
   width: 20%;
   float: right;
 }

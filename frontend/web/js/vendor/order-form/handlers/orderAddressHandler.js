@@ -110,11 +110,11 @@ gl.getObject('functions.handlers').orderAddresses = new (function () {
     };
 })();
 
-gl.functions.handlers.orderAddressesTT = 234;
+//gl.functions.handlers.orderAddressesTT = 234;
 
-gl.functions.handlers.test = {};
+//gl.functions.handlers.test = {};
 
-gl.log(["hObj 2: ", gl]);
+//gl.log(["hObj 2: ", gl]);
 
 
 

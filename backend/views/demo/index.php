@@ -9,9 +9,10 @@ use common\helpers\HtmlHelper;
 $this->title = Yii::t('app', 'Пицца Майя - тест');
 
 $this->registerJs(<<<JS
+
 gl.functions.panelsSwitch = function (direction) {
     console.log('direction:', direction);
-    $('#vendor').toggleClass('switched');
+    $('#tp').toggleClass('switched');
     $('#customer').toggleClass('switched');
 }
 JS

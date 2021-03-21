@@ -17,18 +17,22 @@
     width: map-get($frameInitWidth, left);
     float: left;
   }
+
   #customer {
     width: map-get($frameInitWidth, right);
     float: right;
   }
 
-  #vendor.switched {
-    width: map-get($frameInitWidth, right);
-    float: left;
-  }
-  #customer.switched {
-    width: map-get($frameInitWidth, left);
-    float: right;
+  &.switched {
+    #vendor {
+      width: map-get($frameInitWidth, right);
+      float: left;
+    }
+
+    #customer {
+      width: map-get($frameInitWidth, left);
+      float: right;
+    }
   }
 
   /* Подокно во фрейме */

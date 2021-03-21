@@ -67,9 +67,12 @@ gl.log = function (msg) {
     }
 };
 
-gl.info.debugMsg = function (msg) {
+gl.info.debugMsg = function (msg, doAlert) {
     if (gl.config.debug) {
         gl.log(msg);
+        if (doAlert) {
+            alert('Debug: ' + JSON.stringify(msg));
+        }
     }
 };
 
@@ -170,6 +173,42 @@ gl.beautifyPrice = function (price, currency) {
     }
     return result;
 };
+
+/**
+ * Хранилище объектов jQuery.
+ *
+ * jQueryDE == jQueryDomElements
+ */
+gl.jQueryDE = {
+    list: {},
+    addOrOverwrite: function (selector) {
+        this.list[selector] = $(selector);
+
+        return this.list[selector].length;
+    },
+    addNoOverwrite: function (selector, debugAlert) {
+        if (typeof this.list[selector] !== 'undefined') {
+            if (debugAlert) {
+                gl.info.debugMsg('jQuery selector already exists: "' + selector + '"');
+            }
+            return false;
+        }
+
+        this.list[selector] = $(selector);
+
+        return this.list[selector].length;
+    },
+    get: function (selector) {
+        return this.list[selector];
+    }
+};
+gl.jQueryDE.addOrOverwrite('tp');
+gl.jQueryDE.get('tp');
+gl.jQueryDE.addNoOverwrite('tp');
+
+
+
+
 
 //TODO: pz_comp ?
 gl.functions.unwrapBottom = function (elem) {

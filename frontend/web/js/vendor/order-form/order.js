@@ -173,7 +173,7 @@ gl.functions.composeOrder = function () {
 
         //TODO: переключатель проверки ввода адреса здесь
         //if (hasError) {
-        if (0) {
+        if (false) {
             var errText = '<span class="err-title">' + gl.data['please-enter'] + '</span><br>';
             for (var id in errorMessages) {
                 errText += errorMessages[id] + '<br>';
@@ -195,9 +195,13 @@ gl.functions.composeOrder = function () {
         elem.fadeOut(200, function () {
             $('#frm-confirmed-order').fadeIn();
         });*/
-
+;
         //gl.functions.storage.handleAddress(
-        gl.functions.handlers.handleAddress(
+        //gl.functions.handlers.handleAddress(
+        //debugger;
+
+        gl.functions.handlers.orderAddresses.handleAddress(
+
             '.order-data-data',
             'ShopOrderForm',
             [
@@ -208,7 +212,7 @@ gl.functions.composeOrder = function () {
             ]
         );
 
-        gl.functions.storage.setAddresses();
+        gl.functions.handlers.orderAddresses.setAddresses();
 
         var formData = elem.serialize();
 

@@ -179,6 +179,11 @@
   right: 0;
   height: calc(100vh - 123px);
   position: absolute;
+  -webkit-filter: blur(12px);
+  -moz-filter: blur(12px);
+  -o-filter: blur(12px);
+  -ms-filter: blur(12px);
+  filter: blur(12px);
 }
 .components-in-stock .catalog-name {
   height: 25px;
@@ -188,6 +193,13 @@
   align-items: center;
   justify-content: center;
   font-style: italic;
+}
+.components-in-stock.no-blur {
+  -webkit-filter: none;
+  -moz-filter: none;
+  -o-filter: none;
+  -ms-filter: none;
+  filter: none;
 }
 
 #order-form {

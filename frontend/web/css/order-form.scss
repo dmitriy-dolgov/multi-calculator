@@ -9,6 +9,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
 
 $order-pane-height: 120px;
+$blurOfIngredientList: 12px;
 
 /*$wrapping-panel-height: 33px;*/
 $wrapping-panel_color: yellow;
@@ -59,6 +60,12 @@ $catalog-name_height: 25px;
   height: calc(100vh - #{$top-offset});
   position: absolute;
 
+  -webkit-filter: blur(#{$blurOfIngredientList});
+  -moz-filter: blur(#{$blurOfIngredientList});
+  -o-filter: blur(#{$blurOfIngredientList});
+  -ms-filter: blur(#{$blurOfIngredientList});
+  filter: blur(#{$blurOfIngredientList});
+
   .catalog-name {
     height: $catalog-name_height;
     background-color: #6b9163;
@@ -67,6 +74,14 @@ $catalog-name_height: 25px;
     align-items: center;
     justify-content: center;
     font-style: italic;
+  }
+
+  &.no-blur {
+    -webkit-filter: none;
+    -moz-filter: none;
+    -o-filter: none;
+    -ms-filter: none;
+    filter: none;
   }
 }
 

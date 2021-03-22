@@ -107,6 +107,10 @@ $('.unwrap-panel__close-button').click(function() {
     $('.unwrapped-panel').removeClass('unwrap');
 });
 
+//--------------------------------
+
+$('.components-in-stock').addClass('no-blur');
+
 JS
 );
 

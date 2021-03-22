@@ -10,7 +10,7 @@ use yii\helpers\Url;
 $this->title = Yii::t('app', 'Пицца Майя - тест - страница покупателя');
 
 ?>
-<div id="handle-head">Покупатель</div>
+<!--<div id="handle-head">Покупатель</div>-->
 <?= Html::tag('iframe', '', array_merge(HtmlHelper::iframeParamsCleaned(),
         [
             'src' => Web::getUrlToCustomerSite(),

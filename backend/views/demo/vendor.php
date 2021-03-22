@@ -29,10 +29,10 @@ JS
 );
 
 ?>
-<div id="handle-head">
+<!--<div id="handle-head-left">
     Продавец
     <button class="switch collapsed">&gt;</button>
-</div>
+</div>-->
 
 <?= Html::tag('iframe', '', array_merge(HtmlHelper::iframeParamsCleaned(),
         [

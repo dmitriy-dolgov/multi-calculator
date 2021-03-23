@@ -1,12 +1,14 @@
+$frameMinWidth: 0%;
+$frameInitWidth: (
+        left: $frameMinWidth,
+        right: 100% - $frameMinWidth
+);
+
+$switchButtonRadius: 80px;
+
 #tp {
 
   /* Верхнее окно (основная страница)*/
-
-  $frameMinWidth: 3%;
-  $frameInitWidth: (
-          left: $frameMinWidth,
-          right: 100% - $frameMinWidth
-  );
 
   .frame {
     height: 100vh;
@@ -17,27 +19,31 @@
     width: map-get($frameInitWidth, left);
     float: left;
 
-
+    -webkit-transition: width 1s;
+    transition: width 1s;
   }
 
   #customer {
     width: map-get($frameInitWidth, right);
     float: right;
+
+    -webkit-transition: width 1s;
+    transition: width 1s;
   }
 
   &.switched {
     #vendor {
       width: map-get($frameInitWidth, right) !important;
 
-      animation-duration: 3s;
-      /*animation-name: slidein;*/
+      -webkit-transition: width 1s;
+      transition: width 1s;
     }
 
     #customer {
       width: map-get($frameInitWidth, left) !important;
 
-      animation-duration: 3s;
-      /*animation-name: slideout;*/
+      -webkit-transition: width 1s;
+      transition: width 1s;
     }
   }
 
@@ -60,27 +66,19 @@
   }
 
   .switch {
-
+    position: fixed;
+    top: -($switchButtonRadius / 2);
+    width: $switchButtonRadius;
+    height: $switchButtonRadius;
+    border-radius: 50%;
+    background-color: yellow;
+    cursor: pointer;
   }
 
-}
-
-@keyframes slidein {
-  from {
-    width: 0;
+  #handle-head-left {
+    left: -($switchButtonRadius / 2);
   }
-
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes slideout {
-  from {
-    width: 100%;
-  }
-
-  to {
-    width: 0;
+  #handle-head-right {
+    right: -($switchButtonRadius / 2);
   }
 }

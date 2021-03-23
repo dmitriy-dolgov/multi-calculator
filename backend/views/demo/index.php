@@ -52,26 +52,8 @@ echo Html::tag('iframe', '', array_merge(HtmlHelper::iframeParamsCleaned(),
             'id' => 'customer',
             'class' => 'frame right',
         ])
-);*/
 
-$this->registerCss(<<<CSS
-#handle-head-left {
-    position: fixed;
-    left:0;
-    top: 0;
-    width: 30px;
-    height: 30px;
-}
-#handle-head-right {
-    position: fixed;
-    right:0;
-    top: 0;
-    width: 30px;
-    height: 30px;
-}
-CSS
-);
-
+*/
 $this->registerJs(<<<JS
 $('.switch').click(function() {
     var elem = $(this);
@@ -84,21 +66,21 @@ function doSwitch(elem) {
     if (elem.hasClass('collapsed')) {
         //window.parent.gl.functions.panelsSwitch(true);
         gl.functions.panelsSwitch(true);
-        elem.html('&gt;');
+        //elem.html('&gt;');
     } else {
         //window.parent.gl.functions.panelsSwitch(false);
         gl.functions.panelsSwitch(false);
-        elem.html('&lt;');
+        //elem.html('&lt;');
     }
 }
 JS
 );
 
 ?>
-<div id="handle-head-left">
+<div id="handle-head-left" class="switch"><!--
     Продавец
-    <button class="switch collapsed">&gt;</button>
-</div><div id="handle-head-right">
+    <button class="switch collapsed">&gt;</button>-->
+</div><div id="handle-head-right" class="switch"><!--
     Покупатель
-    <button class="switch">&lt;</button>
+    <button class="switch">&lt;</button>-->
 </div>

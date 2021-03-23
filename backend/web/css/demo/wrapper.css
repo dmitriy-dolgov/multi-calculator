@@ -5,25 +5,29 @@
 }
 #tp .frame {
   height: 100vh;
-  min-width: 3%;
+  min-width: 0%;
 }
 #tp #vendor {
-  width: 3%;
+  width: 0%;
   float: left;
+  -webkit-transition: width 1s;
+  transition: width 1s;
 }
 #tp #customer {
-  width: 97%;
+  width: 100%;
   float: right;
+  -webkit-transition: width 1s;
+  transition: width 1s;
 }
 #tp.switched #vendor {
-  width: 97% !important;
-  animation-duration: 3s;
-  /*animation-name: slidein;*/
+  width: 100% !important;
+  -webkit-transition: width 1s;
+  transition: width 1s;
 }
 #tp.switched #customer {
-  width: 3% !important;
-  animation-duration: 3s;
-  /*animation-name: slideout;*/
+  width: 0% !important;
+  -webkit-transition: width 1s;
+  transition: width 1s;
 }
 #tp #handle-head {
   height: 40px;
@@ -38,21 +42,20 @@
   /*height: calc(100vh - 40px);*/
   height: 100vh;
 }
-@keyframes slidein {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
+#tp .switch {
+  position: fixed;
+  top: -40px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: yellow;
+  cursor: pointer;
 }
-@keyframes slideout {
-  from {
-    width: 100%;
-  }
-  to {
-    width: 0;
-  }
+#tp #handle-head-left {
+  left: -40px;
+}
+#tp #handle-head-right {
+  right: -40px;
 }
 
 /*# sourceMappingURL=wrapper.css.map */

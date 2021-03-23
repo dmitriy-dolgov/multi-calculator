@@ -5,21 +5,25 @@
 }
 #tp .frame {
   height: 100vh;
-  min-width: 20%;
+  min-width: 3%;
 }
 #tp #vendor {
-  width: 20%;
+  width: 3%;
   float: left;
 }
 #tp #customer {
-  width: 80%;
+  width: 97%;
   float: right;
 }
 #tp.switched #vendor {
-  width: 80% !important;
+  width: 97% !important;
+  animation-duration: 3s;
+  /*animation-name: slidein;*/
 }
 #tp.switched #customer {
-  width: 20% !important;
+  width: 3% !important;
+  animation-duration: 3s;
+  /*animation-name: slideout;*/
 }
 #tp #handle-head {
   height: 40px;
@@ -30,8 +34,25 @@
   color: white;
 }
 #tp .body {
-  width: 100%;
-  height: calc(100vh - 40px);
+  /*width: 100%;*/
+  /*height: calc(100vh - 40px);*/
+  height: 100vh;
+}
+@keyframes slidein {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes slideout {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
 }
 
 /*# sourceMappingURL=wrapper.css.map */

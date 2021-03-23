@@ -2,7 +2,7 @@
 
   /* Верхнее окно (основная страница)*/
 
-  $frameMinWidth: 20%;
+  $frameMinWidth: 3%;
   $frameInitWidth: (
           left: $frameMinWidth,
           right: 100% - $frameMinWidth
@@ -16,6 +16,8 @@
   #vendor {
     width: map-get($frameInitWidth, left);
     float: left;
+
+
   }
 
   #customer {
@@ -26,10 +28,16 @@
   &.switched {
     #vendor {
       width: map-get($frameInitWidth, right) !important;
+
+      animation-duration: 3s;
+      /*animation-name: slidein;*/
     }
 
     #customer {
       width: map-get($frameInitWidth, left) !important;
+
+      animation-duration: 3s;
+      /*animation-name: slideout;*/
     }
   }
 
@@ -46,12 +54,33 @@
   }
 
   .body {
-    width: 100%;
-    height: calc(100vh - #{$handleHead});
+    /*width: 100%;*/
+    /*height: calc(100vh - #{$handleHead});*/
+    height: 100vh;
   }
 
   .switch {
 
   }
 
+}
+
+@keyframes slidein {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes slideout {
+  from {
+    width: 100%;
+  }
+
+  to {
+    width: 0;
+  }
 }

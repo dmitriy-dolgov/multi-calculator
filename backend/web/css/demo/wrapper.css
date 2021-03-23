@@ -10,24 +10,20 @@
 #tp #vendor {
   width: 0%;
   float: left;
-  -webkit-transition: width 1s;
-  transition: width 1s;
+  -webkit-transition: width 5s;
+  transition: width 5s;
 }
 #tp #customer {
   width: 100%;
   float: right;
-  -webkit-transition: width 1s;
-  transition: width 1s;
+  -webkit-transition: width 5s;
+  transition: width 5s;
 }
 #tp.switched #vendor {
   width: 100% !important;
-  -webkit-transition: width 1s;
-  transition: width 1s;
 }
 #tp.switched #customer {
   width: 0% !important;
-  -webkit-transition: width 1s;
-  transition: width 1s;
 }
 #tp #handle-head {
   height: 40px;
@@ -53,9 +49,23 @@
 }
 #tp #handle-head-left {
   left: -40px;
+  opacity: 1;
+  filter: drop-shadow(10px 10px 5px black);
+  -webkit-transition: opacity 5s;
+  transition: opacity 5s;
 }
 #tp #handle-head-right {
   right: -40px;
+  opacity: 0;
+  filter: drop-shadow(10px 10px 5px black);
+  -webkit-transition: opacity 5s;
+  transition: opacity 5s;
+}
+#tp.switched #handle-head-left {
+  opacity: 0;
+}
+#tp.switched #handle-head-right {
+  opacity: 1;
 }
 
 /*# sourceMappingURL=wrapper.css.map */

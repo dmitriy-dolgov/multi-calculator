@@ -5,6 +5,7 @@ $frameInitWidth: (
 );
 
 $switchButtonRadius: 80px;
+$switchPanelsDuration: 5s;
 
 #tp {
 
@@ -19,31 +20,25 @@ $switchButtonRadius: 80px;
     width: map-get($frameInitWidth, left);
     float: left;
 
-    -webkit-transition: width 1s;
-    transition: width 1s;
+    -webkit-transition: width $switchPanelsDuration;
+    transition: width $switchPanelsDuration;
   }
 
   #customer {
     width: map-get($frameInitWidth, right);
     float: right;
 
-    -webkit-transition: width 1s;
-    transition: width 1s;
+    -webkit-transition: width $switchPanelsDuration;
+    transition: width $switchPanelsDuration;
   }
 
   &.switched {
     #vendor {
       width: map-get($frameInitWidth, right) !important;
-
-      -webkit-transition: width 1s;
-      transition: width 1s;
     }
 
     #customer {
       width: map-get($frameInitWidth, left) !important;
-
-      -webkit-transition: width 1s;
-      transition: width 1s;
     }
   }
 
@@ -77,8 +72,29 @@ $switchButtonRadius: 80px;
 
   #handle-head-left {
     left: -($switchButtonRadius / 2);
+    opacity: 1;
+    filter: drop-shadow(10px 10px 5px black);
+
+    -webkit-transition: opacity $switchPanelsDuration;
+    transition: opacity $switchPanelsDuration;
   }
+
   #handle-head-right {
     right: -($switchButtonRadius / 2);
+    opacity: 0;
+    filter: drop-shadow(10px 10px 5px black);
+
+    -webkit-transition: opacity $switchPanelsDuration;
+    transition: opacity $switchPanelsDuration;
+  }
+
+  &.switched {
+    #handle-head-left {
+      opacity: 0;
+    }
+
+    #handle-head-right {
+      opacity: 1;
+    }
   }
 }

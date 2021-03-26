@@ -5,7 +5,7 @@ $frameInitWidth: (
 );
 
 $switchButtonRadius: 80px;
-$switchPanelsDuration: 5s;
+$switchPanelsDuration: .5s;
 
 #tp {
 
@@ -73,7 +73,7 @@ $switchPanelsDuration: 5s;
   #handle-head-left {
     left: -($switchButtonRadius / 2);
     opacity: 1;
-    filter: drop-shadow(10px 10px 5px black);
+    /*filter: drop-shadow(10px 10px 5px black);*/
 
     -webkit-transition: opacity $switchPanelsDuration;
     transition: opacity $switchPanelsDuration;
@@ -82,7 +82,7 @@ $switchPanelsDuration: 5s;
   #handle-head-right {
     right: -($switchButtonRadius / 2);
     opacity: 0;
-    filter: drop-shadow(10px 10px 5px black);
+    /*filter: drop-shadow(10px 10px 5px black);*/
 
     -webkit-transition: opacity $switchPanelsDuration;
     transition: opacity $switchPanelsDuration;

@@ -55,6 +55,16 @@ if (!gl.info) {
 gl.config.debug = true;
 
 
+gl.getObject('helpers').randomString = function (length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+};
+
 gl.log = function (msg) {
     if (window.console) {
         if (typeof msg == 'string') {
@@ -73,6 +83,9 @@ gl.info.debugMsg = function (msg, doAlert) {
         if (doAlert) {
             alert('Debug: ' + JSON.stringify(msg));
         }
+    } else {
+        //TODO: сделать отправку на сервер сообщения об ошибке
+        //gl.log(msg);
     }
 };
 
@@ -100,7 +113,7 @@ gl.assert = function (value, msg) {
 };
 
 gl.error = function (msg) {
-    gl.error(msg);
+    gl.assert(false, msg);
 };
 
 gl.escapeHtml = function (text) {
@@ -147,7 +160,7 @@ gl.object.has = function (obj, key) {
     });
 };
 
-gl.object.isFunction = function(obj) {
+gl.object.isFunction = function (obj) {
     return !!(obj && obj.constructor && obj.call && obj.apply);
 };
 
@@ -205,9 +218,6 @@ gl.jQueryDE = {
 gl.jQueryDE.addOrOverwrite('tp');
 gl.jQueryDE.get('tp');
 gl.jQueryDE.addNoOverwrite('tp');
-
-
-
 
 
 //TODO: pz_comp ?

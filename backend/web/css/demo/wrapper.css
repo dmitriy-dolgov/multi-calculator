@@ -10,14 +10,14 @@
 #tp #vendor {
   width: 0%;
   float: left;
-  -webkit-transition: width 5s;
-  transition: width 5s;
+  -webkit-transition: width 0.5s;
+  transition: width 0.5s;
 }
 #tp #customer {
   width: 100%;
   float: right;
-  -webkit-transition: width 5s;
-  transition: width 5s;
+  -webkit-transition: width 0.5s;
+  transition: width 0.5s;
 }
 #tp.switched #vendor {
   width: 100% !important;
@@ -50,16 +50,16 @@
 #tp #handle-head-left {
   left: -40px;
   opacity: 1;
-  filter: drop-shadow(10px 10px 5px black);
-  -webkit-transition: opacity 5s;
-  transition: opacity 5s;
+  /*filter: drop-shadow(10px 10px 5px black);*/
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
 }
 #tp #handle-head-right {
   right: -40px;
   opacity: 0;
-  filter: drop-shadow(10px 10px 5px black);
-  -webkit-transition: opacity 5s;
-  transition: opacity 5s;
+  /*filter: drop-shadow(10px 10px 5px black);*/
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
 }
 #tp.switched #handle-head-left {
   opacity: 0;

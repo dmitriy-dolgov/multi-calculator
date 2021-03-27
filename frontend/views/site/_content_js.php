@@ -109,6 +109,13 @@ $jsCode = "var gl = {data:{}};\n"
         ],
     ]);
 
+$this->registerCss(<<<CSS
+.vertical-pane .component-link {
+    visibility: hidden;
+}
+CSS
+);
+
 $this->registerJs($jsCode, \yii\web\View::POS_HEAD);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/storage.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
@@ -129,6 +136,8 @@ $this->registerJsFile(Url::to(['/js/vendor/order-form/sse.js']), ['depends' => [
 
 $this->registerJsFile(Url::to(['/js/vendor/order-form/handlers/orderInterface.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 $this->registerJsFile(Url::to(['/js/vendor/order-form/handlers/orderAddressHandler.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
+
+$this->registerJsFile(Url::to(['/js/vendor/objects.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 
 $this->registerJsFile(Url::to(['/js/leaflet/MovingMarker.js']), ['depends' => ['frontend\assets\VendorAsset']]);
 $this->registerJsFile(Url::to(['/js/leaflet/L.Icon.Pulse.js']), ['depends' => ['frontend\assets\VendorAsset']]);

@@ -95,7 +95,9 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
 gl.functions.placesMap.prototype.showCourier = function () {
     var latLng = gl.functions.getCurrentGeoLocation();
-    //this.courierMarker = this.addMarkerByCoords(latLng.lat, latLng.lng, this.icons.courier);
+    this.courierMarker = this.addMarkerByCoords(latLng.lat, latLng.lng, this.icons.courier);
+
+    gl.functions.placesMap.prototype.moveCourier(latLng, this.courierMarker);
 };
 
 gl.functions.placesMap.prototype.hideCourier = function () {
@@ -103,9 +105,61 @@ gl.functions.placesMap.prototype.hideCourier = function () {
     //this.courierMarker = this.addMarkerByCoords(latLng.lat, latLng.lng, this.icons.courier);
 };
 
-gl.functions.placesMap.prototype.moveCourier = function () {
-    var latLng = gl.functions.getCurrentGeoLocation();
+gl.functions.placesMap.prototype.moveCourier = function (latLng, courierMarker) {
+    //var latLng = gl.functions.getCurrentGeoLocation();
     //this.courierMarker
+    //var fromCoords = ;
+    //var customerLatLon = this.courierMarker.getLatLng();
+    var customerLatLon = latLng;
+    var mrkLanLng = window.ttt;
+    /*for (var mId in this.markers) {
+        mrkLanLng = this.markers[mId].marker.getLatLng();
+        break;
+    }
+
+    debugger;*/
+    console.log('customerLatLon: ', customerLatLon);
+    console.log('mrkLanLng: ', mrkLanLng);
+
+    var $pt1 = [customerLatLon.lat, customerLatLon.lng];
+    var $pt2 = [mrkLanLng.lat, mrkLanLng.lng];
+    var $m = ($pt1[1] - $pt2[1]) / ($pt1[0] - $pt2[0]);
+    var $b = $pt1[1] - $m * $pt1[0];
+
+    //for ($i = $pt1[0]; $i <= $pt2[0]; $i++)
+    //$points[] = array($i, $m * $i + $b);
+
+    var $i = $pt1[0];
+
+    console.log('$i: ', $i);
+
+    var courierMarkerObj = courierMarker;
+
+
+    var step = ($pt2[0] - $i) / 50;
+
+    //var counter = 0;
+    var interval = setInterval(function () {
+            console.log('$i: ', $i);
+            if ($i <= $pt2[0]) {
+                //this.courierMarker = this.addMarkerByCoords($i, $m * $i + $b, this.icons.courier);
+
+                var newLatLng = new L.LatLng($i, $m * $i + $b);
+                courierMarkerObj.setLatLng(newLatLng);
+
+                console.log('$i: ', $i);
+
+                $i += step; //0.01;
+                return;
+            }
+
+            console.log('clearInterval');
+
+            clearInterval(interval);
+            interval = null;
+        },
+        100);
+
 };
 
 //gl.functions.placesMap.globalZIndex = 0;
@@ -318,7 +372,7 @@ gl.functions.placesMap.prototype.connectMarkersWithCustomer = function () {
  *
  * @param $merchantId ID пиццерии
  */
-gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (merchantId, ) {
+gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (merchantId,) {
 
     gl.log('connectAPizzeriaWithCustomer(), merchantId: ' + merchantId);
 
@@ -339,6 +393,8 @@ gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (mercha
         }
 
         var mrkLanLng = this.markers[mId].marker.getLatLng();
+
+        window.ttt = mrkLanLng;
 
         geoJsonFeatureCollection.features.push({
                 "type": "Feature",

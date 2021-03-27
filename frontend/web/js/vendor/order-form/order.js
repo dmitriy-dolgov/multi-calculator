@@ -476,9 +476,9 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
 
         gl.data.worldMap.showCourier();
 
-        setInterval(function () {
+        /*setInterval(function () {
             gl.data.worldMap.moveCourier();
-        }, 6000);
+        }, 6000);*/
 
         result = true;
     }

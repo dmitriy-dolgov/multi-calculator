@@ -60,11 +60,11 @@ $catalog-name_height: 25px;
   height: calc(100vh - #{$top-offset});
   position: absolute;
 
-  -webkit-filter: blur(#{$blurOfIngredientList});
+  /*-webkit-filter: blur(#{$blurOfIngredientList});
   -moz-filter: blur(#{$blurOfIngredientList});
   -o-filter: blur(#{$blurOfIngredientList});
   -ms-filter: blur(#{$blurOfIngredientList});
-  filter: blur(#{$blurOfIngredientList});
+  filter: blur(#{$blurOfIngredientList});*/
 
   .catalog-name {
     height: $catalog-name_height;

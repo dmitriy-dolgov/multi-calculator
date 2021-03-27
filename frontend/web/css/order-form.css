@@ -179,11 +179,11 @@
   right: 0;
   height: calc(100vh - 123px);
   position: absolute;
-  -webkit-filter: blur(12px);
+  /*-webkit-filter: blur(12px);
   -moz-filter: blur(12px);
   -o-filter: blur(12px);
   -ms-filter: blur(12px);
-  filter: blur(12px);
+  filter: blur(12px);*/
 }
 .components-in-stock .catalog-name {
   height: 25px;

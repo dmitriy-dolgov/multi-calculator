@@ -40,7 +40,7 @@ use yii\helpers\Html;
 
     <div class="panel-group" id="accordion<?= $orderData['info']['id'] ?>" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
-            <div class="panel-heading active" role="tab" id="heading<?= $orderData['info']['id'] ?>">
+            <div class="panel-heading" role="tab" id="heading<?= $orderData['info']['id'] ?>">
                 <h4 class="panel-title">
                     <a class="collapsed" role="button" data-toggle="collapse"
                        data-parent="#accordion<?= $orderData['info']['id'] ?>"

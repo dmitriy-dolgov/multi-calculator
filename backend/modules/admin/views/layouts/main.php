@@ -108,6 +108,19 @@ CSS
                                         'url' => '/admin/texts',
                                         'icon' => 'file-text-o',
                                     ],
+
+                                    [
+                                        'label' => Yii::t('app', 'Карта доставки'),
+                                        'url' => '#',
+                                        'template' => '<a><i class="fa fa-map-o"></i><span>{label}</span><span class="fa fa-chevron-down"></span></a>',
+                                        //'icon' => 'map-o',
+                                        'items' => [
+                                            [
+                                                'label' => Yii::t('app', 'Изображения курьера'),
+                                                'url' => ['/admin/courier-images'],
+                                            ],
+                                        ],
+                                    ],
                                 ],
                             ]
                         )
@@ -290,8 +303,8 @@ CSS
             ]);
             ?>
 
-            <?php foreach(Yii::$app->session->getAllFlashes() as $type => $messages): ?>
-                <?php foreach((array)$messages as $message): ?>
+            <?php foreach (Yii::$app->session->getAllFlashes() as $type => $messages): ?>
+                <?php foreach ((array)$messages as $message): ?>
                     <div class="alert alert-<?= $type ?>" role="alert">
                         <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                         <?= $message ?>

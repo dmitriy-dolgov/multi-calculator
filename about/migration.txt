@@ -195,3 +195,7 @@ order_price:decimal(8,2),order_price_discount:decimal(8,2)"
 
 ./yii migrate/create create_texts_table --fields="group:string(50):comment('Группа к которой относится текст'),type:string(255):comment('text html т п'),data:text"
 
+
+./yii migrate/create create_courier_images_table --fields="run:string(255):comment('Курьер в движении'),wait:string(255):comment('Курьер в ожидании покупателя чтобы отдать пиццу'),disabled:datetime:comment('Когда изображение стало неактивным - действует как расширенный датой boolean')"
+
+

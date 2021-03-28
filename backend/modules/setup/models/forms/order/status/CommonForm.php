@@ -86,7 +86,7 @@ class CommonForm extends Model
 
         foreach ($shopOrderComponents['components'] as $componentInfo) {
             if (!$component = Component::findOne($componentInfo['component_id'])) {
-                Yii::error('No such component: ' . print_r($componentInfo, true));
+                Yii::error('No such component (CommonForm): ' . print_r($componentInfo, true));
                 continue;
             }
 

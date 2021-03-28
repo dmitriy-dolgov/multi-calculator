@@ -56,7 +56,7 @@ abstract class OrderHandlingBackend extends BaseObject
         for (; ;) {
             if (connection_aborted()) {
                 $this->cleanOnConnectionClose();
-                Yii::debug('connection_aborted()', 'sse-order');
+                Yii::debug('connection_aborted() backend/sse/OrderHandlingBackend', 'sse-order');
                 exit();
             }
 

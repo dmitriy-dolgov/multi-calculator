@@ -102,7 +102,7 @@ class ShopOrderForm extends Model
 
         foreach ($shopOrderComponents['components'] as $componentInfo) {
             if (!$component = Component::findOne($componentInfo['component_id'])) {
-                Yii::error('No such component: ' . print_r($componentInfo, true));
+                Yii::error('No such component (ShopOrderForm): ' . print_r($componentInfo, true));
                 continue;
             }
 

@@ -168,6 +168,8 @@ STR;
 
     public function actionOrderCreateAjax()
     {
+        // site/order-create-ajax
+
         $response = ['status' => 'error'];
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;

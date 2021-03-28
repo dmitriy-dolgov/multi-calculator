@@ -130,7 +130,7 @@ gl.getObject('funcContainer').storageArray_removed = function (storageName) {
 
 
 /**
- * Для хранилища объектов целиком.
+ * Для хранилища объектов целиком (в браузере).
  *
  * @returns {{removeItem: removeItem, clear: clear, getItem: getItem, setItem: (function(*=, *=): null)}}
  */

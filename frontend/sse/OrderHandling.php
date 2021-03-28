@@ -58,7 +58,7 @@ abstract class OrderHandling extends BaseObject
         for (; ;) {
             if (connection_aborted()) {
                 //$this->cleanOnConnectionClose();
-                Yii::debug('connection_aborted()', 'sse-order');
+                Yii::debug('connection_aborted() frontend/sse/OrderHandling', 'sse-order');
                 exit();
             }
 

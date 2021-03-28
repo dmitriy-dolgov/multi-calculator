@@ -38,9 +38,20 @@ return [
         'url_path' => '/video/construct/',
     ],
 
-    // Изображение пользова
+    // Изображение пользователя
     'customer_images' => [
         'url_path' => '/img/cust/',
+    ],
+
+    // Элементы для карты заказа
+    'order_map' => [
+        // Для курьера
+        'courier' => [
+            'images' => [
+                // URL: courier/images/url_path
+                'url_path' => '/img/courier/img/',
+            ],
+        ],
     ],
 
     /**

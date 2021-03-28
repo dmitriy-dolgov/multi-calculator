@@ -2,12 +2,15 @@
 
 namespace backend\modules\admin\controllers;
 
+use common\models\UploadComponentVideoForm;
+use common\models\UploadCourierImageForm;
 use Yii;
 use common\models\db\CourierImages;
 use common\models\db\CourierImagesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * CourierImagesController implements the CRUD actions for CourierImages model.
@@ -66,12 +69,29 @@ class CourierImagesController extends Controller
     {
         $model = new CourierImages();
 
+        //TODO: $uploadCourierImageForm => $uploadCourierImageRunForm или разобраться
+        $uploadCourierImageForm = new UploadCourierImageForm();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $uploadCourierImageForm->imageFile = UploadedFile::getInstances($uploadCourierImageForm, 'run');
+            if ($uploadCourierImageForm->upload($model)) {
+                //return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                //TODO: обработать ошибку
+            }
+
+            /*$uploadVideoForm->videoFiles = UploadedFile::getInstances($uploadVideoForm, 'videoFiles');
+            if ($uploadVideoForm->upload($model)) {
+                //return $this->redirect(['view', 'id' => $model->id]);
+            }*/
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'uploadCourierImageForm' => $uploadCourierImageForm,
         ]);
     }
 

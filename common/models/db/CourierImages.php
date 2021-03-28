@@ -28,7 +28,12 @@ class CourierImages extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['disabled_at'], 'safe'],
+            ['disabled_at', 'filter', 'filter' => function($value) {
+                if (empty($value)) {
+                    return null;
+                }
+                return date('Y-m-d H:i:s');
+            }],
             [['run', 'wait'], 'string', 'max' => 255],
         ];
     }

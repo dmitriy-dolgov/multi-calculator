@@ -52,5 +52,5 @@ phpunit.phar
 
 /frontend/web/.htaccess
 
-/frontend/web/js/common.js
-/backend/web/js/common.js
+/frontend/web/js/shared/common.js
+/backend/web/js/shared/common.js

@@ -13,7 +13,7 @@ class SetupAsset extends AssetBundle
         'css/setup.css?ver=1.0',
     ];
     public $js = [
-        'js/common.js',
+        'js/shared/common.js',
         'js/setup.js',
     ];
     public $depends = [

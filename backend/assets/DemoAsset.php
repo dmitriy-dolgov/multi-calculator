@@ -13,7 +13,7 @@ class DemoAsset extends AssetBundle
         '/css/demo/wrapper.css',
     ];
     public $js = [
-        '/js/common.js',
+        '/js/shared/common.js',
     ];
     public $depends = [
         'yii\web\JqueryAsset',

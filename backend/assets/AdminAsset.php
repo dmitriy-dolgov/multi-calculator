@@ -12,7 +12,7 @@ class AdminAsset extends AssetBundle
         'css/backend.css?ver=1.1',
     ];
     public $js = [
-        'js/common.js',
+        'js/shared/common.js',
     ];
     public $depends = [
         'yiister\gentelella\assets\Asset',

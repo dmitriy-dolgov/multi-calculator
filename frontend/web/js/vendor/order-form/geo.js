@@ -209,7 +209,8 @@ var glIconUrl = [
     '/img/courier/4.gif',
 ];
 
-glIconUrl = glIconUrl[0 + Math.floor((4 - 0) * Math.random())];
+glIconUrl = glIconUrl[0 + Math.floor((5 - 0) * Math.random())];
+//glIconUrl = glIconUrl[0];
 
 gl.functions.placesMap.prototype.icons = {
     defaultPizzeria: L.icon({

@@ -74,17 +74,12 @@ class CourierImagesController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            $uploadCourierImageForm->imageFile = UploadedFile::getInstances($uploadCourierImageForm, 'run');
+            $uploadCourierImageForm->imageFile = UploadedFile::getInstances($uploadCourierImageForm, 'imageFile');
             if ($uploadCourierImageForm->upload($model)) {
                 //return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 //TODO: обработать ошибку
             }
-
-            /*$uploadVideoForm->videoFiles = UploadedFile::getInstances($uploadVideoForm, 'videoFiles');
-            if ($uploadVideoForm->upload($model)) {
-                //return $this->redirect(['view', 'id' => $model->id]);
-            }*/
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -106,12 +101,24 @@ class CourierImagesController extends Controller
     {
         $model = $this->findModel($id);
 
+        //TODO: $uploadCourierImageForm => $uploadCourierImageRunForm или разобраться
+        $uploadCourierImageForm = new UploadCourierImageForm();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $uploadCourierImageForm->imageFile = UploadedFile::getInstances($uploadCourierImageForm, 'run');
+            if ($uploadCourierImageForm->upload($model)) {
+                //return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                //TODO: обработать ошибку
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'uploadCourierImageForm' => $uploadCourierImageForm,
         ]);
     }
 

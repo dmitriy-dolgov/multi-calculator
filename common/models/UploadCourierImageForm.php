@@ -5,6 +5,7 @@ namespace common\models;
 use common\models\db\Component;
 use common\models\db\ComponentImage;
 use common\models\db\CourierImages;
+use common\models\db\Profile;
 use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
@@ -24,37 +25,66 @@ class UploadCourierImageForm extends Model
         ];
     }
 
-    public static function imagePath()
+    public static function imagePathUrl()
     {
-        return Yii::getAlias('@webroot' . Yii::$app->params['order_map']['courier']['images']['url_path']);
+        return Yii::$app->params['order_map']['courier']['images']['url_path'];
     }
 
-    public function upload()
+    public static function imagePath()
     {
+        return self::rootImagePlacePath() . self::imagePathUrl();
+    }
+
+    /**
+     * Корень изображений безотносительно к пути.
+     *
+     * @return bool|string
+     */
+    public static function rootImagePlacePath()
+    {
+        return Yii::getAlias('@webroot');
+    }
+
+    public function removeImage(CourierImages $courierImagesModel, $type = 'sdf')
+    {
+        if ($courierImagesModel->$type) {
+            $oldFilePath = self::rootImagePlacePath() . '/' . ltrim($courierImagesModel->$type,
+                    DIRECTORY_SEPARATOR);
+            if (is_file($oldFilePath)) {
+                unlink($oldFilePath);
+            }
+
+            $courierImagesModel->$type = null;
+        }
+    }
+
+    public function upload(CourierImages $courierImagesModel)
+    {
+        if (!$this->imageFile) {
+            return true;
+        }
+
         $uploadDir = self::imagePath();
 
         if ($this->validate()) {
-            foreach ($this->imageFile as $file) {
-
-                $filePath = false;
-                while (true) {
-                    $filename = uniqid('', true) . '.' . $file->extension;
-                    $filePath = $uploadDir . $filename;
-                    if (!file_exists($filePath)) {
-                        break;
-                    }
+            $filePath = false;
+            for (; ;) {
+                $filename = uniqid('', true) . '.' . $this->imageFile->extension;
+                $filePath = $uploadDir . $filename;
+                if (!file_exists($filePath)) {
+                    break;
                 }
-
-                if (!$file->saveAs($filePath)) {
-                    Yii::error('Error saving uploaded file (courier images). Error code: ' . $file->error . '. Path: ' . $filePath);
-                    return false;
-                }
-
-                $imageObj = new CourierImages();
-                $imageObj->run = $filename;
-                $imageObj->wait = $filename;
-                $imageObj->save();
             }
+
+            if (!$this->imageFile->saveAs($filePath)) {
+                Yii::error('Error saving uploaded file. Error code: ' . $this->imageFile->error . '. Path: ' . $filePath);
+                return false;
+            }
+
+            $this->removeImage($courierImagesModel, 'run');
+
+            $courierImagesModel->run = self::imagePathUrl() . $filename;
+            $courierImagesModel->save();
         } else {
             $errors = serialize($this->errors);
             Yii::error('Validation errors: ' . $errors);

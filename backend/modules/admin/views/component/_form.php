@@ -185,7 +185,6 @@ $categoryList = \yii\helpers\ArrayHelper::map($categories, 'id', 'name');
             'overwriteInitial' => false,
             'initialPreviewAsData' => true,
         ],
-
     ];
 
     $videoPath = Url::to([\common\models\UploadComponentVideoForm::videoPathUrl()], true) . '/';
@@ -200,7 +199,7 @@ $categoryList = \yii\helpers\ArrayHelper::map($categories, 'id', 'name');
     }
 
     echo $form->field($uploadVideoForm, 'videoFiles[]')
-        ->widget(\kartik\file\FileInput::className(), $videoConfig)
+        ->widget(\kartik\file\FileInput::class, $videoConfig)
         ->label(Yii::t('app', 'Animated files'));
     ?>
 

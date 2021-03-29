@@ -35,37 +35,34 @@ use yii\widgets\ActiveForm;
 
     ];
 
-    $imgPath = Url::to([Yii::$app->params['order_map']['courier']['images']['url_path']], true) . '/';
-
-    $imgConfig = [];
-    //$model->run
-    //foreach ($model->componentImages as $key => $componentImage) {
-
     if ($model->run) {
+        $imgPath = Url::to([Yii::$app->params['order_map']['courier']['images']['url_path']], true) . '/';
         $imgConfig['pluginOptions']['initialPreview'] = $imgPath . $model->run;
+
+        $imgConfig['pluginOptions']['initialPreviewConfig'] = [
+            'url' => Url::to(['/setup/component/image-delete', 'id' => $model->getPrimaryKey()]),
+        ];
     }
 
-        /*$imgConfig['pluginOptions']['initialPreviewConfig'][] = [
-            'url' => Url::to(['/setup/component/image-delete', 'id' => $componentImage->getPrimaryKey()]),
-        ];*/
+    /*$imgConfig['pluginOptions']['initialPreviewConfig'][] = [
+        'url' => Url::to(['/setup/component/image-delete', 'id' => $componentImage->getPrimaryKey()]),
+    ];*/
     //}
 
+    //echo $form->field($uploadCourierImageForm, 'imageFile')
     echo $form->field($uploadCourierImageForm, 'imageFile')
-        ->widget(FileInput::className(), $imgConfig)
+        ->widget(FileInput::class, $imgConfig)
         ->label(Yii::t('app', 'Изображение курьера в пути'));
     ?>
 
     <?= $form->field($model, 'wait')->textInput(['maxlength' => true]) ?>
 
-    <?php /*$form->field($model, 'disabled_at')->textInput()*/ ?>
-
-    <?= $form->field($model, 'disabled_at')->widget(SwitchInput::classname(), [
+    <?= $form->field($model, 'disabled_at')->widget(SwitchInput::class, [
         'pluginOptions' => [
-            //'handleWidth' => 80,
             'onText' => Yii::t('app', 'Disabled'),
             'offText' => Yii::t('app', 'Active'),
         ]
-    ]); ?>
+    ])->label(Yii::t('app', 'Активность')); ?>
 
     <hr>
 

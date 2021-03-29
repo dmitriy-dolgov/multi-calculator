@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\db\CourierImages */
+/* @var $uploadCourierImageForm common\models\UploadCourierImageForm */
 
 $this->title = Yii::t('app', 'Обновить изображение курьера: {name}', [
     'name' => $model->id,
@@ -18,6 +19,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Обновить');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'uploadCourierImageForm' => $uploadCourierImageForm,
     ]) ?>
 
 </div>

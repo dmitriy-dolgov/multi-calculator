@@ -201,6 +201,16 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lon, icon, p
     return newMarker;
 };
 
+var glIconUrl = [
+    '/img/map/courier-moto.png',
+    '/img/courier/1.jpg',
+    '/img/courier/2.png',
+    '/img/courier/3.jpg',
+    '/img/courier/4.gif',
+];
+
+glIconUrl = glIconUrl[0 + Math.floor((4 - 0) * Math.random())];
+
 gl.functions.placesMap.prototype.icons = {
     defaultPizzeria: L.icon({
         iconUrl: '/img/map/default-pizzeria.png',
@@ -225,7 +235,7 @@ gl.functions.placesMap.prototype.icons = {
         iconSize: [11, 11]
     }),
     courier: L.icon({
-        iconUrl: '/img/map/courier-moto.png',
+        iconUrl: glIconUrl, //'/img/map/courier-moto.png',
         iconSize: [32, 32]
     }),
 };

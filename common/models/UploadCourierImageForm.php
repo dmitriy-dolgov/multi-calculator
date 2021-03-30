@@ -2,10 +2,7 @@
 
 namespace common\models;
 
-use common\models\db\Component;
-use common\models\db\ComponentImage;
 use common\models\db\CourierImages;
-use common\models\db\Profile;
 use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
@@ -45,7 +42,7 @@ class UploadCourierImageForm extends Model
         return Yii::getAlias('@webroot');
     }
 
-    public function removeImage(CourierImages $courierImagesModel, $type = 'sdf')
+    public function removeImage(CourierImages $courierImagesModel, $type)
     {
         if ($courierImagesModel->$type) {
             $oldFilePath = self::rootImagePlacePath() . '/' . ltrim($courierImagesModel->$type,
@@ -60,6 +57,7 @@ class UploadCourierImageForm extends Model
 
     public function upload(CourierImages $courierImagesModel)
     {
+        $this->imageFile = UploadedFile::getInstances($this, 'imageFile');
         if (!$this->imageFile) {
             return true;
         }

@@ -69,16 +69,20 @@ class CourierImagesController extends Controller
     {
         $model = new CourierImages();
 
-        //TODO: $uploadCourierImageForm => $uploadCourierImageRunForm или разобраться
-        $uploadCourierImageForm = new UploadCourierImageForm();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            $uploadCourierImageForm->imageFile = UploadedFile::getInstances($uploadCourierImageForm, 'imageFile');
-            if ($uploadCourierImageForm->upload($model)) {
-                //return $this->redirect(['view', 'id' => $model->id]);
+            //TODO: $uploadCourierImageForm => $uploadCourierImageRunForm или разобраться
+            $uploadCourierImageForm = new UploadCourierImageForm();
+            if ($uploadCourierImageForm->load(Yii::$app->request->post()) && $uploadCourierImageForm->upload($model)) {
+                /*$uploadCourierImageForm->imageFile = UploadedFile::getInstances($uploadCourierImageForm, 'imageFile');
+                if ($uploadCourierImageForm->upload($model)) {
+                    //return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    //TODO: обработать ошибку
+                }*/
+
             } else {
-                //TODO: обработать ошибку
+                Yii::error('Ошибка загрузки изображения!');
             }
 
             return $this->redirect(['view', 'id' => $model->id]);
@@ -101,16 +105,20 @@ class CourierImagesController extends Controller
     {
         $model = $this->findModel($id);
 
-        //TODO: $uploadCourierImageForm => $uploadCourierImageRunForm или разобраться
-        $uploadCourierImageForm = new UploadCourierImageForm();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            $uploadCourierImageForm->imageFile = UploadedFile::getInstances($uploadCourierImageForm, 'run');
-            if ($uploadCourierImageForm->upload($model)) {
-                //return $this->redirect(['view', 'id' => $model->id]);
+            //TODO: $uploadCourierImageForm => $uploadCourierImageRunForm или разобраться
+            $uploadCourierImageForm = new UploadCourierImageForm();
+            if ($uploadCourierImageForm->load(Yii::$app->request->post()) && $uploadCourierImageForm->upload($model)) {
+                /*$uploadCourierImageForm->imageFile = UploadedFile::getInstances($uploadCourierImageForm, 'imageFile');
+                if ($uploadCourierImageForm->upload($model)) {
+                    //return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    //TODO: обработать ошибку
+                }*/
+
             } else {
-                //TODO: обработать ошибку
+                Yii::error('Ошибка загрузки изображения!');
             }
 
             return $this->redirect(['view', 'id' => $model->id]);

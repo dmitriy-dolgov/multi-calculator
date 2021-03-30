@@ -331,7 +331,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
             <div class="menu">
                 <!--<img class="brick-wall" alt="" src="/img/brick-wall-120.png">-->
                 <div class="create-pizza"><?= Yii::t('app', 'Create your pizza') ?></div>
-                <?php /* ?><div class="pizza-name"><?= Yii::t('app', 'Custom pizza') ?></div><?php */ ?>
+                <?php ?><div class="pizza-name"><?= Yii::t('app', 'Custom pizza') ?></div><?php  ?>
             </div>
 
             <!--<div class="resulting-panel"></div>-->
@@ -345,6 +345,40 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                     <div class="registration-info">
                         <?php if (Yii::$app->user->isGuest): ?>
                             <div class="caption">
+
+
+                                <?php
+                                /*$this->registerCss(<<<CSS
+path {
+  fill: transparent;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 35px;
+}
+
+text {
+  fill: #FF9800;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 35px;
+}
+CSS
+
+
+                                );*/
+                                ?>
+
+
+                                <!--<svg viewBox="0 0 500 500">
+                                    <path id="curve" d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97" />
+                                    <text width="500">
+                                        <textPath xlink:href="#curve">
+                                            Dangerous Curves Ahead
+                                        </textPath>
+                                    </text>
+                                </svg>
+-->
+
+
+
                                 <?= Html::encode(Yii::t('app', 'You are not logged in.')) ?>
                             </div>
                             <i data-toggle="modal" data-target="#logRegModal" class="icon icon-enter"
@@ -364,7 +398,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                         <?php endif; ?>
                     </div>
 
-                    <div class="pizza-name"><?= Yii::t('app', 'Custom pizza') ?></div>
+                    <!--<div class="pizza-name"><?/*= Yii::t('app', 'Custom pizza') */?></div>-->
 
                     <div class="no-components-pane">
                         <div class="ingredients"><?= Yii::t('app', 'Move components right here') ?></div>
@@ -456,12 +490,12 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
         </div>
     </div>
 
-<!--    <div class="menu-unwrap-panel">
-        <div class="menu-unwrap-button"><?/*= Yii::t('app', 'Menu') */?></div>
+    <!--    <div class="menu-unwrap-panel">
+        <div class="menu-unwrap-button"><? /*= Yii::t('app', 'Menu') */ ?></div>
         <div class="menu-unwrap-elems">
-            <div><?/*= Yii::t('app', 'Pizzas') */?></div>
-            <div><?/*= Yii::t('app', 'Orders') */?></div>
-            <div><?/*= Yii::t('app', 'You') */?></div>
+            <div><? /*= Yii::t('app', 'Pizzas') */ ?></div>
+            <div><? /*= Yii::t('app', 'Orders') */ ?></div>
+            <div><? /*= Yii::t('app', 'You') */ ?></div>
         </div>
     </div>-->
 

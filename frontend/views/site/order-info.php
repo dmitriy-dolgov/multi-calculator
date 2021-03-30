@@ -124,7 +124,7 @@ JS
         <!--<img class="o-img" alt="" src="/img/order-desc.png">-->
         <div class="o-content">
             <?php
-            echo Html::encode(Yii::t('app', 'Name: {name}', ['name' => Yii::t('app', 'Composite Pizza')])) . '<br>';
+            //echo Html::encode(Yii::t('app', 'Name: {name}', ['name' => Yii::t('app', 'Composite Pizza')])) . '<br>';
             echo Html::encode(Yii::t('app', 'Your order ID: {id}', ['id' => $order->order_uid])) . '<br>';
             $link = Html::a(Yii::t('app', 'open'), $order->getOrderUrl(), [
                 'title' => Yii::t('app', 'Open in the new window'),

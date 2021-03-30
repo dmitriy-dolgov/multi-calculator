@@ -44,7 +44,10 @@ gl.functions.setLogged = function () {
 
 $(function () {
     setTimeout(function () {
-        $('.create-pizza').addClass('move-to-rb');
+        //$('.create-pizza').addClass('move-to-rb');
+        $('.create-pizza').addClass('move-to-rt');
+        $('.pizza-name').addClass('move-to-rb');
+        //echo Html::encode(Yii::t('app', 'Name: {name}', ['name' => Yii::t('app', 'Composite Pizza')])) . '<br>';
     }, 5000);
 });
 
@@ -102,6 +105,7 @@ $('.menu-item.you').click(function () {
     $('.unwrapped-panel').removeClass('unwrap');
     $('.you-panel-elements-list').toggleClass('unwrap');
 
+    //debugger;
     gl.container.localStorage.addItem('user_interface',
         {'.you-panel-elements-list': {add: true, className: 'unwrap'}}
     );

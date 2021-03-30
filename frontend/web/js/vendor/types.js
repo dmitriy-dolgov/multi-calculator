@@ -29,10 +29,10 @@ gl.objectTypeList = (function () {
                     }*/
                     key = gl.getObject('helpers').randomString(4);
                 }
-                typesList[list].push({
+                /*typesList[type].push({
                     funct: funct,
                     key: key,
-                });
+                });*/
             }
 
             return key;
@@ -64,6 +64,7 @@ gl.objectTypeList = (function () {
 
         'verify': function (type, key) {
             if (!(type in typesList)) {
+                //alert('oiruewoi');
                 throw new Error('No type "' + type + '" in objectTypeList');
             }
 
@@ -81,13 +82,11 @@ gl.objectTypeList = (function () {
                 }
             }
 
-            return typesList[type];
+            return true;
         }
     }
 })();
 
-var ttt = gl.objectTypeList.add('ui.collapsible', function () {
+gl.objectTypeList.add('ui.collapsible', function () {
     alert('collapsible');
 });
-
-alert(ttt);

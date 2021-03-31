@@ -268,7 +268,8 @@ gl.functions.handleComponetsCount = function () {
     if (getAddedComponentsCount()) {
         elems['.no-components-pane'].fadeOut(componentPresenceFadeInOutTime, function () {
             elems['.capt-price'].fadeIn(componentPresenceFadeInOutTime, function () {
-                elems['.capt-price'].css('display', 'inline-block');
+                //elems['.capt-price'].css('display', 'inline-block');
+                elems['.capt-price'].css('display', 'block');
             });
         });
     } else {
@@ -315,7 +316,8 @@ $('.switch-component').click(function () {
 if (getAddedComponentsCount()) {
     elems['.no-components-pane'].fadeOut(componentPresenceFadeInOutTime, function () {
         elems['.capt-price'].fadeIn(componentPresenceFadeInOutTime, function () {
-            elems['.capt-price'].css('display', 'inline-block');
+            //elems['.capt-price'].css('display', 'inline-block');
+            elems['.capt-price'].css('display', 'block');
         });
     });
 } else {

@@ -49,7 +49,7 @@ return [
         'courier' => [
             'images' => [
                 // URL: courier/images/url_path
-                'url_path' => '/img/courier/img/',
+                'url_path' => '/courier/img/',
             ],
         ],
     ],

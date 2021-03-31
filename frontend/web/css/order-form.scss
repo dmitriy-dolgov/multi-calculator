@@ -29,6 +29,9 @@ $order-submit-bg-color: #2d3436;
 
 $catalog-name_height: 25px;
 
+$loginRegistrationWidth: 60%;
+$totalPriceWidth: 99% - $loginRegistrationWidth;
+
 /*body {
   font-family: 'Caveat', cursive;
   font-size: 22px;
@@ -270,20 +273,23 @@ $catalog-name_height: 25px;
 
   .capt-price {
     display: none;
-    width: 100%;
+    width: $totalPriceWidth;
     position: relative;
     color: black;
-    margin-top: 5px;
-    margin-bottom: 20px;
+    /*margin-top: 5px;
+    margin-bottom: 20px;*/
     text-align: left;
     font-weight: bold;
+    float: left;
 
     .caption {
-      float: left;
+      /*float: left;*/
+      display: inline;
     }
 
     .total-price {
-      float: right;
+      /*float: right;*/
+      display: inline;
       font-weight: bold;
       color: $price-color;
     }
@@ -1008,14 +1014,14 @@ $catalog-name_height: 25px;
 .registration-info {
   /*display: flex;*/
   display: inline-block;
-  width: 50%;
+  width: $loginRegistrationWidth;
   float: right;
   color: #1b1b1b !important;
   align-items: center;
   font-weight: bold;
   font-style: italic;
   border-bottom: 1px solid #eee;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
 
   .icon {
     margin-left: auto;
@@ -1025,6 +1031,7 @@ $catalog-name_height: 25px;
 
   .caption {
     float: right !important;
+    margin-left: 7px;
   }
 
   .icon-exit {
@@ -1292,4 +1299,8 @@ $catalog-name_height: 25px;
 .unwrap-panel-content {
   position: relative;
   margin-bottom: 15px;
+}
+
+.component-holder {
+  margin: 50px 30px 40px;
 }

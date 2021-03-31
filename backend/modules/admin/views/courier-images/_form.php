@@ -14,7 +14,17 @@ use yii\widgets\ActiveForm;
 
 <div class="courier-images-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'id' => $model->formName(),
+        'options' => ['class' => 'form-horizontal'],
+        'fieldConfig' => [
+            'template' => "{label}\n<div class=\"col-lg-9\">{input}</div>\n<div class=\"col-lg-offset-3 col-lg-9\">{error}\n{hint}</div>",
+            'labelOptions' => ['class' => 'col-lg-3 control-label'],
+        ],
+        'enableAjaxValidation' => true,
+        'enableClientValidation' => true,
+        'validateOnBlur' => true,
+    ]); ?>
 
     <?php /*$form->field($model, 'run')->textInput(['maxlength' => true])*/ ?>
 
@@ -29,7 +39,7 @@ use yii\widgets\ActiveForm;
             'previewFileType' => 'image',
             'showUpload' => false,
             //'showRemove' => false,
-            'overwriteInitial' => false,
+            'overwriteInitial' => true,
             'initialPreviewAsData' => true,
         ],
 
@@ -51,7 +61,7 @@ use yii\widgets\ActiveForm;
 
     //echo $form->field($uploadCourierImageForm, 'imageFile')
     echo $form->field($uploadCourierImageForm, 'imageFile')
-        ->widget(FileInput::class, $imgConfig)
+        ->widget(FileInput::className(), $imgConfig)
         ->label(Yii::t('app', 'Изображение курьера в пути'));
     ?>
 

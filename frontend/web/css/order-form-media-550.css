@@ -26,8 +26,8 @@
     width: 23px;
     height: 23px;
   }
-  .sidebar .components-selected-details .registration-info,
-.sidebar .components-selected-details .capt-price {
+  .sidebar .components-selected-details .registration-info {
+    /*.capt-price {*/
     padding-left: 20px;
   }
   .sidebar .components-selected-details .added-component {

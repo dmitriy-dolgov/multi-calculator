@@ -1,6 +1,10 @@
 @media screen and (max-width: 1000px) {
-  .registration-info,
-  .capt-price {
+  .registration-info {
+  /*.capt-price {*/
     padding-left: 15px;
+  }
+
+  .component-holder {
+    margin: 50px 4.8% 40px;
   }
 }

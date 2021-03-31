@@ -373,19 +373,22 @@
 }
 .sidebar .capt-price {
   display: none;
-  width: 100%;
+  width: 39%;
   position: relative;
   color: black;
-  margin-top: 5px;
-  margin-bottom: 20px;
+  /*margin-top: 5px;
+  margin-bottom: 20px;*/
   text-align: left;
   font-weight: bold;
-}
-.sidebar .capt-price .caption {
   float: left;
 }
+.sidebar .capt-price .caption {
+  /*float: left;*/
+  display: inline;
+}
 .sidebar .capt-price .total-price {
-  float: right;
+  /*float: right;*/
+  display: inline;
   font-weight: bold;
   color: #663399;
 }
@@ -1058,14 +1061,14 @@
 .registration-info {
   /*display: flex;*/
   display: inline-block;
-  width: 50%;
+  width: 60%;
   float: right;
   color: #1b1b1b !important;
   align-items: center;
   font-weight: bold;
   font-style: italic;
   border-bottom: 1px solid #eee;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
 }
 .registration-info .icon {
   margin-left: auto;
@@ -1074,6 +1077,7 @@
 }
 .registration-info .caption {
   float: right !important;
+  margin-left: 7px;
 }
 .registration-info .icon-exit {
   float: right;
@@ -1329,6 +1333,10 @@
 .unwrap-panel-content {
   position: relative;
   margin-bottom: 15px;
+}
+
+.component-holder {
+  margin: 50px 30px 40px;
 }
 
 /*# sourceMappingURL=order-form.css.map */

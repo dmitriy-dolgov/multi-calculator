@@ -388,13 +388,14 @@ CSS
                                 <?= Html::encode(Yii::$app->user->identity->username) ?>
                             </div>
 
-                            <?= Html::beginForm(['/user/security/logout'], 'post',
-                            ['id' => 'custom-menu-logout', 'style' => 'visibility: collapse']) . Html::endForm() ?>
                             <i class="icon men-el exit"
                                title="<?= Yii::t('app', 'Sign Out') ?>"><a
                                         class="icon-exit"
                                         href="#"
                                         onclick="javascript:$('#custom-menu-logout').submit();return false;"></a></i>
+
+                            <?= Html::beginForm(['/user/security/logout'], 'post',
+                            ['id' => 'custom-menu-logout', 'style' => 'visibility: collapse']) . Html::endForm() ?>
                         <?php endif; ?>
                     </div>
 
@@ -407,12 +408,15 @@ CSS
 
                     <div class="capt-price">
                         <div class="caption"><?= Yii::t('app', 'Total:') ?></div>
-                        <div class="total-price" data-total_price="0">&nbsp;</div>
+                        <div class="total-price text-nowrap" data-total_price="0">&nbsp;</div>
                     </div>
 
-                    <div class="component-holder"></div>
+                    <!--<div class="component-holder"></div>-->
 
                 </div>
+
+                <div class="component-holder"></div>
+
             </div>
         </div>
 

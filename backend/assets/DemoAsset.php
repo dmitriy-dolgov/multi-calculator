@@ -9,11 +9,11 @@ class DemoAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        '/css/reset.css',
-        '/css/demo/wrapper.css',
+        '/ss/reset.css',
+        'css/demo/wrapper.css',
     ];
     public $js = [
-        '/js/shared/common.js',
+        'js/shared/common.js',
     ];
     public $depends = [
         'yii\web\JqueryAsset',

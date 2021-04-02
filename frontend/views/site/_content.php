@@ -41,6 +41,53 @@ body {
     padding-left: 0;
 }
 
+
+/* 88888888888888888888888888888 */
+
+
+svg {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  top: -1rem;
+  animation: pop-out 2s ease-in-out infinite;
+}
+    
+.word {
+  /*font-family: 'Bangers', cursive;*/
+  letter-spacing: 0.05em;
+  color: white;
+  padding: 0.5em;
+  font-size: 28px;
+}
+ 
+p {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  line-height: 2rem;
+    
+  text-align: center;
+  color: transparentize(white, 0.25);
+  background-color: transparentize(#222, 0.0);
+}
+
+@keyframes pop-out {
+  0% {
+    transform: scale3d(0, 0, 1);
+    opacity: 1;
+  }
+  25% {
+    transform: scale3d(1, 1, 1);
+    opacity: 1;
+    }
+  100% {
+    transform: scale3d(1.5, 1.5, 1);
+    opacity: 0;
+    }
+}
+
 CSS
 );
 
@@ -111,12 +158,48 @@ $('.unwrap-panel__close-button').click(function() {
 
 $('.components-in-stock').addClass('no-blur');
 
+
+//-------------------------------- Added product text stuff
+
+//gl.functions.showUpgoingText = function() {
+//    // replace the header with a random word
+//    
+//    //var $body = $("body");
+//    //var $svg = $("svg");
+//    var $word = $(".word");
+//
+//    var word = "iouew98!";
+//    $word.text(word);
+//    
+//    // update the background color
+//    //hue += 47;
+//    //$body.css("background-color", "hsl(" + hue + ", 100%, 50%)");
+//
+//    $("h1").on(
+//        "webkitAnimationIteration oanimationiteration msAnimationIteration animationiteration ",
+//        function () {
+//          // replace the header with a random word
+//          //var word = words[Math.floor(Math.random() * words.length)] + "!";
+//          $word.text('uoifjusod');
+//        
+//          // update the background color
+//          /*hue += 47;
+//          $body.css("background-color", "hsl(" + hue + ", 100%, 50%)");*/
+//        }
+//    );
+//);
+//
+//gl.functions.showUpgoingText();
+
+
+
 JS
 );
 
 echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $uid, 'activeUsers' => $activeUsers]);
 
 ?>
+<!--<div class="word"></div>-->
 <div class="vendor-panel">
 
     <div class="btn-order-container">
@@ -331,7 +414,8 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
             <div class="menu">
                 <!--<img class="brick-wall" alt="" src="/img/brick-wall-120.png">-->
                 <div class="create-pizza"><?= Yii::t('app', 'Create your pizza') ?></div>
-                <?php ?><div class="pizza-name"><?= Yii::t('app', 'Custom pizza') ?></div><?php  ?>
+                <?php ?>
+                <div class="pizza-name"><?= Yii::t('app', 'Custom pizza') ?></div><?php ?>
             </div>
 
             <!--<div class="resulting-panel"></div>-->
@@ -378,7 +462,6 @@ CSS
 -->
 
 
-
                                 <?= Html::encode(Yii::t('app', 'You are not logged in.')) ?>
                             </div>
                             <i data-toggle="modal" data-target="#logRegModal" class="icon icon-enter"
@@ -395,11 +478,11 @@ CSS
                                         onclick="javascript:$('#custom-menu-logout').submit();return false;"></a></i>
 
                             <?= Html::beginForm(['/user/security/logout'], 'post',
-                            ['id' => 'custom-menu-logout', 'style' => 'visibility: collapse']) . Html::endForm() ?>
+                                ['id' => 'custom-menu-logout', 'style' => 'visibility: collapse']) . Html::endForm() ?>
                         <?php endif; ?>
                     </div>
 
-                    <!--<div class="pizza-name"><?/*= Yii::t('app', 'Custom pizza') */?></div>-->
+                    <!--<div class="pizza-name"><? /*= Yii::t('app', 'Custom pizza') */ ?></div>-->
 
                     <div class="no-components-pane">
                         <div class="ingredients"><?= Yii::t('app', 'Move components right here') ?></div>

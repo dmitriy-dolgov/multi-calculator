@@ -17,6 +17,7 @@ function getAddedComponentsCount() {
 
 function addSameComponent(id, item_select_max, unit_switch_group_id) {
     var handled = false;
+    var elemToHandle = false;
 
     var newElemid = id;
     var maxElems = item_select_max;
@@ -42,8 +43,18 @@ function addSameComponent(id, item_select_max, unit_switch_group_id) {
                     elem.find('.comp-amount').text(amount);
                 }
                 elem.data('amount', amount);
+
                 handled = true;
+                elemToHandle = elem;
             }
+        });
+    }
+
+    if (handled && elemToHandle) {
+        //console.log('(handled && elem)');
+        elemToHandle[0].scrollIntoView({
+            behavior: "smooth", // or "auto" or "instant"
+            block: "start" // or "end"
         });
     }
 
@@ -129,10 +140,14 @@ gl.functions.addComponentByData = function (data, append, noHistory) {
 
         var imageTextHtml = image_text ? ('<div class="image-text">' + image_text + '</div>') : '';
 
+        /*for(var q =0; q < 7; ++q) {
+            imageTextHtml += '<div class="dot"></div>';
+        }*/
+
         html = '<div class="added-component no-opacity ' + classSwitch + '" data-id="' + id + '" data-amount="1" data-serial_id="' + totalAddedElements + '">'
             //+ '<div class="image-wrapper">'
             + '<div class="nice-line"></div>'
-            + '<div class="image" style="background-image:url(' + gl.escapeHtml(image) + ')">' + imageTextHtml + '</div>'
+            + '<div class="image" style="background-image:url(' + gl.escapeHtml(image) + ')">' + imageTextHtml + '</div>';
             //+ '</div>'
 
             //TODO: pz_comp
@@ -350,4 +365,29 @@ $('.panel-elements-list .elem-pi').click(function () {
             addComponentByData(newComponents[id]);
         }
     }, 800);
+});
+
+var rateRange = document.getElementById('playback-rate');
+var shapers = [].slice.call(document.querySelectorAll('div'));
+var DURATION = 200000;
+var animations = [];
+
+shapers.forEach(function(s, i) {
+    var animation = s.animate([
+        {offsetDistance: 0},
+        {offsetDistance: '100%'}
+    ], {
+        duration: DURATION,
+        delay: -i / shapers.length * DURATION,
+        iterations: Infinity
+    });
+    animations.push(animation);
+});
+
+rateRange.addEventListener('input', function(e) {
+    var rate = parseFloat(e.currentTarget.value);
+    console.log(rate);
+    animations.forEach(function(animation) {
+        animation.playbackRate = rate;
+    })
 });

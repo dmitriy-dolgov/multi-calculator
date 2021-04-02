@@ -189,6 +189,9 @@ gl.functions.addComponentByData = function (data, append, noHistory) {
         } else {
             elems['.component-holder'].prepend(html);
         }
+
+        $('.sidebar .components-selected-details').scrollTop(0);
+
         setTimeout(function () {
             elems['.components-selected-details'].find('.added-component[data-id="' + id + '"]').removeClass('no-opacity');
         }, 0);

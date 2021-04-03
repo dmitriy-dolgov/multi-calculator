@@ -19,6 +19,13 @@ use yii\helpers\Html;
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+
+    <?php // Основные стили ?>
+    <style>
+        .pm-hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -28,16 +35,38 @@ use yii\helpers\Html;
     <?= $content ?>
 </div>
 
-<h1 id="alert-text-1">
-    <svg role="img"><title class="title">Random Words!</title>
+<div id="alert-text-1" class="pm-hidden">
+    <svg role="img">
         <text class="word" dominant-baseline="central" fill="#222" stroke="#222" stroke-linecap="round"
-              stroke-width="1.5%" text-anchor="middle" x="50%" y="50%">gravity!
-        </text>
-        <text class="word" dominant-baseline="central" fill="white" text-anchor="middle" x="50%" y="50%">gravity!</text>
+              stroke-width="1.5%" text-anchor="middle" x="50%" y="50%"></text>
+        <text class="word" dominant-baseline="central" fill="white" text-anchor="middle" x="50%" y="50%"></text>
     </svg>
-</h1>
+</div>
 
 <?php $this->endBody() ?>
+
+<script>
+    //-------------------------------- Product text stuff added
+
+    gl.functions.showUpgoingText = function(word) {
+        var $word = $("#alert-text-1 .word");
+        //word = '86675';
+        $word.text(word);
+        $("#alert-text-1").removeClass('pm-hidden');
+    };
+
+    $("#alert-text-1").on(
+        "webkitAnimationIteration oanimationiteration msAnimationIteration animationiteration ",
+        function () {
+            //return;
+            $("#alert-text-1").addClass('pm-hidden');
+            //$word.text('uoifjusod');
+        }
+    );
+
+    //gl.functions.showUpgoingText(7654);
+</script>
+
 </body>
 </html>
 <?php $this->endPage() ?>

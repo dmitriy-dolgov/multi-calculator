@@ -97,9 +97,9 @@ $('.components-in-stock .collapse-head').click(function() {
   );
 });
 
-gl.functions.showBsModal = function(type) {
-    $('#' + type + 'Modal').modal('show');
-}
+// gl.functions.showBsModal = function(type) {
+//     $('#' + type + 'Modal').modal('show');
+// }
 
 $('.unwrap-panel__close-button').click(function() {
     $('.unwrapped-panel').removeClass('unwrap');
@@ -110,46 +110,47 @@ $('.unwrap-panel__close-button').click(function() {
 $('.components-in-stock').addClass('no-blur');
 
 
-//-------------------------------- Added product text stuff
+////-------------------------------- Product text stuff added
+//
+////gl.functions.showUpgoingText = function() {
+//function showUpgoingText() {
+//    // replace the header with a random word
+//    
+//    console.log('gl.functions.showUpgoingText');
+//    
+//    //var $body = $("body");
+//    //var $svg = $("svg");
+//    var $word = $(".word");
+//
+//    var word = "iouew98!";
+//    $word.text(word);
+//    
+//    // update the background color
+//    //hue += 47;
+//    //$body.css("background-color", "hsl(" + hue + ", 100%, 50%)");
+//
+//    $("#alert-text-1").on(
+//        "webkitAnimationIteration oanimationiteration msAnimationIteration animationiteration ",
+//        function () {
+//            
+//            console.log('FNC 456');
+//        
+//          // replace the header with a random word
+//          //var word = words[Math.floor(Math.random() * words.length)] + "!";
+//          $word.text('uoifjusod');
+//          
+//          console.log('gl.functions.showUpgoingText');
+//        
+//          // update the background color
+//          /*hue += 47;
+//          $body.css("background-color", "hsl(" + hue + ", 100%, 50%)");*/
+//        }
+//    );
+//}
+//
+//console.log('gl.functions.showUpgoingText');
 
-gl.functions.showUpgoingText = function() {
-    // replace the header with a random word
-    
-    gl.log('gl.functions.showUpgoingText');
-    
-    //var $body = $("body");
-    //var $svg = $("svg");
-    var $word = $(".word");
-
-    var word = "iouew98!";
-    $word.text(word);
-    
-    // update the background color
-    //hue += 47;
-    //$body.css("background-color", "hsl(" + hue + ", 100%, 50%)");
-
-    $("#alert-text-1").on(
-        "webkitAnimationIteration oanimationiteration msAnimationIteration animationiteration ",
-        function () {
-            
-            gl.log('FNC');
-        
-          // replace the header with a random word
-          //var word = words[Math.floor(Math.random() * words.length)] + "!";
-          $word.text('uoifjusod');
-          
-          gl.log('gl.functions.showUpgoingText');
-        
-          // update the background color
-          /*hue += 47;
-          $body.css("background-color", "hsl(" + hue + ", 100%, 50%)");*/
-        }
-    );
-);
-
-gl.functions.showUpgoingText();
-
-
+//showUpgoingText();
 
 JS
 );
@@ -373,7 +374,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                 <!--<img class="brick-wall" alt="" src="/img/brick-wall-120.png">-->
                 <div class="create-pizza"><?= Yii::t('app', 'Create your pizza') ?></div>
                 <?php ?>
-                <div class="pizza-name"><?= Yii::t('app', 'Custom pizza') ?></div><?php ?>
+                <div class="pizza-name" onclick="gl.functions.showUpgoingText(12000)"><?= Yii::t('app', 'Custom pizza') ?></div><?php ?>
             </div>
 
             <!--<div class="resulting-panel"></div>-->

@@ -387,10 +387,12 @@ shapers.forEach(function(s, i) {
     animations.push(animation);
 });
 
-rateRange.addEventListener('input', function(e) {
-    var rate = parseFloat(e.currentTarget.value);
-    console.log(rate);
-    animations.forEach(function(animation) {
-        animation.playbackRate = rate;
-    })
-});
+if (rateRange) {
+    rateRange.addEventListener('input', function (e) {
+        var rate = parseFloat(e.currentTarget.value);
+        console.log(rate);
+        animations.forEach(function (animation) {
+            animation.playbackRate = rate;
+        })
+    });
+}

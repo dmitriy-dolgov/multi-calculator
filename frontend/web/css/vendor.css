@@ -1737,15 +1737,26 @@
 }
 
 /* Для общих визуальных эффектов вроде увеличивающегося текста */
+#alert-text-1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  visibility: visible;
+}
+#alert-text-1.pm-hidden {
+  visibility: hidden;
+}
 #alert-text-1 svg {
   height: 100%;
   width: 100%;
   position: relative;
-  top: -1rem;
-  animation: pop-out 5s ease-in-out infinite;
+  /** рассмотреть признак infinity чтобы избавитьсся от JS */
+  animation: pop-out 2s ease-in-out infinite;
 }
 #alert-text-1 .word {
-  /*font-family: 'Bangers', cursive;*/
+  font-family: "Bangers", cursive;
   letter-spacing: 0.05em;
   color: white;
   padding: 0.5em;

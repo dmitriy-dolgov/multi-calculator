@@ -3,7 +3,13 @@ $(window).bind('resize',
     function () {
         setTimeout(
             function () {
-                elems['.vertical-pane'].data('jsp').reinitialise();
+                //elems['.vertical-pane'].data('jsp').reinitialise();
+
+                var vpElem  = elems['.vertical-pane'].data('jsp');
+                if (vpElem) {
+                    vpElem.reinitialise();
+                }
+
                 //elems['.vertical-pane'].css('overflow', 'visible');
             }, 50
         );

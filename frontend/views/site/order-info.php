@@ -208,8 +208,7 @@ JS
             <?php foreach ($order->shopOrderComponents as $component): ?>
                 <div class="subelement">
                     <div class="title"><?= Html::encode($component->name) ?></div>
-                    <div class="dots">. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-                        . . . . . . . . . . . . .
+                    <div class="dots">. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
                     </div>
                     <div class="price"><?= $component->order_price
                             ? Html::encode($component->order_price)

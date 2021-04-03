@@ -28,6 +28,15 @@ use yii\helpers\Html;
     <?= $content ?>
 </div>
 
+<h1 id="alert-text-1">
+    <svg role="img"><title class="title">Random Words!</title>
+        <text class="word" dominant-baseline="central" fill="#222" stroke="#222" stroke-linecap="round"
+              stroke-width="1.5%" text-anchor="middle" x="50%" y="50%">gravity!
+        </text>
+        <text class="word" dominant-baseline="central" fill="white" text-anchor="middle" x="50%" y="50%">gravity!</text>
+    </svg>
+</h1>
+
 <?php $this->endBody() ?>
 </body>
 </html>

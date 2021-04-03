@@ -30,7 +30,6 @@ $this->registerCss(<<<CSS
 body {
     height: 100%;
 }
-
 .contract-modal .modal-header {
     color: #333;
 }
@@ -40,54 +39,6 @@ body {
 #contractModal {
     padding-left: 0;
 }
-
-
-/* 88888888888888888888888888888 */
-
-
-svg {
-  height: 100%;
-  width: 100%;
-  position: relative;
-  top: -1rem;
-  animation: pop-out 2s ease-in-out infinite;
-}
-    
-.word {
-  /*font-family: 'Bangers', cursive;*/
-  letter-spacing: 0.05em;
-  color: white;
-  padding: 0.5em;
-  font-size: 28px;
-}
- 
-p {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  line-height: 2rem;
-    
-  text-align: center;
-  color: transparentize(white, 0.25);
-  background-color: transparentize(#222, 0.0);
-}
-
-@keyframes pop-out {
-  0% {
-    transform: scale3d(0, 0, 1);
-    opacity: 1;
-  }
-  25% {
-    transform: scale3d(1, 1, 1);
-    opacity: 1;
-    }
-  100% {
-    transform: scale3d(1.5, 1.5, 1);
-    opacity: 0;
-    }
-}
-
 CSS
 );
 
@@ -161,35 +112,42 @@ $('.components-in-stock').addClass('no-blur');
 
 //-------------------------------- Added product text stuff
 
-//gl.functions.showUpgoingText = function() {
-//    // replace the header with a random word
-//    
-//    //var $body = $("body");
-//    //var $svg = $("svg");
-//    var $word = $(".word");
-//
-//    var word = "iouew98!";
-//    $word.text(word);
-//    
-//    // update the background color
-//    //hue += 47;
-//    //$body.css("background-color", "hsl(" + hue + ", 100%, 50%)");
-//
-//    $("h1").on(
-//        "webkitAnimationIteration oanimationiteration msAnimationIteration animationiteration ",
-//        function () {
-//          // replace the header with a random word
-//          //var word = words[Math.floor(Math.random() * words.length)] + "!";
-//          $word.text('uoifjusod');
-//        
-//          // update the background color
-//          /*hue += 47;
-//          $body.css("background-color", "hsl(" + hue + ", 100%, 50%)");*/
-//        }
-//    );
-//);
-//
-//gl.functions.showUpgoingText();
+gl.functions.showUpgoingText = function() {
+    // replace the header with a random word
+    
+    gl.log('gl.functions.showUpgoingText');
+    
+    //var $body = $("body");
+    //var $svg = $("svg");
+    var $word = $(".word");
+
+    var word = "iouew98!";
+    $word.text(word);
+    
+    // update the background color
+    //hue += 47;
+    //$body.css("background-color", "hsl(" + hue + ", 100%, 50%)");
+
+    $("#alert-text-1").on(
+        "webkitAnimationIteration oanimationiteration msAnimationIteration animationiteration ",
+        function () {
+            
+            gl.log('FNC');
+        
+          // replace the header with a random word
+          //var word = words[Math.floor(Math.random() * words.length)] + "!";
+          $word.text('uoifjusod');
+          
+          gl.log('gl.functions.showUpgoingText');
+        
+          // update the background color
+          /*hue += 47;
+          $body.css("background-color", "hsl(" + hue + ", 100%, 50%)");*/
+        }
+    );
+);
+
+gl.functions.showUpgoingText();
 
 
 

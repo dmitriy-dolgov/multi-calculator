@@ -147,7 +147,7 @@ gl.functions.addComponentByData = function (data, append, noHistory) {
         html = '<div class="added-component no-opacity ' + classSwitch + '" data-id="' + id + '" data-amount="1" data-serial_id="' + totalAddedElements + '">'
             //+ '<div class="image-wrapper">'
             + '<div class="nice-line"></div>'
-            + '<div class="image" style="background-image:url(' + gl.escapeHtml(image) + ')">' + imageTextHtml + '</div>';
+            + '<div class="image" style="background-image:url(' + gl.escapeHtml(image) + ')">' + imageTextHtml + '</div>'
             //+ '</div>'
 
             //TODO: pz_comp

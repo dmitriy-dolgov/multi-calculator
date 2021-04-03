@@ -201,6 +201,11 @@ gl.functions.addComponentByData = function (data, append, noHistory) {
 
     gl.functions.orderCalculatePrice();
 
+    //TODO: можно здесь ломать код чтобы увидеть незагруженные товарв
+    if (gl.functions.showUpgoingText) {
+        gl.functions.showUpgoingText('Добавлен');
+    }
+
     setTimeout(function () {
         gl.functions.handleComponetsCount();
     }, 0);

@@ -373,8 +373,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
             <div class="menu">
                 <!--<img class="brick-wall" alt="" src="/img/brick-wall-120.png">-->
                 <div class="create-pizza"><?= Yii::t('app', 'Create your pizza') ?></div>
-                <?php ?>
-                <div class="pizza-name" onclick="gl.functions.showUpgoingText(12000)"><?= Yii::t('app', 'Custom pizza') ?></div><?php ?>
+                <div class="pizza-name"><?= Yii::t('app', 'Custom pizza') ?></div>
             </div>
 
             <!--<div class="resulting-panel"></div>-->

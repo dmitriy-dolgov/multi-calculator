@@ -143,6 +143,11 @@ $this->registerJsFile(Url::to(['/js/leaflet/MovingMarker.js']), ['depends' => ['
 $this->registerJsFile(Url::to(['/js/leaflet/L.Icon.Pulse.js']), ['depends' => ['frontend\assets\VendorAsset']]);
 $this->registerCssFile(Url::to(['/js/leaflet/L.Icon.Pulse.css']));
 
+//$this->registerJsFile(Url::to(['/js/leaflet/leaflet-routing-machine/leaflet-routing-machine.min.js']), ['depends' => ['frontend\assets\VendorAsset']]);
+$this->registerJsFile(Url::to(['/js/leaflet/leaflet-routing-machine/leaflet-routing-machine.js']), ['depends' => ['frontend\assets\VendorAsset']]);
+$this->registerCssFile(Url::to(['/js/leaflet/leaflet-routing-machine/leaflet-routing-machine.css']));
+
+
 
 $cityList = (new \common\models\Geo())->getCityList();
 

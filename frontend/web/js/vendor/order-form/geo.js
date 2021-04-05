@@ -72,6 +72,55 @@ gl.functions.SelectProviders = {
 gl.functions.placesMap = function (id, initialMapParameters) {
     this.map = L.map(id).setView([initialMapParameters.latitude, initialMapParameters.longitude], initialMapParameters.zoom);
 
+
+    console.log("this.map", this.map);
+
+    //var mapTE = L.map('map');
+    var mapTE = this.map;
+
+    let addTo = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mapTE);
+
+
+    var routerControl = L.Routing.control({
+        waypoints: [
+            L.latLng(57.74, 11.94),
+            L.latLng(57.6792, 11.949)
+        ]
+    }).addTo(mapTE);
+    /*routerControl.on("routesfound", function(e) {
+        var waypoints = e.waypoints || [];
+        var destination = waypoints[waypoints.length - 1]; // there you have the destination point between your hands
+        console.log("waypoints:", waypoints);
+        console.log("destination:", destination);
+
+    });*/
+    // see https://stackoverflow.com/questions/34045265/destination-coordinates-in-leaflet-routing
+    routerControl.on("routesfound", function (e) {
+        var coordinates = e.routes[0].coordinates;
+        var destination = coordinates[coordinates.length - 1];
+        console.log("coordinates:", coordinates);
+        console.log("destination:", destination);
+    });
+
+    //debugger;
+    //$wpp = routerControl.get.getWaypoints();
+    //$wpp = routerControl.getPlan();
+    $wpp = routerControl;
+
+    console.log("routerControl: ", routerControl);
+
+    /*x.on("routesfound", function(e) {
+        var waypoints = e.waypoints || [];
+        var destination = waypoints[waypoints.length - 1]; // there you have the destination point between your hands
+
+
+    });*/
+
+    console.log("$wpp:", $wpp);
+
+
     var pulsingIcon = L.icon.pulse({iconSize: [15, 15], color: 'green', fillColor: 'red'});
     //this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, this.icons.customerIcon);
     this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, pulsingIcon);

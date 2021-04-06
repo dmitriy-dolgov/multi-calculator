@@ -1,2 +1,5 @@
 https://12324.рф/
 https://пицца24.ru.com/
+
+Цикл заказа: для теста
+pizza-admin.local/worker?workerUid=orders

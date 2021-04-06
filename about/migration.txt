@@ -199,3 +199,26 @@ order_price:decimal(8,2),order_price_discount:decimal(8,2)"
 ./yii migrate/create create_courier_images_table --fields="run:string(255):comment('Курьер в движении'),wait:string(255):comment('Курьер в ожидании покупателя чтобы отдать пиццу'),disabled:datetime:comment('Когда изображение стало неактивным - действует как расширенный датой boolean')"
 
 
+./yii migrate/create create_courier_images_table --fields="run:string(255):comment('Курьер в движении'),wait:string(255):comment('Курьер в ожидании покупателя чтобы отдать пиццу'),disabled:datetime:comment('Когда изображение стало неактивным - действует как расширенный датой boolean')"
+
+--
+
+//TODO: потом доделать
+./yii migrate/create add_archived_info_column_to_user_table --fields="archived_info:json:comment('Обозначает что аккаунт пользователя удален архивирован. Содержит данные архивации')"
+
+./yii migrate/create create_account_template_table --fields="old_user_id:integer:foreignKey(user):comment('Ссылка на сохраненный в архиве аккаунт'),new_user_id:integer:foreignKey(user):comment('Ссылка новый созданный аккаунт'),name:string(255),description:text"
+
+
+
+
+
+/**
+ * Последовательность действий при замене пользовательской базы.
+ *
+ * 1) Создается ноовый экземпляр {{%account_template}}.
+ * 2) Cтарый пользователь остается, берется его ID и вставляется в `old_user_id`.
+ * 3) Заполняются `name` и `description`.
+ * 4) Через `old_user_id` линкуется с таблицей `user`.
+ * 5) Создается новый пользователь, в него копируются данные старого пользвателя.
+ * 6) Берется ID нового пользователя и вставляется в `new_user_id`.
+ */

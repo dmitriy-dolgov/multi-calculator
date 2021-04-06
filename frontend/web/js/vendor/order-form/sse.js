@@ -43,7 +43,7 @@ gl.functions.sse.startListen_OrderStatusAcceptance = function () {
 
     gl.functions.sse.es.addEventListener('accepted-by-merchant', function (event) {
         gl.log("data.order_status == 'accepted-by-merchant'");
-        gl.log(['event.data:', event.data]);
+        //gl.log(['event.data:', event.data]);
 
         var data = JSON.parse(event.data);
 
@@ -59,7 +59,7 @@ gl.functions.sse.startListen_OrderStatusAcceptance = function () {
 
     gl.functions.sse.es.addEventListener('accepted-by-courier', function (event) {
         gl.log("data.order_status == 'accepted-by-courier'");
-        gl.log(['event.data:', event.data]);
+        //gl.log(['event.data:', event.data]);
 
         var data = JSON.parse(event.data);
 
@@ -74,7 +74,7 @@ gl.functions.sse.startListen_OrderStatusAcceptance = function () {
 
     gl.functions.sse.es.addEventListener('courier-arrived', function (event) {
         gl.log("data.order_status == 'successfully-finished'");
-        gl.log(['event.data:', event.data]);
+        //gl.log(['event.data:', event.data]);
 
         var data = JSON.parse(event.data);
 
@@ -89,7 +89,7 @@ gl.functions.sse.startListen_OrderStatusAcceptance = function () {
 
     gl.functions.sse.es.addEventListener('successfully-finished', function (event) {
         gl.log("data.order_status == 'successfully-finished'");
-        gl.log(['event.data:', event.data]);
+        //gl.log(['event.data:', event.data]);
 
         var data = JSON.parse(event.data);
 

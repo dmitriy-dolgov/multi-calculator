@@ -1,3 +1,24 @@
+/**
+ * Географические типы и функции.
+ */
+
+
+/**
+ * Продавец (пиццерия, статические координаты).
+ */
+gl.getObject('orderPanel.vendor.geoInfo');
+
+/**
+ * Продавец (пиццерия, маркер для курьера).
+ */
+gl.getObject('orderPanel.vendor.courierMarker');
+
+/**
+ * Заказчик (покупатель, произвольные координаты)
+ */
+gl.getObject('orderPanel.customer.geoInfo');
+
+
 gl.functions.correctGeolocation = function () {
     //gl.log('correctGeolocation before');
     if (navigator.geolocation) {
@@ -16,6 +37,11 @@ gl.functions.correctGeolocation = function () {
     //gl.log('correctGeolocation return');
 };
 
+/**
+ * Текущее местоположение курьера.
+ *
+ * @returns {{lng: number, lat: number}}
+ */
 gl.functions.getCurrentGeoLocation = function () {
     var coords = {lat: 55.107540130615, lng: 33.267589569092};
 
@@ -72,44 +98,36 @@ gl.functions.SelectProviders = {
 gl.functions.placesMap = function (id, initialMapParameters) {
     this.map = L.map(id).setView([initialMapParameters.latitude, initialMapParameters.longitude], initialMapParameters.zoom);
 
-
-    console.log("this.map", this.map);
+    //console.log("this.map", this.map);
 
     //var mapTE = L.map('map');
-    var mapTE = this.map;
+    //var mapTE = this.map;
 
-    let addTo = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    /*let addTo = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(mapTE);
+    }).addTo(this.map);*/
 
-
-    var routerControl = L.Routing.control({
-        waypoints: [
-            L.latLng(57.74, 11.94),
-            L.latLng(57.6792, 11.949)
-        ]
-    }).addTo(mapTE);
-    /*routerControl.on("routesfound", function(e) {
-        var waypoints = e.waypoints || [];
-        var destination = waypoints[waypoints.length - 1]; // there you have the destination point between your hands
-        console.log("waypoints:", waypoints);
-        console.log("destination:", destination);
-
-    });*/
-    // see https://stackoverflow.com/questions/34045265/destination-coordinates-in-leaflet-routing
-    routerControl.on("routesfound", function (e) {
-        var coordinates = e.routes[0].coordinates;
-        var destination = coordinates[coordinates.length - 1];
-        console.log("coordinates:", coordinates);
-        console.log("destination:", destination);
-    });
+    // var routerControl = L.Routing.control({
+    //     waypoints: [
+    //         L.latLng(57.74, 11.94),
+    //         L.latLng(57.6792, 11.949)
+    //     ]
+    // }).addTo(this.map);
+    //
+    // // see https://stackoverflow.com/questions/34045265/destination-coordinates-in-leaflet-routing
+    // routerControl.on("routesfound", function (e) {
+    //     var coordinates = e.routes[0].coordinates;
+    //     var destination = coordinates[coordinates.length - 1];
+    //     console.log("coordinates:", coordinates);
+    //     console.log("destination:", destination);
+    // });
 
     //debugger;
     //$wpp = routerControl.get.getWaypoints();
     //$wpp = routerControl.getPlan();
-    $wpp = routerControl;
+    //$wpp = routerControl;
 
-    console.log("routerControl: ", routerControl);
+    //console.log("routerControl: ", routerControl);
 
     /*x.on("routesfound", function(e) {
         var waypoints = e.waypoints || [];
@@ -118,7 +136,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
     });*/
 
-    console.log("$wpp:", $wpp);
+    //console.log("$wpp:", $wpp);
 
 
     var pulsingIcon = L.icon.pulse({iconSize: [15, 15], color: 'green', fillColor: 'red'});
@@ -143,10 +161,95 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 };
 
 gl.functions.placesMap.prototype.showCourier = function () {
-    var latLng = gl.functions.getCurrentGeoLocation();
-    this.courierMarker = this.addMarkerByCoords(latLng.lat, latLng.lng, this.icons.courier);
 
-    gl.functions.placesMap.prototype.moveCourier(latLng, this.courierMarker);
+    //debugger;
+
+    // var courierLatLng = gl.functions.getCurrentGeoLocation();
+    // this.courierMarker = this.addMarkerByCoords(merchantLatLng.lat, merchantLatLng.lng, this.icons.courier);
+
+    // Примерно здесь остановился Apr.05.21 --- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    var merchantLatLng = gl.functions.getCurrentGeoLocation();
+    this.courierMarker = this.addMarkerByCoords(merchantLatLng.lat, merchantLatLng.lng, this.icons.courier);
+
+    //TODO: Внизлежащее можно разместить в отдельной функции
+    //gl.functions.placesMap.prototype.moveCourier(latLng, this.courierMarker);
+
+    var mrkLanLng = false;
+    for (var mId in this.markers) {
+        mrkLanLng = this.markers[mId].marker.getLatLng();
+        //break;
+        if (this.markers[mId].id != this.merchantId) {
+            continue;
+        }
+    }
+
+    /*var mrkLanLng = false;
+    for (var mId in this.markers) {
+        //gl.log('this.markers[mId].id: ' + this.markers[mId].id);
+        if (this.markers[mId].id != merchantId) {
+            continue;
+        }
+
+        var mrkLanLng = this.markers[mId].marker.getLatLng();
+
+    }*/
+
+        var routerControl = L.Routing.control({
+        waypoints: [
+            //L.latLng(latLng.lat, latLng.lng),
+            //L.latLng(this.courierMarker._latlng.lat, this.courierMarker._latlng.lng)
+
+            L.latLng(merchantLatLng.lat, merchantLatLng.lng),
+            L.latLng(54.107540130615, 34.267589569092)
+
+            // var coords = {lat: 55.107540130615, lng: 33.267589569092};
+        ]
+    }).addTo(this.map);
+
+        var trtl = this.courierMarker;
+
+    // see https://stackoverflow.com/questions/34045265/destination-coordinates-in-leaflet-routing
+    routerControl.on("routesfound", function (e) {
+        //debugger;
+        var coordinates = e.routes[0].coordinates;
+        var destination = coordinates[coordinates.length - 1];
+        console.log("coordinates 2:", coordinates);
+        console.log("destination 2:", destination);
+        // for (var i in coordinates) {
+        //     //debugger;
+        //     gl.log(["i:", i]);
+        //     var latLng = new L.LatLng(coordinates[i]['lat'], coordinates[i]['lng']);
+        //     //this.courierMarker.setLatLng(latLng);
+        //     //gl.functions.placesMap.prototype.moveCourier(latLng, this.courierMarker)
+        //     //this.courierMarker.setLatLng(latLng);
+        //     trtl.setLatLng(latLng);
+        //     gl.log(["<<< latLng:", latLng]);
+        //     /*for (var j in coordinates[i]) {
+        //         gl.log(["j:", j]);
+        //         gl.log(">>> Before latLng:");
+        //         var latLng = new L.LatLng(coordinates[i]['lat'], coordinates[i]['lng']);
+        //         //gl.functions.placesMap.prototype.moveCourier(latLng, this.courierMarker);
+        //         this.courierMarker.setLatLng(latLng);
+        //         gl.log(["<<< latLng:", latLng]);
+        //     }*/
+        // }
+
+        var ii = 0;
+        var interval = setInterval(function () {
+                console.log('ii: ', ii);
+                if (ii < coordinates.length) {
+                    var newLatLng = new L.LatLng(coordinates[ii]['lat'], coordinates[ii]['lng']);
+                    trtl.setLatLng(newLatLng);
+                    ii += 1; //0.01;
+                    return;
+                }
+
+                console.log('clearInterval');
+                clearInterval(interval);
+                interval = null;
+            },
+            100);
+    });
 };
 
 gl.functions.placesMap.prototype.hideCourier = function () {
@@ -155,6 +258,11 @@ gl.functions.placesMap.prototype.hideCourier = function () {
 };
 
 gl.functions.placesMap.prototype.moveCourier = function (latLng, courierMarker) {
+
+    //var newLatLng = new L.LatLng($i, $m * $i + $b);
+    //courierMarkerObj.setLatLng(newLatLng);
+    //return;
+
     //var latLng = gl.functions.getCurrentGeoLocation();
     //this.courierMarker
     //var fromCoords = ;
@@ -432,7 +540,9 @@ gl.functions.placesMap.prototype.connectMarkersWithCustomer = function () {
  *
  * @param $merchantId ID пиццерии
  */
-gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (merchantId,) {
+gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (merchantId) {
+
+    this.merchantId = merchantId;
 
     gl.log('connectAPizzeriaWithCustomer(), merchantId: ' + merchantId);
 

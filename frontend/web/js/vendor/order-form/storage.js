@@ -60,10 +60,10 @@ gl.getObject('funcContainer').storageArray_removed = function (storageName) {
 
         var html = '<button onclick="">Удалить всё</button><br>';
         for (var i in orderAddresses) {
-            gl.log("I:" + i);
+            //gl.log("I:" + i);
             html += 'Адрес №' + i + '<button>Удалить</button><br>';
             for (var j in orderAddresses[i]) {
-                gl.log("J:" + j);
+                //gl.log("J:" + j);
                 html += j + ': ' + orderAddresses[i][j] + '<br>';
             }
             html += '<hr>';
@@ -266,3 +266,6 @@ gl.getObject('container').localStorageArray = function (storageName) {
         }*/
     };
 };
+
+//alert(L);
+

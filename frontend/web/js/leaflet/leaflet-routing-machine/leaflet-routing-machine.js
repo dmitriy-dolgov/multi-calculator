@@ -1,6 +1,6 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 function corslite(url, callback, cors) {
-    debugger;
+    //debugger;
     var sent = false;
 
     if (typeof window.XMLHttpRequest === 'undefined') {
@@ -16813,7 +16813,7 @@ module.exports = L.Routing = {
 		},
 
 		_createAlternative: function(alt, i) {
-            debugger;   //JS.1
+            //debugger;   //JS.1
 			var altDiv = L.DomUtil.create('div', 'leaflet-routing-alt ' +
 				this.options.alternativeClassName +
 				(i > 0 ? ' leaflet-routing-alt-minimized ' + this.options.minimizedClassName : '')),
@@ -16885,7 +16885,7 @@ module.exports = L.Routing = {
 		},
 
 		_onAltClicked: function(e) {
-            debugger;   //JS.2
+            //debugger;   //JS.2
 			var altElem = e.target || window.event.srcElement;
 			while (!L.DomUtil.hasClass(altElem, 'leaflet-routing-alt')) {
 				altElem = altElem.parentElement;

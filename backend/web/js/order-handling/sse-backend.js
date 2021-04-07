@@ -37,7 +37,7 @@ gl.functions.sse.startListen_OrdersAcceptance = function () {
     });
 
     gl.functions.sse.es.addEventListener('new-order', function (event) {
-        gl.log(['event.data: ', event.data]);
+        //gl.log(['event.data: ', event.data]);
 
         try {
             var data = JSON.parse(event.data);

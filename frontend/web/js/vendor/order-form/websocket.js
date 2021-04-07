@@ -107,5 +107,5 @@ gl.functions.websocket.socketOnError = function () {
 
 gl.functions.websocket.socketOnMessage = function (event) {
     gl.log('SOCKET ON MESSAGE EVENT');
-    gl.log(['event.data:', event.data]);
+    //gl.log(['event.data:', event.data]);
 };

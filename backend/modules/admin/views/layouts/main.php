@@ -119,6 +119,10 @@ CSS
                                                 'label' => Yii::t('app', 'Изображения курьера'),
                                                 'url' => ['/admin/courier-images'],
                                             ],
+                                            [
+                                                'label' => Yii::t('app', 'Данные курьера'),
+                                                'url' => ['/admin/courier-data'],
+                                            ],
                                         ],
                                     ],
                                 ],
@@ -152,6 +156,11 @@ CSS
                                         'label' => Yii::t('usuario', 'Users'),
                                         'url' => '/user/admin/index',
                                         'icon' => 'users',
+                                    ],
+                                    [
+                                        'label' => Yii::t('app', 'Шаблоны пользователей'),
+                                        'url' => '/user/admin/index',
+                                        'icon' => 'user-plus',
                                     ],
                                     [
                                         'label' => Yii::t('app', 'RBAC'),

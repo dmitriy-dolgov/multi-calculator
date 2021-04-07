@@ -209,9 +209,6 @@ order_price:decimal(8,2),order_price_discount:decimal(8,2)"
 ./yii migrate/create create_account_template_table --fields="old_user_id:integer:foreignKey(user):comment('Ссылка на сохраненный в архиве аккаунт'),new_user_id:integer:foreignKey(user):comment('Ссылка новый созданный аккаунт'),name:string(255),description:text"
 
 
-
-
-
 /**
  * Последовательность действий при замене пользовательской базы.
  *
@@ -222,3 +219,11 @@ order_price:decimal(8,2),order_price_discount:decimal(8,2)"
  * 5) Создается новый пользователь, в него копируются данные старого пользвателя.
  * 6) Берется ID нового пользователя и вставляется в `new_user_id`.
  */
+
+
+./yii migrate/create create_courier_data_table --fields="name_of_courier:string(255),description_of_courier:text,photo_of_courier:string(255),courier_in_move::comment('Название изображения курьера в движении'),courier_is_waiting:string(255):comment('Название изображения курьера в ожидании - например ждет клиента'),velicity:integer:defaultValue(5):comment('Средняя скорость курьера - км/час'),priority:integer:notNull:defaultValue(0):comment('Приоритет при любом статусе - например при случайном выборе - чем выше тем больше.')"
+
+
+
+
+

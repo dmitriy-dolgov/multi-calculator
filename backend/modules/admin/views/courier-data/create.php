@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\db\CourierData */
 
-$this->title = Yii::t('app', 'Create Courier Data');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Courier Datas'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Создать данные курьера');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Данные курьера'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="courier-data-create">

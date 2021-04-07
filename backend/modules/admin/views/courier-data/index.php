@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel common\models\db\CourierDataSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Courier Datas');
+$this->title = Yii::t('app', 'Данные курьера');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="courier-data-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Courier Data'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Создать данные курьера'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -27,11 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'old_user_id',
-            'new_user_id',
-            'name',
-            'description:ntext',
+            //'id',
+            'name_of_courier',
+            'description_of_courier:ntext',
+            'photo_of_courier',
+            'courier_in_move',
+            'courier_is_waiting',
+            'velocity',
+            'priority',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -18,15 +18,21 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?php // $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'old_user_id') ?>
+    <?= $form->field($model, 'name_of_courier') ?>
 
-    <?= $form->field($model, 'new_user_id') ?>
+    <?= $form->field($model, 'description_of_courier') ?>
 
-    <?= $form->field($model, 'name') ?>
+    <?= $form->field($model, 'photo_of_courier') ?>
 
-    <?= $form->field($model, 'description') ?>
+    <?= $form->field($model, 'courier_in_move') ?>
+
+    <?= $form->field($model, 'courier_is_waiting') ?>
+
+    <?= $form->field($model, 'velocity') ?>
+
+    <?= $form->field($model, 'priority') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

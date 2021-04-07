@@ -12,13 +12,21 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'old_user_id')->textInput() ?>
+    <?= $form->field($model, 'name_of_courier')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'new_user_id')->textInput() ?>
+    <?= $form->field($model, 'description_of_courier')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'photo_of_courier')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'courier_in_move')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'courier_is_waiting')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'velocity')->textInput() ?>
+
+    <?= $form->field($model, 'priority')->textInput() ?>
+
+    <hr>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

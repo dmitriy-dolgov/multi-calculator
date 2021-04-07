@@ -5,16 +5,16 @@ namespace common\models\db;
 use Yii;
 
 /**
- * This is the model class for table "account_template".
+ * This is the model class for table "courier_data".
  *
  * @property int $id
- * @property int|null $old_user_id Ссылка на сохраненный в архиве аккаунт.
- * @property int|null $new_user_id Ссылка новый созданный аккаунт.
- * @property string|null $name
- * @property string|null $description
- *
- * @property User $newUser
- * @property User $oldUser
+ * @property string|null $name_of_courier
+ * @property string|null $description_of_courier
+ * @property string|null $photo_of_courier
+ * @property string|null $courier_in_move Название изображения курьера в движении
+ * @property string|null $courier_is_waiting Название изображения курьера в ожидании - например ждет клиента
+ * @property int|null $velocity Средняя скорость курьера - км/час
+ * @property int $priority Приоритет при любом статусе - например при случайном выборе - чем выше тем больше.
  */
 class CourierData extends \yii\db\ActiveRecord
 {
@@ -23,7 +23,7 @@ class CourierData extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'account_template';
+        return 'courier_data';
     }
 
     /**
@@ -32,11 +32,9 @@ class CourierData extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['old_user_id', 'new_user_id'], 'integer'],
-            [['description'], 'string'],
-            [['name'], 'string', 'max' => 255],
-            [['new_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['new_user_id' => 'id']],
-            [['old_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['old_user_id' => 'id']],
+            [['description_of_courier'], 'string'],
+            [['velocity', 'priority'], 'integer'],
+            [['name_of_courier', 'photo_of_courier', 'courier_in_move', 'courier_is_waiting'], 'string', 'max' => 255],
         ];
     }
 
@@ -47,31 +45,14 @@ class CourierData extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'old_user_id' => Yii::t('app', 'Old User ID'),
-            'new_user_id' => Yii::t('app', 'New User ID'),
-            'name' => Yii::t('app', 'Name'),
-            'description' => Yii::t('app', 'Description'),
+            'name_of_courier' => Yii::t('app', 'Имя курьера'),
+            'description_of_courier' => Yii::t('app', 'Описание курьера'),
+            'photo_of_courier' => Yii::t('app', 'Фото курьера'),
+            'courier_in_move' => Yii::t('app', 'Курьер в движении'),
+            'courier_is_waiting' => Yii::t('app', 'Курьер в ожидании'),
+            'velocity' => Yii::t('app', 'Скорость'),
+            'priority' => Yii::t('app', 'Приоритет'),
         ];
-    }
-
-    /**
-     * Gets query for [[NewUser]].
-     *
-     * @return \yii\db\ActiveQuery|UserQuery
-     */
-    public function getNewUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'new_user_id']);
-    }
-
-    /**
-     * Gets query for [[OldUser]].
-     *
-     * @return \yii\db\ActiveQuery|UserQuery
-     */
-    public function getOldUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'old_user_id']);
     }
 
     /**

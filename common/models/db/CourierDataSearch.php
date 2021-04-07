@@ -17,8 +17,8 @@ class CourierDataSearch extends CourierData
     public function rules()
     {
         return [
-            [['id', 'old_user_id', 'new_user_id'], 'integer'],
-            [['name', 'description'], 'safe'],
+            [['id', 'velocity', 'priority'], 'integer'],
+            [['name_of_courier', 'description_of_courier', 'photo_of_courier', 'courier_in_move', 'courier_is_waiting'], 'safe'],
         ];
     }
 
@@ -59,12 +59,15 @@ class CourierDataSearch extends CourierData
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'old_user_id' => $this->old_user_id,
-            'new_user_id' => $this->new_user_id,
+            'velocity' => $this->velocity,
+            'priority' => $this->priority,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['like', 'name_of_courier', $this->name_of_courier])
+            ->andFilterWhere(['like', 'description_of_courier', $this->description_of_courier])
+            ->andFilterWhere(['like', 'photo_of_courier', $this->photo_of_courier])
+            ->andFilterWhere(['like', 'courier_in_move', $this->courier_in_move])
+            ->andFilterWhere(['like', 'courier_is_waiting', $this->courier_is_waiting]);
 
         return $dataProvider;
     }

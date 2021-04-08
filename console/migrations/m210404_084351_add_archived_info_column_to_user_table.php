@@ -13,7 +13,7 @@ class m210404_084351_add_archived_info_column_to_user_table extends Migration
     public function safeUp()
     {
         $this->addColumn('{{%user}}', 'archived_info',
-            $this->json()
+            $this->text()
                 ->comment('Означает, что аккаунт пользователя удален (архивирован)')
         );
     }

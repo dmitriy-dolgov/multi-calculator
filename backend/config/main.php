@@ -194,7 +194,8 @@ return [
                     },
                 ],
                 'admin' => [
-                    'class' => \Da\User\Controller\AdminController::class,
+                    //'class' => \Da\User\Controller\AdminController::class,
+                    'class' => \backend\modules\admin\controllers\RegistrationController::class,
                     'layout' => '@backend/modules/admin/views/layouts/main',
                 ],
                 'role' => [

@@ -14,7 +14,7 @@ class m210404_084351_add_archived_info_column_to_user_table extends Migration
     {
         $this->addColumn('{{%user}}', 'archived_info',
             $this->json()
-                ->comment('Означает, что аккаунт пользователя удален (архивирован). Содержит произвольные данные архивации в формате JSON. Если !emptty("id"), значит аккаунт действующий.')
+                ->comment('Означает, что аккаунт пользователя удален (архивирован)')
         );
     }
 

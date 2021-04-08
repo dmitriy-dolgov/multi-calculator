@@ -12,6 +12,8 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'user_id')->textInput() ?>
+
     <?= $form->field($model, 'name_of_courier')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description_of_courier')->textarea(['rows' => 6]) ?>

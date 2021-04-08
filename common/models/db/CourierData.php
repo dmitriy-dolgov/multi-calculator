@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "courier_data".
  *
  * @property int $id
+ * @property int|null $user_id
  * @property string|null $name_of_courier
  * @property string|null $description_of_courier
  * @property string|null $photo_of_courier
@@ -15,6 +16,8 @@ use Yii;
  * @property string|null $courier_is_waiting Название изображения курьера в ожидании - например ждет клиента
  * @property int|null $velocity Средняя скорость курьера - км/час
  * @property int $priority Приоритет при любом статусе - например при случайном выборе - чем выше тем больше.
+ *
+ * @property User $user
  */
 class CourierData extends \yii\db\ActiveRecord
 {
@@ -32,9 +35,10 @@ class CourierData extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['user_id', 'velocity', 'priority'], 'integer'],
             [['description_of_courier'], 'string'],
-            [['velocity', 'priority'], 'integer'],
             [['name_of_courier', 'photo_of_courier', 'courier_in_move', 'courier_is_waiting'], 'string', 'max' => 255],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -45,14 +49,25 @@ class CourierData extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'name_of_courier' => Yii::t('app', 'Имя курьера'),
-            'description_of_courier' => Yii::t('app', 'Описание курьера'),
-            'photo_of_courier' => Yii::t('app', 'Фото курьера'),
-            'courier_in_move' => Yii::t('app', 'Курьер в движении'),
-            'courier_is_waiting' => Yii::t('app', 'Курьер в ожидании'),
-            'velocity' => Yii::t('app', 'Скорость'),
-            'priority' => Yii::t('app', 'Приоритет'),
+            'user_id' => Yii::t('app', 'User ID'),
+            'name_of_courier' => Yii::t('app', 'Name Of Courier'),
+            'description_of_courier' => Yii::t('app', 'Description Of Courier'),
+            'photo_of_courier' => Yii::t('app', 'Photo Of Courier'),
+            'courier_in_move' => Yii::t('app', 'Courier In Move'),
+            'courier_is_waiting' => Yii::t('app', 'Courier Is Waiting'),
+            'velocity' => Yii::t('app', 'Velocity'),
+            'priority' => Yii::t('app', 'Priority'),
         ];
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery|UserQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**

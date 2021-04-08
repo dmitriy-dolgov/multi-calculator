@@ -20,6 +20,8 @@ use yii\widgets\ActiveForm;
 
     <?php // $form->field($model, 'id') ?>
 
+    <?= $form->field($model, 'user_id') ?>
+
     <?= $form->field($model, 'name_of_courier') ?>
 
     <?= $form->field($model, 'description_of_courier') ?>

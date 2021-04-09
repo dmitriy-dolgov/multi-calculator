@@ -170,7 +170,10 @@ gl.functions.placesMap.prototype.showCourier = function () {
 
     // Примерно здесь остановился Apr.05.21 --- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     var merchantLatLng = gl.functions.getCurrentGeoLocation();
-    this.courierMarker = this.addMarkerByCoords(merchantLatLng.lat, merchantLatLng.lng, this.icons.courier);
+
+    $popup = 'Имя курьера<img src="/img/courier/4.gif" style="width:30px">';
+
+    this.courierMarker = this.addMarkerByCoords(merchantLatLng.lat, merchantLatLng.lng, this.icons.courier, $popup);
 
     //TODO: Внизлежащее можно разместить в отдельной функции
     //gl.functions.placesMap.prototype.moveCourier(latLng, this.courierMarker);
@@ -195,7 +198,7 @@ gl.functions.placesMap.prototype.showCourier = function () {
 
     }*/
 
-        var routerControl = L.Routing.control({
+    var routerControl = L.Routing.control({
         waypoints: [
             //L.latLng(latLng.lat, latLng.lng),
             //L.latLng(this.courierMarker._latlng.lat, this.courierMarker._latlng.lng)
@@ -205,9 +208,11 @@ gl.functions.placesMap.prototype.showCourier = function () {
 
             // var coords = {lat: 55.107540130615, lng: 33.267589569092};
         ]
-    }).addTo(this.map);
+    }).addTo(this.map); //.bindPopup("Это описание курьера");
 
-        var trtl = this.courierMarker;
+    var trtl = this.courierMarker;
+
+    var trtlThis = this;
 
     // see https://stackoverflow.com/questions/34045265/destination-coordinates-in-leaflet-routing
     routerControl.on("routesfound", function (e) {
@@ -241,7 +246,7 @@ gl.functions.placesMap.prototype.showCourier = function () {
                 if (ii < coordinates.length) {
                     var newLatLng = new L.LatLng(coordinates[ii]['lat'], coordinates[ii]['lng']);
                     trtl.setLatLng(newLatLng);
-                    ii += 3; //0.01;
+                    ii += 50; //0.01;
                     return;
                 }
 
@@ -249,7 +254,24 @@ gl.functions.placesMap.prototype.showCourier = function () {
                 clearInterval(interval);
                 interval = null;
 
+                /*var greenIcon = L.icon({ //add this new icon
+                    iconUrl: i+'.png',
+                    shadowUrl: 'leaf-shadow.png',
 
+                    iconSize:     [38, 95], // size of the icon
+                    shadowSize:   [50, 64], // size of the shadow
+                    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                    shadowAnchor: [4, 62],  // the same for the shadow
+                    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                });*/
+
+                trtl.setIcon(gl.functions.placesMap.prototype.icons.courierStand);    // = '/img/courier/4.gif';
+
+                //newMarker.bindPopup(popupHtml);
+                //trtl.addMarkerByCoords(merchantLatLng.lat, merchantLatLng.lng, trtlThis.icons.courierStand);
+
+                //trtl
+                //trtl.bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
             },
             100);
     });
@@ -399,7 +421,12 @@ gl.functions.placesMap.prototype.icons = {
     courier: L.icon({
         iconUrl: glIconUrl, //'/img/map/courier-moto.png',
         iconSize: [42, 42],
-        className: 'map-marker-icon',
+        className: 'map-marker-icon'
+    }),
+    courierStand: L.icon({
+        iconUrl: '/img/map/courier-moto.png',
+        iconSize: [42, 42],
+        className: 'map-marker-icon'
     }),
 };
 

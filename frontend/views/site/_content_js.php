@@ -113,6 +113,10 @@ $this->registerCss(<<<CSS
 .vertical-pane .component-link {
     visibility: hidden;
 }
+.map-marker-icon {
+    background-color: red;
+    filter: drop-shadow(3px 3px 2px #222);
+}
 CSS
 );
 

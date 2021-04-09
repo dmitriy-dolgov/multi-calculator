@@ -57,7 +57,8 @@ gl.functions.getCurrentGeoLocation = function () {
                     gl.log('gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker)');
                     gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker);
                 }
-                gl.data.worldMap.courierMarker = gl.data.worldMap.addMarkerByCoords(coords.lat, coords.lng, gl.data.worldMap.icons.courier);
+                gl.data.worldMap.courierMarker
+                    = gl.data.worldMap.addMarkerByCoords(coords.lat, coords.lng, gl.data.worldMap.icons.courier);
                 //gl.data.worldMap.flyTo([coords.lat, coords.lng]);
             }
         });
@@ -236,17 +237,19 @@ gl.functions.placesMap.prototype.showCourier = function () {
 
         var ii = 0;
         var interval = setInterval(function () {
-                console.log('ii: ', ii);
+                //console.log('ii: ', ii);
                 if (ii < coordinates.length) {
                     var newLatLng = new L.LatLng(coordinates[ii]['lat'], coordinates[ii]['lng']);
                     trtl.setLatLng(newLatLng);
-                    ii += 1; //0.01;
+                    ii += 3; //0.01;
                     return;
                 }
 
                 console.log('clearInterval');
                 clearInterval(interval);
                 interval = null;
+
+
             },
             100);
     });
@@ -359,15 +362,16 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lon, icon, p
 };
 
 var glIconUrl = [
-    '/img/map/courier-moto.png',
+    '/img/courier/8DL5.gif'
+    /*'/img/map/courier-moto.png',
     '/img/courier/1.jpg',
     '/img/courier/2.png',
     '/img/courier/3.jpg',
-    '/img/courier/4.gif',
+    '/img/courier/4.gif',*/
 ];
 
-glIconUrl = glIconUrl[0 + Math.floor((5 - 0) * Math.random())];
-//glIconUrl = glIconUrl[0];
+//glIconUrl = glIconUrl[0 + Math.floor((5 - 0) * Math.random())];
+glIconUrl = glIconUrl[0];
 
 gl.functions.placesMap.prototype.icons = {
     defaultPizzeria: L.icon({
@@ -394,7 +398,8 @@ gl.functions.placesMap.prototype.icons = {
     }),
     courier: L.icon({
         iconUrl: glIconUrl, //'/img/map/courier-moto.png',
-        iconSize: [32, 32]
+        iconSize: [42, 42],
+        className: 'map-marker-icon',
     }),
 };
 

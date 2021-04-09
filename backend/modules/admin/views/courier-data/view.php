@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\db\CourierData */
 
-$this->title = $model->id;
+$this->title = Yii::t('app', 'Курьер {courier_name}', ['courier_name' => $model->name_of_courier]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Данные курьера'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

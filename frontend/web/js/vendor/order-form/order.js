@@ -388,6 +388,9 @@ gl.functions.fillOrderInfo = function (result, formData) {
             });
         }, 5000);*/
     });
+
+    //TODO: убрать после теста
+    gl.data.worldMap.showCourier();
 };
 
 // Устанавливает необходимые данные когда продавец взял заказ в обработку (начал готовить)

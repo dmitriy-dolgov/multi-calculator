@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\db\CourierData */
 
-$this->title = Yii::t('app', 'Обновить данные курьера: {name}', [
-    'name' => $model->id,
+$this->title = Yii::t('app', 'Обновить данные курьера: {courier_name}', [
+    'courier_name' => $model->name_of_courier,
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Данные курьера'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];

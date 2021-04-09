@@ -39,6 +39,9 @@ class CourierData extends \yii\db\ActiveRecord
             [['description_of_courier'], 'string'],
             [['name_of_courier', 'photo_of_courier', 'courier_in_move', 'courier_is_waiting'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['description_of_courier', 'name_of_courier'], 'filter', 'filter' => 'trim'],
+            ['velocity', 'default', 'value' => 5],
+            ['priority', 'default', 'value' => 0],
         ];
     }
 
@@ -49,14 +52,14 @@ class CourierData extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'name_of_courier' => Yii::t('app', 'Name Of Courier'),
-            'description_of_courier' => Yii::t('app', 'Description Of Courier'),
-            'photo_of_courier' => Yii::t('app', 'Photo Of Courier'),
-            'courier_in_move' => Yii::t('app', 'Courier In Move'),
-            'courier_is_waiting' => Yii::t('app', 'Courier Is Waiting'),
-            'velocity' => Yii::t('app', 'Velocity'),
-            'priority' => Yii::t('app', 'Priority'),
+            'user_id' => Yii::t('app', 'ID пользователя'),
+            'name_of_courier' => Yii::t('app', 'Имя курьера'),
+            'description_of_courier' => Yii::t('app', 'Описание курьера'),
+            'photo_of_courier' => Yii::t('app', 'Фото курьера'),
+            'courier_in_move' => Yii::t('app', 'Курьер в движении'),
+            'courier_is_waiting' => Yii::t('app', 'Курьер ожидает'),
+            'velocity' => Yii::t('app', 'Скорость (км/ч)'),
+            'priority' => Yii::t('app', 'Приоритет'),
         ];
     }
 

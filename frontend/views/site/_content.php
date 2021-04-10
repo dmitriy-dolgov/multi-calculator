@@ -39,6 +39,19 @@ body {
 #contractModal {
     padding-left: 0;
 }
+
+.history-save {
+    display: block;
+    z-index: 2;
+    width: 100px;
+    height: 30px;
+    color: red;
+    position: absolute;
+    top: 7px;
+    right: 0;
+    background-color: white;
+    cursor: pointer;
+}
 CSS
 );
 
@@ -151,6 +164,13 @@ $('.components-in-stock').addClass('no-blur');
 //console.log('gl.functions.showUpgoingText');
 
 //showUpgoingText();
+
+gl.getObject('functions').historySave = function() {
+    $.post('history/profile-save', function() {
+        //TODO: функция для перевода
+      alert('Профиль сохранен');
+    });
+}
 
 JS
 );
@@ -368,6 +388,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                     <!--<div id="video"></div>-->
                 </div>
                 <div class="video-overlay"></div>
+                <div class="history-save" onclick="gl.functions.historySave()"><?= Yii::t('app', 'Сохранить') ?></div>
             </div>
 
             <div class="menu">

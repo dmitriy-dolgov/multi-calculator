@@ -224,6 +224,8 @@ order_price:decimal(8,2),order_price_discount:decimal(8,2)"
 ./yii migrate/create create_courier_data_table --fields="name_of_courier:string(255),description_of_courier:text,photo_of_courier:string(255),courier_in_move::comment('Название изображения курьера в движении'),courier_is_waiting:string(255):comment('Название изображения курьера в ожидании - например ждет клиента'),velicity:integer:defaultValue(5):comment('Средняя скорость курьера - км/час'),priority:integer:notNull:defaultValue(0):comment('Приоритет при любом статусе - например при случайном выборе - чем выше тем больше.')"
 
 
+// Профиль - сохранение состояние проекта
+./yii migrate/create create_history_profile_table --fields="user_id:integer:foreignKey('user'):comment('Инициатор типа продавец'),user_customer_id:integer:foreignKey('user_customer'):comment('Инициатор типа покупатель'),name:string(255):comment('Короткое название'),about:text:comment('Информация для чего создавался проект'),server_info:text:comment('Данные на стороне сервера в произвольном формате json'),remote_info:text:comment('Данные на стороне пользователя в произвольном формате json'),created_at:datetime,changed_at:datetime,deleted_at:datetime"
 
 
 

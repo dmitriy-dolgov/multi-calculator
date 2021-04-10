@@ -188,6 +188,11 @@ CSS
                             [
                                 'items' => [
                                     [
+                                        'label' => Yii::t('app', 'Профили истории'),
+                                        'url' => '/admin/history-profile',
+                                        'icon' => 'history',
+                                    ],
+                                    [
                                         'label' => Yii::t('app', 'Archive'),
                                         'url' => '/admin/archive',
                                         'icon' => 'archive',

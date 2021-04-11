@@ -54,7 +54,7 @@ display: flex;
     position: absolute;
     top: 43px;
     bottom: auto;
-    right: 3px;
+    right: 6px;
     background-color: rgba(10, 10, 10, .6);
     border: 1px rgba(255, 255, 255, .7) outset;
     border-radius: 50%;
@@ -63,7 +63,7 @@ display: flex;
 .history-save {
     /*top: auto;
     bottom: 15px;*/
-    right: 50px;
+    right: 58px;
 }
 CSS
 );
@@ -178,7 +178,13 @@ $('.components-in-stock').addClass('no-blur');
 
 //showUpgoingText();
 
-gl.getObject('functions').historySave = function() {
+gl.getObject('data.history.functions').save = function() {
+    $.post('history/profile-save', function() {
+        //TODO: функция для перевода
+      alert('Профиль сохранен');
+    });
+}
+gl.getObject('data.history.functions').load = function() {
     $.post('history/profile-save', function() {
         //TODO: функция для перевода
       alert('Профиль сохранен');
@@ -406,6 +412,11 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                 <!--<img class="brick-wall" alt="" src="/img/brick-wall-120.png">-->
                 <div class="create-pizza"><?= Yii::t('app', 'Create your pizza') ?></div>
                 <div class="pizza-name"><?= Yii::t('app', 'Custom pizza') ?></div>
+
+                <i class="history-load fa fa-upload" onclick="gl.data.history.functions.load()"
+                       title="<?= Yii::t('app', 'Сохранить текущее состояние') ?>"></i>
+                    <i class="history-save fa fa-download" onclick="gl.data.history.functions.save()"
+                       title="<?= Yii::t('app', 'Загрузить состояние') ?>"></i>
             </div>
 
             <div class="components-selected-details">

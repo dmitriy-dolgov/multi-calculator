@@ -185,10 +185,11 @@ gl.getObject('data.history.functions').save = function() {
     });
 }
 gl.getObject('data.history.functions').load = function() {
-    $.post('history/profile-save', function() {
+    alert('Реализация в процессе');
+    /*$.post('history/profile-save', function() {
         //TODO: функция для перевода
       alert('Профиль сохранен');
-    });
+    });*/
 }
 
 JS

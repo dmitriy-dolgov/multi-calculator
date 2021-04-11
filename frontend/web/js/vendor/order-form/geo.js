@@ -198,13 +198,19 @@ gl.functions.placesMap.prototype.showCourier = function () {
 
     }*/
 
+    console.log("mrkLanLng:", mrkLanLng);
+
     var routerControl = L.Routing.control({
         waypoints: [
             //L.latLng(latLng.lat, latLng.lng),
             //L.latLng(this.courierMarker._latlng.lat, this.courierMarker._latlng.lng)
 
             L.latLng(merchantLatLng.lat, merchantLatLng.lng),
-            L.latLng(54.107540130615, 34.267589569092)
+            //L.latLng(54.107540130615, 34.267589569092),
+
+
+            L.latLng(mrkLanLng.lat, mrkLanLng.lng)
+
 
             // var coords = {lat: 55.107540130615, lng: 33.267589569092};
         ]
@@ -246,7 +252,7 @@ gl.functions.placesMap.prototype.showCourier = function () {
                 if (ii < coordinates.length) {
                     var newLatLng = new L.LatLng(coordinates[ii]['lat'], coordinates[ii]['lng']);
                     trtl.setLatLng(newLatLng);
-                    ii += 50; //0.01;
+                    ii += 5; //0.01;
                     return;
                 }
 
@@ -420,7 +426,7 @@ gl.functions.placesMap.prototype.icons = {
     }),
     courier: L.icon({
         iconUrl: glIconUrl, //'/img/map/courier-moto.png',
-        iconSize: [42, 42],
+        iconSize: [40, 40],
         className: 'map-marker-icon'
     }),
     courierStand: L.icon({

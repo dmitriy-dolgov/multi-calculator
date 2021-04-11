@@ -40,17 +40,30 @@ body {
     padding-left: 0;
 }
 
+.history-load,
 .history-save {
-    display: block;
+display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
     z-index: 2;
-    width: 100px;
-    height: 30px;
-    color: red;
-    position: absolute;
-    top: 7px;
-    right: 0;
-    background-color: white;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
+    color: white;
+    position: absolute;
+    top: 43px;
+    bottom: auto;
+    right: 3px;
+    background-color: rgba(10, 10, 10, .6);
+    border: 1px rgba(255, 255, 255, .7) outset;
+    border-radius: 50%;
+}
+
+.history-save {
+    /*top: auto;
+    bottom: 15px;*/
+    right: 50px;
 }
 CSS
 );
@@ -388,57 +401,19 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                     <!--<div id="video"></div>-->
                 </div>
                 <div class="video-overlay"></div>
-                <div class="history-save" onclick="gl.functions.historySave()"><?= Yii::t('app', 'Сохранить') ?></div>
             </div>
-
             <div class="menu">
                 <!--<img class="brick-wall" alt="" src="/img/brick-wall-120.png">-->
                 <div class="create-pizza"><?= Yii::t('app', 'Create your pizza') ?></div>
                 <div class="pizza-name"><?= Yii::t('app', 'Custom pizza') ?></div>
             </div>
 
-            <!--<div class="resulting-panel"></div>-->
-            <!--<div class="capt-price"><?php /*= Yii::t('app', 'Price:') */ ?>
-            <div class="total-price" data-total_price="0">&nbsp;</div>
-        </div>-->
-            <!--<div class="components-selected" style="display: none"></div>--><?php /*//TODO: реализовать потом */ ?>
             <div class="components-selected-details">
                 <div class="panel-detail">
 
                     <div class="registration-info">
                         <?php if (Yii::$app->user->isGuest): ?>
                             <div class="caption">
-
-
-                                <?php
-                                /*$this->registerCss(<<<CSS
-path {
-  fill: transparent;
-  font-family: 'Luckiest Guy', cursive;
-  font-size: 35px;
-}
-
-text {
-  fill: #FF9800;
-  font-family: 'Luckiest Guy', cursive;
-  font-size: 35px;
-}
-CSS
-
-
-                                );*/
-                                ?>
-
-
-                                <!--<svg viewBox="0 0 500 500">
-                                    <path id="curve" d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97" />
-                                    <text width="500">
-                                        <textPath xlink:href="#curve">
-                                            Dangerous Curves Ahead
-                                        </textPath>
-                                    </text>
-                                </svg>
--->
 
 
                                 <?= Html::encode(Yii::t('app', 'You are not logged in.')) ?>
@@ -461,8 +436,6 @@ CSS
                         <?php endif; ?>
                     </div>
 
-                    <!--<div class="pizza-name"><? /*= Yii::t('app', 'Custom pizza') */ ?></div>-->
-
                     <div class="no-components-pane">
                         <div class="ingredients"><?= Yii::t('app', 'Move components right here') ?></div>
                         <?= Html::img('/img/arrow-down.png', ['class' => 'arrow-down']) ?>
@@ -473,8 +446,6 @@ CSS
                         <div class="total-price text-nowrap" data-total_price="0">&nbsp;</div>
                     </div>
 
-                    <!--<div class="component-holder"></div>-->
-
                 </div>
 
                 <div class="component-holder"></div>
@@ -484,25 +455,6 @@ CSS
 
     </div>
 
-    <?php /* ?>
-    <div class="video">
-        <div id="video"></div>
-    </div>
-    <?php */ ?>
-
-    <?php /* ?>
-    <div class="categories-panel wrp-pane">
-        <div class="btn-head"><?= Yii::t('app', 'Catalog') ?></div>
-        <div class="panel-elements-list">
-            <?php
-            $categories = \common\models\db\Category::find()->all();
-            foreach ($categories as $categ) {
-                echo '<div class="elem">' . Html::encode($categ->name) . '</div>';
-            }
-            ?>
-        </div>
-    </div>
-    <?php */ ?>
 
     <?php /* ?>
     <div class="categories-panel panel-elements-list">
@@ -555,15 +507,6 @@ CSS
             </div>
         </div>
     </div>
-
-    <!--    <div class="menu-unwrap-panel">
-        <div class="menu-unwrap-button"><? /*= Yii::t('app', 'Menu') */ ?></div>
-        <div class="menu-unwrap-elems">
-            <div><? /*= Yii::t('app', 'Pizzas') */ ?></div>
-            <div><? /*= Yii::t('app', 'Orders') */ ?></div>
-            <div><? /*= Yii::t('app', 'You') */ ?></div>
-        </div>
-    </div>-->
 
     <?= $this->render('__pizzas_panel_elements_list', ['componentSets' => $componentSets]) ?>
     <?= $this->render('__orders_panel_elements_list') ?>

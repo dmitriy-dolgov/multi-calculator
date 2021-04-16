@@ -1,8 +1,15 @@
 <?php
 
+/**
+ * Похоже, этот класс предназначен для покупателей пиццы.
+ * Пока, похоже, не задействован пока.
+ *
+ */
+
 namespace common\models\db\user;
 
-use Da\User\Model\User as BaseUser;
+use common\models\db\User as BaseUser;
+
 
 class UserCustomer extends BaseUser
 {

@@ -1729,6 +1729,12 @@
   margin-left: auto;
 }
 
+/*
+.no-components-pane {
+  position: absolute;
+  margin-top: 55px;
+  width: 100%;
+}*/
 #pizzeria-info .name {
   color: yellow;
   text-align: center;

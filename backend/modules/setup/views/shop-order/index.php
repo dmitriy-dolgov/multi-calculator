@@ -125,7 +125,7 @@ CSS
                 },*/
                 'template' => '{view}',
                 //'viewOptions' => ['title' => $viewMsg, 'data-toggle' => 'tooltip'],
-                'order' => DynaGrid::ORDER_FIX_RIGHT
+                //'order' => DynaGrid::ORDER_FIX_RIGHT
             ],
 
             /*[

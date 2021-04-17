@@ -2,6 +2,7 @@
 
 namespace backend\modules\admin\controllers;
 
+use common\models\db\User;
 use Yii;
 use common\models\db\UserVirtual;
 use common\models\db\UserVirtualSearch;
@@ -66,12 +67,15 @@ class UserVirtualController extends Controller
     {
         $model = new UserVirtual();
 
+        $allUsers = User::find()->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'allUsers' => $allUsers,
         ]);
     }
 
@@ -86,12 +90,15 @@ class UserVirtualController extends Controller
     {
         $model = $this->findModel($id);
 
+        $allUsers = User::find()->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'allUsers' => $allUsers,
         ]);
     }
 

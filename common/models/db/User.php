@@ -21,7 +21,6 @@ use Yii;
  * @property ShopOrderStatus[] $shopOrderStatuses
  * @property ShopOrderUser[] $shopOrderUsers
  * @property ShopOrder[] $shopOrders0
- * @property UserUserVirtual[] $userUserVirtuals
  * @property UserVirtual[] $userVirtuals
  */
 class User extends BaseUser
@@ -221,30 +220,20 @@ class User extends BaseUser
     }
 
     /**
+     * Gets query for [[UserVirtuals]].
+     *
+     * @return \yii\db\ActiveQuery|UserVirtualQuery
+     */
+    public function getUserVirtuals()
+    {
+        return $this->hasMany(UserVirtual::className(), ['user_id' => 'id']);
+    }
+
+    /**
      * @return UserQuery
      */
     public static function find()
     {
         return new UserQuery(static::class);
-    }
-
-    /**
-     * Gets query for [[UserUserVirtuals]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUserUserVirtuals()
-    {
-        return $this->hasMany(UserUserVirtual::className(), ['user_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[UserVirtuals]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUserVirtuals()
-    {
-        return $this->hasMany(UserVirtual::className(), ['id' => 'user_virtual_id'])->viaTable('user_user_virtual', ['user_id' => 'id']);
     }
 }

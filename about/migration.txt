@@ -229,9 +229,11 @@ order_price:decimal(8,2),order_price_discount:decimal(8,2)"
 
 
 
-./yii migrate/create add_type_column_to_user_table --fields="type:text:after('email'):comment('Тип(ы) пользователя в JSON. Если не указан, значит обычный.')"
+///// ./yii migrate/create add_type_column_to_user_table --fields="type:text:after('email'):comment('Тип(ы) пользователя в JSON. Если не указан, значит обычный.')"
 
 ./yii migrate/create create_courier_data_table --fields="type:text:after('email'):comment('Тип(ы) пользователя в JSON. Если не указан, значит обычный.')"
 
-create_junction_table_for_user_and_user_virtual_tables
+//php ./yii create_junction_table_for_user_and_user_virtual_tables
+
+php ./yii migrate/create create_user_virtual_table --fields="user_id:integer:foreignKey('user')"
 

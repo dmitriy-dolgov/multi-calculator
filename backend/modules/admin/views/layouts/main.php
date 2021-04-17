@@ -183,6 +183,22 @@ CSS
                     </div>
 
                     <div class="menu_section">
+                        <h3><?= Yii::t('app', 'Виртуализация') ?></h3>
+                        <?= Menu::widget(
+                            [
+                                'items' => [
+                                    [
+                                        'label' => Yii::t('app', 'Виртуальные продавцы'),
+                                        'url' => '/admin/user-virtual',
+                                        'icon' => 'history',
+                                    ],
+                                ],
+                            ]
+                        )
+                        ?>
+                    </div>
+
+                    <div class="menu_section">
                         <h3><?= Yii::t('app', 'Other') ?></h3>
                         <?= Menu::widget(
                             [

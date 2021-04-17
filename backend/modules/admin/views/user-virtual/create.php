@@ -4,9 +4,10 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\db\UserVirtual */
+/* @var $allUsers common\models\db\User */
 
-$this->title = Yii::t('app', 'Create User Virtual');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'User Virtuals'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Создать виртуального продавца');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Виртуальные продавцы'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-virtual-create">
@@ -15,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'allUsers' => $allUsers,
     ]) ?>
 
 </div>

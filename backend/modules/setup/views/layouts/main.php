@@ -128,6 +128,18 @@ use yii\helpers\Html;
                                     ],
                                 ],
                             ],
+                            [
+                                'label' => Yii::t('app', 'Виртуализация'),
+                                'icon' => 'handshake-o',
+                                'url' => '#',
+                                //'template' => '<a><i class="fa fa-handshake-o"></i><span>{label}</span><span class="fa fa-chevron-down"></span></a>',
+                                'items' => [
+                                    [
+                                        'label' => Yii::t('app', 'Виртуальные пользователи'),
+                                        'url' => ['/setup/user-virtual'],
+                                    ],
+                                ],
+                            ],
                         ];
                         if (Yii::$app->user->identity->isAdmin ?? false) {
                             $menuItems[] = [

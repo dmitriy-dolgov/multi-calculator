@@ -195,13 +195,12 @@ gl.functions.composeOrder = function () {
         elem.fadeOut(200, function () {
             $('#frm-confirmed-order').fadeIn();
         });*/
-;
+        ;
         //gl.functions.storage.handleAddress(
         //gl.functions.handlers.handleAddress(
         //debugger;
 
         gl.functions.handlers.orderAddresses.handleAddress(
-
             '.order-data-data',
             'ShopOrderForm',
             [
@@ -563,11 +562,30 @@ gl.functions.setUpPaneOnOrderSuccessfullyFinished = function (orderId, merchantD
 };
 
 
-if (gl.orderFormHistory.ifSomethingInStore) {
+gl.orderFormHistory.qaz = function () {
+    //$('.load-latest').toggle();
+    $('.load-latest').hide();
     gl.orderFormHistory.restoreFromStore();
-} else {
+};
+
+//if (gl.orderFormHistory.ifSomethingInStore) {
+
+    /*if (!window.qwe) {
+
+        window.qwe = true;
+        console.log('toggle123+++++++++))))');
+
+        if (show == 'open') {
+            $('.load-latest').toggle();
+            gl.orderFormHistory.restoreFromStore();
+        }
+        //gl.orderFormHistory.restoreFromStore();
+        //$('.load-latest').addClass('hidden');
+    }*/
+
+//} else {
     eval(gl.data.initialJSCode);
-}
+//}
 
 gl.functions.orderCalculatePrice();
 

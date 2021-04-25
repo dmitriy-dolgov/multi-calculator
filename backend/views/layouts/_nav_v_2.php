@@ -24,7 +24,7 @@ use \yii\helpers\Html;
     <?php if (Yii::$app->user->isGuest): ?>
         <div class="reg-in-up">
             <li class="men-el sign-in" title="<?= Yii::t('app', 'Sign In') ?>"><a class="icon-enter"
-                                                                                  href="<?= Url::to(['/user/security/login']) ?>"></a>
+                                                                                  href="<?= Url::to(['/user/security/login']) ?>" title="<?= Yii::t('app', 'Войти') ?>"></a>
             </li>
             <li class="men-el sign-up" title="<?= Yii::t('app', 'Sign Up') ?>"><a class="icon-handshake-o"
                                                                                   href="<?= Url::to(['/user/registration/register']) ?>"></a>

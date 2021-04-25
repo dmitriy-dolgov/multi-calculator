@@ -57,6 +57,7 @@ gl.functions.getCurrentGeoLocation = function () {
                     gl.log('gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker)');
                     gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker);
                 }
+                alert('icons.courier IS HERE 1');
                 gl.data.worldMap.courierMarker
                     = gl.data.worldMap.addMarkerByCoords(coords.lat, coords.lng, gl.data.worldMap.icons.courier);
                 //gl.data.worldMap.flyTo([coords.lat, coords.lng]);
@@ -173,6 +174,7 @@ gl.functions.placesMap.prototype.showCourier = function () {
 
     $popup = 'Имя курьера<img src="/img/courier/4.gif" style="width:30px">';
 
+    //alert('consi.courier IS HERE 2');
     this.courierMarker = this.addMarkerByCoords(merchantLatLng.lat, merchantLatLng.lng, this.icons.courier, $popup);
 
     //TODO: Внизлежащее можно разместить в отдельной функции
@@ -227,6 +229,9 @@ gl.functions.placesMap.prototype.showCourier = function () {
         var destination = coordinates[coordinates.length - 1];
         console.log("coordinates 2:", coordinates);
         console.log("destination 2:", destination);
+        console.log("coordinates.length:", coordinates.length);
+
+        //var step = setInterval
         // for (var i in coordinates) {
         //     //debugger;
         //     gl.log(["i:", i]);
@@ -248,7 +253,7 @@ gl.functions.placesMap.prototype.showCourier = function () {
 
         var ii = 0;
         var interval = setInterval(function () {
-                //console.log('ii: ', ii);
+                //console.log('setInterval 2: ', ii);   // здесь акруальный курьер
                 if (ii < coordinates.length) {
                     var newLatLng = new L.LatLng(coordinates[ii]['lat'], coordinates[ii]['lng']);
                     trtl.setLatLng(newLatLng);
@@ -328,6 +333,7 @@ gl.functions.placesMap.prototype.moveCourier = function (latLng, courierMarker) 
 
     //var counter = 0;
     var interval = setInterval(function () {
+        alert('setInterval 1');
             console.log('$i: ', $i);
             if ($i <= $pt2[0]) {
                 //this.courierMarker = this.addMarkerByCoords($i, $m * $i + $b, this.icons.courier);

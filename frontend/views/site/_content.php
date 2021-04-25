@@ -415,54 +415,56 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                 <div class="pizza-name"><?= Yii::t('app', 'Custom pizza') ?></div>
 
                 <i class="history-load fa fa-upload" onclick="gl.data.history.functions.load()"
-                       title="<?= Yii::t('app', 'Сохранить текущее состояние') ?>"></i>
-                    <i class="history-save fa fa-download" onclick="gl.data.history.functions.save()"
-                       title="<?= Yii::t('app', 'Загрузить состояние') ?>"></i>
+                   title="<?= Yii::t('app', 'Сохранить текущее состояние') ?>"></i>
+                <i class="history-save fa fa-download" onclick="gl.data.history.functions.save()"
+                   title="<?= Yii::t('app', 'Загрузить состояние') ?>"></i>
             </div>
 
             <div class="components-selected-details">
-                <div class="panel-detail">
 
-                    <div class="registration-info">
-                        <?php if (Yii::$app->user->isGuest): ?>
-                            <div class="caption">
+                <!--<div class="">-->
+                <div class="registration-info">
+                    <?php if (Yii::$app->user->isGuest): ?>
+                        <div class="caption">
 
 
-                                <?= Html::encode(Yii::t('app', 'You are not logged in.')) ?>
-                            </div>
-                            <i data-toggle="modal" data-target="#logRegModal" class="icon icon-enter"
-                               title="<?= Html::encode(Yii::t('app', 'Sign In/Sign Up')) ?>"></i>
-                        <?php else: ?>
-                            <div class="caption">
-                                <?= Html::encode(Yii::$app->user->identity->username) ?>
-                            </div>
+                            <?= Html::encode(Yii::t('app', 'Вход/регистрация.')) ?>
+                        </div>
+                        <i data-toggle="modal" data-target="#logRegModal" class="icon icon-enter"
+                           title="<?= Html::encode(Yii::t('app', 'Sign In/Sign Up')) ?>"></i>
+                    <?php else: ?>
+                        <div class="caption">
+                            <?= Html::encode(Yii::$app->user->identity->username) ?>
+                        </div>
 
-                            <i class="icon men-el exit"
-                               title="<?= Yii::t('app', 'Sign Out') ?>"><a
-                                        class="icon-exit"
-                                        href="#"
-                                        onclick="javascript:$('#custom-menu-logout').submit();return false;"></a></i>
+                        <i class="icon men-el exit"
+                           title="<?= Yii::t('app', 'Sign Out') ?>"><a
+                                    class="icon-exit"
+                                    href="#"
+                                    onclick="javascript:$('#custom-menu-logout').submit();return false;"></a></i>
 
-                            <?= Html::beginForm(['/user/security/logout'], 'post',
-                                ['id' => 'custom-menu-logout', 'style' => 'visibility: collapse']) . Html::endForm() ?>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="no-components-pane">
-                        <div class="ingredients"><?= Yii::t('app', 'Move components right here') ?></div>
-                        <?= Html::img('/img/arrow-down.png', ['class' => 'arrow-down']) ?>
-                    </div>
+                        <?= Html::beginForm(['/user/security/logout'], 'post',
+                            ['id' => 'custom-menu-logout', 'style' => 'visibility: collapse']) . Html::endForm() ?>
+                    <?php endif; ?>
 
                     <div class="capt-price">
                         <div class="caption"><?= Yii::t('app', 'Total:') ?></div>
                         <div class="total-price text-nowrap" data-total_price="0">&nbsp;</div>
                     </div>
-
+                    <div class="load-latest" onclick="gl.orderFormHistory.qaz()">
+                        <div class="caption"><?= Yii::t('app', 'Открыть последний статус') ?></div>
+                    </div>
                 </div>
+
+
+                <!--</div>-->
+
+                <?= $this->render('_content/__no_components') ?>
 
                 <div class="component-holder"></div>
 
             </div>
+
         </div>
 
     </div>
@@ -566,7 +568,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                             'data-price_discount' => 0,
                             'data-image' => '/img/compo/base_1.jpeg',
                             'data-image-text' => '⌀20',
-                            'data-video' => '/video/construct/default.gif',
+                            //'data-video' => '/video/construct/default.gif',
                             'data-item_select_min' => 1,
                             'data-item_select_max' => '',
                             'data-unit_name' => '',
@@ -587,7 +589,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                             'data-price_discount' => 0,
                             'data-image' => '/img/compo/base_1.jpeg',
                             'data-image-text' => '⌀25',
-                            'data-video' => '/video/construct/default.gif',
+                            //'data-video' => '/video/construct/default.gif',
                             'data-item_select_min' => 1,
                             'data-item_select_max' => '',
                             'data-unit_name' => '',
@@ -608,7 +610,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                             'data-price_discount' => 0,
                             'data-image' => '/img/compo/base_1.jpeg',
                             'data-image-text' => '⌀27',
-                            'data-video' => '/video/construct/default.gif',
+                            //'data-video' => '/video/construct/default.gif',
                             'data-item_select_min' => 1,
                             'data-item_select_max' => '',
                             'data-unit_name' => '',

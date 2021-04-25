@@ -230,11 +230,30 @@
   margin-left: auto;
 }
 
-/*
 .no-components-pane {
   position: absolute;
   margin-top: 55px;
   width: 100%;
-}*/
+}
+.no-components-pane .ingredients {
+  position: relative;
+  width: 100%;
+}
+.no-components-pane .arrow-down {
+  display: block;
+  margin: 2em auto;
+}
+
+/** Здесь рефакторинг */
+.load-latest {
+  /*display: inline-block;*/
+  float: left;
+  cursor: pointer;
+}
+.load-latest.hidden {
+  display: none;
+}
+
+/* Конец здесь рефакторинг **/
 
 /*# sourceMappingURL=order-info.css.map */

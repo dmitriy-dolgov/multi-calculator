@@ -433,10 +433,6 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                         <i data-toggle="modal" data-target="#logRegModal" class="icon icon-enter"
                            title="<?= Html::encode(Yii::t('app', 'Sign In/Sign Up')) ?>"></i>
                     <?php else: ?>
-                        <div class="caption">
-                            <?= Html::encode(Yii::$app->user->identity->username) ?>
-                        </div>
-
                         <i class="icon men-el exit"
                            title="<?= Yii::t('app', 'Sign Out') ?>"><a
                                     class="icon-exit"
@@ -444,16 +440,42 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                                     onclick="javascript:$('#custom-menu-logout').submit();return false;"></a></i>
 
                         <?= Html::beginForm(['/user/security/logout'], 'post',
-                            ['id' => 'custom-menu-logout', 'style' => 'visibility: collapse']) . Html::endForm() ?>
+                        ['id' => 'custom-menu-logout', 'style' => 'visibility: collapse']) . Html::endForm() ?>
+
+                        <div class="caption">
+                            <?= Html::encode(Yii::$app->user->identity->username) ?>
+                        </div>
                     <?php endif; ?>
 
                     <div class="capt-price">
                         <div class="caption"><?= Yii::t('app', 'Total:') ?></div>
                         <div class="total-price text-nowrap" data-total_price="0">&nbsp;</div>
                     </div>
-                    <div class="load-latest" onclick="gl.orderFormHistory.qaz()">
-                        <div class="caption"><?= Yii::t('app', 'Открыть последний статус') ?></div>
-                    </div>
+                    <!--<div class="load-latest" onclick="gl.orderFormHistory.qaz()">
+                        <i class="icon folder-open-o"
+                           title="<? /*= Yii::t('app', 'Открыть последний статус') */ ?>"></i>
+                    </div>-->
+
+                    <!--<a title="<? /*= Yii::t('app', 'Восстановить элементы последней сессии') */ ?>"
+                       class="folder-open-o" href="#"
+                       onclick="javascript:$('#custom-menu-logout').submit();return false;"></a>-->
+
+                    <!--<i class="icon men-el exit"
+                       title="<?/*= Yii::t('app', 'Sign Out') */?>"><a
+                                class="icon-exit"
+                                href="#"
+                                onclick="javascript:$('#custom-menu-logout').submit();return false;"></a></i>-->
+
+                    <!--<i class="fa fa-upload"
+                       title="<? /*= Yii::t('app', 'Signsdfasdfsdaf Out') */ ?>"><a
+                                class="folder-open-o"
+                                href="#"
+                                onclick="javascript:$('#custom-menu-logout').submit();return false;"></a></i>-->
+
+                    <i class="restore-ls fa fa-upload"
+                       title="<?= Yii::t('app', 'Восстановить последнюю сессию') ?>"
+                       onclick="gl.orderFormHistory.qaz();return false;"></i>
+
                 </div>
 
 

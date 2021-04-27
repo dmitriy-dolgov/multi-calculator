@@ -597,6 +597,13 @@ $componensPaneMargin: 50px;
     height: 100%;
     background: linear-gradient(90deg, #000000AA 0 2.8%, #ffb44d 2.8% 3%, #0000 3% 97%, #ffb44d 97% 97.2%, #000000AA 97.2% 100%);
   }
+
+  .video-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #000000AA 0 2.8%, #ffb44d 2.8% 3%, #0000 3% 97%, #ffb44d 97% 97.2%, #000000AA 97.2% 100%);
+  }
 }
 
 .slick-pane-img {
@@ -1074,11 +1081,27 @@ $componensPaneMargin: 50px;
     float: right;
     color: #1b1b1b !important;
     text-decoration: none !important;
+    margin-left: 10px;
 
     /*&:hover {
       text-decoration: none;
     }*/
   }
+
+  /** `...-ls` - last session */
+  .restore-ls {
+    font-size: 23px;
+    float: left;
+    cursor: pointer;
+  }
+
+  /*.folder-open-o {
+    float: left;
+    color: #1b1b1b !important;
+    text-decoration: none !important;
+    margin-left: 10px;
+  }*/
+
 }
 
 .frame-fill {

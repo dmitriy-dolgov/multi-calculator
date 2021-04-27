@@ -675,6 +675,12 @@
   height: 100%;
   background: linear-gradient(90deg, #000000AA 0 2.8%, #ffb44d 2.8% 3%, #0000 3% 97%, #ffb44d 97% 97.2%, #000000AA 97.2% 100%);
 }
+.slick-container .video-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #000000AA 0 2.8%, #ffb44d 2.8% 3%, #0000 3% 97%, #ffb44d 97% 97.2%, #000000AA 97.2% 100%);
+}
 
 .slick-pane-img {
   width: 100%;
@@ -1094,6 +1100,13 @@
   /*padding-right: $componensPaneMargin;
   padding-left: $componensPaneMargin;
   padding-top: $componensPaneMargin;*/
+  /** `...-ls` - last session */
+  /*.folder-open-o {
+    float: left;
+    color: #1b1b1b !important;
+    text-decoration: none !important;
+    margin-left: 10px;
+  }*/
 }
 .registration-info .icon {
   margin-left: auto;
@@ -1113,9 +1126,15 @@
   float: right;
   color: #1b1b1b !important;
   text-decoration: none !important;
+  margin-left: 10px;
   /*&:hover {
     text-decoration: none;
   }*/
+}
+.registration-info .restore-ls {
+  font-size: 23px;
+  float: left;
+  cursor: pointer;
 }
 
 .frame-fill {

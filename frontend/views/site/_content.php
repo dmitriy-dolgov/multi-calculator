@@ -42,22 +42,23 @@ body {
 
 .history-load,
 .history-save {
-display: flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     font-size: 18px;
     z-index: 2;
-    width: 40px;
-    height: 40px;
+    /*width: 40px !important;
+    height: 40px !important;*/
     cursor: pointer;
     color: white;
-    position: absolute;
+    /*position: absolute;*/
     top: 43px;
     bottom: auto;
     right: 6px;
-    background-color: rgba(10, 10, 10, .6);
+    background-color: rgba(10, 10, 10, .6) !important;
     border: 1px rgba(255, 255, 255, .7) outset;
-    border-radius: 50%;
+    border-radius: 50% !important;
+    position: static;
 }
 
 .history-save {
@@ -333,8 +334,13 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
             <div class="menu-unwrap-button"><?= Yii::t('app', 'Menu') ?></div>
             <div class="menu-unwrap-elems">
                 <div class="menu-item pizzas"><?= Yii::t('app', 'Pizzas') ?></div>
-                <div class="menu-item orders"><?= Yii::t('app', 'Orders') ?></div>
-                <div class="menu-item you"><?= Yii::t('app', 'You') ?></div>
+
+                <i class="menu-item orders history-load fa fa-man"></i>
+                <i class="menu-item upload history-save fa fa-upload"></i>
+                <i class="menu-item download history-save fa fa-download"></i>
+
+                <!--<i class="history-load fa fa-upload" onclick="gl.data.history.functions.load()"
+                   title="<?/*= Yii::t('app', 'Сохранить текущее состояние') */?>"></i>-->
             </div>
         </div>
 
@@ -414,10 +420,10 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                 <div class="create-pizza"><?= Yii::t('app', 'Create your pizza') ?></div>
                 <div class="pizza-name"><?= Yii::t('app', 'Custom pizza') ?></div>
 
-                <i class="history-load fa fa-upload" onclick="gl.data.history.functions.load()"
-                   title="<?= Yii::t('app', 'Сохранить текущее состояние') ?>"></i>
+                <!--<i class="history-load fa fa-upload" onclick="gl.data.history.functions.load()"
+                   title="<?/*= Yii::t('app', 'Сохранить текущее состояние') */?>"></i>
                 <i class="history-save fa fa-download" onclick="gl.data.history.functions.save()"
-                   title="<?= Yii::t('app', 'Загрузить состояние') ?>"></i>
+                   title="<?/*= Yii::t('app', 'Загрузить состояние') */?>"></i>-->
             </div>
 
             <div class="components-selected-details">

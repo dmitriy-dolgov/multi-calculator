@@ -1250,7 +1250,8 @@
   cursor: pointer;
 }
 .menu-unwrap-panel .menu-unwrap-elems {
-  position: absolute;
+  /*position: absolute;*/
+  position: static;
   /*background-color: red;*/
   height: 120px;
   top: 0;

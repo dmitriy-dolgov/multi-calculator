@@ -1226,7 +1226,8 @@ $componensPaneMargin: 50px;
   }
 
   .menu-unwrap-elems {
-    position: absolute;
+    /*position: absolute;*/
+    position: static;
     /*background-color: red;*/
     height: $order-pane-height;
     top: 0;

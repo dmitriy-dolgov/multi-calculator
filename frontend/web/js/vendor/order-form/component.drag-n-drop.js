@@ -24,6 +24,8 @@ $('.components-selected-details').droppable({
                     $(this).css('display', 'inline-block');
                 });
 
+                $('.capt-price').fadeOut();
+
                 elems['.vertical-pane'].css('overflow', 'hidden');
                 //elems['.components-in-stock .collapse-content'].css('overflow', 'hidden');
                 addComponent(currentDragElement);

@@ -372,7 +372,7 @@
   overflow: hidden;
 }
 .sidebar .capt-price {
-  /*display: none;*/
+  display: none;
   width: 39%;
   position: relative;
   color: black;
@@ -1761,12 +1761,12 @@
 }
 
 .no-components-pane {
-  position: absolute;
+  position: relative;
   margin-top: 55px;
   width: 100%;
 }
 .no-components-pane .ingredients {
-  position: relative;
+  /*position: relative;*/
   width: 100%;
 }
 .no-components-pane .arrow-down {

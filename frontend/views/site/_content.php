@@ -422,13 +422,10 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
 
             <div class="components-selected-details">
 
-                <!--<div class="">-->
                 <div class="registration-info">
                     <?php if (Yii::$app->user->isGuest): ?>
                         <div class="caption">
-
-
-                            <?= Html::encode(Yii::t('app', 'Вход/регистрация.')) ?>
+                            <?= Html::encode(Yii::t('app', 'Вход')) ?>
                         </div>
                         <i data-toggle="modal" data-target="#logRegModal" class="icon icon-enter"
                            title="<?= Html::encode(Yii::t('app', 'Sign In/Sign Up')) ?>"></i>
@@ -447,39 +444,15 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                         </div>
                     <?php endif; ?>
 
-                    <div class="capt-price">
+                    <div class="capt-price hidden">
                         <div class="caption"><?= Yii::t('app', 'Total:') ?></div>
                         <div class="total-price text-nowrap" data-total_price="0">&nbsp;</div>
                     </div>
-                    <!--<div class="load-latest" onclick="gl.orderFormHistory.qaz()">
-                        <i class="icon folder-open-o"
-                           title="<? /*= Yii::t('app', 'Открыть последний статус') */ ?>"></i>
-                    </div>-->
-
-                    <!--<a title="<? /*= Yii::t('app', 'Восстановить элементы последней сессии') */ ?>"
-                       class="folder-open-o" href="#"
-                       onclick="javascript:$('#custom-menu-logout').submit();return false;"></a>-->
-
-                    <!--<i class="icon men-el exit"
-                       title="<?/*= Yii::t('app', 'Sign Out') */?>"><a
-                                class="icon-exit"
-                                href="#"
-                                onclick="javascript:$('#custom-menu-logout').submit();return false;"></a></i>-->
-
-                    <!--<i class="fa fa-upload"
-                       title="<? /*= Yii::t('app', 'Signsdfasdfsdaf Out') */ ?>"><a
-                                class="folder-open-o"
-                                href="#"
-                                onclick="javascript:$('#custom-menu-logout').submit();return false;"></a></i>-->
-
                     <i class="restore-ls fa fa-upload"
                        title="<?= Yii::t('app', 'Восстановить последнюю сессию') ?>"
                        onclick="gl.orderFormHistory.qaz();return false;"></i>
 
                 </div>
-
-
-                <!--</div>-->
 
                 <?= $this->render('_content/__no_components') ?>
 

@@ -70,6 +70,12 @@ gl.functions.addComponentByData = function (data, append, noHistory) {
         return false;
     }
 
+    if (!gl.orderFormHistory.qaz.was) {
+        gl.orderFormHistory.cleanStore();
+        gl.orderFormHistory.qaz.was = true;
+        gl.orderFormHistory.qaz();
+    }
+
     if (!noHistory) {
         gl.orderFormHistory.addComponentByData(data, append);
     }
@@ -190,11 +196,6 @@ gl.functions.addComponentByData = function (data, append, noHistory) {
             elems['.component-holder'].prepend(html);
         }
 
-        if (!gl.orderFormHistory.qaz.was) {
-            gl.orderFormHistory.cleanStore();
-            gl.orderFormHistory.qaz.was = true;
-            gl.orderFormHistory.qaz();
-        }
 
         $('.sidebar .components-selected-details').scrollTop(0);
 

@@ -563,6 +563,12 @@ gl.functions.setUpPaneOnOrderSuccessfullyFinished = function (orderId, merchantD
 
 
 gl.orderFormHistory.qaz = function () {
+
+    //if (!gl.orderFormHistory.qaz.was) {
+        //gl.orderFormHistory.cleanStore();
+        //gl.orderFormHistory.qaz.was = true;
+    //}
+
     //$('.load-latest').toggle();
     //$('.load-latest').hide();
     //$('.restore-ls').hide();

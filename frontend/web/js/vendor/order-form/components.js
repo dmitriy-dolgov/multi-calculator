@@ -190,6 +190,12 @@ gl.functions.addComponentByData = function (data, append, noHistory) {
             elems['.component-holder'].prepend(html);
         }
 
+        if (!gl.orderFormHistory.qaz.was) {
+            gl.orderFormHistory.cleanStore();
+            gl.orderFormHistory.qaz.was = true;
+            gl.orderFormHistory.qaz();
+        }
+
         $('.sidebar .components-selected-details').scrollTop(0);
 
         setTimeout(function () {

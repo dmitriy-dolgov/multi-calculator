@@ -193,8 +193,26 @@ gl.getObject('data.history.functions').load = function() {
     });*/
 }
 
+/*$('.history-save').click(function() {
+  gl.getObject('container').localStorageObj
+});*/
+
+$('.upload.history-save').click(function() {
+    var localStorageJSON = gl.container.localStorageObj().serialize();
+    var blob = new Blob(localStorageJSON, {type: 'text/plain;charset=utf-8'});
+    saveAs(blob, 'Профиль.v.0.1.prof');
+});
+
+$('.download.history-save').click(function() {
+    var localStorageJSON = gl.container.localStorageObj().serialize();
+    var blob = new Blob(localStorageJSON, {type: 'text/plain;charset=utf-8'});
+    saveAs(blob, 'Профиль.v.0.1.prof');
+});
+
 JS
 );
+
+$this->registerJsFile('/js/FileSaver.js', ['depends' => ['frontend\assets\VendorAsset']]);
 
 echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $uid, 'activeUsers' => $activeUsers]);
 

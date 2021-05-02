@@ -168,6 +168,9 @@ gl.getObject('container').localStorageObj = function () {
             clear: function () {
                 //TODO: проверить на возвращаемое значение
                 mainStorage.clear();
+            },
+            serialize: function () {
+                return JSON.stringify(mainStorage);
             }
         };
     } catch (e) {
@@ -189,6 +192,11 @@ gl.getObject('container').localStorageObj = function () {
             },
             clear: function () {
                 gl.log(['Storage do not work: clear()', name]);
+                //TODO: нормально сделать, this возвращать
+                return null;
+            },
+            serialize: function () {
+                gl.log(['Storage do not work: serialize()', name]);
                 //TODO: нормально сделать, this возвращать
                 return null;
             }

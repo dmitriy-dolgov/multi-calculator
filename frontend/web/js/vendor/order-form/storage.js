@@ -170,7 +170,8 @@ gl.getObject('container').localStorageObj = function () {
                 mainStorage.clear();
             },
             serialize: function () {
-                return JSON.stringify(mainStorage);
+                //return JSON.stringify(mainStorage);
+                return mainStorage;
             }
         };
     } catch (e) {

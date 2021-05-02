@@ -198,12 +198,18 @@ gl.getObject('data.history.functions').load = function() {
 });*/
 
 $('.upload.history-save').click(function() {
-    var localStorageJSON = gl.container.localStorageObj().serialize();
-    var blob = new Blob(localStorageJSON, {type: 'text/plain;charset=utf-8'});
+    //var localStorageJSON = gl.container.localStorageObj().serialize();
+    //var blob = new Blob(localStorageJSON, {type: 'text/plain;charset=utf-8'});
+    //var localStorageJSON = JSON.stringify(gl.container.localStorageObj());
+    var localStorageJSON = JSON.stringify(gl.container.localStorageObj().serialize());
+    //alert(localStorageJSON);
+    var blob = new Blob([localStorageJSON], {type: 'text/plain;charset=utf-8'});
+    
     saveAs(blob, 'Профиль.v.0.1.prof');
 });
 
 $('.download.history-save').click(function() {
+    alert('not set');return;
     var localStorageJSON = gl.container.localStorageObj().serialize();
     var blob = new Blob(localStorageJSON, {type: 'text/plain;charset=utf-8'});
     saveAs(blob, 'Профиль.v.0.1.prof');

@@ -5,5 +5,5 @@
 gl.object = function () {
     var name;
 
-    return
+    //return
 };

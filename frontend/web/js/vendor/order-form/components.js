@@ -113,6 +113,13 @@ gl.functions.addComponentByData = function (data, append, noHistory) {
             + '</div>';
         elems['.components-selected'].append(html);*/
 
+    /*if (gl.data.isWebLocal) {
+        elems['.video'].css('background-image', 'url(/video/construct/default-local.gif)');
+    } else {
+        elems['.video'].css('background-image', 'url(' + video + ')');
+    }*/
+
+    //TODO: использовать здесь Yii::$app->params['debug-preview-path'] для отладки
     if (gl.data.isWebLocal) {
         elems['.video'].css('background-image', 'url(/video/construct/default-local.gif)');
     } else {

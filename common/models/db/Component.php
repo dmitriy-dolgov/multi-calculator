@@ -53,7 +53,8 @@ class Component extends \yii\db\ActiveRecord
         return 'component';
     }
 
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             //TODO: удалить из контроллера линк
             [
@@ -119,7 +120,7 @@ class Component extends \yii\db\ActiveRecord
             'unit_switch_group' => Yii::t('app', 'Unit Switch Group'),
             'disabled' => Yii::t('app', 'Disabled'),
 
-            'category' => Yii::t('app','Category'),
+            'category' => Yii::t('app', 'Category'),
         ];
     }
 
@@ -291,6 +292,6 @@ class Component extends \yii\db\ActiveRecord
             return Url::to(Yii::$app->params['component_videos']['url_path'] . $this->componentVideos[0]->relative_path);
         }
 
-        return Url::to('/video/construct/default.gif');
+        return Url::to('/video/construct' . Yii::$app->params['debug-preview-path'] . '/default.gif');
     }
 }

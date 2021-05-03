@@ -35,7 +35,7 @@ return [
 
     // Видео (gif), касающиеся компонентов
     'component_videos' => [
-        'url_path' => '/video/construct/',
+        'url_path' => '/video/construct' . Yii::$app->params['debug-preview-path'] . '/',
     ],
 
     // Изображение пользователя

@@ -167,11 +167,32 @@ gl.getObject('container').localStorageObj = function () {
             //TODO: сделать метод статическим, типа того
             clear: function () {
                 //TODO: проверить на возвращаемое значение
-                mainStorage.clear();
+                //mainStorage.clear();
             },
             serialize: function () {
+                debugger;
+                return mainStorage['orderFormState'];
+                //return JSON.stringify(mainStorage['orderFormState']);
+                //orderFormState();
+                //var $sr = JSON.stringify(mainStorage['orderFormState']);
+                //return $sr;
+                //return JSON.stringify(mainStorage['interface.actual']);
                 //return JSON.stringify(mainStorage);
-                return mainStorage;
+                //debugger;
+                //var sdf = JSON.stringify(mainStorage);
+                //return sdf;-
+                //return mainStorage;
+            },
+            unserialize: function (data) {
+                debugger;
+                mainStorage.setItem('orderFormState', data);
+                //mainStorage['orderFormState'] = data;
+                //return JSON.stringify(mainStorage);
+                //var dataArr = JSON.parse(data);
+                //mainStorage.setItem('interface.actual', dataArr);
+                //var dataArr = JSON.parse(data);
+                //mainStorage['orderFormState'] = dataArr;
+                //var sr = JSON.stringify(mainStorage['orderFormState']);
             }
         };
     } catch (e) {
@@ -198,6 +219,11 @@ gl.getObject('container').localStorageObj = function () {
             },
             serialize: function () {
                 gl.log(['Storage do not work: serialize()', name]);
+                //TODO: нормально сделать, this возвращать
+                return null;
+            },
+            unserialize: function (data) {
+                gl.log(['Storage do not work: unserialize()', name]);
                 //TODO: нормально сделать, this возвращать
                 return null;
             }

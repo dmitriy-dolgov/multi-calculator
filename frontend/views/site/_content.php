@@ -19,6 +19,9 @@ use yii\widgets\ActiveForm;
 use corpsepk\DaData\SuggestionsWidget;
 use kartik\checkbox\CheckboxX;
 use common\models\db\Category;
+use yii\bootstrap\Modal;
+
+//use yii\bootstrap4\Modal;
 
 $this->getAssetManager()->appendTimestamp = true;
 
@@ -201,28 +204,111 @@ $('.upload.history-save').click(function() {
     //var localStorageJSON = gl.container.localStorageObj().serialize();
     //var blob = new Blob(localStorageJSON, {type: 'text/plain;charset=utf-8'});
     //var localStorageJSON = JSON.stringify(gl.container.localStorageObj());
-    var localStorageJSON = JSON.stringify(gl.container.localStorageObj().serialize());
-    //alert(localStorageJSON);
-    var blob = new Blob([localStorageJSON], {type: 'text/plain;charset=utf-8'});
+    //var localStorageJSON = JSON.stringify(gl.container.localStorageObj().serialize());
+    //var localStorageJSON = JSON.stringify(gl.container.localStorageObj());
+    //var localStorageJSON = JSON.stringify(gl.container.localStorageObj());
     
+    //debugger;
+    //var localStorageJSON = gl.container.localStorageObj().serialize();
+    var localStorageJSON = gl.container.localStorageObj().serialize();
+    console.log('localStorageJSON: ', localStorageJSON);
+    
+    //alert(localStorageJSON);
+    var blob = new Blob([localStorageJSON], {type: 'application/json;charset=utf-8'});
+    
+    //alert('set 123');
     saveAs(blob, 'Профиль.v.0.1.prof');
 });
 
 $('.download.history-save').click(function() {
-    alert('not set');return;
-    var localStorageJSON = gl.container.localStorageObj().serialize();
-    var blob = new Blob(localStorageJSON, {type: 'text/plain;charset=utf-8'});
-    saveAs(blob, 'Профиль.v.0.1.prof');
+    
+    /*var inputElement = $(this);    //document.getElementById("input");
+    inputElement.addEventListener("change", function() {
+        alert('sdfodsj');
+    }, false);*/
+    
+    /*function handleFiles() {
+      const fileList = this.files;
+    }*/
+    
+    //var this;
+    
+    /*var inputElement = document.getElementById("input");
+    inputElement.addEventListener("change", handleFiles, false);
+    function handleFiles() {
+      const fileList = this.files; /!* now you can work with the file list *!/
+    }*/
 });
+
+function tt() {
+    document.getElementById('profile_load').addEventListener('change', function(evt) {
+        //alert(56777);// return;
+        var files = evt.target.files;
+    
+        // use the 1st file from the list
+        var f = files[0];
+    
+        var reader = new FileReader();
+        
+        // Closure to capture the file information.
+        reader.onload = (function(theFile) {
+            return function(e) {
+                e.preventDefault();
+                //jQuery( '#ms_word_filtered_html' ).val( e.target.result );
+                //alert('678_e.target.result: ' + e.target.result);
+                
+                debugger;
+                //var goq2 = gl.orderFormHistory.qaz2(data.response.link);
+                var goq2 = gl.orderFormHistory.qaz2(e.target.result);
+                //console.log(goq2);
+                //alert("goq2:" + goq2);
+                return false;
+            };
+        })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsText(f);
+      
+    }, false);
+}
+
+tt();
+
+
+// var PPP = $("#profile_load");
+// alert('PPP.length: ' + PPP.length);
+//
+// setInterval(function() {
+//     /*PPP.on("change", function (e) {
+//         alert('789');
+//        
+//         var id = PPP.select2("data")[0].id;
+//    
+//         alert(id);
+//        // Now you can work with the selected value, i.e.:
+//        //$("#items").val(id);
+//     }*/
+//    
+//     if (PPP.select2) {
+//         console.log('PPP.select2("data")[0].id:', PPP.select2("data")[0].id);
+//     } else {
+//         console.log('PPP.select2 not work');
+//     }
+// }, 3000);
 
 JS
 );
+
+//$this->registerJs()
 
 $this->registerJsFile('/js/FileSaver.js', ['depends' => ['frontend\assets\VendorAsset']]);
 
 echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $uid, 'activeUsers' => $activeUsers]);
 
 ?>
+
+<!--<input type="file" onchange="this.files[0].text().then(t => console.log(t))">-->
+
 <!--<div class="word"></div>-->
 <div class="vendor-panel">
 
@@ -361,10 +447,105 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
 
                 <i class="menu-item orders history-load fa fa-man"></i>
                 <i class="menu-item upload history-save fa fa-upload"></i>
-                <i class="menu-item download history-save fa fa-download"></i>
+
+
+                <?php
+                Modal::begin([
+                    //'title'=>'File Input inside Modal',
+                    //'id' => 'profile_load',
+                    'toggleButton' => [
+                        'label' => 'Show Modal', 'class' => 'btn btn-default',
+                        'style' => 'z-index: 1;background-color: red',
+                    ],
+                ]);
+                $form1 = \kartik\form\ActiveForm::begin([
+                    'options' => [
+                        'enctype' => 'multipart/form-data',     // important
+                        //'action' => '/',
+                        //'uploadUrl' =>  "/file-upload-single/1ll",
+                    ],
+                ]);
+
+                echo \kartik\file\FileInput::widget(
+                    [
+                        'name' => 'kartiks_file',
+                        'id' => 'profile_load',
+                        'class' => 'menu-item download history-save fa fa-download',
+                        'pluginEvents' => [
+                            'fileuploaded' => 'function(event, data, previewId, index) {
+                                alert("data.response.link:3435 " + data.response.link);
+                                /*var goq2 = gl.orderFormHistory.qaz2(data.response.link);
+                                console.log(goq2);
+                                alert("goq2:" + goq2);
+                                return false; */
+                            }',
+                        ],
+                        /*'options' => [
+                            'multiple' => false,
+                            //'accept' => 'image/*',
+                            //'id' => 'profile_load'
+                        ],*/
+                        /*'pluginEvents' => [
+                            //"fileclear" => "function() { alert('fileclear'); }",
+                            //"filereset" => "function() { alert('filereset'); }",
+                            'filebatchuploadcomplete' => "function() { alert('filebatchuploadcomplete'); }",
+                            'filebatchuploadsuccess' => "function() { alert('filebatchuploadsuccess'); }",
+                            'fileuploaded' => "function() { alert('fileuploaded'); }",
+                            'fileclear' => "function() { alert('fileclear'); }",
+                            'filecleared' => "function() { alert('filecleared'); }",
+                            'filereset' => "function() { alert('filereset'); }",
+                            'fileerror' => "function() { alert('fileerror'); }",
+                            'filefoldererror' => "function() { alert('filefoldererror'); }",
+                            'fileuploaderror' => "function() { alert('fileuploaderror'); }",
+                            'filebatchuploaderror' => "function() { alert('filebatchuploaderror'); }",
+                            'filedeleteerror' => "function() { alert('filedeleteerror'); }",
+                            'filecustomerror' => "function() { alert('filecustomerror'); }",
+                            'filesuccessremove' => "function() { alert('filesuccessremove'); }",
+                        ],*/
+                    ]
+                );
+
+                \kartik\form\ActiveForm::end();
+                ?>
+                <!--<input id="profile_load" type=file   accept="text/html" name="files[]" size=30>-->
+
+                <?php
+                Modal::end();
+                ?>
+
+                <!--<input id="profile_load" type=file   accept="text/html" name="files[]" size=30>-->
+
+                <?php /* ?>
+                <script>
+                    function handleFileSelect(evt) {
+                        alert('handleFileSelect()');
+                        var files = evt.target.files; // FileList object
+
+                        // files is a FileList of File objects. List some properties.
+                        var output = [];
+                        for (var i = 0, f; f = files[i]; i++) {
+                            output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                                f.size, ' bytes, last modified: ',
+                                f.lastModifiedDate.toLocaleDateString(), '</li>');
+                        }
+                        //document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+
+                        alert(output.join(''));
+                    }
+
+                    //document.getElementById('profile_load').addEventListener('change', handleFileSelect, false);
+                    //if (document.getElementById('profile_load';
+
+                    //PPP.select2("data")[0].id;
+
+                </script>
+
+                <?php */ ?>
+
+                <!--<i class="menu-item download history-save fa fa-download"></i>-->
 
                 <!--<i class="history-load fa fa-upload" onclick="gl.data.history.functions.load()"
-                   title="<?/*= Yii::t('app', 'Сохранить текущее состояние') */?>"></i>-->
+                   title="<? /*= Yii::t('app', 'Сохранить текущее состояние') */ ?>"></i>-->
             </div>
         </div>
 
@@ -445,9 +626,9 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                 <div class="pizza-name"><?= Yii::t('app', 'Custom pizza') ?></div>
 
                 <!--<i class="history-load fa fa-upload" onclick="gl.data.history.functions.load()"
-                   title="<?/*= Yii::t('app', 'Сохранить текущее состояние') */?>"></i>
+                   title="<? /*= Yii::t('app', 'Сохранить текущее состояние') */ ?>"></i>
                 <i class="history-save fa fa-download" onclick="gl.data.history.functions.save()"
-                   title="<?/*= Yii::t('app', 'Загрузить состояние') */?>"></i>-->
+                   title="<? /*= Yii::t('app', 'Загрузить состояние') */ ?>"></i>-->
             </div>
 
             <div class="components-selected-details">
@@ -593,7 +774,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                             'data-price_discount' => 0,
                             'data-image' => '/img/compo/base_1.jpeg',
                             'data-image-text' => '⌀20',
-                            //'data-video' => '/video/construct/default.gif',
+                            'data-video' => Yii::$app->params['/video/construct' . Yii::$app->params['debug-preview-path'] . '/default.gif'],
                             'data-item_select_min' => 1,
                             'data-item_select_max' => '',
                             'data-unit_name' => '',
@@ -614,7 +795,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                             'data-price_discount' => 0,
                             'data-image' => '/img/compo/base_1.jpeg',
                             'data-image-text' => '⌀25',
-                            //'data-video' => '/video/construct/default.gif',
+                            'data-video' => Yii::$app->params['/video/construct' . Yii::$app->params['debug-preview-path'] . '/default.gif'],
                             'data-item_select_min' => 1,
                             'data-item_select_max' => '',
                             'data-unit_name' => '',
@@ -635,7 +816,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                             'data-price_discount' => 0,
                             'data-image' => '/img/compo/base_1.jpeg',
                             'data-image-text' => '⌀27',
-                            //'data-video' => '/video/construct/default.gif',
+                            'data-video' => Yii::$app->params['/video/construct' . Yii::$app->params['debug-preview-path'] . '/default.gif'],
                             'data-item_select_min' => 1,
                             'data-item_select_max' => '',
                             'data-unit_name' => '',

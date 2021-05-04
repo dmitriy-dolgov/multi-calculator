@@ -582,6 +582,16 @@ gl.orderFormHistory.qaz = function () {
     gl.orderFormHistory.restoreFromStore();
 };
 
+gl.orderFormHistory.qaz2 = function (data) {
+    //alert('!orderFormState 8888888888');
+    $('.capt-price').removeClass('hidden');
+    $('.restore-ls').hide();
+
+    debugger;
+    //gl.orderFormHistory.cleanStore();
+    gl.orderFormHistory.restoreFromStoreData(data);
+};
+
 //if (gl.orderFormHistory.ifSomethingInStore) {
 
     /*if (!window.qwe) {

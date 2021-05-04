@@ -267,6 +267,42 @@ gl.orderFormHistory = {
             gl.functions.addComponentByData(orderFormState[id]['data'], orderFormState[id]['append'], true);
         }
     },
+    restoreFromStoreData: function (data) {
+        debugger;
+        //var ps = JSON.parse(data);
+        //localStorage.setItem('orderFormState', data);
+        gl.container.localStorageObj().unserialize(data);
+        this.restoreFromStore();
+        return;
+
+        gl.container.localStorageObj().unserialize(ps);
+        this.restoreFromStore();
+        return;
+
+        var orderFormState;
+        try {
+            //localStorage.unserialize(orderFormStateJson);
+            //gl.container.localStorageObj().unserialize(orderFormStateJson);
+            //orderFormStateJson.unse
+            debugger;
+            //localStorage = .unserialize(orderFormStateJson);
+            orderFormState = JSON.parse(orderFormStateJson);
+            //orderFormState = orderFormStateRaw
+        } catch (e) {
+            alert('err: ' + e);
+            return;
+        }
+        if (!orderFormState) {
+            //TODO: handle such error (wrong JSON)
+            //localStorage.removeItem('orderFormState');
+            alert('!orderFormState');
+            return false;
+        }
+
+        for (var id in orderFormState) {
+            gl.functions.addComponentByData(orderFormState[id]['data'], orderFormState[id]['append'], true);
+        }
+    },
     addComponentByData: function (data, append) {
         /*var orderFormState = [];
         $('.component-holder .added-component').each(function () {

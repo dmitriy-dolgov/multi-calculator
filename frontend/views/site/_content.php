@@ -259,7 +259,8 @@ function tt() {
                 
                 debugger;
                 //var goq2 = gl.orderFormHistory.qaz2(data.response.link);
-                gl.orderFormHistory.cleanStore();
+                //gl.orderFormHistory.cleanStore();
+                deleteAllComponents();
                 var goq2 = gl.orderFormHistory.qaz2(e.target.result);
                 
                 setTimeout(function() {
@@ -458,13 +459,13 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                 <?php
                 Modal::begin([
                     //'title'=>'File Input inside Modal',
-                    'header' => '<span style="color:#E5E5E5">'
+                    'header' => '<span style="color:#111">'
                     . Yii::t('app', 'Выберите файл профиля')
                     . '</span>',
                     'id' => 'profile_load_modal',
                     'toggleButton' => [
                         //'title' => Yii::t('app', 'Открыть'),
-                        'title' => Yii::t('app', 'Открыть90f90'),
+                        'label' => false,
                         'class' => 'menu-item download history-save fa fa-download',
                     ],
                 ]);

@@ -259,7 +259,13 @@ function tt() {
                 
                 debugger;
                 //var goq2 = gl.orderFormHistory.qaz2(data.response.link);
+                gl.orderFormHistory.cleanStore();
                 var goq2 = gl.orderFormHistory.qaz2(e.target.result);
+                
+                setTimeout(function() {
+                    $("#profile_load_modal").modal('hide');
+                }, 0);
+                
                 //console.log(goq2);
                 //alert("goq2:" + goq2);
                 return false;
@@ -452,19 +458,21 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                 <?php
                 Modal::begin([
                     //'title'=>'File Input inside Modal',
-                    //'id' => 'profile_load',
+                    'header' => '<span style="color:#E5E5E5">'
+                    . Yii::t('app', 'Выберите файл профиля')
+                    . '</span>',
+                    'id' => 'profile_load_modal',
                     'toggleButton' => [
-                        'label' => 'Show Modal', 'class' => 'btn btn-default',
-                        'style' => 'z-index: 1;background-color: red',
+                        //'title' => Yii::t('app', 'Открыть'),
+                        'title' => Yii::t('app', 'Открыть90f90'),
+                        'class' => 'menu-item download history-save fa fa-download',
                     ],
                 ]);
-                $form1 = \kartik\form\ActiveForm::begin([
+                /*$form1 = \kartik\form\ActiveForm::begin([
                     'options' => [
                         'enctype' => 'multipart/form-data',     // important
-                        //'action' => '/',
-                        //'uploadUrl' =>  "/file-upload-single/1ll",
                     ],
-                ]);
+                ]);*/
 
                 echo \kartik\file\FileInput::widget(
                     [
@@ -480,11 +488,17 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                                 return false; */
                             }',
                         ],
-                        /*'options' => [
+                        'options' => [
                             'multiple' => false,
                             //'accept' => 'image/*',
                             //'id' => 'profile_load'
-                        ],*/
+                        ],
+                        'pluginOptions' => [
+                            'showPreview' => false,
+                            'showCaption' => true,
+                            'showRemove' => false,
+                            'showUpload' => false,
+                        ],
                         /*'pluginEvents' => [
                             //"fileclear" => "function() { alert('fileclear'); }",
                             //"filereset" => "function() { alert('filereset'); }",
@@ -505,7 +519,7 @@ echo $this->render('_content_js', ['initialJSCode' => $initialJSCode, 'uid' => $
                     ]
                 );
 
-                \kartik\form\ActiveForm::end();
+                //\kartik\form\ActiveForm::end();
                 ?>
                 <!--<input id="profile_load" type=file   accept="text/html" name="files[]" size=30>-->
 

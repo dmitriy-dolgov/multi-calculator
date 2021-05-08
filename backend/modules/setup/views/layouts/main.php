@@ -12,7 +12,7 @@ use yii\helpers\Html;
 
 //$bundle = yiister\gentelella\assets\Asset::register($this);
 //$this->registerCssFile(Url::to('/css/style.css'));
-//$this->registerJsFile(Url::to('/js/shared/common.js'), ['depends' => 'yii\web\JqueryAsset']);
+//$this->registerJsFile(Url::to('/js/common.js'), ['depends' => 'yii\web\JqueryAsset']);
 
 ?>
 <?php $this->beginPage(); ?>

@@ -51,6 +51,3 @@ phpunit.phar
 /data/fias
 
 /frontend/web/.htaccess
-
-/frontend/web/js/shared/common.js
-/backend/web/js/shared/common.js

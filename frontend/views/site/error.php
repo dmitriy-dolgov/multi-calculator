@@ -17,6 +17,7 @@ $this->registerCss(<<<CSS
     padding: 3em;
     position: fixed;
     width: 100%;
+    max-width: none;
     height: 100vh;
     background: linear-gradient(315deg, #2d3436 0%, #000 74%);
     overflow: auto;

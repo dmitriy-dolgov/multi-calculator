@@ -12,7 +12,7 @@ class WorkerAsset extends AssetBundle
         'css/worker/style.css?ver=1.1',
     ];
     public $js = [
-        'js/shared/common.js',
+        'js/common.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

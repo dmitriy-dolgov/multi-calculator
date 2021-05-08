@@ -237,3 +237,20 @@ order_price:decimal(8,2),order_price_discount:decimal(8,2)"
 
 php ./yii migrate/create create_user_virtual_table --fields="user_id:integer:foreignKey('user')"
 
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//./yii migrate/create create_customer_addresses_table --fields="
+//user_id:integer:foreignKey(user),raw_address
+
+./yii migrate/create create_customer_phones_table --fields="user_id:integer:foreignKey(user),phone:string(40),description:text"
+
+//TODO: сделать совместимым с КЛАДР
+//./yii migrate/create create_customer_address_table --fields="
+//user_id:integer:foreignKey(user),
+//phone:string(40),description:text"
+
+
+
+
+

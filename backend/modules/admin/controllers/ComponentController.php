@@ -2,12 +2,14 @@
 
 namespace backend\modules\admin\controllers;
 
+use common\components\Randomise;
 use common\models\db\Component;
 use common\models\db\ComponentComponentSet;
 use common\models\db\ComponentImage;
 use common\models\db\ComponentSearch;
 use common\models\db\ComponentSet;
 use common\models\db\Unit;
+use common\models\db\User;
 use common\models\UploadComponentImageForm;
 use common\models\UploadComponentVideoForm;
 use common\models\UploadForm;
@@ -151,6 +153,16 @@ class ComponentController extends Controller
             'componentImage' => $componentImage,
         ]);
     }*/
+
+    public function actionCreateComponentRandom($lat, $lng)
+    {
+        $componentObj = new User();
+        $componentObj->username = Randomise::getName('username_');
+        $componentObj->email = Randomise::getPhone('');
+        $componentObj->confirmed_at = 1588426553;
+
+        $componentObj->save();
+    }
 
     public function actionCreate()
     {

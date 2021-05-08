@@ -12,7 +12,7 @@ class VendorAsset extends AssetBundle
         'css/vendor.css?v=1.989',
     ];
     public $js = [
-        'js/shared/common.js?v=1.33',
+        'js/common.js?v=1.33',
         //'js/jquery.longpoll.js',
         //'js/jquery.ui.touch-punch.min.js',
     ];

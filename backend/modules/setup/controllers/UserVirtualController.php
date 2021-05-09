@@ -65,9 +65,30 @@ class UserVirtualController extends Controller
      */
     public function actionCreate()
     {
+        $model = new UserVirtual();
 
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //TODO: сделать лучше, есть код аналогичный
+            $newUser = new User();
+            $newUser->password_hash = 'no need ' . rand(0, 999999);
+            $newUser->email = 'test@emal.com' . rand(0, 999999);
+            $newUser->username = 'newusername' . rand(0, 999999);
+            if ($newUser->save()) {
+                $newUserVirtual = new UserVirtual();
+                $newUserVirtual->link('user', $newUser);
+            }
 
-        $newUser = new User();
+            return $this->redirect(['view', 'id' => $newUser->id]);
+        } else {
+            //TODO: обработать как-нибудь
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+            'allUsers' => User::find()->all(),
+        ]);
+
+        /*$newUser = new User();
         $newUser->password_hash = 'no need ' . rand(0, 999999);
         $newUser->email = 'test@emal.com' . rand(0, 999999);
         $newUser->username = 'newusername' . rand(0, 999999);
@@ -76,7 +97,7 @@ class UserVirtualController extends Controller
         $newUserVirtual = new UserVirtual();
         $newUserVirtual->link('user', $newUser);
 
-        return $this->redirect(['index', 'id' => $newUserVirtual->id]);
+        return $this->redirect(['index', 'id' => $newUserVirtual->id]);*/
 
         $allUsers = User::find()->all();
 

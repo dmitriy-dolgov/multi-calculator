@@ -36,6 +36,8 @@ class UserVirtualController extends Controller
      */
     public function actionIndex()
     {
+        //pizza-admin.local/admin/user-virtual
+
         $searchModel = new UserVirtualSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

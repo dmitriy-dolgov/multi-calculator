@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'user_id',
             [
                 'label' => Yii::t('app', 'Данные владельца'),
+                'format' => 'raw',
                 'value' => function (UserVirtual $model) {
                     if ($model->user) {
                         return "{$model->user->username} ({$model->user->email})";

@@ -15,8 +15,8 @@ $this->registerJsFile('https://unpkg.com/leaflet@1.6.0/dist/leaflet.js', [
     'crossorigin' => '',
 ]);
 
-$this->registerJsFile(Url::to(['/js/leaflet/L.Icon.Pulse.js']), ['depends' => ['frontend\assets\VendorAsset']]);
-$this->registerCssFile(Url::to(['/js/leaflet/L.Icon.Pulse.css']));
+$this->registerJsFile(Url::to(['/dist/leaflet/L.Icon.Pulse.js']), ['depends' => ['frontend\assets\VendorAsset']]);
+$this->registerCssFile(Url::to(['/dist/leaflet/L.Icon.Pulse.css']));
 
 $this->registerCss(<<<CSS
 #worker-place-map {

@@ -2,8 +2,16 @@
  * Общий объект.
  */
 
-gl.object = function () {
-    var name;
+gl.objectMSD = function (nameObj) {
+    //var name = name;
 
-    //return
+    return {
+        getName: function () {
+            return nameObj;
+        },
+
+        setEvent: function (nameStr) {
+
+        }
+    }
 };

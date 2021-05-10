@@ -587,7 +587,7 @@ gl.orderFormHistory.qaz2 = function (data) {
     $('.capt-price').removeClass('hidden');
     $('.restore-ls').hide();
 
-    debugger;
+    //debugger;
     //gl.orderFormHistory.cleanStore();
     gl.orderFormHistory.restoreFromStoreData(data);
 };

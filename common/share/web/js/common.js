@@ -268,7 +268,7 @@ gl.orderFormHistory = {
         }
     },
     restoreFromStoreData: function (data) {
-        debugger;
+        //debugger;
         //var ps = JSON.parse(data);
         //localStorage.setItem('orderFormState', data);
         gl.container.localStorageObj().unserialize(data);
@@ -284,7 +284,7 @@ gl.orderFormHistory = {
             //localStorage.unserialize(orderFormStateJson);
             //gl.container.localStorageObj().unserialize(orderFormStateJson);
             //orderFormStateJson.unse
-            debugger;
+            //debugger;
             //localStorage = .unserialize(orderFormStateJson);
             orderFormState = JSON.parse(orderFormStateJson);
             //orderFormState = orderFormStateRaw

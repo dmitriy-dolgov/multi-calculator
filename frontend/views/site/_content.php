@@ -257,7 +257,7 @@ function tt() {
                 //jQuery( '#ms_word_filtered_html' ).val( e.target.result );
                 //alert('678_e.target.result: ' + e.target.result);
                 
-                debugger;
+                //debugger;
                 //var goq2 = gl.orderFormHistory.qaz2(data.response.link);
                 //gl.orderFormHistory.cleanStore();
                 deleteAllComponents();

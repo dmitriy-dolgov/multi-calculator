@@ -170,7 +170,7 @@ gl.getObject('container').localStorageObj = function () {
                 //mainStorage.clear();
             },
             serialize: function () {
-                debugger;
+                //debugger;
                 return mainStorage['orderFormState'];
                 //return JSON.stringify(mainStorage['orderFormState']);
                 //orderFormState();
@@ -184,7 +184,7 @@ gl.getObject('container').localStorageObj = function () {
                 //return mainStorage;
             },
             unserialize: function (data) {
-                debugger;
+                //debugger;
                 mainStorage.setItem('orderFormState', data);
                 //mainStorage['orderFormState'] = data;
                 //return JSON.stringify(mainStorage);

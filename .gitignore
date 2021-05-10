@@ -51,3 +51,10 @@ phpunit.phar
 /data/fias
 
 /frontend/web/.htaccess
+
+
+# symlinks:
+backend/web/js
+backend/web/dist
+frontend/web/js
+frontend/web/dist

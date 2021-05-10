@@ -9,7 +9,7 @@ class DemoAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        '/ss/reset.css',
+        'css/reset.css',
         'css/demo/wrapper.css',
     ];
     public $js = [

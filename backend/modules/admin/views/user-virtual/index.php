@@ -11,13 +11,47 @@ use common\models\db\UserVirtual;
 
 $this->title = Yii::t('app', 'Виртуальный пользователь');
 $this->params['breadcrumbs'][] = $this->title;
+
+//TODO: prompt - сделать i18n
+$this->registerJs(<<<JS
+$('.create-automatic').click(function(e) {
+    e.preventDefault();
+    
+    var howMany = 3;
+    do {
+        var amountRaw = prompt('Сколько пользователей создать (от 1 до 50)?', '3');
+        if (isNaN(amountRaw)) {
+            return;
+        }
+        
+        howMany = parseInt(amountRaw, 10);
+        
+    } while (howMany > 50 || howMany < 1);
+    
+    $.post('/admin/user-virtual/create-users?users_amount=' + howMany, function(data) {
+    if (data && data.status == 'success') {
+        location.reload();
+    } else {
+        alert('Произошла ошибка!');
+    }
+    }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        gl.handleJqueryAjaxFail(XMLHttpRequest, textStatus, errorThrown);
+    });
+    
+    return false;
+});
+JS
+);
+
 ?>
 <div class="user-virtual-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Создать виртуального пользователя'), ['create'], ['class' => 'btn btn-success']) ?>
+    <h5><?= Html::encode(Yii::t('app', 'Создать виртуального пользователя:')) ?></h5>
+    <?= Html::a(Yii::t('app', 'Вручную'), ['create'], ['class' => 'btn btn-primary']) ?>
+    <?= Html::a(Yii::t('app', 'Автоматически'), null, ['class' => 'create-automatic btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>

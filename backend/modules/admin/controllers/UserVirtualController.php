@@ -92,6 +92,29 @@ class UserVirtualController extends Controller
         ]);
     }
 
+    public function actionCreateSome(int $amount)
+    {
+        //TODO: валидацию сделать в форме (отдельной модели)
+        $min = Yii::$app->params['virtual']['generated-users']['creation']['min'];
+        $max = Yii::$app->params['virtual']['generated-users']['creation']['max'];
+        assert($min < 1 || $max > 50);
+
+        for ($i = 0; $i <= $amount; ++$i) {
+            //TODO: сделать лучше, есть код аналогичный
+            $newUser = new User();
+            $newUser->password_hash = 'no need ' . rand(0, 999999);
+            $newUser->email = 'test@emal.com' . rand(0, 999999);
+            $newUser->username = 'virtNewusername' . rand(0, 999999);
+            if ($newUser->save()) {
+                $newUserVirtual = new UserVirtual();
+                $newUserVirtual->link('user', $newUser);
+                return $this->redirect(['view', 'id' => $newUserVirtual->id]);
+            } else {
+                //TODO: обработать как-нибудь
+            }
+        }
+    }
+
     /**
      * Updates an existing UserVirtual model.
      * If update is successful, the browser will be redirected to the 'view' page.

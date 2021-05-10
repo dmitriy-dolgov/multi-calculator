@@ -35,7 +35,7 @@ return [
 
     // Видео (gif), касающиеся компонентов
     'component_videos' => [
-        'url_path' => '/video/construct' . Yii::$app->params['debug-preview-path'] . '/',
+        'url_path' => '/video/construct' . DEBUG_PREVIEW_PATH . '/',
     ],
 
     // Изображение пользователя
@@ -73,5 +73,17 @@ return [
         'clickmap' => null,
         'trackLinks' => null,
         'accurateTrackBounce' => null,
+    ],
+
+    /**
+     * Виртульные вещи
+     */
+    'virtual' => [
+        'generated-users' => [
+            'creation' => [
+                'min' => 1,
+                'max' => 50,
+            ],
+        ],
     ],
 ];

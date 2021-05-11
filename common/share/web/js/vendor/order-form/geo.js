@@ -99,6 +99,7 @@ gl.functions.SelectProviders = {
 
 gl.functions.placesMap = function (id, initialMapParameters) {
     this.map = L.map(id).setView([initialMapParameters.latitude, initialMapParameters.longitude], initialMapParameters.zoom);
+    //this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, pulsingIcon);
 
     //console.log("this.map", this.map);
 

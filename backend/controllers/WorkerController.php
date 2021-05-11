@@ -154,6 +154,7 @@ class WorkerController extends Controller
                 $result['order_html'] = $orderHtml;
             }
         } catch (\Exception $e) {
+            //Yii::$app->log->  // прикрутить
             $result['status'] = 'error';
             $result['msg'] = $e->getMessage();
         }

@@ -160,12 +160,10 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         maxZoom: 18
     }).addTo(this.map);
 
-    //this.showCourier();
+    this.showCourier();
 };
 
 gl.functions.placesMap.prototype.showCourier = function () {
-
-    //debugger;
 
     // var courierLatLng = gl.functions.getCurrentGeoLocation();
     // this.courierMarker = this.addMarkerByCoords(merchantLatLng.lat, merchantLatLng.lng, this.icons.courier);
@@ -181,6 +179,7 @@ gl.functions.placesMap.prototype.showCourier = function () {
     //TODO: Внизлежащее можно разместить в отдельной функции
     //gl.functions.placesMap.prototype.moveCourier(latLng, this.courierMarker);
 
+    debugger;
     var mrkLanLng = false;
     for (var mId in this.markers) {
         mrkLanLng = this.markers[mId].marker.getLatLng();
@@ -203,6 +202,13 @@ gl.functions.placesMap.prototype.showCourier = function () {
 
     console.log("mrkLanLng:", mrkLanLng);
 
+    if (!mrkLanLng) {
+        mrkLanLng = {
+            'lat': merchantLatLng.lat + 1,
+            'lng': merchantLatLng.lng + 3
+        };
+    }
+
     var routerControl = L.Routing.control({
         waypoints: [
             //L.latLng(latLng.lat, latLng.lng),
@@ -211,9 +217,7 @@ gl.functions.placesMap.prototype.showCourier = function () {
             L.latLng(merchantLatLng.lat, merchantLatLng.lng),
             //L.latLng(54.107540130615, 34.267589569092),
 
-
-            L.latLng(mrkLanLng.lat, mrkLanLng.lng)
-
+            L.latLng(mrkLanLng.lat, mrkLanLng.lng),
 
             // var coords = {lat: 55.107540130615, lng: 33.267589569092};
         ]
@@ -225,7 +229,7 @@ gl.functions.placesMap.prototype.showCourier = function () {
 
     // see https://stackoverflow.com/questions/34045265/destination-coordinates-in-leaflet-routing
     routerControl.on("routesfound", function (e) {
-        //debugger;
+        debugger;
         var coordinates = e.routes[0].coordinates;
         var destination = coordinates[coordinates.length - 1];
         console.log("coordinates 2:", coordinates);
@@ -334,7 +338,7 @@ gl.functions.placesMap.prototype.moveCourier = function (latLng, courierMarker) 
 
     //var counter = 0;
     var interval = setInterval(function () {
-        alert('setInterval 1');
+            alert('setInterval 1');
             console.log('$i: ', $i);
             if ($i <= $pt2[0]) {
                 //this.courierMarker = this.addMarkerByCoords($i, $m * $i + $b, this.icons.courier);

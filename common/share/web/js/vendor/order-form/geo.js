@@ -171,7 +171,7 @@ gl.functions.placesMap.prototype.showCourier = function () {
     // Примерно здесь остановился Apr.05.21 --- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     var merchantLatLng = gl.functions.getCurrentGeoLocation();
 
-    $popup = 'Имя курьера<img src="/img/courier/4.gif" style="width:30px">';
+    $popup = 'Имя курьера<img src="/img/courier/4.gif" style="width:20px">';
 
     //alert('consi.courier IS HERE 2');
     this.courierMarker = this.addMarkerByCoords(merchantLatLng.lat, merchantLatLng.lng, this.icons.courier, $popup);
@@ -263,6 +263,10 @@ gl.functions.placesMap.prototype.showCourier = function () {
                     var newLatLng = new L.LatLng(coordinates[ii]['lat'], coordinates[ii]['lng']);
                     trtl.setLatLng(newLatLng);
                     ii += 5; //0.01;
+
+                    //gl.functions.centerLeafletMapOnMarker(trtlThis, trtl);
+                    trtlThis.map.setView(trtl.getLatLng(), 13);
+
                     return;
                 }
 
@@ -291,6 +295,12 @@ gl.functions.placesMap.prototype.showCourier = function () {
             },
             100);
     });
+};
+
+gl.functions.centerLeafletMapOnMarker = function (map, marker) {
+    var latLngs = [marker.getLatLng()];
+    var markerBounds = L.latLngBounds(latLngs);
+    map.fitBounds(markerBounds);
 };
 
 gl.functions.placesMap.prototype.hideCourier = function () {

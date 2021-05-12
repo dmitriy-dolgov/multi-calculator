@@ -1,0 +1,9 @@
+#see .gitignore
+
+Windows:
+mklink /d F:\FinalFrontier\AllForTrade\Pizza\www\backend\web\img F:\FinalFrontier\AllForTrade\Pizza\www\common\share\web\img
+
+symlinks:
+    img
+    dist
+    js

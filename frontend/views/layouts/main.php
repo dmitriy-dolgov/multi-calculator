@@ -25,6 +25,9 @@ use yii\helpers\Html;
         .pm-hidden {
             display: none;
         }
+        .vendor-panel .video {
+            background-image: url(/video/construct/default-local.gif) !important;
+        }
     </style>
 </head>
 <body>

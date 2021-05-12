@@ -265,7 +265,7 @@ gl.functions.placesMap.prototype.showCourier = function () {
                     ii += 5; //0.01;
 
                     //gl.functions.centerLeafletMapOnMarker(trtlThis, trtl);
-                    trtlThis.map.setView(trtl.getLatLng(), 13);
+                    trtlThis.map.setView(trtl.getLatLng(), 15);
 
                     return;
                 }

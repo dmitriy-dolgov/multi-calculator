@@ -57,7 +57,7 @@ gl.functions.getCurrentGeoLocation = function () {
                     gl.log('gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker)');
                     gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker);
                 }
-                alert('icons.courier IS HERE 1');
+                //alert('icons.courier IS HERE 1');
                 gl.data.worldMap.courierMarker
                     = gl.data.worldMap.addMarkerByCoords(coords.lat, coords.lng, gl.data.worldMap.icons.courier);
                 //gl.data.worldMap.flyTo([coords.lat, coords.lng]);

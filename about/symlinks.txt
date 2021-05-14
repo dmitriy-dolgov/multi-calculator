@@ -7,3 +7,20 @@ symlinks:
     img
     dist
     js
+
+
+Работающие версии под Windows:
+    mklink /d F:\FinalFrontier\AllForTrade\Pizza\www\frontend\web\img F:\FinalFrontier\AllForTrade\Pizza\www\common\share\web\img
+    mklink /d F:\FinalFrontier\AllForTrade\Pizza\www\frontend\web\js F:\FinalFrontier\AllForTrade\Pizza\www\common\share\web\js
+    mklink /d F:\FinalFrontier\AllForTrade\Pizza\www\frontend\web\dist F:\FinalFrontier\AllForTrade\Pizza\www\common\share\web\dist
+    mklink /d F:\FinalFrontier\AllForTrade\Pizza\www\backend\web\img F:\FinalFrontier\AllForTrade\Pizza\www\common\share\web\img
+    mklink /d F:\FinalFrontier\AllForTrade\Pizza\www\backend\web\js F:\FinalFrontier\AllForTrade\Pizza\www\common\share\web\js
+    mklink /d F:\FinalFrontier\AllForTrade\Pizza\www\backend\web\dist F:\FinalFrontier\AllForTrade\Pizza\www\common\share\web\dist
+
+Работающие версии под Linux:
+    ln -s /var/www/uid2018/data/www/pizza-advanced/common/share/web/img /www/uid2018/data/www/pizza-advanced/frontend/web/img
+    ln -s /var/www/uid2018/data/www/pizza-advanced/common/share/web/js /www/uid2018/data/www/pizza-advanced/frontend/web/js
+    ln -s /var/www/uid2018/data/www/pizza-advanced/common/share/web/dist /www/uid2018/data/www/pizza-advanced/frontend/web/dist
+    ln -s /var/www/uid2018/data/www/pizza-advanced/common/share/web/img /www/uid2018/data/www/pizza-advanced/backend/web/img
+    ln -s /var/www/uid2018/data/www/pizza-advanced/common/share/web/js /www/uid2018/data/www/pizza-advanced/backend/web/js
+    ln -s /var/www/uid2018/data/www/pizza-advanced/common/share/web/dist /www/uid2018/data/www/pizza-advanced/backend/web/dist

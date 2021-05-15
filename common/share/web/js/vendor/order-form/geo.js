@@ -301,8 +301,8 @@ gl.functions.placesMap.prototype.showCourier = function () {
 
 
         //gl.functions.courierIconStart
-        //gl.functions.courierIconStart(coordinates);
-        //return;
+        gl.functions.courierIconStart(coordinates);
+        return;
 
         var ii = 0;
         var interval = setInterval(function () {
@@ -346,8 +346,11 @@ gl.functions.placesMap.prototype.showCourier = function () {
 };
 
 gl.functions.courierIconStart = function (coordinates) {
-    gl.log(['coordinates', coordinates]);
 
+    // Центрирование
+    //setView(this.getLatLng(), 20);
+
+    gl.log(['coordinates', coordinates]);
     var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'yellow', fillColor: 'green'});
 
     var line = L.polyline(coordinates),

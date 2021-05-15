@@ -144,6 +144,7 @@ $this->registerJsFile(Url::to(['/js/vendor/order-form/handlers/orderAddressHandl
 $this->registerJsFile(Url::to(['/js/ESD/object.js']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 
 $this->registerJsFile(Url::to(['/dist/leaflet/MovingMarker.js']), ['depends' => ['frontend\assets\VendorAsset']]);
+$this->registerJsFile(Url::to(['/dist/leaflet/AnimatedMarker.js']), ['depends' => ['frontend\assets\VendorAsset']]);
 $this->registerJsFile(Url::to(['/dist/leaflet/L.Icon.Pulse.js']), ['depends' => ['frontend\assets\VendorAsset']]);
 $this->registerCssFile(Url::to(['/dist/leaflet/L.Icon.Pulse.css']));
 

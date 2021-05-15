@@ -171,10 +171,11 @@ gl.functions.placesMap.prototype.showCourier = function () {
     // Примерно здесь остановился Apr.05.21 --- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     var merchantLatLng = gl.functions.getCurrentGeoLocation();
 
-    $popup = 'Имя курьера<img src="/img/courier/4.gif" style="width:20px">';
+    //$popup = 'Имя курьера<img src="/img/courier/4.gif" style="width:20px">';
+    $popup = 'Курьер<img src="/img/courier/4.gif" style="width:20px">';
 
     //alert('consi.courier IS HERE 2');
-    this.courierMarker = this.addMarkerByCoords(merchantLatLng.lat, merchantLatLng.lng, this.icons.courier, $popup);
+    //this.courierMarker = this.addMarkerByCoords(merchantLatLng.lat, merchantLatLng.lng, this.icons.courier, $popup);
 
     //TODO: Внизлежащее можно разместить в отдельной функции
     //gl.functions.placesMap.prototype.moveCourier(latLng, this.courierMarker);
@@ -227,6 +228,17 @@ gl.functions.placesMap.prototype.showCourier = function () {
 
     var trtlThis = this;
 
+    routerControl.on('leafletDirectiveMap.drag', function(event,args){
+
+        //get the Leaflet map from the triggered event.
+        var map = args.leafletEvent.target;
+        var center = map.getCenter();
+
+        //update(recenter) marker
+        $scope.vm.markers.mainMarker.lat = center.lat;
+        $scope.vm.markers.mainMarker.lng = center.lng;
+    });
+
     // see https://stackoverflow.com/questions/34045265/destination-coordinates-in-leaflet-routing
     routerControl.on("routesfound", function (e) {
         debugger;
@@ -235,6 +247,27 @@ gl.functions.placesMap.prototype.showCourier = function () {
         console.log("coordinates 2:", coordinates);
         console.log("destination 2:", destination);
         console.log("coordinates.length:", coordinates.length);
+
+        // here is the path (get it from where you want)
+        //var coordinateArray = [ [0,1], [1,1], [1,0] ];
+        // or for example
+        //var coordinateArray = existingPolyline.getLatLngs();
+        /*var coordinateArray = existingPolyline.getLatLngs();
+        // here is the line you draw (if you want to see the animated marker path on the map)
+        var myPolyline = L.polyline(coordinates);
+        myPolyline.addTo(this.map);
+        // i don't know if i understood your question correctly
+        // if you want to put a marker at the beginning and at the end of the path :
+        //var mstart = L.marker(coordinateArray[0]).addTo(map);
+        //var mend = L.marker(coordinateArray[coordinateArray.length - 1]).addTo(map);
+        // here is the moving marker (6 seconds animation)
+        var myMovingMarker = L.Marker.movingMarker(coordinates, 6000, {
+            autostart: false
+        });
+        this.map.addLayer(myMovingMarker);
+        myMovingMarker.start();
+
+        return;*/
 
         //var step = setInterval
         // for (var i in coordinates) {
@@ -256,16 +289,31 @@ gl.functions.placesMap.prototype.showCourier = function () {
         //     }*/
         // }
 
+        /*var ii = 0;
+        var timeout = setTimeout(function () {
+
+        };*/
+
+        /*
+        //code from https://github.com/openplans/Leaflet.AnimatedMarker
+        var line = L.polyline([[40.68510, -73.94136],[40.68576, -73.94149],[40.68649, -73.94165]]),
+            animatedMarker = L.animatedMarker(line.getLatLngs());*/
+
+
+        //gl.functions.courierIconStart
+        //gl.functions.courierIconStart(coordinates);
+        //return;
+
         var ii = 0;
         var interval = setInterval(function () {
                 //console.log('setInterval 2: ', ii);   // здесь акруальный курьер
                 if (ii < coordinates.length) {
                     var newLatLng = new L.LatLng(coordinates[ii]['lat'], coordinates[ii]['lng']);
                     trtl.setLatLng(newLatLng);
-                    ii += 5; //0.01;
+                    ii += 1; //0.01;
 
                     //gl.functions.centerLeafletMapOnMarker(trtlThis, trtl);
-                    trtlThis.map.setView(trtl.getLatLng(), 15);
+                    trtlThis.map.setView(trtl.getLatLng(), 20);
 
                     return;
                 }
@@ -293,8 +341,26 @@ gl.functions.placesMap.prototype.showCourier = function () {
                 //trtl
                 //trtl.bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
             },
-            100);
+            1100);
     });
+};
+
+gl.functions.courierIconStart = function (coordinates) {
+    gl.log(['coordinates', coordinates]);
+
+    var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'yellow', fillColor: 'green'});
+
+    var line = L.polyline(coordinates),
+        animatedMarker = L.animatedMarker(line.getLatLngs(), {
+            //distance: 300,    // meters
+            //interval: 2000,   // milliseconds? looks like `second`
+            distance: 50000,     // meters
+            interval: 18000,    // milliseconds? looks like `second`
+            autoStart: true,
+            icon: courierIcon
+        });
+
+    gl.data.worldMap.map.addLayer(animatedMarker);
 };
 
 gl.functions.centerLeafletMapOnMarker = function (map, marker) {
@@ -447,7 +513,7 @@ gl.functions.placesMap.prototype.icons = {
     }),
     courier: L.icon({
         iconUrl: glIconUrl, //'/img/map/courier-moto.png',
-        iconSize: [40, 40],
+        iconSize: [35, 35],
         className: 'map-marker-icon'
     }),
     courierStand: L.icon({

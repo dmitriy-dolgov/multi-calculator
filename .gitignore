@@ -46,6 +46,8 @@ phpunit.phar
 
 # ladlens
 
+/temporary_moved
+
 /geo
 
 /data/fias

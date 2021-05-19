@@ -162,6 +162,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     this.showCourier();
 };
 
+//TODO: доделать
 gl.functions.placesMap.prototype.showCourierP2P = function (coordFrom, coordTo) {
 
     // Примерно здесь остановился Apr.05.21 --- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -180,44 +181,68 @@ gl.functions.placesMap.prototype.showCourierP2P = function (coordFrom, coordTo) 
         }
     }
 
-    // Здесь создаются иконки для кратчайшего пути.
-    var routerControl = L.Routing.control({
+    //Здесь создаются иконки для кратчайшего пути.
+    /*var routerControl = L.Routing.control({
         waypoints: [
             L.latLng(merchantLatLng.lat, merchantLatLng.lng),
             L.latLng(mrkLanLng.lat, mrkLanLng.lng),
         ]
     }).addTo(this.map); //.bindPopup("Это описание курьера");
 
-    var trtl = this.courierMarker;
+        var trtl = this.courierMarker;
+        var trtlThis = this;
 
-    var trtlThis = this;
+        routerControl.on('leafletDirectiveMap.drag', function (event, args) {
 
-    routerControl.on('leafletDirectiveMap.drag', function (event, args) {
+            var waypoints = e.waypoints || [];
+            var destination = waypoints[waypoints.length - 1]; //
 
-        //get the Leaflet map from the triggered event.
-        var map = args.leafletEvent.target;
-        var center = map.getCenter();
+            //get the Leaflet map from the triggered event.
+            var map = args.leafletEvent.target;
+            var center = map.getCenter();
 
-        //update(recenter) marker
-        $scope.vm.markers.mainMarker.lat = center.lat;
-        $scope.vm.markers.mainMarker.lng = center.lng;
-    });
+            //update(recenter) marker
+            $scope.vm.markers.mainMarker.lat = center.lat;
+            $scope.vm.markers.mainMarker.lng = center.lng;
+        });
 
-    // see https://stackoverflow.com/questions/34045265/destination-coordinates-in-leaflet-routing
-    routerControl.on("routesfound", function (e) {
-        debugger;
-        console.log("coordinates:", coordinates);
-        var destination = coordinates[coordinates.length - 1];
-        console.log("coordinates 2:", coordinates);
-        console.log("destination 2:", destination);
-        console.log("coordinates.length:", coordinates.length);
-        console.log("coordinates:", coordinates);
-    });
+        // see https://stackoverflow.com/questions/34045265/destination-coordinates-in-leaflet-routing
+        routerControl.on("routesfound", function (e) {
+            debugger;
+            console.log("coordinates:", coordinates);
+            var destination = coordinates[coordinates.length - 1];
+            console.log("coordinates 2:", coordinates);
+            console.log("destination 2:", destination);
+            console.log("coordinates.length:", coordinates.length);
+            console.log("coordinates:", coordinates);
+        });*/
 
     gl.functions.courierIconStart(coordinates);
 };
 
 gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng) {
+
+    //customerLatLng
+    var customerLatLng = gl.functions.getCurrentGeoLocation();
+
+    var x = L.Routing.control({
+        // YOUR STUFF
+        //geocoder: L.Control.Geocoder.nominatim(),
+        waypoints: [
+            L.latLng(merchantLatLng.lat, merchantLatLng.lng),
+            L.latLng(customerLatLng.lat, customerLatLng.lng),
+        ]
+    }).addTo(this.map);
+
+    x.on("routesfound", function(e) {
+        var waypoints = e.waypoints || [];
+        var destination = waypoints[waypoints.length - 1]; // there you have the destination point between your hands
+
+        //var destination = coordinates[coordinates.length - 1]
+    });
+
+    gl.functions.courierIconStart(waypoints);
+    return;
 
     //debugger;
     var customerLatLng = gl.functions.getCurrentGeoLocation();
@@ -311,7 +336,7 @@ gl.functions.placesMap.prototype.showCourier = function () {
     console.log("mrkLanLng:", mrkLanLng);
 
     if (!mrkLanLng) {
-        alert('!mrkLanLng');
+        //alert('!mrkLanLng');
         //mrkLanLng = L.latLng(merchantLatLng.lat + 1, lae
         //};
     }

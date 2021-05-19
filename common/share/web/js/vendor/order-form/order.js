@@ -389,7 +389,8 @@ gl.functions.fillOrderInfo = function (result, formData) {
     });
 
     ////TODO: убрать после теста
-    //gl.data.worldMap.showCourier();
+    // var courierLatLng = L.latLng();
+    // gl.data.worldMap.showCourierByLatLng(courierLatLng);
 };
 
 // Устанавливает необходимые данные когда продавец взял заказ в обработку (начал готовить)
@@ -444,6 +445,9 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
 
 // Заказ принят курьером
 gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData, courierData) {
+    console.log('courierData:', courierData);
+    console.log('merchantData:', merchantData);
+    //return;
     var result = false;
 
     var container = $('.orders-container .elem');
@@ -476,7 +480,9 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
         //elems['#order-form-submit'].find('.order-data-container.info-panel').addClass('blinking-border-order-accepted-by-courier');
 
-        gl.data.worldMap.showCourier();
+        //gl.data.worldMap.showCourier();
+        var courierLatLng = gl.map.coordinates.string2array(merchantData.company_lat_long);
+        gl.data.worldMap.showCourierByLatLng(L.latLng(courierLatLng.latitude, courierLatLng.longitude));
 
         /*setInterval(function () {
             gl.data.worldMap.moveCourier();

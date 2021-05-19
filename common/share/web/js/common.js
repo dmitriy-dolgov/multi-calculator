@@ -51,9 +51,21 @@ if (!gl.info) {
     gl.info = {};
 }
 
+if (!gl.map) {
+    gl.map = {};
+}
+
 
 gl.config.debug = true;
 
+gl.getObject('map.coordinates').string2array = function (str) {
+    //TODO: проверять правильность, убирать пробелы и т.п.
+    var stringArr = str.split(';');
+    return {
+        lat: stringArr[0],
+        lng: stringArr[1]
+    }
+};
 
 gl.getObject('helpers').randomString = function (length) {
     var result = '';

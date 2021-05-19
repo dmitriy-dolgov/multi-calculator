@@ -143,9 +143,14 @@ $this->registerJsFile(Url::to(['/dist/leaflet/L.Icon.Pulse.js']), ['depends' => 
 $this->registerCssFile(Url::to(['/dist/leaflet/L.Icon.Pulse.css']));
 
 //$this->registerJsFile(Url::to(['/dist/leaflet/leaflet-routing-machine/leaflet-routing-machine.min.js']), ['depends' => ['frontend\assets\VendorAsset']]);
-$this->registerJsFile(Url::to(['/dist/leaflet/leaflet-routing-machine/leaflet-routing-machine.js']), ['depends' => ['frontend\assets\VendorAsset']]);
+$this->registerJsFile(Url::to(['/dist/leaflet/leaflet-routing-machine/leaflet-routing-machine.js']), ['depends' => Url::to(['/dist/leaflet/AnimatedMarker.js'])]);
 $this->registerCssFile(Url::to(['/dist/leaflet/leaflet-routing-machine/leaflet-routing-machine.css']));
 
+
+$this->registerJsFile('https://unpkg.com/leaflet@1.6.0/dist/leaflet.js', [
+    'integrity' => 'sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==',
+    'crossorigin' => '',
+]);
 
 
 $cityList = (new \common\models\Geo())->getCityList();

@@ -70,11 +70,15 @@ gl.functions.addComponentByData = function (data, append, noHistory) {
         return false;
     }
 
-    if (!gl.orderFormHistory.qaz.was) {
+    if (gl.orderFormHistory && gl.orderFormHistory.qaz && gl.orderFormHistory.qaz.was) {
         gl.orderFormHistory.cleanStore();
         gl.orderFormHistory.qaz.was = true;
         gl.orderFormHistory.qaz();
     }
+
+    //if (Array.isArray(array) && array.length) {
+
+    //}
 
     if (!noHistory) {
         gl.orderFormHistory.addComponentByData(data, append);

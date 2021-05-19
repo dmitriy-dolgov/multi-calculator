@@ -217,26 +217,28 @@ gl.functions.placesMap.prototype.showCourierP2P = function (coordFrom, coordTo) 
     gl.functions.courierIconStart(coordinates);
 };
 
-gl.functions.placesMap.prototype.showCourierByLatLng = function (buyerLatLng) {
+gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng) {
 
-    var merchantLatLng = gl.functions.getCurrentGeoLocation();
+    //debugger;
+    var customerLatLng = gl.functions.getCurrentGeoLocation();
+    //companyLatLng
 
     //$popup = 'Имя курьера<img src="/img/courier/4.gif" style="width:20px">';
     $popup = 'Курьер<img src="/img/courier/4.gif" style="width:20px">';
 
-    var buyerLanLng = false;
+    /*var buyerLanLng = false;
     debugger;
     if (this.markers && this.markers.length !== 0) {
         buyerLatLng = this.markers[0];
     } else {
         return false;
-    }
+    }*/
 
     // Здесь создаются иконки для кратчайшего пути.
     var routerControl = L.Routing.control({
         waypoints: [
             L.latLng(merchantLatLng.lat, merchantLatLng.lng),
-            L.latLng(buyerLatLng.lat, buyerLatLng.lng),
+            L.latLng(customerLatLng.lat, customerLatLng.lng),
         ]
     }).addTo(this.map); //.bindPopup("Это описание курьера");
 

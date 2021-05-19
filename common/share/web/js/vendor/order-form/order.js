@@ -481,8 +481,8 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         //elems['#order-form-submit'].find('.order-data-container.info-panel').addClass('blinking-border-order-accepted-by-courier');
 
         //gl.data.worldMap.showCourier();
-        var courierLatLng = gl.map.coordinates.string2array(merchantData.company_lat_long);
-        gl.data.worldMap.showCourierByLatLng(L.latLng(courierLatLng.latitude, courierLatLng.longitude));
+        var companyLatLng = gl.map.coordinates.string2array(merchantData.company_lat_long);
+        gl.data.worldMap.showCourierByLatLng(L.latLng(companyLatLng.lat, companyLatLng.lng));
 
         /*setInterval(function () {
             gl.data.worldMap.moveCourier();

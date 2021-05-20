@@ -245,7 +245,7 @@ gl.functions.courierIconStart = function (coordinates) {
 
     var coordinatesMod = [];
     for (var i = 0; i < 2; ++i) {
-        debugger
+        debugger;
         coordinatesMod.push([
                 coordinates[i].latLng.lat,
                 coordinates[i].latLng.lng
@@ -258,7 +258,7 @@ gl.functions.courierIconStart = function (coordinates) {
         //distance: 300,    // meters
         //interval: 2000,   // milliseconds? looks like `second`
         distance: 50,       // meters
-        interval: 90000,    // milliseconds? looks like `second`
+        interval: 900000,    // milliseconds? looks like `second`
         autoStart: true,
         icon: courierIcon,
         onEnd: function () {

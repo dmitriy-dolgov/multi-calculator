@@ -57,27 +57,27 @@ gl.functions.getCurrentGeoLocation = function () {
                     gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker);
                 }
                 //alert('icons.courier IS HERE 1');
-                gl.data.worldMap.courierMarker
-                    = gl.data.worldMap.addMarkerByCoords(coords.lat, coords.lng, gl.data.worldMap.icons.courier);
+                //gl.data.worldMap.courierMarker
+                //    = gl.data.worldMap.addMarkerByCoords(coords.lat, coords.lng, gl.data.worldMap.icons.courier);
                 //gl.data.worldMap.flyTo([coords.lat, coords.lng]);
             }
         });
     }
 
-    var ff = function () {
-        if (gl.data.worldMap) {
-            if (gl.data.worldMap.courierMarker) {
-                gl.log('gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker)');
-                gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker);
-            }
-            gl.data.worldMap.courierMarker = gl.data.worldMap.addMarkerByCoords(coords.lat, coords.lng, gl.data.worldMap.icons.courier);
-            gl.data.worldMap.flyTo([coords.lat, coords.lng]);
-        }
-    };
-    ff();
+    // var ff = function () {
+    //     if (gl.data.worldMap) {
+    //         if (gl.data.worldMap.courierMarker) {
+    //             gl.log('gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker)');
+    //             gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker);
+    //         }
+    //         gl.data.worldMap.courierMarker = gl.data.worldMap.addMarkerByCoords(coords.lat, coords.lng, gl.data.worldMap.icons.courier);
+    //         gl.data.worldMap.flyTo([coords.lat, coords.lng]);
+    //     }
+    // };
+    // ff();
 
 
-    //gl.log('getCurrentGeoLocation return');
+    gl.log('getCurrentGeoLocation return');
     return coords;
 };
 
@@ -224,7 +224,7 @@ gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng)
 
     //customerLatLng
     var customerLatLng = gl.functions.getCurrentGeoLocation();
-
+    debugger;
     var x = L.Routing.control({
         // YOUR STUFF
         //geocoder: L.Control.Geocoder.nominatim(),
@@ -234,14 +234,17 @@ gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng)
         ]
     }).addTo(this.map);
 
-    x.on("routesfound", function(e) {
-        var waypoints = e.waypoints || [];
+    var waypoints = [];
+
+    x.on("routesfound", function (e) {
+        debugger;
+        waypoints = e.waypoints || [];
         var destination = waypoints[waypoints.length - 1]; // there you have the destination point between your hands
 
-        //var destination = coordinates[coordinates.length - 1]
+        debugger;
+        gl.functions.courierIconStart(waypoints);
     });
 
-    gl.functions.courierIconStart(waypoints);
     return;
 
     //debugger;
@@ -478,32 +481,43 @@ gl.functions.placesMap.prototype.showCourier = function () {
 
 gl.functions.courierIconStart = function (coordinates) {
 
-    alert('courierIconStart !!!');
+    //alert('courierIconStart !!!');
     // Центрирование
     //setView(this.getLatLng(), 20);
 
-    gl.log(['coordinates, courierIcon']);
+    debugger;
+    gl.log(['coordinates: ', coordinates]);
+
     var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
 
-    var line = L.polyline(coordinates),
-        animatedMarker = L.animatedMarker(line.getLatLngs(), {
-            //distance: 300,    // meters
-            //interval: 2000,   // milliseconds? looks like `second`
-            distance: 10000,     // meters
-            interval: 900,    // milliseconds? looks like `second`
-            autoStart: true,
-            icon: courierIcon,
-            onEnd: function () {
-                debugger;
-                alert('onEnd');
-                // TODO: blow up this marker
-                gl.data.worldMap.map.removeLayer(animatedMarker);
-                //gl.data.worldMap.map.setIcon(gl.functions.placesMap.prototype.icons.courierStand);
-                gl.data.worldMap.map.addLayer(gl.functions.placesMap.prototype.icons.courierStand);
-            }
-        });
+    var coordinatesMod = [];
+    for (var i = 0; i < 2; ++i) {
+        coordinatesMod.push([
+                coordinates[i].latLng.lat,
+                coordinates[i].latLng.lng
+            ]
+        );
+    }
 
-    alert('line, animatedMarker');
+    var line = L.polyline(coordinatesMod);
+    var animatedMarker = L.animatedMarker(line.getLatLngs(), {
+        //distance: 300,    // meters
+        //interval: 2000,   // milliseconds? looks like `second`
+        distance: 100,      // meters
+        interval: 9000,     // milliseconds? looks like `second`
+        autoStart: true,
+        icon: courierIcon,
+        onEnd: function () {
+            debugger;
+            alert('onEnd');
+            // TODO: blow up this marker
+            gl.data.worldMap.map.removeLayer(animatedMarker);
+            //gl.data.worldMap.map.setIcon(gl.functions.placesMap.prototype.icons.courierStand);
+            gl.data.worldMap.map.addLayer(gl.functions.placesMap.prototype.icons.courierStand);
+        }
+    });
+
+    //alert('line, animatedMarker');
 
 
     gl.data.worldMap.map.addLayer(animatedMarker);

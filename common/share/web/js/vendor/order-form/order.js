@@ -388,9 +388,9 @@ gl.functions.fillOrderInfo = function (result, formData) {
         }, 5000);*/
     });
 
-    ////TODO: убрать после теста
-    // var courierLatLng = L.latLng();
-    // gl.data.worldMap.showCourierByLatLng(courierLatLng);
+    //TODO: убрать после теста
+    var courierLatLng = L.latLng();
+    gl.data.worldMap.showCourierByLatLng(courierLatLng);
 };
 
 // Устанавливает необходимые данные когда продавец взял заказ в обработку (начал готовить)

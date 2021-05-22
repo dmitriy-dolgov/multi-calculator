@@ -245,7 +245,7 @@ gl.functions.courierIconStart = function (coordinates) {
 
     var coordinatesMod = [];
     for (var i = 0; i < 2; ++i) {
-        debugger
+        debugger;
         coordinatesMod.push([
                 coordinates[i].latLng.lat,
                 coordinates[i].latLng.lng
@@ -253,12 +253,13 @@ gl.functions.courierIconStart = function (coordinates) {
         );
     }
 
+    debugger;
     var line = L.polyline(coordinatesMod);
     var animatedMarker = L.animatedMarker(line.getLatLngs(), {
         //distance: 300,    // meters
         //interval: 2000,   // milliseconds? looks like `second`
         distance: 50,       // meters
-        interval: 90000,    // milliseconds? looks like `second`
+        interval: 9000000,  // milliseconds? looks like `second`
         autoStart: true,
         icon: courierIcon,
         onEnd: function () {
@@ -273,12 +274,12 @@ gl.functions.courierIconStart = function (coordinates) {
     gl.data.worldMap.map.addLayer(animatedMarker);
 };
 
-gl.functions.centerLeafletMapOnMarker = function (map, marker) {
+/*gl.functions.centerLeafletMapOnMarker = function (map, marker) {
     return;
     var latLngs = [marker.getLatLng()];
     var markerBounds = L.latLngBounds(latLngs);
     map.fitBounds(markerBounds);
-};
+};*/
 
 gl.functions.placesMap.prototype.hideCourier = function () {
     //var latLng = gl.functions.getCurrentGeoLocation();
@@ -363,10 +364,11 @@ gl.functions.placesMap.prototype.allMarkers = [];
 gl.functions.placesMap.prototype.allMovingMarkers = [];
 gl.functions.placesMap.prototype.allPolylines = [];
 
-gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lon, icon, popupHtml) {
+gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, popupHtml) {
     var newMarker;
 
-    var latLng = L.latLng(lat, lon);
+    debugger;
+    var latLng = L.latLng(lat, lng);
     if (icon) {
         newMarker = new L.marker(latLng, {icon: icon}).addTo(this.map);
     } else {

@@ -111,8 +111,9 @@ $(window).resize(function() {
 });*/
 
 $('.components-in-stock .collapse-head').click(function() {
+//var currentWrapComponent = $(this).next('.collapse-content');
   var currentWrapComponent = $(this).next('.collapse-content');
-  elems['.components-in-stock'].find('.collapse-content').each(function () {
+  $('.components-in-stock').find('.collapse-content').each(function () {
       if (!$(this).is(currentWrapComponent)) {
           $(this).removeClass('unwrap');
       }

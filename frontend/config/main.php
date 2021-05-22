@@ -165,6 +165,9 @@ return [
     ],
 
     'modules' => [
+        'frontier' => [
+            'class' => 'frontend\modules\frontier\Module',
+        ],
         /*'vendor' => [
             'class' => 'frontend\modules\vendor\Module',
         ],*/

@@ -169,7 +169,7 @@ gl.functions.placesMap.prototype.showCourier = function () {
 
     $popup = 'Курьер<img src="/img/courier/4.gif" style="width:20px">';
 
-    debugger;
+    //debugger;
     var mrkLanLng = false;
 
     if (this.markers) {
@@ -192,11 +192,13 @@ gl.functions.placesMap.prototype.showCourier = function () {
         routerControl.on("routesfound", function (e) {
             debugger;
             gl.log(["EEE: ", e]);
+            var coordinates = e.routes[0].coordinates;
             console.log("coordinates:", coordinates);
             var destination = coordinates[coordinates.length - 1];
             console.log("coordinates 2:", coordinates);
-            console.log("destination 2:", destination);
             console.log("coordinates.length:", coordinates.length);
+            console.log("destination 2:", destination);
+
             console.log("coordinates:", coordinates);
 
             gl.functions.courierIconStart(coordinates);
@@ -205,10 +207,10 @@ gl.functions.placesMap.prototype.showCourier = function () {
 };
 
 gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng) {
-
+    debugger;
     //customerLatLng
     var customerLatLng = gl.functions.getCurrentGeoLocation();
-    debugger;
+
     var x = L.Routing.control({
         // YOUR STUFF
         //geocoder: L.Control.Geocoder.nominatim(),
@@ -367,7 +369,7 @@ gl.functions.placesMap.prototype.allPolylines = [];
 gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, popupHtml) {
     var newMarker;
 
-    debugger;
+    //debugger;
     var latLng = L.latLng(lat, lng);
     if (icon) {
         newMarker = new L.marker(latLng, {icon: icon}).addTo(this.map);
@@ -580,6 +582,7 @@ gl.functions.placesMap.prototype.connectMarkersWithCustomer = function () {
  */
 gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (merchantId) {
 
+    debugger;
     this.merchantId = merchantId;
 
     gl.log('connectAPizzeriaWithCustomer(), merchantId: ' + merchantId);
@@ -593,7 +596,10 @@ gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (mercha
         features: []
     };
 
-    var customerLatLon = this.customerMarker.getLatLng();
+    var customerLatLon;
+    if (typeof this.customerMarker !== 'undefined') {
+        customerLatLon = this.customerMarker.getLatLng();
+    }
     for (var mId in this.markers) {
         gl.log('this.markers[mId].id: ' + this.markers[mId].id);
         if (this.markers[mId].id != merchantId) {

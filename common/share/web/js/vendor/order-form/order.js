@@ -247,6 +247,7 @@ gl.functions.composeOrder = function () {
 
                 formDataArrIndexed.deliverCityName = elem.find('[name="ShopOrderForm[deliver_city_id]"]').val();
 
+                debugger;
                 gl.functions.fillOrderInfo(result, formDataArrIndexed);
                 gl.functions.addOrderToPanel();
 
@@ -343,6 +344,7 @@ gl.functions.doOrder = function () {
 gl.functions.fillOrderInfo = function (result, formData) {
     var elem = elems['#order-form-submit'];
 
+    debugger;
     elem.find('#order-id').val(result.order_uid);
     elem.find('#order-info').val(JSON.stringify({
         result: result,
@@ -367,7 +369,21 @@ gl.functions.fillOrderInfo = function (result, formData) {
         if (formData['ShopOrderForm[deliver_comment]']) {
             html += gl.data['Your comment:'] + ' ' + gl.escapeHtml(formData['ShopOrderForm[deliver_comment]']) + '<br>';
         }
-        html += gl.data['Order ID:'] + ' ' + gl.escapeHtml(result.order_uid);
+
+        debugger;
+        //if (formData['ShopOrderForm[id]']) {
+            html += 'ID: ' + gl.escapeHtml(formData['ShopOrderForm[id]']) + '<br>';
+        //}
+        // html += 'Order ID: ' + gl.escapeHtml(result.order_uid) + '<br>';
+        // html += 'ID: ' + gl.escapeHtml(result.id) + '<br>';
+
+        // html += gl.data['Order ID:'] + ' ' + gl.escapeHtml(result.order_uid);
+        // html += gl.data['ID_key:'] + ' ' + gl.escapeHtml(result.order_uid);
+        // html += gl.data['ID_key:'] + ' ' + gl.escapeHtml(result.order_uid);
+        // html += gl.data['ID_key:'] + ' ' + userProfiles[result].id;
+
+        //"ShopOrderForm[components][0][component_id]": "53"
+
         orderDataDataElem.html(html);
         orderDataDataElem.animate({opacity: 1});
 
@@ -376,8 +392,7 @@ gl.functions.fillOrderInfo = function (result, formData) {
                 if (result.status == 'success' && result.data['order-status'] == 'offer-sent-to-customer') {
                     for (var id in gl.functions.placesMap.prototype.allMovingMarkers) {
                         gl.functions.placesMap.prototype.allMovingMarkers[id].removeFrom(gl.data.worldMap.map);
-                    }
-                    gl.functions.placesMap.prototype.allMovingMarkers = [];
+                    } gl.functions.placesMap.prototype.allMovingMarkers = [];
 
                     for (id in gl.functions.placesMap.prototype.allPolylines) {
                         gl.functions.placesMap.prototype.allPolylines[id].removeFrom(gl.data.worldMap.map);
@@ -389,8 +404,20 @@ gl.functions.fillOrderInfo = function (result, formData) {
     });
 
     //TODO: убрать после теста
-    var courierLatLng = L.latLng();
-    gl.data.worldMap.showCourierByLatLng(courierLatLng);
+    debugger;
+    console.log('formData.:', formData);
+    console.log('result: ', result);
+    //gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer(formData.id);
+    // if (ShopOrderForm.id) {
+    //     alert('ShopOrderForm[id]: ' + ShopOrderForm[id]);
+    // }
+    //gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer(formData.id);  //function (merchantId) {
+        /*debugger;
+        //var courierLatLng = L.latLng();
+        //var courierLatLng = L.latLng(companyLatLng.lat, companyLatLng.lng
+        var marchLn = L.latLng(merchantData.lat, merchantData.lng);
+        //gl.data.worldMap.showCourierByLatLng(merchantData);
+        gl.data.worldMap.showCourierByLatLng(marchLn);*/
 };
 
 // Устанавливает необходимые данные когда продавец взял заказ в обработку (начал готовить)
@@ -480,13 +507,18 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
         //elems['#order-form-submit'].find('.order-data-container.info-panel').addClass('blinking-border-order-accepted-by-courier');
 
-        //gl.data.worldMap.showCourier();
-        var companyLatLng = gl.map.coordinates.string2array(merchantData.company_lat_long);
-        gl.data.worldMap.showCourierByLatLng(L.latLng(companyLatLng.lat, companyLatLng.lng));
-
+        // debugger;
+        // debugger;
+        // //$merchant->profile->company_lat_long
+        // //var companyLatLng = gl.map.coordinates.string2array(merchantData.id, company_lat_long);
+        // gl.data.worldMap.showCourierByLatLng(L.latLng(merchant.lat, companyLatLng.lng));
+        // debugger;
+        // //gl.data.worldMap.showCourier();
         /*setInterval(function () {
             gl.data.worldMap.moveCourier();
         }, 6000);*/
+
+        debugger;
 
         result = true;
     }
@@ -571,8 +603,8 @@ gl.functions.setUpPaneOnOrderSuccessfullyFinished = function (orderId, merchantD
 gl.orderFormHistory.qaz = function () {
 
     //if (!gl.orderFormHistory.qaz.was) {
-        //gl.orderFormHistory.cleanStore();
-        //gl.orderFormHistory.qaz.was = true;
+    //gl.orderFormHistory.cleanStore();
+    //gl.orderFormHistory.qaz.was = true;
     //}
 
     //$('.load-latest').toggle();
@@ -600,21 +632,21 @@ gl.orderFormHistory.qaz2 = function (data) {
 
 //if (gl.orderFormHistory.ifSomethingInStore) {
 
-    /*if (!window.qwe) {
+/*if (!window.qwe) {
 
-        window.qwe = true;
-        console.log('toggle123+++++++++))))');
+    window.qwe = true;
+    console.log('toggle123+++++++++))))');
 
-        if (show == 'open') {
-            $('.load-latest').toggle();
-            gl.orderFormHistory.restoreFromStore();
-        }
-        //gl.orderFormHistory.restoreFromStore();
-        //$('.load-latest').addClass('hidden');
-    }*/
+    if (show == 'open') {
+        $('.load-latest').toggle();
+        gl.orderFormHistory.restoreFromStore();
+    }
+    //gl.orderFormHistory.restoreFromStore();
+    //$('.load-latest').addClass('hidden');
+}*/
 
 //} else {
-    eval(gl.data.initialJSCode);
+eval(gl.data.initialJSCode);
 //}
 
 gl.functions.orderCalculatePrice();

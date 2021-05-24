@@ -16053,7 +16053,7 @@
 
                     onAdd: function (map) {
                         //alert('onAdd:');
-                        debugger;
+                        //debugger;
                         if (this.options.autoRoute) {
                             this.route();
                         }

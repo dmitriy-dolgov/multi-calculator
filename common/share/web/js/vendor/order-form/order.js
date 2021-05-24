@@ -505,18 +505,6 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
 
         $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
-        //elems['#order-form-submit'].find('.order-data-container.info-panel').addClass('blinking-border-order-accepted-by-courier');
-
-        // debugger;
-        // debugger;
-        // //$merchant->profile->company_lat_long
-        // //var companyLatLng = gl.map.coordinates.string2array(merchantData.id, company_lat_long);
-        // gl.data.worldMap.showCourierByLatLng(L.latLng(merchant.lat, companyLatLng.lng));
-        // debugger;
-        // //gl.data.worldMap.showCourier();
-        /*setInterval(function () {
-            gl.data.worldMap.moveCourier();
-        }, 6000);*/
 
         debugger;
 
@@ -536,9 +524,6 @@ gl.functions.setUpPaneOnOrderCourierArrived = function (orderId, merchantData, c
         orderInfoObj.orderStatus = 'finished';
         container.data('order-info', orderInfoObj);
 
-        //audioElement.play();
-
-        //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-courier-arrived');
         $('.modal-backdrop').removeClass(function (index, className) {
             return (className.match(/(^|\s)blinking-background-\S+/g) || []).join(' ');
         }).addClass('blinking-background-order-courier-arrived');
@@ -554,7 +539,6 @@ gl.functions.setUpPaneOnOrderCourierArrived = function (orderId, merchantData, c
         elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
 
         $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
-        //elems['#order-form-submit'].find('.order-data-container.info-panel').removeClass().addClass('order-data-container info-panel blinking-border-order-courier-arrived');
 
         result = true;
     }
@@ -572,8 +556,6 @@ gl.functions.setUpPaneOnOrderSuccessfullyFinished = function (orderId, merchantD
         var orderInfoObj = orderInfoJson;
         orderInfoObj.orderStatus = 'finished';
         container.data('order-info', orderInfoObj);
-
-        //audioElement.play();
 
         //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content');
         $('.modal-backdrop').removeClass(function (index, className) {

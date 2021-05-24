@@ -8,8 +8,13 @@
  *
  * @returns {{removeItem: removeItem, clear: clear, getItem: getItem, setItem: (function(*=, *=): null)}}
  */
+/*if (!id) {
+    window.gl = {};
+}*/
 gl.getObject('container').localStorageObj = function () {
+    alert("gl.getObject('container'");
     var storage;
+    debugger;
     try {
         var mainStorage = window['localStorage'];
         var x = '__storage_test__';

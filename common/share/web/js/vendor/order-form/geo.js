@@ -112,87 +112,11 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         if (this.markers && this.markers[0]) {
             this.showCourierByLatLng(mrkLanLng);
         }
-        //this.showCourierByLatLng();
     }
-}
-
-gl.functions.placesMap.prototype.showCourier = function () {
-
-    var merchantLatLng = gl.functions.getCurrentGeoLocation();
-
-    $popup = 'Курьер<img src="/img/courier/4.gif" style="width:20px">';
-
-    //debugger;
-    var mrkLanLng = false;
-
-    if (this.markers) {
-        for (var mId in this.markers) {
-            mrkLanLng = this.markers[mId].marker.getLatLng();
-            break;
-        }
-
-        // Здесь создаются иконки для кратчайшего пути.
-        var routerControl = L.Routing.control({
-            waypoints: [
-                //L.latLng(merchantLatLng.lat, merchantLatLng.lng),
-                //L.latLng(mrkLanLng.lat, mrkLanLng.lng)
-                [merchantLatLng.lat, merchantLatLng.lng],
-                [mrkLanLng.lat, mrkLanLng.lng]
-            ]
-        }).addTo(this.map); //.bindPopup("Это описание курьера");
-
-        // see https://stackoverflow.com/questions/34045265/destination-coordinates-in-leaflet-routing
-        routerControl.on("routesfound", function (e) {
-            debugger;
-            gl.log(["EEE: ", e]);
-            var coordinates = e.routes[0].coordinates;
-            console.log("coordinates:", coordinates);
-            var destination = coordinates[coordinates.length - 1];
-            console.log("coordinates 2:", coordinates);
-            console.log("coordinates.length:", coordinates.length);
-            console.log("destination 2:", destination);
-
-            console.log("coordinates:", coordinates);
-
-            gl.functions.courierIconStart(coordinates);
-        });
-    }
-};
-
-gl.functions.placesMap.prototype.showCourierByLatLng = function (mrkLanLng) {
-
-    var merchantLatLng = gl.functions.getCurrentGeoLocation();
-
-    $popup = 'Курьер<img src="/img/courier/4.gif" style="width:20px">';
-
-    debugger;
-    // Здесь создаются иконки для кратчайшего пути.
-    var routerControl = L.Routing.control({
-        waypoints: [
-            [merchantLatLng.lat, merchantLatLng.lng],
-            [mrkLanLng.lat, mrkLanLng.lng]
-        ]
-    }).addTo(this.map); //.bindPopup("Это описание курьера");
-
-    // see https://stackoverflow.com/questions/34045265/destination-coordinates-in-leaflet-routing
-    routerControl.on("routesfound", function (e) {
-        debugger;
-        gl.log(["EEE: ", e]);
-        var coordinates = e.routes[0].coordinates;
-        console.log("coordinates:", coordinates);
-        var destination = coordinates[coordinates.length - 1];
-        console.log("coordinates 2:", coordinates);
-        console.log("coordinates.length:", coordinates.length);
-        console.log("destination 2:", destination);
-
-        console.log("coordinates:", coordinates);
-
-        gl.functions.courierIconStart(coordinates);
-    });
 };
 
 gl.functions.courierIconStart = function (coordinates) {
-//      debugger;
+    debugger;
     gl.log(['coordinates2: ', coordinates]);
 
     var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
@@ -201,7 +125,7 @@ gl.functions.courierIconStart = function (coordinates) {
     for (var i = 0; i < 2; ++i) {
         debugger;
         debugger;
-        alert();
+        alert('ewrip I:' + $i);
         coordinatesMod.push([
                 [
                     coordinates[i].latLng.lat,
@@ -212,124 +136,81 @@ gl.functions.courierIconStart = function (coordinates) {
     }
 };
 
-gl.functions.courierIconStartOld = function (coordinates) {
-//      debugger;
-    gl.log(['coordinates: ', coordinates]);
+gl.functions.placesMap.prototype.showCourierByLatLng = function (shopLanLng) {
 
-    var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
-
-    var coordinatesMod = [];
-    for (var i = 0; i < 2; ++i) {
-        debugger;
-        debugger;
-        alert('99887');
-        coordinatesMod.push([
-                [
-                    coordinates[i].latLng.lat,
-                    coordinates[i].latLng.lng
-                ]
-            ]
-        );
-    }
+    var merchantLatLng = gl.functions.getCurrentGeoLocation();
+    var popup = 'Курьер<img src="/img/courier/4.gif" style="width:20px">';
 
     debugger;
-    var line = L.polyline(coordinatesMod);
-    var animatedMarker = L.animatedMarker(line.getLatLngs(), {
-        //distance: 300,    // meters
-        //interval: 2000,   // milliseconds? looks like `second`
-        distance: 5000,        // meters
-        interval: 900000,  // milliseconds? looks like `second`
-        autoStart: true,
-        icon: courierIcon,
-        //onStart: function () {alert('onStart')},
-        onEnd: function () {
-            debugger;
-            alert('onEnd');
-            // TODO: blow up this marker
-            gl.data.worldMap.map.removeLayer(animatedMarker);
-            gl.data.worldMap.map.addLayer(gl.functions.placesMap.prototype.icons.courierStand);
-        }
-    });
+    // Здесь создаются иконки для кратчайшего пути.
+    var routerControl = L.Routing.control({
+        waypoints: [
+            [merchantLatLng.lat, merchantLatLng.lng],
+            [shopLanLng.lat, shopLanLng.lng]
+        ]
+    }).addTo(gl.data.worldMap.map); //.bindPopup("Это описание курьера");
 
-    gl.data.worldMap.map.addLayer(animatedMarker);
+    // see https://stackoverflow.com/questions/34045265/destination-coordinates-in-leaflet-routing
+    routerControl.on("routesfound", function (e) {
+        debugger;
+        console.log(["EEE: ", e]);
+        var coordinates = e.routes[0].coordinates;
+        console.log("coordinates:", coordinates);
+        //var destination = coordinates[coordinates.length - 1];
+
+        debugger;
+        debugger;
+        gl.functions.courierIconStart(coordinates);
+    });
 };
 
-/*gl.functions.centerLeafletMapOnMarker = function (map, marker) {
-    return;
-    var latLngs = [marker.getLatLng()];
-    var markerBounds = L.latLngBounds(latLngs);
-    map.fitBounds(markerBounds);
-};*/
+// gl.functions.courierIconStartOld = function (coordinates) {
+// //      debugger;
+//     gl.log(['coordinates: ', coordinates]);
+//
+//     var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
+//
+//     var coordinatesMod = [];
+//     for (var i = 0; i < 2; ++i) {
+//         debugger;
+//         debugger;
+//         alert('99887');
+//         coordinatesMod.push([
+//                 [
+//                     coordinates[i].latLng.lat,
+//                     coordinates[i].latLng.lng
+//                 ]
+//             ]
+//         );
+//     }
+//
+//     debugger;
+//     var line = L.polyline(coordinatesMod);
+//     var animatedMarker = L.animatedMarker(line.getLatLngs(), {
+//         //distance: 300,    // meters
+//         //interval: 2000,   // milliseconds? looks like `second`
+//         distance: 5000,        // meters
+//         interval: 900000,  // milliseconds? looks like `second`
+//         autoStart: true,
+//         icon: courierIcon,
+//         //onStart: function () {alert('onStart')},
+//         onEnd: function () {
+//             debugger;
+//             alert('onEnd');
+//             // TODO: blow up this marker
+//             gl.data.worldMap.map.removeLayer(animatedMarker);
+//             gl.data.worldMap.map.addLayer(gl.functions.placesMap.prototype.icons.courierStand);
+//         }
+//     });
+//
+//     gl.data.worldMap.map.addLayer(animatedMarker);
+// };
+
 
 gl.functions.placesMap.prototype.hideCourier = function () {
     //var latLng = gl.functions.getCurrentGeoLocation();
     //this.courierMarker = this.addMarkerByCoords(latLng.lat, latLng.lng, this.icons.courier);
 };
-
-gl.functions.placesMap.prototype.moveCourier = function (latLng, courierMarker) {
-
-    //var newLatLng = new L.LatLng($i, $m * $i + $b);
-    //courierMarkerObj.setLatLng(newLatLng);
-    //return;
-
-    //var latLng = gl.functions.getCurrentGeoLocation();
-    //this.courierMarker
-    //var fromCoords = ;
-    //var customerLatLon = this.courierMarker.getLatLng();
-    var customerLatLon = latLng;
-    var mrkLanLng = window.ttt;
-    /*for (var mId in this.markers) {
-        mrkLanLng = this.markers[mId].marker.getLatLng();
-        break;
-    }
-
-    debugger;*/
-    console.log('customerLatLon: ', customerLatLon);
-    console.log('mrkLanLng: ', mrkLanLng);
-
-    var $pt1 = [customerLatLon.lat, customerLatLon.lng];
-    var $pt2 = [mrkLanLng.lat, mrkLanLng.lng];
-    var $m = ($pt1[1] - $pt2[1]) / ($pt1[0] - $pt2[0]);
-    var $b = $pt1[1] - $m * $pt1[0];
-
-    //for ($i = $pt1[0]; $i <= $pt2[0]; $i++)
-    //$points[] = array($i, $m * $i + $b);
-
-    var $i = $pt1[0];
-
-    console.log('$i: ', $i);
-
-    var courierMarkerObj = courierMarker;
-
-
-    var step = ($pt2[0] - $i) / 50;
-
-    //var counter = 0;
-    var interval = setInterval(function () {
-            alert('setInterval 1');
-            console.log('$i: ', $i);
-            if ($i <= $pt2[0]) {
-                //this.courierMarker = this.addMarkerByCoords($i, $m * $i + $b, this.icons.courier);
-
-                var newLatLng = new L.LatLng($i, $m * $i + $b);
-                courierMarkerObj.setLatLng(newLatLng);
-
-                console.log('$i: ', $i);
-
-                $i += step; //0.01;
-                return;
-            }
-
-            console.log('clearInterval');
-
-            clearInterval(interval);
-            interval = null;
-        },
-        100);
-
-};
-
-//gl.functions.placesMap.globalZIndex = 0;
 
 gl.functions.placesMap.prototype.moveCustomerMarker = function (newLan, newLgn) {
     var newLatLng = new L.LatLng(newLan, newLgn);
@@ -558,17 +439,22 @@ gl.functions.placesMap.prototype.connectMarkersWithCustomer = function () {
  * TODO: connectAPizzeriaWithCustomer => connectAMerchantIdCustomer
  *
  *
- * @param $merchantId ID пиццерии
+ * @param merchantId ID продавца (пиццерии)
  */
 gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (merchantId) {
-    debugger;
+    //alert('connectAPizzeriaWithCustomer ###########  gl.functions.placesMap.prototype');
+
     this.merchantId = merchantId;
 
-    gl.log('connectAPizzeriaWithCustomer(), merchantId: ' + merchantId);
+    //gl.log('connectAPizzeriaWithCustomer(), merchantId: ' + merchantId);
+    console.log('connectAPizzeriaWithCustomer(), merchantId: ' + merchantId);
 
-    // Что удаляется, не все изогнутые линии?
+    //debugger;
+    //TODO: здесь удаляются все изогнутые линии (коннекторы покупателя с пиццериями
     if (this.flowmapLayer) {
         this.map.removeLayer(this.flowmapLayer);
+        //TODO: надо ли?
+        this.flowmapLayer = null;
     }
 
     var geoJsonFeatureCollection = {
@@ -580,39 +466,104 @@ gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (mercha
     if (typeof this.customerMarker !== 'undefined') {
         customerLatLon = this.customerMarker.getLatLng();
     }
+
+    var coordinatesMod = [];
+
     for (var mId in this.markers) {
         gl.log('this.markers[mId].id: ' + this.markers[mId].id);
 
-        //TODO: Ladlens comment - раскоммментить
-        // if (this.markers[mId].id != merchantId) {
-        //     continue;
-        // }
+        //debugger;
+        ////TODO: Ladlens comment - раскоммментить
+        if (this.markers[mId].id != merchantId) {
+            debugger;
+            continue;
+        }
 
-        // пиццерия?
-        debugger;
-        var mrkLanLng = this.markers[mId].marker.getLatLng();
-        gl.data.worldMap.connectAPizzeriaWithCustomer(merchantId);
-        //return;
+        debugger;   // пиццерия?
+        coordinatesMod.push([
+                //TODO: не очень понятно с ._latlng - проверить, cделать правильно
+                //markers[mId].latLng.lat,
+                //coordinates[mId].latLng.lng,
+                //]
+                this.markers[0].marker._latlng.lat,
+                this.markers[0].marker._latlng.lng
+            ]
+        );
 
-        var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
 
-        var line = L.polyline(coordinatesMod);
-        var animatedMarker = L.animatedMarker(line.getLatLngs(), {
-            //distance: 300,    // meters
-            //interval: 2000,   // milliseconds? looks like `second`
-            distance: 50,       // meters
-            interval: 900000,   // milliseconds? looks like `second`
-            autoStart: true,
-            icon: courierIcon,
-            onEnd: function () {
-                debugger;
-                alert('onEnd');
-                // TODO: blow up this marker
-                gl.data.worldMap.map.removeLayer(animatedMarker);
-                gl.data.worldMap.map.addLayer(gl.functions.placesMap.prototype.icons.courierStand);
-            }
-        }).addTo(this.map);
+        //var mrkLanLng = this.markers[mId].marker.getLatLng();
+        //alert('connectAPizzeriaWithCustomer merchantId - gl.functions.placesMap.prototype');
+        //gl.data.worldMap.connectAPizzeriaWithCustomer(merchantId);
+
+        var shopLanLng = this.markers[mId].marker.getLatLng();
+        gl.functions.placesMap.prototype.showCourierByLatLng(shopLanLng);
+
+        break;
     }
+    //return;
+
+    debugger;
+    var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
+
+    var line = L.polyline(coordinatesMod);
+    var animatedMarker = L.animatedMarker(line.getLatLngs(), {
+        //distance: 300,    // meters
+        //interval: 2000,   // milliseconds? looks like `second`
+        distance: 50,       // meters
+        interval: 900000,   // milliseconds? looks like `second`
+        autoStart: true,
+        icon: courierIcon,
+        onEnd: function () {
+            debugger;
+            alert('onEnd');
+            // TODO: blow up this marker
+            gl.data.worldMap.map.removeLayer(animatedMarker);
+            gl.data.worldMap.map.addLayer(gl.functions.placesMap.prototype.icons.courierStand);
+        }
+    }).addTo(this.map);
 
     this.flowmapLayer.selectFeaturesForPathDisplayById('origin_id', this.markers[mId].id, true, 'SELECTION_NEW');
+};
+
+/**
+ * Пока-что координаты магазина и начальные координаты курьера совпадают.
+ *
+ * @param merchantLatLng коотдинаты продавца.
+ */
+gl.functions.placesMap.prototype.connectStoreWithCustomer = function (merchantLatLng) {
+
+    var customerLatLng = gl.functions.getCurrentGeoLocation();
+
+    var $popup = 'Курьер<img src="/img/courier/4.gif" style="width:20px">';
+
+    debugger;
+
+    // Здесь создаются иконки для кратчайшего пути.
+    var routerControl = L.Routing.control({
+        waypoints: [
+            [merchantLatLng.lat, merchantLatLng.lng],
+            [customerLatLng.lat, customerLatLng.lng],
+        ]
+    }).addTo(this.map).bindPopup($popup);
+
+
+    // see https://stackoverflow.com/questions/34045265/destination-coordinates-in-leaflet-routing
+    routerControl.on("routesfound", function (e) {
+        /*debugger;
+        gl.log(["EEE: ", e]);
+        var coordinates = e.routes[0].coordinates;
+        console.log("coordinates:", coordinates);
+        var destination = coordinates[coordinates.length - 1];
+        console.log("coordinates 2:", coordinates);
+        console.log("coordinates.length:", coordinates.length);
+        console.log("destination 2:", destination);*/
+
+        console.log("coordinates:", coordinates);
+
+        debugger;
+        debugger;
+        gl.functions.courierIconStart(coordinates);
+    });
+
+    //var customerLatLng = 'sdf';
 };

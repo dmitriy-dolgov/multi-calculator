@@ -247,7 +247,7 @@ gl.functions.composeOrder = function () {
 
                 formDataArrIndexed.deliverCityName = elem.find('[name="ShopOrderForm[deliver_city_id]"]').val();
 
-                debugger;
+                //debugger;
                 gl.functions.fillOrderInfo(result, formDataArrIndexed);
                 gl.functions.addOrderToPanel();
 
@@ -370,9 +370,9 @@ gl.functions.fillOrderInfo = function (result, formData) {
             html += gl.data['Your comment:'] + ' ' + gl.escapeHtml(formData['ShopOrderForm[deliver_comment]']) + '<br>';
         }
 
-        debugger;
+        //debugger;
         //if (formData['ShopOrderForm[id]']) {
-            html += 'ID: ' + gl.escapeHtml(formData['ShopOrderForm[id]']) + '<br>';
+        //    html += 'ID: ' + gl.escapeHtml(formData['ShopOrderForm[id]']) + '<br>';
         //}
         // html += 'Order ID: ' + gl.escapeHtml(result.order_uid) + '<br>';
         // html += 'ID: ' + gl.escapeHtml(result.id) + '<br>';
@@ -434,6 +434,7 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
         container.data('order-info', orderInfoObj);
 
         //gl.data.setupAudio.play();
+
 
         //TODO: Здесь надо убрать все соединяющие линии и установить связь обратную от пиццерии к пользователю.
         gl.data.worldMap.connectAPizzeriaWithCustomer(merchantData.id);
@@ -517,6 +518,7 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
 gl.functions.setUpPaneOnOrderCourierArrived = function (orderId, merchantData, courierData) {
     var result = false;
 
+    debugger;
     var container = $('.orders-container .elem');
     if (container.length) {
         var orderInfoJson = container.data('order-info');

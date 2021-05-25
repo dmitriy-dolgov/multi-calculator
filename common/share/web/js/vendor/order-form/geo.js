@@ -116,6 +116,9 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 };
 
 gl.functions.courierIconStart = function (coordinates) {
+    if (coordinates.length > 2) {
+
+    }
     debugger;
     gl.log(['coordinates2: ', coordinates]);
 
@@ -125,7 +128,7 @@ gl.functions.courierIconStart = function (coordinates) {
     for (var i = 0; i < 2; ++i) {
         debugger;
         debugger;
-        alert('ewrip I:' + $i);
+        //alert('ewrip I:' + i);
         coordinatesMod.push([
                 [
                     coordinates[i].latLng.lat,
@@ -482,11 +485,12 @@ gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (mercha
         debugger;   // пиццерия?
         coordinatesMod.push([
                 //TODO: не очень понятно с ._latlng - проверить, cделать правильно
+                // this.markers[mId].marker.getLatLng(); - может лучше подходит?
                 //markers[mId].latLng.lat,
                 //coordinates[mId].latLng.lng,
                 //]
-                this.markers[0].marker._latlng.lat,
-                this.markers[0].marker._latlng.lng
+                this.markers[mId].marker._latlng.lat,
+                this.markers[mId].marker._latlng.lng
             ]
         );
 
@@ -495,6 +499,7 @@ gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (mercha
         //alert('connectAPizzeriaWithCustomer merchantId - gl.functions.placesMap.prototype');
         //gl.data.worldMap.connectAPizzeriaWithCustomer(merchantId);
 
+        debugger;
         var shopLanLng = this.markers[mId].marker.getLatLng();
         gl.functions.placesMap.prototype.showCourierByLatLng(shopLanLng);
 
@@ -506,10 +511,13 @@ gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (mercha
     var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
 
     var line = L.polyline(coordinatesMod);
+    //var animatedMarker = L.animatedMarker(line.getLatLngs(), {
+    debugger;
+    debugger;
     var animatedMarker = L.animatedMarker(line.getLatLngs(), {
         //distance: 300,    // meters
         //interval: 2000,   // milliseconds? looks like `second`
-        distance: 50,       // meters
+        distance: 10,       // meters
         interval: 900000,   // milliseconds? looks like `second`
         autoStart: true,
         icon: courierIcon,
@@ -522,7 +530,9 @@ gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (mercha
         }
     }).addTo(this.map);
 
-    this.flowmapLayer.selectFeaturesForPathDisplayById('origin_id', this.markers[mId].id, true, 'SELECTION_NEW');
+    if (this.flowmapLayer) {
+        this.flowmapLayer.selectFeaturesForPathDisplayById('origin_id', this.markers[mId].id, true, 'SELECTION_NEW');
+    }
 };
 
 /**

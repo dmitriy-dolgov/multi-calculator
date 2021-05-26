@@ -426,7 +426,7 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markers) {
  * @param merchantId ID продавца
  * @param customerId ID пользователя TODO: !!!! - реализовать нормально, сейчас - костыль
  */
-gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchantId, customerId) {
+gl.functions.placesMap.prototype.connectMerchantWithCustomerVerDebug_1 = function (merchantId, customerLatLon) {
     var customerLatLon = this.customerMarker.getLatLng();
 
     for (var mId in this.markers) {
@@ -520,11 +520,12 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchan
 };
 
 /**
- * Установить соединение продавца с пользователем.
+ * Установить соединение от продавца до пользователя.
  *
  * @param merchantId ID продавца
+ * @param customerId ID пользователя TODO: !!!! - реализовать нормально, сейчас - костыль
  */
-gl.functions.placesMap.prototype.connectAMerchantWithCustomer = function (merchantId) {
+gl.functions.placesMap.prototype.connectAMerchantWithCustomer = function (merchantId, customerLatLon) {
 
     //TODO: проверить надо ли this.merchantId
     this.merchantId = merchantId;
@@ -619,7 +620,98 @@ gl.functions.placesMap.prototype.removeAllConnectionsBetweenCustomerAndMerchants
 };
 
 /**
- * Пока-что координаты магазина и начальные координаты курьера совпадают.
+ * Удалить все соединения и установить соединение от пиццерии до пользователя.
+ * TODO: connectAPizzeriaWithCustomer => connectAMerchantIdCustomer
+ *
+ * @param merchantId ID продавца (пиццерии) TODO: реализовать для показа одиночной связи
+ * @param customerLatLng ID пользователя TODO: !!!! - реализовать нормально, сейчас - костыль
+ */
+gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (customerLatLng) {
+    alert('*************** connectAPizzeriaWithCustomer ###########  gl.functions.placesMap.prototype');
+
+    gl.log(['connectAPizzeriaWithCustomer(), merchantId: ', merchantId]);
+
+    //TODO: какой-то косяк но пока ладно, до времени на рефакторинг
+    if (!customerLatLng) {
+        //if (typeof this.customerMarker !== 'undefined') {
+        if (this.customerMarker) {
+            customerLatLng = this.customerMarker.getLatLng();
+        }
+    }
+
+    var geoJsonFeatureCollection = {
+        type: 'FeatureCollection',
+        features: []
+    };
+
+    var coordinatesMod = [];
+
+    for (var mId in this.markers) {
+        gl.log('this.markers[mId].id: ' + this.markers[mId].id);
+
+        //debugger;
+        ////TODO: Ladlens comment - раскоммментить
+        if (this.markers[mId].id != merchantId) {
+            debugger;
+            continue;
+        }
+
+        debugger;   // пиццерия?
+        coordinatesMod.push([
+                //TODO: не очень понятно с ._latlng - проверить, cделать правильно
+                // this.markers[mId].marker.getLatLng(); - может лучше подходит?
+                //markers[mId].latLng.lat,
+                //coordinates[mId].latLng.lng,
+                //]
+                this.markers[mId].marker._latlng.lat,
+                this.markers[mId].marker._latlng.lng
+            ]
+        );
+
+
+        //var mrkLanLng = this.markers[mId].marker.getLatLng();
+        //alert('connectAPizzeriaWithCustomer merchantId - gl.functions.placesMap.prototype');
+        //gl.data.worldMap.connectAPizzeriaWithCustomer(merchantId);
+
+        debugger;
+        var shopLanLng = this.markers[mId].marker.getLatLng();
+        //gl.functions.placesMap.prototype.showCourierByLatLng(shopLanLng);
+
+        break;
+    }
+    //return;
+
+    debugger;
+    var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
+
+    var line = L.polyline(coordinatesMod);
+    //var animatedMarker = L.animatedMarker(line.getLatLngs(), {
+    debugger;
+    debugger;
+    var animatedMarker = L.animatedMarker(line.getLatLngs(), {
+        //distance: 300,    // meters
+        //interval: 2000,   // milliseconds? looks like `second`
+        distance: 1000,     // meters
+        interval: 900000,   // milliseconds? looks like `second`
+        autoStart: true,
+        icon: courierIcon,
+        onEnd: function () {
+            debugger;
+            alert('onEnd');
+            // TODO: blow up this marker
+            gl.data.worldMap.map.removeLayer(animatedMarker);
+            gl.data.worldMap.map.addLayer(gl.functions.placesMap.prototype.icons.courierStand);
+        }
+    }).addTo(this.map);
+
+    // if (this.merchantsLayer) {
+    //     this.merchantsLayer.selectFeaturesForPathDisplayById('origin_id', this.markers[mId].id, true, 'SELECTION_NEW');
+    // }
+};
+
+
+/**
+ * Пока-что координаты продавца и начальные координаты курьера совпадают.
  *
  * @param merchantLatLng коотдинаты продавца.
  */

@@ -115,29 +115,29 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     }
 };
 
-gl.functions.courierIconStart = function (coordinates) {
-    if (coordinates.length > 2) {
-
-    }
-    debugger;
-    gl.log(['coordinates2: ', coordinates]);
-
-    var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
-
-    //var coordinates = [];
-    for (var i = 0; i < 2; ++i) {
-        debugger;
-        debugger;
-        //alert('ewrip I:' + i);
-        coordinatesMod.push([
-                [
-                    coordinates[i].latLng.lat,
-                    coordinates[i].latLng.lng
-                ]
-            ]
-        );
-    }
-};
+// gl.functions.courierIconStart = function (coordinates) {
+//     if (coordinates.length > 2) {
+//
+//     }
+//     debugger;
+//     gl.log(['coordinates2: ', coordinates]);
+//
+//     var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
+//
+//     //var coordinates = [];
+//     for (var i = 0; i < 2; ++i) {
+//         debugger;
+//         debugger;
+//         //alert('ewrip I:' + i);
+//         coordinatesMod.push([
+//                 [
+//                     coordinates[i].latLng.lat,
+//                     coordinates[i].latLng.lng
+//                 ]
+//             ]
+//         );
+//     }
+// };
 
 gl.functions.placesMap.prototype.showCourierByLatLng = function (shopLanLng) {
 
@@ -323,30 +323,112 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markers) {
     this.connectMarkersWithCustomer();
 };
 
-gl.functions.placesMap.prototype.connectMarkersWithCustomer = function () {
-    //return;
-    //this.customerMarksConnectors = [];
+// /**
+//  * Удалить все соединения и установить соединение от пиццерии до пользователя.
+//  * TODO: connectAPizzeriaWithCustomer => connectAMerchantIdCustomer
+//  *
+//  *
+//  * @param merchantId ID продавца (пиццерии)
+//  */
+// gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (merchantId) {
+//     //alert('connectAPizzeriaWithCustomer ###########  gl.functions.placesMap.prototype');
+//
+//     //TODO: проверить надо ли this.merchantId
+//     //this.merchantId = merchantId;
+//
+//     gl.log('connectAPizzeriaWithCustomer(), merchantId: ' + merchantId);
+//
+//     //TODO: здесь удаляются все изогнутые линии (коннекторы покупателя с продавцами)
+//     if (this.merchantsLayer) {
+//         this.map.removeLayer(this.merchantsLayer);
+//         //TODO: надо ли?
+//         this.merchantsLayer = null;
+//     }
+//
+//     var geoJsonFeatureCollection = {
+//         type: 'FeatureCollection',
+//         features: []
+//     };
+//
+//     var customerLatLon;
+//     if (typeof this.customerMarker !== 'undefined') {
+//         customerLatLon = this.customerMarker.getLatLng();
+//     }
+//
+//     var coordinatesMod = [];
+//
+//     for (var mId in this.markers) {
+//         gl.log('this.markers[mId].id: ' + this.markers[mId].id);
+//
+//         //debugger;
+//         ////TODO: Ladlens comment - раскоммментить
+//         if (this.markers[mId].id != merchantId) {
+//             debugger;
+//             continue;
+//         }
+//
+//         debugger;   // пиццерия?
+//         coordinatesMod.push([
+//                 //TODO: не очень понятно с ._latlng - проверить, cделать правильно
+//                 // this.markers[mId].marker.getLatLng(); - может лучше подходит?
+//                 //markers[mId].latLng.lat,
+//                 //coordinates[mId].latLng.lng,
+//                 //]
+//                 this.markers[mId].marker._latlng.lat,
+//                 this.markers[mId].marker._latlng.lng
+//             ]
+//         );
+//
+//
+//         //var mrkLanLng = this.markers[mId].marker.getLatLng();
+//         //alert('connectAPizzeriaWithCustomer merchantId - gl.functions.placesMap.prototype');
+//         //gl.data.worldMap.connectAPizzeriaWithCustomer(merchantId);
+//
+//         debugger;
+//         var shopLanLng = this.markers[mId].marker.getLatLng();
+//         //gl.functions.placesMap.prototype.showCourierByLatLng(shopLanLng);
+//
+//         break;
+//     }
+//     //return;
+//
+//     debugger;
+//     var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
+//
+//     var line = L.polyline(coordinatesMod);
+//     //var animatedMarker = L.animatedMarker(line.getLatLngs(), {
+//     debugger;
+//     debugger;
+//     var animatedMarker = L.animatedMarker(line.getLatLngs(), {
+//         //distance: 300,    // meters
+//         //interval: 2000,   // milliseconds? looks like `second`
+//         distance: 1000,     // meters
+//         interval: 900000,   // milliseconds? looks like `second`
+//         autoStart: true,
+//         icon: courierIcon,
+//         onEnd: function () {
+//             debugger;
+//             alert('onEnd');
+//             // TODO: blow up this marker
+//             gl.data.worldMap.map.removeLayer(animatedMarker);
+//             gl.data.worldMap.map.addLayer(gl.functions.placesMap.prototype.icons.courierStand);
+//         }
+//     }).addTo(this.map);
+//
+//     // if (this.merchantsLayer) {
+//     //     this.merchantsLayer.selectFeaturesForPathDisplayById('origin_id', this.markers[mId].id, true, 'SELECTION_NEW');
+//     // }
+// };
 
-    /*for (var i in this.map._layers) {
-        gl.log('LAYER ' + i);
-        if (this.map._layers[i]._path != undefined) {
-            gl.log('L path: ' + this.map._layers[i]._path);
-            try {
-                this.map.removeLayer(this.map._layers[i]);
-            } catch (e) {
-                console.log("problem with " + e + this.map._layers[i]);
-            }
-        } else {
-            gl.log('L UNDEFINED');
-        }
-    }*/
-
-    var geoJsonFeatureCollection = {
-        type: 'FeatureCollection',
-        features: []
-    };
-
+/**
+ * Установить соединение от продавца до пользователя.
+ *
+ * @param merchantId ID продавца
+ * @param customerId ID пользователя TODO: !!!! - реализовать нормально, сейчас - костыль
+ */
+gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchantId, customerId) {
     var customerLatLon = this.customerMarker.getLatLng();
+
     for (var mId in this.markers) {
         var mrkLanLng = this.markers[mId].marker.getLatLng();
         /*var polylinePoints = [
@@ -385,7 +467,7 @@ gl.functions.placesMap.prototype.connectMarkersWithCustomer = function () {
         //myMovingMarker.start();*/
     }
 
-    this.flowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
+    this.merchantsLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
         originAndDestinationFieldIds: {
             originUniqueIdField: 'origin_id',
             originGeometry: {
@@ -434,32 +516,20 @@ gl.functions.placesMap.prototype.connectMarkersWithCustomer = function () {
         }
     }).addTo(this.map);
 
-    this.flowmapLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
+    //this.merchantsLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
 };
 
 /**
- * Удалить все соединения и установить соединение от пиццерии до пользователя.
- * TODO: connectAPizzeriaWithCustomer => connectAMerchantIdCustomer
+ * Установить соединение продавца с пользователем.
  *
- *
- * @param merchantId ID продавца (пиццерии)
+ * @param merchantId ID продавца
  */
-gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (merchantId) {
-    //alert('connectAPizzeriaWithCustomer ###########  gl.functions.placesMap.prototype');
+gl.functions.placesMap.prototype.connectAMerchantWithCustomer = function (merchantId) {
 
+    //TODO: проверить надо ли this.merchantId
     this.merchantId = merchantId;
 
-    //gl.log('connectAPizzeriaWithCustomer(), merchantId: ' + merchantId);
-    console.log('connectAPizzeriaWithCustomer(), merchantId: ' + merchantId);
-
-    //debugger;
-    //TODO: здесь удаляются все изогнутые линии (коннекторы покупателя с пиццериями
-    if (this.flowmapLayer) {
-        this.map.removeLayer(this.flowmapLayer);
-        //TODO: надо ли?
-        this.flowmapLayer = null;
-    }
-
+    //TODO: что это
     var geoJsonFeatureCollection = {
         type: 'FeatureCollection',
         features: []
@@ -501,7 +571,7 @@ gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (mercha
 
         debugger;
         var shopLanLng = this.markers[mId].marker.getLatLng();
-        gl.functions.placesMap.prototype.showCourierByLatLng(shopLanLng);
+        //gl.functions.placesMap.prototype.showCourierByLatLng(shopLanLng);
 
         break;
     }
@@ -517,7 +587,7 @@ gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (mercha
     var animatedMarker = L.animatedMarker(line.getLatLngs(), {
         //distance: 300,    // meters
         //interval: 2000,   // milliseconds? looks like `second`
-        distance: 10,       // meters
+        distance: 1000,     // meters
         interval: 900000,   // milliseconds? looks like `second`
         autoStart: true,
         icon: courierIcon,
@@ -530,8 +600,21 @@ gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer = function (mercha
         }
     }).addTo(this.map);
 
-    if (this.flowmapLayer) {
-        this.flowmapLayer.selectFeaturesForPathDisplayById('origin_id', this.markers[mId].id, true, 'SELECTION_NEW');
+    // if (this.merchantsLayer) {
+    //     this.merchantsLayer.selectFeaturesForPathDisplayById('origin_id', this.markers[mId].id, true, 'SELECTION_NEW');
+    // }
+};
+
+/**
+ * Удалить все соединения между покупателем и продавцами.
+ */
+gl.functions.placesMap.prototype.removeAllConnectionsBetweenCustomerAndMerchants = function () {
+    //gl.log('evoke: removeAllConnectionsBetweenCustomerAndVendors()');
+
+    if (this.merchantsLayer) {
+        this.map.removeLayer(this.merchantsLayer);
+        //TODO: надо ли?
+        this.merchantsLayer = null;
     }
 };
 

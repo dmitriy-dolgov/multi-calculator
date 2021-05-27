@@ -756,32 +756,32 @@ gl.functions.placesMap.prototype.connectStoreWithCustomer = function (merchantLa
  */
 gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchantLatLng, customerLatLng) {
 
+    if (!customerLatLng) {
+        customerLatLon = this.customerMarker.getLatLng();
+    }
+
     var geoJsonFeatureCollection = {
         type: 'FeatureCollection',
         features: []
     };
 
-    var customerLatLon = this.customerMarker.getLatLng();
-    for (var mId in this.markers) {
-        merchantLatLng = this.markers[mId].marker.getLatLng();
-
-        geoJsonFeatureCollection.features.push({
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [customerLatLon.lng, customerLatLon.lat]
-                },
-                "properties": {
-                    "origin_id": 0,
-                    "origin_lon": customerLatLon.lng,
-                    "origin_lat": customerLatLon.lat,
-                    "destination_id": this.markers[mId].id,
-                    "destination_lon": merchantLatLng.lng,
-                    "destination_lat": merchantLatLng.lat
-                }
+    geoJsonFeatureCollection.features.push({
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [customerLatLon.lng, customerLatLon.lat]
+            },
+            "properties": {
+                "origin_id": 0,
+                "origin_lon": customerLatLon.lng,
+                "origin_lat": customerLatLon.lat,
+                "destination_id": this.markers[mId].id,
+                "destination_lon": merchantLatLng.lng,
+                "destination_lat": merchantLatLng.lat
             }
-        );
-    }
+        }
+    );
+
 
     this.flowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
         originAndDestinationFieldIds: {
@@ -835,85 +835,18 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchan
 
 /**
  * Соединить все точки продажи с пользователем.
- * Если покупатель не указан - берется покупатель по умолчанию.
+ * Если данные пользователя не указаны - берутся данные покупателя по умолчанию.
  *
- * @param merchantLatLng коотдинаты продавца.
+ * @param customerLatLng координаты пользователя (opt.).
  */
-gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (merchantLatLng, customerLatLng) {
+gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (customerLatLng) {
 
-    var geoJsonFeatureCollection = {
-        type: 'FeatureCollection',
-        features: []
-    };
-
-    var customerLatLon = this.customerMarker.getLatLng();
-    for (var mId in this.markers) {
-        merchantLatLng = this.markers[mId].marker.getLatLng();
-
-        geoJsonFeatureCollection.features.push({
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [customerLatLon.lng, customerLatLon.lat]
-                },
-                "properties": {
-                    "origin_id": 0,
-                    "origin_lon": customerLatLon.lng,
-                    "origin_lat": customerLatLon.lat,
-                    "destination_id": this.markers[mId].id,
-                    "destination_lon": merchantLatLng.lng,
-                    "destination_lat": merchantLatLng.lat
-                }
-            }
-        );
+    if (!customerLatLng) {
+        customerLatLon = this.customerMarker.getLatLng();
     }
 
-    this.flowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
-        originAndDestinationFieldIds: {
-            originUniqueIdField: 'origin_id',
-            originGeometry: {
-                x: 'origin_lon',
-                y: 'origin_lat'
-            },
-            destinationUniqueIdField: 'destination_id',
-            destinationGeometry: {
-                x: 'destination_lon',
-                y: 'destination_lat'
-            }
-        },
-
-        // some custom options
-        pathDisplayMode: 'selection',
-        animationStarted: true,
-        animationEasingFamily: 'Cubic',
-        animationEasingType: 'In',
-        animationDuration: 2000,
-
-        canvasBezierStyle: {
-            type: 'simple',
-            symbol: {
-                // use canvas styling options (compare to CircleMarker styling below)
-                strokeStyle: 'rgba(100, 100, 100, 0.8)',
-                lineWidth: 0.75,
-                lineCap: 'round',
-                shadowColor: 'rgb(10, 10, 10)',
-                shadowBlur: 1.5
-            }
-        },
-
-        animatedCanvasBezierStyle: {
-            type: 'simple',
-            symbol: {
-                // use canvas styling options (compare to CircleMarker styling below)
-                strokeStyle: 'rgb(255, 88, 88)',
-                lineWidth: 3,
-                lineDashOffsetSize: 7,  // custom property used with animation sprite sizes
-                lineCap: 'round',
-                shadowColor: 'rgb(255, 88, 88)',
-                shadowBlur: 2
-            }
-        }
-    }).addTo(this.map);
-
-    this.merchantsLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
+    for (var mId in this.markers) {
+        var merchantLatLng = this.markers[mId].marker.getLatLng();
+        this.connectMerchantWithCustomer(merchantLatLng, customerLatLng);
+    }
 };

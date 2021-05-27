@@ -748,17 +748,21 @@ gl.functions.placesMap.prototype.connectStoreWithCustomer = function (merchantLa
 };
 
 /**
- * Соединить точку продажи с покупателем.
+ * Соединить покупателя с точкой продажи.
+ * Анимация идет от покупателя к торговой точке.
  * Если пользователь не указан - берется пользователь по умолчанию.
  *
- * @param merchantLatLng координаты продавца.
- * @param customerLatLng координаты пользователя (opt.).
+ * @param merchantObj объект продавца.
+ * @param customerObj объект пользователя (opt.).
  */
-gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchantLatLng, customerLatLng) {
+gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchantObj, customerObj) {
 
-    if (!customerLatLng) {
-        customerLatLon = this.customerMarker.getLatLng();
+    if (!customerObj) {
+        customerObj = this.customerMarker;
     }
+    var customerLatLon = customerObj.getLatLng();
+
+    var merchantLatLng = merchantObj.getLatLng();
 
     var geoJsonFeatureCollection = {
         type: 'FeatureCollection',
@@ -775,13 +779,12 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchan
                 "origin_id": 0,
                 "origin_lon": customerLatLon.lng,
                 "origin_lat": customerLatLon.lat,
-                "destination_id": this.markers[mId].id,
+                "destination_id": merchantObj.id,
                 "destination_lon": merchantLatLng.lng,
                 "destination_lat": merchantLatLng.lat
             }
         }
     );
-
 
     this.flowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
         originAndDestinationFieldIds: {
@@ -834,19 +837,18 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchan
 };
 
 /**
- * Соединить все точки продажи с пользователем.
- * Если данные пользователя не указаны - берутся данные покупателя по умолчанию.
+ * Соединить покупателя со всеми точками продажи.
+ * Если данные покупателя не указаны - берутся данные покупателя по умолчанию.
  *
- * @param customerLatLng координаты пользователя (opt.).
+ * @param customerObj координаты пользователя (opt.).
  */
-gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (customerLatLng) {
+gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (customerObj) {
 
-    if (!customerLatLng) {
-        customerLatLon = this.customerMarker.getLatLng();
+    if (!customerObj) {
+        customerObj = this.customerMarker;
     }
 
     for (var mId in this.markers) {
-        var merchantLatLng = this.markers[mId].marker.getLatLng();
-        this.connectMerchantWithCustomer(merchantLatLng, customerLatLng);
+        this.connectMerchantWithCustomer(this.markers[mId].marker, customerObj);
     }
 };

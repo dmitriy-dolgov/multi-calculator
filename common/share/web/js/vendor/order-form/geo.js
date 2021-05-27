@@ -622,7 +622,7 @@ gl.functions.placesMap.prototype.removeAllConnectionsBetweenCustomerAndMerchants
  * @param merchantId ID продавца (пиццерии) TODO: реализовать для показа одиночной связи
  * @param customerLatLng ID пользователя TODO: !!!! - реализовать нормально, сейчас - костыль
  */
-gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (customerLatLng) {
+gl.functions.placesMap.prototype. connectAllMerchantsWithCustomerOldWithAnimation = function (customerLatLng) {
     alert('gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer ##########');
 
     gl.log(['connectAPizzeriaWithCustomer(), merchantId: ', merchantId]);
@@ -786,7 +786,7 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchan
         }
     );
 
-    this.flowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
+    this.merchantsLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
         originAndDestinationFieldIds: {
             originUniqueIdField: 'origin_id',
             originGeometry: {
@@ -833,7 +833,9 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchan
         }
     }).addTo(this.map);
 
-    this.merchantsLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
+    //if (this.merchantsLayer) {
+        this.merchantsLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
+    //}
 };
 
 /**

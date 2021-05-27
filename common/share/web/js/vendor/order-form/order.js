@@ -283,7 +283,7 @@ gl.functions.composeOrder = function () {
                     //console.log(suggestion);
                     //console.log("geo_lat: " + suggestion.data.geo_lat);
                     gl.data.worldMap.moveCustomerMarker(suggestion.data.geo_lat, suggestion.data.geo_lon);
-                    gl.data.worldMap.connectMarkersWithCustomer();
+                    gl.data.worldMap.connectAllMerchantsWithCustomer();
                 }
             });
 
@@ -437,8 +437,8 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
 
         //TODO: Здесь надо убрать все соединяющие линии и установить связь обратную от пиццерии к пользователю.
         gl.data.worldMap.removeAllConnectionsBetweenCustomerAndMerchants();
+        gl.data.worldMap.connectAMerchantWithCustomer(merchantData.id);
         //gl.data.worldMap.connectAllMerchantsWithCustomer(merchantData.id);
-        gl.data.worldMap.connectAllMerchantsWithCustomer();
 
         //TODO: здесь мигает окно "заказы" и если окно с текущим заказом открыто, то мигает и оно
         //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-accepted');

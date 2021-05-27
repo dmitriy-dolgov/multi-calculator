@@ -320,7 +320,7 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markers) {
     var allMarkersGroup = new L.featureGroup(this.allMarkers);
     this.map.fitBounds(allMarkersGroup.getBounds());
 
-    this.connectMarkersWithCustomer();
+    this.connectAllMerchantsWithCustomer();
 };
 
 // /**
@@ -526,10 +526,6 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomerVerDebug_1 = functio
  * @param customerId ID пользователя TODO: !!!! - реализовать нормально, сейчас - костыль
  */
 gl.functions.placesMap.prototype.connectAMerchantWithCustomer = function (merchantId, customerLatLon) {
-
-    //TODO: проверить надо ли this.merchantId
-    this.merchantId = merchantId;
-
     //TODO: что это
     var geoJsonFeatureCollection = {
         type: 'FeatureCollection',
@@ -627,7 +623,7 @@ gl.functions.placesMap.prototype.removeAllConnectionsBetweenCustomerAndMerchants
  * @param customerLatLng ID пользователя TODO: !!!! - реализовать нормально, сейчас - костыль
  */
 gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (customerLatLng) {
-    alert('*************** connectAPizzeriaWithCustomer ###########  gl.functions.placesMap.prototype');
+    alert('gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer ##########');
 
     gl.log(['connectAPizzeriaWithCustomer(), merchantId: ', merchantId]);
 
@@ -749,6 +745,175 @@ gl.functions.placesMap.prototype.connectStoreWithCustomer = function (merchantLa
         debugger;
         gl.functions.courierIconStart(coordinates);
     });
+};
 
-    //var customerLatLng = 'sdf';
+/**
+ * Соединить точку продажи с покупателем.
+ * Если пользователь не указан - берется пользователь по умолчанию.
+ *
+ * @param merchantLatLng координаты продавца.
+ * @param customerLatLng координаты пользователя (opt.).
+ */
+gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchantLatLng, customerLatLng) {
+
+    var geoJsonFeatureCollection = {
+        type: 'FeatureCollection',
+        features: []
+    };
+
+    var customerLatLon = this.customerMarker.getLatLng();
+    for (var mId in this.markers) {
+        merchantLatLng = this.markers[mId].marker.getLatLng();
+
+        geoJsonFeatureCollection.features.push({
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [customerLatLon.lng, customerLatLon.lat]
+                },
+                "properties": {
+                    "origin_id": 0,
+                    "origin_lon": customerLatLon.lng,
+                    "origin_lat": customerLatLon.lat,
+                    "destination_id": this.markers[mId].id,
+                    "destination_lon": merchantLatLng.lng,
+                    "destination_lat": merchantLatLng.lat
+                }
+            }
+        );
+    }
+
+    this.flowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
+        originAndDestinationFieldIds: {
+            originUniqueIdField: 'origin_id',
+            originGeometry: {
+                x: 'origin_lon',
+                y: 'origin_lat'
+            },
+            destinationUniqueIdField: 'destination_id',
+            destinationGeometry: {
+                x: 'destination_lon',
+                y: 'destination_lat'
+            }
+        },
+
+        // some custom options
+        pathDisplayMode: 'selection',
+        animationStarted: true,
+        animationEasingFamily: 'Cubic',
+        animationEasingType: 'In',
+        animationDuration: 2000,
+
+        canvasBezierStyle: {
+            type: 'simple',
+            symbol: {
+                // use canvas styling options (compare to CircleMarker styling below)
+                strokeStyle: 'rgba(100, 100, 100, 0.8)',
+                lineWidth: 0.75,
+                lineCap: 'round',
+                shadowColor: 'rgb(10, 10, 10)',
+                shadowBlur: 1.5
+            }
+        },
+
+        animatedCanvasBezierStyle: {
+            type: 'simple',
+            symbol: {
+                // use canvas styling options (compare to CircleMarker styling below)
+                strokeStyle: 'rgb(255, 88, 88)',
+                lineWidth: 3,
+                lineDashOffsetSize: 7,  // custom property used with animation sprite sizes
+                lineCap: 'round',
+                shadowColor: 'rgb(255, 88, 88)',
+                shadowBlur: 2
+            }
+        }
+    }).addTo(this.map);
+
+    this.merchantsLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
+};
+
+/**
+ * Соединить все точки продажи с пользователем.
+ * Если покупатель не указан - берется покупатель по умолчанию.
+ *
+ * @param merchantLatLng коотдинаты продавца.
+ */
+gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (merchantLatLng, customerLatLng) {
+
+    var geoJsonFeatureCollection = {
+        type: 'FeatureCollection',
+        features: []
+    };
+
+    var customerLatLon = this.customerMarker.getLatLng();
+    for (var mId in this.markers) {
+        merchantLatLng = this.markers[mId].marker.getLatLng();
+
+        geoJsonFeatureCollection.features.push({
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [customerLatLon.lng, customerLatLon.lat]
+                },
+                "properties": {
+                    "origin_id": 0,
+                    "origin_lon": customerLatLon.lng,
+                    "origin_lat": customerLatLon.lat,
+                    "destination_id": this.markers[mId].id,
+                    "destination_lon": merchantLatLng.lng,
+                    "destination_lat": merchantLatLng.lat
+                }
+            }
+        );
+    }
+
+    this.flowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
+        originAndDestinationFieldIds: {
+            originUniqueIdField: 'origin_id',
+            originGeometry: {
+                x: 'origin_lon',
+                y: 'origin_lat'
+            },
+            destinationUniqueIdField: 'destination_id',
+            destinationGeometry: {
+                x: 'destination_lon',
+                y: 'destination_lat'
+            }
+        },
+
+        // some custom options
+        pathDisplayMode: 'selection',
+        animationStarted: true,
+        animationEasingFamily: 'Cubic',
+        animationEasingType: 'In',
+        animationDuration: 2000,
+
+        canvasBezierStyle: {
+            type: 'simple',
+            symbol: {
+                // use canvas styling options (compare to CircleMarker styling below)
+                strokeStyle: 'rgba(100, 100, 100, 0.8)',
+                lineWidth: 0.75,
+                lineCap: 'round',
+                shadowColor: 'rgb(10, 10, 10)',
+                shadowBlur: 1.5
+            }
+        },
+
+        animatedCanvasBezierStyle: {
+            type: 'simple',
+            symbol: {
+                // use canvas styling options (compare to CircleMarker styling below)
+                strokeStyle: 'rgb(255, 88, 88)',
+                lineWidth: 3,
+                lineDashOffsetSize: 7,  // custom property used with animation sprite sizes
+                lineCap: 'round',
+                shadowColor: 'rgb(255, 88, 88)',
+                shadowBlur: 2
+            }
+        }
+    }).addTo(this.map);
+
+    this.merchantsLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
 };

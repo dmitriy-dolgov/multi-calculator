@@ -54,10 +54,7 @@ $this->registerJs(<<<JS
         this.map.fitBounds(allMarkersGroup.getBounds());
     };
     
-    //this.connectMarkersWithCustomer();
-
-}
-    
+    //this.connectAllMerchantsWithCustomer();
 JS
 );
 

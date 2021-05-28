@@ -213,7 +213,7 @@ gl.functions.courierIconStart = function (coordinates) {
         //distance: 300,  // meters
         //interval: 2000, // milliseconds
         distance: 30000,      // meters
-        interval: 2000   // milliseconds
+        interval: 1000   // milliseconds
     });
 
     gl.data.worldMap.map.addLayer(animatedMarker);

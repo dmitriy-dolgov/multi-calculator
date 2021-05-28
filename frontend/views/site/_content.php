@@ -198,7 +198,7 @@ gl.getObject('data.history.functions').load = function() {
 }
 
 /*$('.history-save').click(function() {
-  gl.getObject('container').localStorageObj
+  //gl.getObject('container').localStorageObj
 });*/
 
 $('.upload.history-save').click(function() {

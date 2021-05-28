@@ -12,9 +12,9 @@
     window.gl = {};
 }*/
 gl.getObject('container').localStorageObj = function () {
-    alert("gl.getObject('container'");
+    //console.log("gl.getObject('container')");
     var storage;
-    debugger;
+    //debugger;
     try {
         var mainStorage = window['localStorage'];
         var x = '__storage_test__';

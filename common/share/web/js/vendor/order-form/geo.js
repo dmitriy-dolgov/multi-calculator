@@ -165,7 +165,7 @@ gl.functions.placesMap.prototype.showCourierByLatLng_new = function (shopLanLng)
             //L.latLng(57.74, 11.94),
             //L.latLng(57.6792, 11.949)
             L.latLng(merchantLatLng.lat, merchantLatLng.lng),
-            L.latLng(shopLanLng.lat, shopLanLng.lng)
+            L.latLng(shopLanLng.lat, shopLanLng.lng),
         ]
     }).addTo(gl.data.worldMap.map); //.bindPopup("Это описание курьера");
 
@@ -197,10 +197,23 @@ gl.functions.courierIconStart = function (coordinates) {
     var animatedMarker = L.animatedMarker(line.getLatLngs(), {
         autoStart: true,
         icon: courierIcon,
+
+        onStart: function () {
+            alert('onStart')
+        },
+        onEnd: function () {
+            debugger;
+            alert('onEnd');
+            // TODO: blow up this marker
+            gl.data.worldMap.map.removeLayer(animatedMarker);
+            alert('Finish !');
+            //gl.data.worldMap.map.addLayer(gl.functions.placesMap.prototype.icons.courierStand);
+        },
+
         //distance: 300,  // meters
         //interval: 2000, // milliseconds
-        distance: 300,      // meters
-        interval: 200000   // milliseconds
+        distance: 30000,      // meters
+        interval: 2000   // milliseconds
     });
 
     gl.data.worldMap.map.addLayer(animatedMarker);
@@ -234,7 +247,9 @@ gl.functions.courierIconStart = function (coordinates) {
         interval: 900000,  // milliseconds? looks like `second`
         autoStart: true,
         icon: courierIcon,
-        onStart: function () {alert('onStart')},
+        onStart: function () {
+            alert('onStart')
+        },
         onEnd: function () {
             debugger;
             alert('onEnd');

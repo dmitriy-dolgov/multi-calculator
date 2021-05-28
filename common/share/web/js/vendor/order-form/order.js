@@ -439,7 +439,7 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
         gl.data.worldMap.removeAllConnectionsBetweenCustomerAndMerchants();
         debugger;
         debugger;
-        gl.data.worldMap.connectMerchantWithCustomer(merchantData);
+        gl.data.worldMap.connectMerchantWithCustomerRealPath(merchantData);
         //gl.data.worldMap.connectAMerchantWithCustomer(merchantData.id);
         //gl.data.worldMap.connectAllMerchantsWithCustomer(merchantData.id);
 

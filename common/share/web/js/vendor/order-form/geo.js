@@ -1,4 +1,4 @@
-/**
+this.markers/**
  * Географические типы и функции.
  */
 //alert('FROM');
@@ -228,7 +228,7 @@ gl.functions.placesMap.prototype.allMarkers = [];
 gl.functions.placesMap.prototype.allMovingMarkers = [];
 gl.functions.placesMap.prototype.allPolylines = [];
 
-gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, popupHtml) {
+gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, popupHtml, extInfo) {
     var newMarker;
 
     //debugger;
@@ -243,12 +243,16 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, p
         newMarker.bindPopup(popupHtml);
     }
 
-    this.allMarkers.push(newMarker);
+    if (extInfo) {
+        newMarker.extInfo = extInfo;
+    }
 
     /*newMarker.on('click', function (e) {
         gl.log('gl.functions.placesMap.globalZIndex 5: ' + gl.functions.placesMap.globalZIndex);
         newMarker.setZIndexOffset(++gl.functions.placesMap.globalZIndex);
     });*/
+
+    this.allMarkers.push(newMarker);
 
     return newMarker;
 };
@@ -307,7 +311,7 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markers) {
             var icon = markers[mId].icon ? markers[mId].icon : this.icons.defaultPizzeria;
             this.markers.push({
                 id: markers[mId].id,
-                marker: this.addMarkerByCoords(markers[mId].latitude, markers[mId].longitude, icon, markers[mId].popupHtml),
+                marker: this.addMarkerByCoords(markers[mId].latitude, markers[mId].longitude, icon, markers[mId].popupHtml, {idKey: markers[mId].id}),
             });
             // ++gl.functions.placesMap.globalZIndex;
             // gl.log('this.globalZIndex 2: ' + gl.functions.placesMap.globalZIndex);
@@ -525,7 +529,7 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomerVerDebug_1 = functio
  * @param merchantId ID продавца
  * @param customerId ID пользователя TODO: !!!! - реализовать нормально, сейчас - костыль
  */
-gl.functions.placesMap.prototype.connectAMerchantWithCustomer = function (merchantId, customerLatLon) {
+gl.functions.placesMap.prototype.connectAMerchantWithCustomer_old = function (merchantId, customerLatLon) {
     //TODO: что это
     var geoJsonFeatureCollection = {
         type: 'FeatureCollection',
@@ -575,7 +579,7 @@ gl.functions.placesMap.prototype.connectAMerchantWithCustomer = function (mercha
     //return;
 
     debugger;
-    var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
+    var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'red', fillColor: 'black'});
 
     var line = L.polyline(coordinatesMod);
     //var animatedMarker = L.animatedMarker(line.getLatLngs(), {
@@ -678,7 +682,7 @@ gl.functions.placesMap.prototype. connectAllMerchantsWithCustomerOldWithAnimatio
     //return;
 
     debugger;
-    var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
+    var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'white'});
 
     var line = L.polyline(coordinatesMod);
     //var animatedMarker = L.animatedMarker(line.getLatLngs(), {
@@ -762,6 +766,9 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchan
     }
     var customerLatLon = customerObj.getLatLng();
 
+    debugger;
+    debugger;
+    //55.92443935216234;37.704747925004
     var merchantLatLng = merchantObj.getLatLng();
 
     var geoJsonFeatureCollection = {
@@ -779,7 +786,7 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchan
                 "origin_id": 0,
                 "origin_lon": customerLatLon.lng,
                 "origin_lat": customerLatLon.lat,
-                "destination_id": merchantObj.id,
+                "destination_id": merchantObj.extInfo.idKey,
                 "destination_lon": merchantLatLng.lng,
                 "destination_lat": merchantLatLng.lat
             }

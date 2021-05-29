@@ -199,7 +199,7 @@ gl.functions.courierIconStart = function (coordinates) {
         icon: courierIcon,
 
         onStart: function () {
-            alert('onStart')
+            //alert('onStart');
         },
         onEnd: function () {
             debugger;
@@ -223,7 +223,6 @@ gl.functions.courierIconStart = function (coordinates) {
 
     var coordinatesMod = [];
     for (var i = 0; i < 2; ++i) {
-        alert('99887');
         debugger;
         debugger;
         coordinatesMod.push([
@@ -248,11 +247,11 @@ gl.functions.courierIconStart = function (coordinates) {
         autoStart: true,
         icon: courierIcon,
         onStart: function () {
-            alert('onStart')
+            //alert('onStart')
         },
         onEnd: function () {
             debugger;
-            alert('onEnd');
+            //alert('onEnd');
             // TODO: blow up this marker
             gl.data.worldMap.map.removeLayer(animatedMarker);
             gl.data.worldMap.map.addLayer(gl.functions.placesMap.prototype.icons.courierStand);
@@ -681,7 +680,7 @@ gl.functions.placesMap.prototype.removeAllConnectionsBetweenCustomerAndMerchants
  * @param customerLatLng ID пользователя TODO: !!!! - реализовать нормально, сейчас - костыль
  */
 gl.functions.placesMap.prototype.connectAllMerchantsWithCustomerOldWithAnimation = function (customerLatLng) {
-    alert('gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer ##########');
+    //alert('gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer ##########');
 
     gl.log(['connectAPizzeriaWithCustomer(), merchantId: ', merchantId]);
 
@@ -751,7 +750,7 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomerOldWithAnimation
         icon: courierIcon,
         onEnd: function () {
             debugger;
-            alert('onEnd');
+            //alert('onEnd');
             // TODO: blow up this marker
             gl.data.worldMap.map.removeLayer(animatedMarker);
             gl.data.worldMap.map.addLayer(gl.functions.placesMap.prototype.icons.courierStand);
@@ -954,11 +953,11 @@ gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {
         icon: courierIcon,
 
         onStart: function () {
-            alert('onStart')
+            //alert('onStart')
         },
         onEnd: function () {
             debugger;
-            alert('onEnd');
+            //alert('onEnd');
             // TODO: blow up this marker
             gl.data.worldMap.map.removeLayer(animatedMarker);
             //alert('Finish !');
@@ -976,7 +975,7 @@ gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {
 
 gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng) {
 
-    alert('showCourierByLatLng2345');
+    //alert('showCourierByLatLng2345');
     //customerLatLng
     var customerLatLng = gl.functions.getCurrentGeoLocation();
     debugger;
@@ -1016,7 +1015,7 @@ gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng)
         icon: courierIcon,
         onEnd: function () {
             debugger;
-            alert('onEnd');
+            //alert('onEnd');
             //// TODO: blow up this marker
             //gl.data.worldMap.map.removeLayer(animatedMarker);
             //gl.data.worldMap.map.addLayer(gl.functions.placesMap.prototype.icons.courierStand);

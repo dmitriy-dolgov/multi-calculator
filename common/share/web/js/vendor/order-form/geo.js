@@ -1,7 +1,9 @@
-this.markers/**
+/**
  * Географические типы и функции.
+ *
+ * Использующиеся расширения:
+ * https://github.com/openplans/Leaflet.AnimatedMarker
  */
-//alert('FROM');
 
 /**
  * Продавец (пиццерия, статические координаты).
@@ -988,7 +990,25 @@ gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng)
             L.latLng(customerLatLng.lat, customerLatLng.lng),
             //L.latLng(57.74, 10.94),
             //L.latLng(56.6792, 11.949)
-        ]
+        ],
+        createMarker: function(i, wp) {
+            /*var options = {
+                    draggable: this.draggableWaypoints
+                },
+                marker = L.marker(wp.latLng, options);
+
+            return marker;*/
+            //alert('sdfkjdos');
+
+            var options = {
+                draggable: false,
+                clickable: false,
+                opacity: 0
+            };
+            var marker = L.marker(wp.latLng, options);
+
+            return marker;
+        },
     }).addTo(this.map);
 
     x.on("routesfound", function (e) {

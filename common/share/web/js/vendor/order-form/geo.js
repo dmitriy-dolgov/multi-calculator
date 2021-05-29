@@ -203,10 +203,10 @@ gl.functions.courierIconStart = function (coordinates) {
         },
         onEnd: function () {
             debugger;
-            alert('onEnd');
+            //alert('onEnd');
             // TODO: blow up this marker
             gl.data.worldMap.map.removeLayer(animatedMarker);
-            alert('Finish !');
+            //alert('Finish !');
             //gl.data.worldMap.map.addLayer(gl.functions.placesMap.prototype.icons.courierStand);
         },
 
@@ -935,7 +935,7 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
     }
 };
 
-gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng) {
+gl.functions.placesMap.prototype.showCourierByLatLng_old_straingh_line = function (merchantLatLng) {
     var customerLatLng = gl.functions.getCurrentGeoLocation();
 
     var waypoints = [
@@ -946,8 +946,9 @@ gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng)
     gl.functions.courierIconStart(waypoints);
 };
 
-gl.functions.placesMap.prototype.showCourierByLatLng_old2 = function (merchantLatLng) {
+gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng) {
 
+    alert('showCourierByLatLng');
     //customerLatLng
     var customerLatLng = gl.functions.getCurrentGeoLocation();
     debugger;
@@ -958,14 +959,37 @@ gl.functions.placesMap.prototype.showCourierByLatLng_old2 = function (merchantLa
         waypoints: [
             L.latLng(merchantLatLng.lat, merchantLatLng.lng),
             L.latLng(customerLatLng.lat, customerLatLng.lng),
+            //L.latLng(57.74, 10.94),
+            //L.latLng(56.6792, 11.949)
         ]
     }).addTo(this.map);
+
+    var line = L.polyline(coordinatesMod);
+    var animatedMarker = L.animatedMarker(line.getLatLngs(), {
+        //distance: 300,    // meters
+        //interval: 2000,   // milliseconds? looks like `second`
+        distance: 1000,     // meters
+        interval: 900000,   // milliseconds? looks like `second`
+        autoStart: true,
+        icon: courierIcon,
+        onEnd: function () {
+            debugger;
+            alert('onEnd');
+            //// TODO: blow up this marker
+            //gl.data.worldMap.map.removeLayer(animatedMarker);
+            //gl.data.worldMap.map.addLayer(gl.functions.placesMap.prototype.icons.courierStand);
+        }
+    }).addTo(this.map);
+
+    //!!!!!!!!!!!!!!
+    return;
+
 
     var waypoints = [];
 
     x.on("routesfound", function (e) {
         debugger;
-        waypoints = e.waypoints || [];
+        var waypoints = e.waypoints || [];
         var destination = waypoints[waypoints.length - 1]; // there you have the destination point between your hands
 
         debugger;

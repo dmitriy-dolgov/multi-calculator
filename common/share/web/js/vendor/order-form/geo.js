@@ -946,9 +946,37 @@ gl.functions.placesMap.prototype.showCourierByLatLng_old_straingh_line = functio
     gl.functions.courierIconStart(waypoints);
 };
 
+gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {
+    var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
+    //var animatedMarker = L.animatedMarker(line.getLatLngs(), {
+    var animatedMarker = L.animatedMarker(waypoints, {
+        autoStart: true,
+        icon: courierIcon,
+
+        onStart: function () {
+            alert('onStart')
+        },
+        onEnd: function () {
+            debugger;
+            alert('onEnd');
+            // TODO: blow up this marker
+            gl.data.worldMap.map.removeLayer(animatedMarker);
+            //alert('Finish !');
+            //gl.data.worldMap.map.addLayer(gl.functions.placesMap.prototype.icons.courierStand);
+        },
+
+        //distance: 300,  // meters
+        //interval: 2000, // milliseconds
+        distance: 30000,      // meters
+        interval: 1000   // milliseconds
+    });
+
+    gl.data.worldMap.map.addLayer(animatedMarker);
+};
+
 gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng) {
 
-    alert('showCourierByLatLng');
+    alert('showCourierByLatLng2345');
     //customerLatLng
     var customerLatLng = gl.functions.getCurrentGeoLocation();
     debugger;
@@ -964,11 +992,25 @@ gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng)
         ]
     }).addTo(this.map);
 
+    x.on("routesfound", function (e) {
+        debugger;
+        debugger;
+        //var waypoints = e.waypoints || [];
+        //var destination = waypoints[waypoints.length - 1]; // there you have the destination point between your hands
+
+        var coords = e.routes[0].coordinates;
+
+        debugger;
+        //gl.functions.courierIconStart(waypoints);
+        gl.functions.placesMap.prototype.showCourierByLatLngNew(coords);
+    });
+    return;
+
     var line = L.polyline(coordinatesMod);
     var animatedMarker = L.animatedMarker(line.getLatLngs(), {
         //distance: 300,    // meters
         //interval: 2000,   // milliseconds? looks like `second`
-        distance: 1000,     // meters
+        distance: 2000,     // meters
         interval: 900000,   // milliseconds? looks like `second`
         autoStart: true,
         icon: courierIcon,

@@ -977,52 +977,41 @@ gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {
 
 gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng) {
 
-    //alert('showCourierByLatLng2345');
-    //customerLatLng
     var customerLatLng = gl.functions.getCurrentGeoLocation();
-    debugger;
-    debugger;
+
     var x = L.Routing.control({
         // YOUR STUFF
         //geocoder: L.Control.Geocoder.nominatim(),
         waypoints: [
             L.latLng(merchantLatLng.lat, merchantLatLng.lng),
             L.latLng(customerLatLng.lat, customerLatLng.lng),
-            //L.latLng(57.74, 10.94),
-            //L.latLng(56.6792, 11.949)
         ],
+        draggableWaypoints: false,
+        fitSelectedRoutes: false,
         createMarker: function(i, wp) {
             /*var options = {
-                    draggable: this.draggableWaypoints
-                },
-                marker = L.marker(wp.latLng, options);
-
-            return marker;*/
-            //alert('sdfkjdos');
-
-            var options = {
                 draggable: false,
                 clickable: false,
                 opacity: 0
             };
             var marker = L.marker(wp.latLng, options);
 
-            return marker;
+            return marker;*/
         },
-    }).addTo(this.map);
-
-    x.on("routesfound", function (e) {
-        debugger;
-        debugger;
-        //var waypoints = e.waypoints || [];
-        //var destination = waypoints[waypoints.length - 1]; // there you have the destination point between your hands
-
-        var coords = e.routes[0].coordinates;
+    }).on("routesfound", function (e) {
+        //var coords = e.routes[0].coordinates;
+        if (this.routeIsFound) {
+            return;
+        } else {
+            this.routeIsFound = true;
+        }
 
         debugger;
         //gl.functions.courierIconStart(waypoints);
-        gl.functions.placesMap.prototype.showCourierByLatLngNew(coords);
-    });
+        //gl.functions.placesMap.prototype.showCourierByLatLngNew(coords);
+        gl.functions.placesMap.prototype.showCourierByLatLngNew(e.routes[0].coordinates);
+    }).addTo(this.map);
+
     return;
 
     var line = L.polyline(coordinatesMod);

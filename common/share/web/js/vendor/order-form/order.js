@@ -437,11 +437,7 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
 
         //TODO: Здесь надо убрать все соединяющие линии и установить связь обратную от пиццерии к пользователю.
         gl.data.worldMap.removeAllConnectionsBetweenCustomerAndMerchants();
-        debugger;
-        debugger;
         gl.data.worldMap.connectMerchantWithCustomerRealPath(merchantData);
-        //gl.data.worldMap.connectAMerchantWithCustomer(merchantData.id);
-        //gl.data.worldMap.connectAllMerchantsWithCustomer(merchantData.id);
 
         //TODO: здесь мигает окно "заказы" и если окно с текущим заказом открыто, то мигает и оно
         //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-accepted');

@@ -41,7 +41,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 gl.functions.placesMap.prototype.allMarkers = [];
 gl.functions.placesMap.prototype.allMovingMarkers = [];
 gl.functions.placesMap.prototype.allPolylines = [];
-gl.functions.placesMap.prototype.merchantsLayer = 0;
+gl.functions.placesMap.prototype.merchantsLayers = [];
 gl.functions.placesMap.prototype.icons = {
     defaultPizzeria: L.icon({
         iconUrl: '/img/map/default-pizzeria.png',
@@ -150,11 +150,16 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markers) {
  * Удалить все соединения между покупателем и продавцами.
  */
 gl.functions.placesMap.prototype.removeAllConnectionsBetweenCustomerAndMerchants = function () {
-    if (this.merchantsLayer) {
-        this.map.removeLayer(this.merchantsLayer);
-        //TODO: надо ли?
-        this.merchantsLayer = null;
+    // if (this.merchantsLayers) {
+    //     this.map.removeLayer(this.merchantsLayers);
+    //     //TODO: надо ли?
+    //     this.merchantsLayers = null;
+    // }
+
+    for (var i in this.merchantsLayers) {
+        this.map.removeLayer(this.merchantsLayers[i]);
     }
+    this.merchantsLayers = [];
 };
 
 /**
@@ -198,23 +203,22 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchan
     };
 
     geoJsonFeatureCollection.features.push({
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [customerLatLon.lng, customerLatLon.lat]
-            },
-            "properties": {
-                "origin_id": 0,
-                "origin_lon": customerLatLon.lng,
-                "origin_lat": customerLatLon.lat,
-                "destination_id": merchantObj.extInfo.idKey,
-                "destination_lon": merchantLatLng.lng,
-                "destination_lat": merchantLatLng.lat
-            }
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [customerLatLon.lng, customerLatLon.lat]
+        },
+        "properties": {
+            "origin_id": 0,
+            "origin_lon": customerLatLon.lng,
+            "origin_lat": customerLatLon.lat,
+            "destination_id": merchantObj.extInfo.idKey,
+            "destination_lon": merchantLatLng.lng,
+            "destination_lat": merchantLatLng.lat
         }
-    );
+    });
 
-    this.merchantsLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
+    var newLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
         originAndDestinationFieldIds: {
             originUniqueIdField: 'origin_id',
             originGeometry: {
@@ -260,8 +264,9 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchan
             }
         }
     }).addTo(this.map);
+    this.merchantsLayers.push(newLayer);
 
-    this.merchantsLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
+    this.merchantsLayers.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
 };
 
 /**
@@ -288,13 +293,12 @@ gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {
         icon: courierIcon,
 
         onEnd: function () {
-            // TODO: blow up this marker
-            gl.data.worldMap.map.removeLayer(animatedMarker);
-            gl.data.worldMap.map.addLayer(gl.functions.placesMap.prototype.icons.courierStand);
+            animatedMarker.setIcon(gl.functions.placesMap.prototype.icons.courierStand);
+            //animatedMarker.setIcon(this.icons.courierStand);
         },
 
         distance: 30000, // meters
-        interval: 1000   // milliseconds
+        interval: 100   // milliseconds
     });
 
     gl.data.worldMap.map.addLayer(animatedMarker);

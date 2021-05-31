@@ -174,6 +174,7 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomerRealPath = function 
     if (!customerObj) {
         customerObj = this.customerMarker;
     }
+    //TODO: customerLatLon - где используется ???
     var customerLatLon = customerObj.getLatLng();
 
     var merchantLanLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
@@ -264,9 +265,9 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchan
             }
         }
     }).addTo(this.map);
-    this.merchantsLayers.push(newLayer);
 
-    this.merchantsLayers.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
+    this.merchantsLayers.push(newLayer);
+    newLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
 };
 
 /**

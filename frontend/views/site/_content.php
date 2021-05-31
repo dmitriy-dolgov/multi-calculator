@@ -69,6 +69,10 @@ body {
     bottom: 15px;*/
     right: 58px;
 }
+
+.leaflet-control-container {
+    display: none;
+}
 CSS
 );
 

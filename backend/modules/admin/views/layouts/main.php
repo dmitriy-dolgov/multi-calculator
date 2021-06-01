@@ -74,6 +74,11 @@ CSS
                             [
                                 'items' => [
                                     [
+                                        'label' => Yii::t('app', 'Geopoints'),
+                                        'url' => ['/admin/geopoint'],
+                                        'icon' => 'map-marker',
+                                    ],
+                                    [
                                         'label' => Yii::t('app', 'Categories'),
                                         'url' => ['/admin/category'],
                                         'icon' => 'code-fork',

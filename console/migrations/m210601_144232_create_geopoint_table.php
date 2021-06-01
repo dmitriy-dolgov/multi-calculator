@@ -44,7 +44,20 @@ class m210601_144232_create_geopoint_table extends Migration
 
         $this->insert('geopoint',
             [
-
+                'name' => 'Москва',
+                'region' => 'Москва',
+                'sub_region' => 'Москва',
+                'code_cdek' => '44',
+                'kladr_code' => '7700000000000',
+                'uuid' => '18bd1ad1-0ed5-4908-9069-db07b805aa53',
+                'fias_uuid' => '0c5b2444-70a0-4932-980c-b4dc0d3f02b5',
+                'country' => 'Russia',
+                'region_code' => '81',
+                'lat_long' => '55.7522200;37.6155600',
+                'merchant_coverage_radius' => '18',
+                'index' => '111402',
+                'code_boxberry' => '68',
+                'code_dpd' => '49694102',
             ]);
     }
 

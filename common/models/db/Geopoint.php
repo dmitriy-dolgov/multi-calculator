@@ -58,17 +58,17 @@ class Geopoint extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Name'),
             'region' => Yii::t('app', 'Region'),
             'sub_region' => Yii::t('app', 'Sub Region'),
-            'code_cdek' => Yii::t('app', 'Code Cdek'),
-            'kladr_code' => Yii::t('app', 'Kladr Code'),
-            'uuid' => Yii::t('app', 'Uuid'),
-            'fias_uuid' => Yii::t('app', 'Fias Uuid'),
+            'code_cdek' => Yii::t('app', 'Code CDEK'),
+            'kladr_code' => Yii::t('app', 'KLADR Code'),
+            'uuid' => Yii::t('app', 'UUID'),
+            'fias_uuid' => Yii::t('app', 'FIAS UUID'),
             'country' => Yii::t('app', 'Country'),
             'region_code' => Yii::t('app', 'Region Code'),
             'lat_long' => Yii::t('app', 'Lat Long'),
-            'merchant_coverage_radius' => Yii::t('app', 'Merchant Coverage Radius'),
+            'merchant_coverage_radius' => Yii::t('app', 'Merchant Coverage Radius (km)'),
             'index' => Yii::t('app', 'Index'),
             'code_boxberry' => Yii::t('app', 'Code Boxberry'),
-            'code_dpd' => Yii::t('app', 'Code Dpd'),
+            'code_dpd' => Yii::t('app', 'Code DPD'),
         ];
     }
 

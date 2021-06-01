@@ -72,7 +72,10 @@ gl.functions.correctGeolocation = function () {
  * @returns {{lng: number, lat: number}}
  */
 gl.functions.getCurrentGeoLocation = function () {
-    var coords = {lat: 55.107540130615, lng: 33.267589569092};
+    //var coords = {lat: 55.107540130615, lng: 33.267589569092};     // Сафоново?
+
+    //dateandtime.info/ru/citycoordinates.php?id=524901
+    var coords = {lat: 55.7522200, lng: 37.6155600};     // Москва
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {

@@ -251,6 +251,33 @@ php ./yii migrate/create create_user_virtual_table --fields="user_id:integer:for
 //phone:string(40),description:text"
 
 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+./yii migrate/create create_geopoint_table --fields="name:string(255):notNull,region:string(255),sub_region:string(255),code_cdek:string(20):unique,kladr_code:string(20),uuid:string(255),fias_uuid:string(255),country:string(70),region_code:string(20),latitude:float,longitude:float,index:string(20),code_boxberry:string(255):index,code_dpd:string(20):index"
 
+из ZIP:
+CREATE TABLE `geopoint` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `title` varchar(255) NOT NULL,
+ `region` varchar(255) DEFAULT NULL,
+ `sub_region` varchar(255) DEFAULT NULL,
+ `code_cdek` int(11) NOT NULL,
+ `kladr_code` varchar(20) DEFAULT NULL,
+ `uuid` varchar(255) DEFAULT NULL,
+ `fias_uuid` varchar(255) DEFAULT NULL,
+ `country` varchar(50) DEFAULT NULL,
+ `region_code` int(11) DEFAULT NULL,
+ `latitude` float DEFAULT NULL,
+ `longitude` float DEFAULT NULL,
+ `is_default` int(1) NOT NULL DEFAULT 0,
+ `weight` int(1) DEFAULT 0,
+ `index` int(11) DEFAULT NULL,
+ `code_boxberry` varchar(255) DEFAULT NULL,
+ `code_dpd` bigint(11) unsigned DEFAULT NULL,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `code_cdek` (`code_cdek`),
+ KEY `code_boxberry` (`code_boxberry`),
+ KEY `code_dpd` (`code_dpd`)
+) ENGINE=InnoDB AUTO_INCREMENT=44140 DEFAULT CHARSET=utf8
 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

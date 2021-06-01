@@ -1,4 +1,7 @@
 <?php
+//TODO: подумать как обойтись без константы
+define('DEBUG_PREVIEW_PATH', '/debug');
+
 Yii::setAlias('@common', dirname(__DIR__));
 Yii::setAlias('@frontend', dirname(dirname(__DIR__)) . '/frontend');
 Yii::setAlias('@backend', dirname(dirname(__DIR__)) . '/backend');

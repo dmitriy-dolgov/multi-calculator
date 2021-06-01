@@ -9,7 +9,7 @@ use common\models\db\UserVirtual;
 /* @var $searchModel common\models\db\UserVirtualSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Виртуальный пользователь');
+$this->title = Yii::t('app', 'Виртуальный продавец');
 $this->params['breadcrumbs'][] = $this->title;
 
 //TODO: prompt - сделать i18n
@@ -19,7 +19,7 @@ $('.create-automatic').click(function(e) {
     
     var howMany = 3;
     do {
-        var amountRaw = prompt('Сколько пользователей создать (от 1 до 50)?', '3');
+        var amountRaw = prompt('Сколько продавцов создать (от 1 до 50)?', '3');
         if (isNaN(amountRaw)) {
             return;
         }

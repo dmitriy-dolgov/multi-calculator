@@ -8,10 +8,13 @@ use Yii;
 
 class UserRepository extends \yii\db\ActiveRecord
 {
-    public static function createFakeUser()
+    /**
+     * @param $companyLatLong string широта и долгота в таком шаблоне: '55.74958090241472;37.54247323613314'
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
+    public static function createFakeUser(string $companyLatLong)
     {
-        //$username, $email, $latLong, $password_ha = 'temp123')
-
         $transaction = static::getDb()->beginTransaction();
 
         try {
@@ -35,10 +38,16 @@ class UserRepository extends \yii\db\ActiveRecord
             $newUser->order_uid = bin2hex(random_bytes(10));
             $newUser->flags = 0;
             //$newUser->last_login_at = '1622487545';
-            $newUser->last_login_ip = '127.0.0.1';
+            //$newUser->last_login_ip = '127.0.0.1';
 
             if ($newUser->save()) {
                 Yii::info("User '{$newUsername}' created");
+                $newUser->profile->company_lat_long = $companyLatLong;
+                echo $newUser->getProfile()->company_lat_long;
+                echo "+++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+                $uu = $newUser->getProfile();
+                print_r($uu);
+                exit;
             } else {
                 throw new \Exception("Couldn't create user with name '{$newUsername}'");
             }

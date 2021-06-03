@@ -1,7 +1,6 @@
 <?php
 
-use common\models\db\User;
-use common\models\db\UserVirtual;
+use common\models\repositories\UserRepository;
 use yii\db\Migration;
 
 /**
@@ -29,44 +28,7 @@ class m210602_123613_fill_up_user_accounts extends Migration
         $coordsCount = count($coords);
 
         for ($i = 0; $i < $coordsCount; ++$i) {
-
-            for (; ;) {
-                $dataPrefix = rand(0, 999999);
-                $newUsername = "{fake_{$dataPrefix}";
-
-                if (User::findOne(['username' => $newUsername])) {
-                    echo "Username already exists: '{$newUsername}'";
-                    continue;
-                }
-
-                //$bytes = sdf;
-                $order_uid = bin2hex(random_bytes(10));
-
-                $newUser = new User();
-                //temp123
-                $newUser->password_hash = '$2y$10$EXA/SoXj2Oq1Wa.lLisrl.XfhHAkA9CuID/P/.aftis2dxYlAoTI.';
-                $newUser->email = "fake_{$dataPrefix}@emal.com";
-                $newUser->username = $newUsername;
-                $newUser->login_lat_long = $coords[$i];
-                $newUser->registration_ip = '127.0.0.1';
-                $newUser->confirmed_at = time();
-                $newUser->created_at = time();
-                $newUser->updated_at = time();
-                $newUser->auth_tf_enabled = 0;
-                $newUser->gdpr_deleted = 0;
-                $newUser->gdpr_consent = 0;
-                $newUser->order_uid = bin2hex(random_bytes(10));
-                $newUser->flags = 0;
-                $newUser->last_login_at = '1622487545';
-                $newUser->last_login_ip = '127.0.0.1';
-
-                if ($newUser->save()) {
-                    echo "User '{$newUsername}' created";
-                } else {
-                    echo "Couldn't create user with name '{$newUsername}'";
-                    return false;
-                }
-            }
+            UserRepository::createFakeUser($coords[$i]);
         }
     }
 
@@ -77,7 +39,7 @@ class m210602_123613_fill_up_user_accounts extends Migration
     {
         echo "m210602_123613_fill_up_user_accounts cannot be reverted.\n";
 
-        return false;
+        //return false;
     }
 
     /*

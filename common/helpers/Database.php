@@ -29,7 +29,7 @@ class Database
         $count = 0;
         $columnValueMod = $columnValue;
 
-        while ($tableClass::findOne([$columnName => $columnValueMod])->exists()) {
+        while ($tableClass::findOne([$columnName => $columnValueMod])) {
             ++$count;
             $columnValueMod = $columnValue . '_' . $count;
         }

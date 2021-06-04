@@ -156,7 +156,8 @@ STR;
 
         $componentSets = ComponentSet::find()->all();
 
-        $activeUsers = User::find()->activeAcceptOrders()->all();
+        //$activeUsers = User::find()->activeAcceptOrders()->all();
+        $activeUsers = User::find()->all();
 
         return $this->render('index', [
             'uid' => $uid,

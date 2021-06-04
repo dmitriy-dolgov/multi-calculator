@@ -16,6 +16,7 @@ class Database
     /**
      * Проверяет таблицу $tableClass на наличие в колонке $columnName значения $columnValue.
      * Генерирует новое уникальное значение для колонки $columnName.
+     * Для предполагаемых email (текст осдержит `@`) имеет свой алгоритм.
      *
      * @param string $tableClass ActiveRecord класс
      * @param string $columnName название поля в $tableClass
@@ -31,7 +32,12 @@ class Database
 
         while ($tableClass::findOne([$columnName => $columnValueMod])) {
             ++$count;
-            $columnValueMod = $columnValue . '_' . $count;
+
+            if (strpos($columnValueMod, '@')) {
+                $columnValueMod = $count . '' . $columnValue;
+            } else {
+                $columnValueMod = $columnValue . '_' . $count;
+            }
         }
 
         return $columnValueMod;

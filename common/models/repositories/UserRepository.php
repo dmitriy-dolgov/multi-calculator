@@ -6,8 +6,9 @@ use common\helpers\Database;
 use common\models\db\Profile;
 use common\models\db\User;
 use Yii;
+use yii\base\Component;
 
-class UserRepository extends \yii\db\ActiveRecord
+class UserRepository extends Component
 {
     const DEFAULT_USER_PASSWORD = 'temp123';
 
@@ -29,21 +30,24 @@ class UserRepository extends \yii\db\ActiveRecord
         $coordsCount = count($coords);
 
         for ($i = 0; $i < $coordsCount; ++$i) {
-            UserRepository::createAFakeUser($coords[$i]);
+            self::createAFakeUser($coords[$i]);
         }
     }
 
     /**
      * @param string $companyLatLong string широта и долгота
      *      в таком шаблоне: '55.74958090241472;37.54247323613314'
+     *      TODO: можно сделать проверку на правильный шаблок
      * @throws \Throwable
      */
     public static function createAFakeUser(string $companyLatLong)
     {
-        $transaction = static::getDb()->beginTransaction();
+        //TODO: ракомментировать транзакцию
+        //$transaction = \search::getDb()->beginTransaction();
 
         try {
-            //DEFAULT_USER_PASSWORD$password = 'temp123';
+            //DEFAULT_USER_PASSWORD$
+            //password = 'temp123';
             $newUsername = Database::handeParameterElement(User::class, 'username', 'fake_name');
             $newEmail = Database::handeParameterElement(User::class, 'email', 'fake@email.com');
 
@@ -68,33 +72,32 @@ class UserRepository extends \yii\db\ActiveRecord
 
             if ($newUser->save()) {
                 Yii::info("User '{$newUsername}' created");
+                if (!$newUser->profile) {
+                    /** @var $profElem Profile */
+                    $profElem = $newUser->getProfile()->one();
+                    /** @var $rex Profile */
+                    $profElem->name = Yii::t('app', 'Нет имени');
+                    $profElem->timezone = 'Europe/Moscow';   //TODO при выхода за пределы Москвы - решить
+                    $profElem->company_lat_long = $companyLatLong;
 
-                /** @var $newUserProfile Profile */
-                $newUserProfile = $newUser->make(Profile::class);
-                $newUserProfile->name = Yii::t('app', 'Нет имени');
-                $newUserProfile->timezone = 'Europe/Moscow';   //TODO при выхода за пределы Москвы - решить
-                $newUserProfile->name = Yii::t('app', 'Не указано');
-                $newUserProfile->timezone = 'Europe/Moscow';
-                $newUserProfile->company_lat_long = $companyLatLong;
-
-                $newUserProfile->link('user', $newUser);
-
-                if ($newUserProfile->save()) {
-                    Yii::info("Profile created for user '{$newUsername}' created");
+                    if ($profElem->save()) {
+                        Yii::info("Profile saved for user '{$newUsername}' created");
+                    } else {
+                        throw new \Exception("Couldn't save User's profile. Username: '{$newUsername}'");
+                    }
                 } else {
-                    throw new \Exception("Couldn't create User's profile. Username: '{$newUsername}'");
+                    throw new \Exception("Couldn't create user with name '{$newUsername}'");
                 }
-            } else {
-                throw new \Exception("Couldn't create user with name '{$newUsername}'");
             }
 
-            $transaction->commit();
+            //$transaction->commit();
         } catch (\Exception $e) {
             throw $e;
-        } catch (\Throwable $e) {
+        } catch
+        (\Throwable $e) {
             throw $e;
         } finally {
-            $transaction->rollBack();
+            //$transaction->rollBack();
         }
     }
 }

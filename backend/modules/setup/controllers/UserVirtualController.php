@@ -71,7 +71,7 @@ class UserVirtualController extends Controller
             //TODO: сделать лучше, есть код аналогичный
             $newUser = new User();
             $newUser->password_hash = 'no need ' . rand(0, 999999);
-            $newUser->email = 'test@emal.com' . rand(0, 999999);
+            $newUser->email = 'test@email.com' . rand(0, 999999);
             $newUser->username = 'newusername' . rand(0, 999999);
             if ($newUser->save()) {
                 $newUserVirtual = new UserVirtual();
@@ -90,7 +90,7 @@ class UserVirtualController extends Controller
 
         /*$newUser = new User();
         $newUser->password_hash = 'no need ' . rand(0, 999999);
-        $newUser->email = 'test@emal.com' . rand(0, 999999);
+        $newUser->email = 'test@email.com' . rand(0, 999999);
         $newUser->username = 'newusername' . rand(0, 999999);
         $newUser->save();
 

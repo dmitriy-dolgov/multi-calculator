@@ -8,7 +8,8 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
     var pulsingIcon = L.icon.pulse({iconSize: [15, 15], color: 'green', fillColor: 'red'});
     //this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, this.icons.customerIcon);
-    this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, pulsingIcon);
+    //this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, pulsingIcon);
+    this.customerMarker = this.addMarkerByCoords(55.7522200, 37.6155600, pulsingIcon);
 
     /*gl.log('this.globalZIndex 0: ' + gl.functions.placesMap.globalZIndex);
     ++gl.functions.placesMap.globalZIndex;

@@ -2,9 +2,45 @@
  * placesMap object
  */
 
+//alert('top Mat');
+
+function getRandom(min, max) {
+    return Math.random() * (max - min) + min;
+}
 
 gl.functions.placesMap = function (id, initialMapParameters) {
     this.map = L.map(id).setView([initialMapParameters.latitude, initialMapParameters.longitude], initialMapParameters.zoom);
+
+    var mapCopy = this.map;
+
+    this.map.on('zoomend', function() {
+        // var currentZoom = map.getZoom();
+        //gl.log(['init . currentZoom:', currentZoom]);
+
+        //var mapCopy = this.map;
+        var currentZoom = mapCopy.getZoom();
+        gl.log(['first-currentZoom:', currentZoom]);
+
+        //$('.leaflet-marker-icon').each(function () {
+        $('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').each(function () {
+            var currentZoom = mapCopy.getZoom();
+            gl.log(['currentZoom:', currentZoom]);
+            //console.log('loc.currentZoom:', currentZoom);
+
+            $(this).css('width', (currentZoom * 3 + 5) + 'px');
+            $(this).css('height', 'auto');
+        });
+
+        /*var icon = centerMarker.options.icon;
+        icon.options.iconSize = [newwidth, newheight];
+        centerMarker.setIcon(icon);*/
+
+        //.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive
+        /*if (currentZoom > 15) {
+            map.removeLayer(icons);
+            map.addLayer(icons2);
+        }*/
+    });
 
     var pulsingIcon = L.icon.pulse({iconSize: [15, 15], color: 'green', fillColor: 'red'});
     //this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, this.icons.customerIcon);
@@ -28,15 +64,30 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     //var mrkLanLng = L.latLng(initialMapParameters.latitude, initialMapParameters.longitude);
 
     if (this.markers) {
+        /*alert('if (this.markers) {');
+        var clusterMarkers = L.markerClusterGroup();
         for (var mId in this.markers) {
+            var clustMarker = L.marker([  ////const clustMarker = L.marker([
+                getRandom(37, 39),
+                getRandom(-9.5, -6.5)
+            ]);
+            clusterMarkers.addLayer(clustMarker);
+        }
+        this.map.addLayer(clusterMarkers);*/
+
+        for (mId in this.markers) {
             mrkLanLng = this.markers[mId].marker.getLatLng();
             break;
         }
         if (this.markers && this.markers[0]) {
+            //alert('this.markers');
             this.showCourierByLatLng(mrkLanLng);
         }
+    } else {
+        //alert('if (this.markers) { - ELSE');
     }
 };
+
 
 
 gl.functions.placesMap.prototype.allMarkers = [];
@@ -283,12 +334,13 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
         customerObj = this.customerMarker;
     }
 
-    for (var mId in this.markers) {
-        this.connectMerchantWithCustomer(this.markers[mId].marker, customerObj);
-    }
+    // for (var mId in this.markers) {
+    //     this.connectMerchantWithCustomer(this.markers[mId].marker, customerObj);
+    // }
 };
 
 gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {
+    alert('showCourierByLatLngNew');
     var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
     var animatedMarker = L.animatedMarker(waypoints, {
         autoStart: true,

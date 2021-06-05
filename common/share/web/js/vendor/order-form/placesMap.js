@@ -13,7 +13,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
     var mapCopy = this.map;
 
-    this.map.on('zoomend', function() {
+    this.map.on('zoomend', function () {
         // var currentZoom = map.getZoom();
         //gl.log(['init . currentZoom:', currentZoom]);
 
@@ -87,7 +87,6 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         //alert('if (this.markers) { - ELSE');
     }
 };
-
 
 
 gl.functions.placesMap.prototype.allMarkers = [];
@@ -334,13 +333,13 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
         customerObj = this.customerMarker;
     }
 
-    // for (var mId in this.markers) {
-    //     this.connectMerchantWithCustomer(this.markers[mId].marker, customerObj);
-    // }
+    for (var mId in this.markers) {
+        this.connectMerchantWithCustomer(this.markers[mId].marker, customerObj);
+    }
 };
 
 gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {
-    alert('showCourierByLatLngNew');
+    //alert('showCourierByLatLngNew');
     var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
     var animatedMarker = L.animatedMarker(waypoints, {
         autoStart: true,

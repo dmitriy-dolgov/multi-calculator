@@ -81,7 +81,7 @@ gl.functions.getCurrentGeoLocation = function () {
     var coords = {lat: 55.7522200, lng: 37.6155600};     // Москва
 //@55.097572,33.2094561,12.25
 //@55.7522200,37.6155600
-    /*if (navigator.geolocation) {
+    if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             coords.lat = position.coords.latitude;
             coords.lng = position.coords.longitude;
@@ -91,7 +91,7 @@ gl.functions.getCurrentGeoLocation = function () {
             //     }
             // }
         });
-    }*/
+    }
 
     return coords;
 };

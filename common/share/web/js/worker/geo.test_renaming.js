@@ -22,7 +22,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     var lat = 55.7522200;   //position.coords.latitude;
     var lng = 37.6155600;    //position.coords.longitude;
     this.customerMarker = this.addMarkerByCoords(lat, lng, pulsingIcon);
-    //this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, pulsingIcon);
+    this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, pulsingIcon);
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',

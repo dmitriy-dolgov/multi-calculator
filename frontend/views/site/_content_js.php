@@ -6,7 +6,7 @@
 
 /* @var $uid string */
 
-
+/* @var $activeUsers common\models\db\User[] */
 
 
 

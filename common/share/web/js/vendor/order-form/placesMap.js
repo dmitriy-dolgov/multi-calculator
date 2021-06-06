@@ -21,7 +21,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         var currentZoom = mapCopy.getZoom();
         //gl.log(['first-currentZoom:', currentZoom]);
 
-        debugger;
+        //debugger;
 
         //alert('adsdas');
 
@@ -68,18 +68,18 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     //var mrkLanLng = L.latLng(initialMapParameters.latitude, initialMapParameters.longitude);
 
     if (this.markers) {
-        alert('if (this.markers) {');
-        debugger;
-        debugger;
-        var clusterMarkers = L.markerClusterGroup();
-        for (var mId in this.markers) {
-            var clustMarker = L.marker([  ////const clustMarker = L.marker([
-                this.markers[mId].marker.getLat(),
-                this.markers[mId].marker.getLng(),
-            ]);
-            clusterMarkers.addLayer(clustMarker);
-        }
-        this.map.addLayer(clusterMarkers);
+        //alert('if (this.markers) {');
+        // debugger;
+        // debugger;
+        // //var clusterMarkers = L.markerClusterGroup();
+        // for (var mId in this.markers) {
+        //     var clustMarker = L.marker([  ////const clustMarker = L.marker([
+        //         this.markers[mId].marker.getLat(),
+        //         this.markers[mId].marker.getLng(),
+        //     ]);
+        //     clusterMarkers.addLayer(clustMarker);
+        // }
+        // this.map.addLayer(clusterMarkers);
 
         for (var mId in this.markers) {
             mrkLanLng = this.markers[mId].marker.getLatLng();
@@ -328,8 +328,10 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchan
         }
     }).addTo(this.map);
 
-    this.merchantsLayers.push(newLayer);
+    //this.merchantsLayers.push(newLayer);
     newLayer.selectFeaturesForPathDisplayById('origin_id', 0, true, 'SELECTION_NEW');
+
+    return newLayer;
 };
 
 /**
@@ -345,20 +347,24 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
     }
 
     //alert('connectAllMerchantsWithCustomer for');
-    debugger;   // ACT
+    //debugger;   // ACT
     var clusterMarkers = L.markerClusterGroup();
     for (var mId in this.markers) {
-        this.connectMerchantWithCustomer(this.markers[mId].marker, customerObj);
+        var newLayer = this.connectMerchantWithCustomer(this.markers[mId].marker, customerObj);
 
-        debugger;
-        debugger;
-        var clustMarker = L.marker([  ////const clustMarker = L.marker([
-            this.markers[mId].marker.getLatLng().lat,
-            this.markers[mId].marker.getLatLng().lng
-            //getRandom(37, 39),
-            //getRandom(-9.5, -6.5)
-        ]);
-        clusterMarkers.addLayer(clustMarker);
+        //debugger;
+        //debugger;
+        // var clustMarker = L.marker([  ////const clustMarker = L.marker([
+        //     this.markers[mId].marker.getLatLng().lat,
+        //     this.markers[mId].marker.getLatLng().lng
+        //     //getRandom(37, 39),
+        //     //getRandom(-9.5, -6.5)
+        // ]);
+        //clusterMarkers.addLayer(this.markers[mId].marker);
+
+        //this.merchantsLayers.push(newLayer);
+        //clusterMarkers.addLayer(newLayer);
+        this.merchantsLayers.push(newLayer);
     }
     this.map.addLayer(clusterMarkers);
 };

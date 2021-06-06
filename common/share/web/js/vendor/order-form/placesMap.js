@@ -363,8 +363,8 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
         //clusterMarkers.addLayer(this.markers[mId].marker);
 
         //this.merchantsLayers.push(newLayer);
-        //clusterMarkers.addLayer(newLayer);
-        this.merchantsLayers.push(newLayer);
+        clusterMarkers.addLayer(newLayer);
+        //this.merchantsLayers.push(newLayer);
     }
     this.map.addLayer(clusterMarkers);
 };

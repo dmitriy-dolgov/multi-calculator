@@ -19,15 +19,19 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
         //var mapCopy = this.map;
         var currentZoom = mapCopy.getZoom();
-        gl.log(['first-currentZoom:', currentZoom]);
+        //gl.log(['first-currentZoom:', currentZoom]);
+
+        debugger;
+
+        //alert('adsdas');
 
         //$('.leaflet-marker-icon').each(function () {
-        $('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').each(function () {
+        $('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').each(function (e) {
+            //debugger;   // ACT
             var currentZoom = mapCopy.getZoom();
-            gl.log(['currentZoom:', currentZoom]);
-            //console.log('loc.currentZoom:', currentZoom);
+            //gl.log(['currentZoom:', currentZoom]);
 
-            $(this).css('width', (currentZoom * 3 + 5) + 'px');
+            $(this).css('width', (currentZoom * 3 + 3) + 'px');
             $(this).css('height', 'auto');
         });
 
@@ -42,10 +46,10 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         }*/
     });
 
-    var pulsingIcon = L.icon.pulse({iconSize: [15, 15], color: 'green', fillColor: 'red'});
+    var vendorIcon = L.icon.pulse({iconSize: [15, 15], color: 'green', fillColor: 'red'});
     //this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, this.icons.customerIcon);
     //this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, pulsingIcon);
-    this.customerMarker = this.addMarkerByCoords(55.7522200, 37.6155600, pulsingIcon);
+    this.customerMarker = this.addMarkerByCoords(55.7522200, 37.6155600, vendorIcon);
 
     /*gl.log('this.globalZIndex 0: ' + gl.functions.placesMap.globalZIndex);
     ++gl.functions.placesMap.globalZIndex;
@@ -64,18 +68,20 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     //var mrkLanLng = L.latLng(initialMapParameters.latitude, initialMapParameters.longitude);
 
     if (this.markers) {
-        /*alert('if (this.markers) {');
+        alert('if (this.markers) {');
+        debugger;
+        debugger;
         var clusterMarkers = L.markerClusterGroup();
         for (var mId in this.markers) {
             var clustMarker = L.marker([  ////const clustMarker = L.marker([
-                getRandom(37, 39),
-                getRandom(-9.5, -6.5)
+                this.markers[mId].marker.getLat(),
+                this.markers[mId].marker.getLng(),
             ]);
             clusterMarkers.addLayer(clustMarker);
         }
-        this.map.addLayer(clusterMarkers);*/
+        this.map.addLayer(clusterMarkers);
 
-        for (mId in this.markers) {
+        for (var mId in this.markers) {
             mrkLanLng = this.markers[mId].marker.getLatLng();
             break;
         }
@@ -84,7 +90,10 @@ gl.functions.placesMap = function (id, initialMapParameters) {
             this.showCourierByLatLng(mrkLanLng);
         }
     } else {
+        //TODO: надо ли обрабатывать?
         //alert('if (this.markers) { - ELSE');
+        //gl.log(['HERE === this.markers:', this.markers]);
+        //console.log('HERE === this.markers:', this.markers);
     }
 };
 
@@ -192,9 +201,11 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markers) {
     // this.customerMarker.setZIndexOffset(gl.functions.placesMap.globalZIndex);
 
     var allMarkersGroup = new L.featureGroup(this.allMarkers);
-    this.map.fitBounds(allMarkersGroup.getBounds());
+    //this.map.fitBounds(allMarkersGroup.getBounds());  // добавит ли this.connectAllMerchantsWithCustomer() к ширине ???
 
     this.connectAllMerchantsWithCustomer();
+
+    this.map.fitBounds(allMarkersGroup.getBounds());
 };
 
 /**
@@ -333,9 +344,23 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
         customerObj = this.customerMarker;
     }
 
+    //alert('connectAllMerchantsWithCustomer for');
+    debugger;   // ACT
+    var clusterMarkers = L.markerClusterGroup();
     for (var mId in this.markers) {
         this.connectMerchantWithCustomer(this.markers[mId].marker, customerObj);
+
+        debugger;
+        debugger;
+        var clustMarker = L.marker([  ////const clustMarker = L.marker([
+            this.markers[mId].marker.getLatLng().lat,
+            this.markers[mId].marker.getLatLng().lng
+            //getRandom(37, 39),
+            //getRandom(-9.5, -6.5)
+        ]);
+        clusterMarkers.addLayer(clustMarker);
     }
+    this.map.addLayer(clusterMarkers);
 };
 
 gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {

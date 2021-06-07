@@ -40,7 +40,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
             //if (!(markerObj.extInfo && markerObj.extInfo[0] && markerObj.extInfo[0].)) {
             if (!(markerObj[0] && markerObj[0].extInfo && markerObj[0].extInfo.doNotSize)) {
-                //debugger;
+                debugger;
                 debugger;
                 markerObj.css('width', (mapCopy.getZoom() * 3 + 3) + 'px');
                 markerObj.css('height', 'auto');
@@ -61,10 +61,17 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         }*/
     });
 
+    //var vendorIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
     var vendorIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
     //this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, this.icons.customerIcon);
     //this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, pulsingIcon);
-    this.customerMarker = this.addMarkerByCoords(55.7522200, 37.6155600, vendorIcon, false, {doNotSize: true});
+    this.customerMarker = this.addMarkerByCoords(
+        55.7522200,
+        37.6155600,
+        vendorIcon,
+        false,
+        {doNotSize: true}
+    );
 
     /*gl.log('this.globalZIndex 0: ' + gl.functions.placesMap.globalZIndex);
     ++gl.functions.placesMap.globalZIndex;
@@ -172,36 +179,47 @@ gl.functions.placesMap.prototype.flyTo = function (lanLon) {
 gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, popupHtml, extInfo) {
     var newMarker;
 
+
     //debugger;
+
     var latLng = L.latLng(lat, lng);
-    if (icon) {
-        newMarker = new L.marker(latLng, {icon: icon}).addTo(this.map);
-    } else {
-        newMarker = new L.marker(latLng).addTo(this.map);
+
+    if (!extInfo) {
+        extInfo = {};
     }
 
-    if (popupHtml) {
-        newMarker.bindPopup(popupHtml);
+
+    if (icon) {
+        extInfo.extInfo.
+        newMarker = new L.marker(latLng, extInfo).addTo(this.map);
+    } else {
+        newMarker = new L.marker(latLng, extInfo).addTo(this.map);
+        //markerInfo.extInfo
     }
 
     if (extInfo) {
-        //alert('p909');
-        console.log('newMarker:');
-        console.log(newMarker);
-
-        debugger;
-        debugger;
-        newMarker.extInfo = extInfo;
+        newMarker.bindPopup(popupHtml);
     }
+
+    /*if (!extInfo) {
+        extInfo = {};
+    }*/
+
+    //alert('p909');
+    /*console.log('newMarker:');
+    console.log(newMarker);
+
+    debugger;
+    debugger;
+    newMarker.extInfo. = extInfo;*/
+
 
     /*newMarker.on('click', function (e) {
         gl.log('gl.functions.placesMap.globalZIndex 5: ' + gl.functions.placesMap.globalZIndex);
         newMarker.setZIndexOffset(++gl.functions.placesMap.globalZIndex);
     });*/
 
-    this.allMarkers.push(
-
-    );
+    this.allMarkers.push(newMarker);
 
     return newMarker;
 };
@@ -213,7 +231,12 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markers) {
             var icon = markers[mId].icon ? markers[mId].icon : this.icons.defaultPizzeria;
             this.markers.push({
                 id: markers[mId].id,
-                marker: this.addMarkerByCoords(markers[mId].latitude, markers[mId].longitude, icon, markers[mId].popupHtml, {idKey: markers[mId].id}),
+                marker: this.addMarkerByCoords(
+                    markers[mId].latitude,
+                    markers[mId].longitude,
+                    icon,
+                    markers[mId].popupHtml,
+                    {idKey: markers[mId].id}),
             });
             // ++gl.functions.placesMap.globalZIndex;
             // gl.log('this.globalZIndex 2: ' + gl.functions.placesMap.globalZIndex);

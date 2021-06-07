@@ -39,14 +39,16 @@ gl.functions.placesMap = function (id, initialMapParameters) {
             }
 
             //if (!(markerObj.extInfo && markerObj.extInfo[0] && markerObj.extInfo[0].)) {
-            if (!(markerObj[0] && markerObj[0].extInfo && markerObj[0].extInfo.doNotSize)) {
+            if (!(markerObj[0] && markerObj[0].extInfo && markerObj[0].extInfo.doNotResize)) {
                 debugger;
                 debugger;
+                console.log('(mapCopy.getZoom() * 3 + 3)', (mapCopy.getZoom() * 3 + 3));
                 markerObj.css('width', (mapCopy.getZoom() * 3 + 3) + 'px');
                 markerObj.css('height', 'auto');
+                //alert('Check');
             } else {
                 debugger;
-                alert('O SIZE');
+                alert('NO SIZE');
             }
         });
 
@@ -61,16 +63,13 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         }*/
     });
 
-    //var vendorIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
     var vendorIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
-    //this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, this.icons.customerIcon);
-    //this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, pulsingIcon);
     this.customerMarker = this.addMarkerByCoords(
         55.7522200,
         37.6155600,
         vendorIcon,
         false,
-        {doNotSize: true}
+        {doNotResize: true}
     );
 
     /*gl.log('this.globalZIndex 0: ' + gl.functions.placesMap.globalZIndex);
@@ -177,33 +176,27 @@ gl.functions.placesMap.prototype.flyTo = function (lanLon) {
 };
 
 gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, popupHtml, extInfo) {
+
     var newMarker;
-
-
-    //debugger;
-
     var latLng = L.latLng(lat, lng);
 
     if (!extInfo) {
         extInfo = {};
     }
 
-
     if (icon) {
-        extInfo.extInfo.
-        newMarker = new L.marker(latLng, extInfo).addTo(this.map);
+        extInfo.icon = icon;
     } else {
-        newMarker = new L.marker(latLng, extInfo).addTo(this.map);
-        //markerInfo.extInfo
+        extInfo.addMarkerByCoords = true;
     }
 
-    if (extInfo) {
+    if (popupHtml) {
         newMarker.bindPopup(popupHtml);
     }
 
-    /*if (!extInfo) {
-        extInfo = {};
-    }*/
+    var newMarker = new L.marker(latLng, extInfo);
+
+    newMarker.addTo(this.map);
 
     //alert('p909');
     /*console.log('newMarker:');

@@ -27,12 +27,27 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
         //$('.leaflet-marker-icon').each(function () {
         $('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').each(function (e) {
-            //debugger;   // ACT
-            var currentZoom = mapCopy.getZoom();
+            debugger;   // ACT
+
             //gl.log(['currentZoom:', currentZoom]);
 
-            $(this).css('width', (currentZoom * 3 + 3) + 'px');
-            $(this).css('height', 'auto');
+            var markerObj = $(this);
+
+            if (markerObj[0] && markerObj[0].extInfo) {
+                debugger;
+                alert('O SIZE pe+++++++++++++++++++++++++++');
+            }
+
+            //if (!(markerObj.extInfo && markerObj.extInfo[0] && markerObj.extInfo[0].)) {
+            if (!(markerObj[0] && markerObj[0].extInfo && markerObj[0].extInfo.doNotSize)) {
+                //debugger;
+                debugger;
+                markerObj.css('width', (mapCopy.getZoom() * 3 + 3) + 'px');
+                markerObj.css('height', 'auto');
+            } else {
+                debugger;
+                alert('O SIZE');
+            }
         });
 
         /*var icon = centerMarker.options.icon;
@@ -46,10 +61,10 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         }*/
     });
 
-    var vendorIcon = L.icon.pulse({iconSize: [15, 15], color: 'green', fillColor: 'red'});
+    var vendorIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
     //this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, this.icons.customerIcon);
     //this.customerMarker = this.addMarkerByCoords(initialMapParameters.latitude, initialMapParameters.longitude, pulsingIcon);
-    this.customerMarker = this.addMarkerByCoords(55.7522200, 37.6155600, vendorIcon);
+    this.customerMarker = this.addMarkerByCoords(55.7522200, 37.6155600, vendorIcon, false, {doNotSize: true});
 
     /*gl.log('this.globalZIndex 0: ' + gl.functions.placesMap.globalZIndex);
     ++gl.functions.placesMap.globalZIndex;
@@ -170,6 +185,12 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, p
     }
 
     if (extInfo) {
+        //alert('p909');
+        console.log('newMarker:');
+        console.log(newMarker);
+
+        debugger;
+        debugger;
         newMarker.extInfo = extInfo;
     }
 
@@ -178,7 +199,9 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, p
         newMarker.setZIndexOffset(++gl.functions.placesMap.globalZIndex);
     });*/
 
-    this.allMarkers.push(newMarker);
+    this.allMarkers.push(
+
+    );
 
     return newMarker;
 };
@@ -371,7 +394,7 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
 
 gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {
     //alert('showCourierByLatLngNew');
-    var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'green', fillColor: 'yellow'});
+    var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'yellow', fillColor: 'yellow'});
     var animatedMarker = L.animatedMarker(waypoints, {
         autoStart: true,
         icon: courierIcon,

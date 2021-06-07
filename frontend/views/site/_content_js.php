@@ -9,12 +9,10 @@
 /* @var $activeUsers common\models\db\User[] */
 
 
-
 use common\helpers\Internationalization;
+use common\helpers\Js;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use common\helpers\Js;
-use corpsepk\DaData\SuggestionsWidget;
 
 //use kartik\select2\Select2;
 

@@ -177,6 +177,9 @@ gl.functions.placesMap.prototype.flyTo = function (lanLon) {
 
 gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, popupHtml, extInfo) {
 
+    alert('addMarkerByCoords !!!!!!!!!!!!!!!!!!!!');
+
+    debugger;
     var newMarker;
     var latLng = L.latLng(lat, lng);
 
@@ -190,11 +193,13 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, p
         extInfo.addMarkerByCoords = true;
     }
 
+    var newMarker = new L.marker(latLng, extInfo);
+
     if (popupHtml) {
         newMarker.bindPopup(popupHtml);
     }
 
-    var newMarker = new L.marker(latLng, extInfo);
+    //var newMarker = new L.marker(latLng, extInfo);
 
     newMarker.addTo(this.map);
 
@@ -304,6 +309,11 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchan
         features: []
     };
 
+
+    debugger;
+    debugger;
+    console.log('merchantObj', merchantObj);
+    //merchantObj = ''
     geoJsonFeatureCollection.features.push({
         "type": "Feature",
         "geometry": {
@@ -314,7 +324,8 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchan
             "origin_id": 0,
             "origin_lon": customerLatLon.lng,
             "origin_lat": customerLatLon.lat,
-            "destination_id": merchantObj.extInfo.idKey,
+            //"destination_id": merchantObj.extInfo.idKey,
+            "destination_id": merchantObj.options.idKey,
             "destination_lon": merchantLatLng.lng,
             "destination_lat": merchantLatLng.lat
         }

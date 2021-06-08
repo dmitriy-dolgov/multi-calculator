@@ -177,10 +177,10 @@ gl.functions.placesMap.prototype.flyTo = function (lanLon) {
 
 gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, popupHtml, extInfo) {
 
-    alert('addMarkerByCoords !!!!!!!!!!!!!!!!!!!!');
+    gl.log('addMBCC !!!!!!!!!!!!!!!!!!!!');
 
-    debugger;
-    var newMarker;
+    //debugger;
+    //var newMarker;
     var latLng = L.latLng(lat, lng);
 
     if (!extInfo) {
@@ -189,14 +189,16 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, p
 
     if (icon) {
         extInfo.icon = icon;
-    } else {
+    } /*else {
         extInfo.addMarkerByCoords = true;
-    }
+    }*/
 
     var newMarker = new L.marker(latLng, extInfo);
 
     if (popupHtml) {
         newMarker.bindPopup(popupHtml);
+    } else {
+        newMarker.bindPopup('no html popup !!!');
     }
 
     //var newMarker = new L.marker(latLng, extInfo);
@@ -217,29 +219,47 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, p
         newMarker.setZIndexOffset(++gl.functions.placesMap.globalZIndex);
     });*/
 
+    //TODO: проверить закомментированое!!!
     this.allMarkers.push(newMarker);
 
     return newMarker;
 };
 
 gl.functions.placesMap.prototype.addMarkersToMap = function (markers) {
+
     this.markers = [];
     if (markers.length) {
+
+        var clusteredMarkers = L.markerClusterGroup();
+
         for (var mId in markers) {
-            var icon = markers[mId].icon ? markers[mId].icon : this.icons.defaultPizzeria;
+
+            debugger;
+            debugger;
+
+            //var icon = markers[mId].icon ? markers[mId].icon : this.icons.defaultPizzeria;
+
+            var newMarker = this.addMarkerByCoords(
+                markers[mId].latitude,
+                markers[mId].longitude,
+                (markers[mId].icon ? markers[mId].icon : this.icons.defaultPizzeria),
+                markers[mId].popupHtml,
+                {idKey: markers[mId].id});
+
             this.markers.push({
                 id: markers[mId].id,
-                marker: this.addMarkerByCoords(
-                    markers[mId].latitude,
-                    markers[mId].longitude,
-                    icon,
-                    markers[mId].popupHtml,
-                    {idKey: markers[mId].id}),
+                marker: newMarker
             });
-            // ++gl.functions.placesMap.globalZIndex;
-            // gl.log('this.globalZIndex 2: ' + gl.functions.placesMap.globalZIndex);
+
+            clusteredMarkers.addLayer(newMarker);
+            //this.allMarkers.push(newMarker);
         }
+
+        // ???? //this.allMarkers.push(newMarker);
+
+        this.map.addLayer(clusteredMarkers);
     }
+
 
     // gl.log('this.globalZIndex 1: ' + gl.functions.placesMap.globalZIndex);
     // this.customerMarker.setZIndexOffset(gl.functions.placesMap.globalZIndex);
@@ -249,7 +269,7 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markers) {
 
     this.connectAllMerchantsWithCustomer();
 
-    this.map.fitBounds(allMarkersGroup.getBounds());
+    //this.map.fitBounds(allMarkersGroup.getBounds());
 };
 
 /**
@@ -398,7 +418,7 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
 
     //alert('connectAllMerchantsWithCustomer for');
     //debugger;   // ACT
-    var clusterMarkers = L.markerClusterGroup();
+    //var clusterMarkers = L.markerClusterGroup();
     for (var mId in this.markers) {
         var newLayer = this.connectMerchantWithCustomer(this.markers[mId].marker, customerObj);
 
@@ -412,11 +432,13 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
         // ]);
         //clusterMarkers.addLayer(this.markers[mId].marker);
 
+        this.merchantsLayers.push(newLayer);
+        //clusterMarkers.addLayer(newLayer);
         //this.merchantsLayers.push(newLayer);
-        clusterMarkers.addLayer(newLayer);
-        //this.merchantsLayers.push(newLayer);
+
+        //clusterMarkers.addLayer(L.marker(newLayer));
     }
-    this.map.addLayer(clusterMarkers);
+    //this.map.addLayer(clusterMarkers);
 };
 
 gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {

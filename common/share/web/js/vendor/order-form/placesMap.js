@@ -144,6 +144,7 @@ gl.functions.placesMap.prototype.hideCourier = function () {
 
 //TODO: не нужно?
 gl.functions.placesMap.prototype.moveCustomerMarker = function (newLan, newLgn) {
+    alert('gl.functions.placesMap.prototype.moveCustomerMarker');
     var newLatLng = new L.LatLng(newLan, newLgn);
     this.customerMarker.setLatLng(newLatLng);
 };
@@ -153,25 +154,28 @@ gl.functions.placesMap.prototype.flyTo = function (lanLon) {
     this.map.flyTo(lanLon);
 };
 
-gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, popupHtml, extInfo) {
+gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, popupHtml, extInfoOrig) {
 
     gl.log('addMBCC !!!!!!!!!!!!!!!!!!!!');
 
-    //debugger;
-    //var newMarker;
+    debugger;
+    debugger;
+    debugger;
     var latLng = L.latLng(lat, lng);
 
-    if (!extInfo) {
-        extInfo = {};
+    if (!extInfoOrig) {
+        extInfoOrig = {};
     }
 
-    if (icon) {
-        extInfo.icon = icon;
-    } /*else {
-        extInfo.addMarkerByCoords = true;
-    }*/
+    var extInfoMod = {};
 
-    var newMarker = new L.marker(latLng, extInfo);
+    for (var key in extInfoOrig) {
+        if (extInfoOrig.hasOwnProperty(key)) {
+            extInfoMod[key] = extInfoOrig[key];
+        }
+    }
+
+    var newMarker = new L.marker(latLng, extInfoMod);
 
     if (popupHtml) {
         newMarker.bindPopup(popupHtml);
@@ -179,17 +183,7 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, p
         newMarker.bindPopup('no html popup !!!');
     }
 
-    //var newMarker = new L.marker(latLng, extInfo);
-
     newMarker.addTo(this.map);
-
-    //alert('p909');
-    /*console.log('newMarker:');
-    console.log(newMarker);
-
-    debugger;
-    debugger;
-    newMarker.extInfo. = extInfo;*/
 
 
     /*newMarker.on('click', function (e) {
@@ -204,11 +198,11 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, p
 };
 
 // Главная функция наполнения this.markers
-// По идее this.markers должна содержать все маркеры.
-gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
+// По идее this.markers должна содержать ВСЕ маркеры.
+gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo, toResize) {
 
     this.markers = [];
-    if (markerInfo.length) {
+    if (markerInfo.length && toResize) {
 
         var clusteredMarkers = L.markerClusterGroup();
 

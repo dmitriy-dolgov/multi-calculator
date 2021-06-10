@@ -10,9 +10,9 @@ $configData = [
         '@npm' => '@vendor/npm-asset',
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
-    /*'bootstrap' => [
-        'common\modules\db\Bootstrap',
-    ],*/
+//    'bootstrap' => [
+//        'common\modules\db\Bootstrap',
+//    ],
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',

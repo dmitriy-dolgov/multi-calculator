@@ -58,6 +58,26 @@ if (!gl.map) {
 
 gl.config.debug = true;
 
+
+//PHP functions in Javascript
+gl.getObject('php.imitation').is_array = function (inputArray) {
+    //return (inputArray instanceof Array);
+    return inputArray
+        && !(inputArray.propertyIsEnumerable('length'))
+        && typeof inputArray === 'object'
+        && typeof inputArray.length === 'number';
+};
+
+gl.php.imitation.empty = function (emptyValue) {
+    return (emptyValue === ""
+        || emptyValue === 0
+        || emptyValue === "0"
+        || emptyValue === null
+        || emptyValue === false
+        || (gl.php.imitation.is_array(emptyValue) && emptyValue.length === 0)
+    );
+};
+
 gl.getObject('map.coordinates').string2array = function (str) {
     //TODO: проверять правильность, убирать пробелы и т.п.
     var stringArr = str.split(';');

@@ -79,8 +79,12 @@ gl.functions.getCurrentGeoLocation = function () {
 
     //dateandtime.info/ru/citycoordinates.php?id=524901
     var coords = {lat: 55.7522200, lng: 37.6155600};     // Москва
-//@55.097572,33.2094561,12.25
-//@55.7522200,37.6155600
+
+    // Убрать (закомментить) в рабочем режиме
+    return coords;
+
+    //@55.097572,33.2094561,12.25
+    //@55.7522200,37.6155600
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             coords.lat = position.coords.latitude;

@@ -2,8 +2,6 @@
  * placesMap object
  */
 
-//alert('top Mat');
-
 function getRandom(min, max) {
     return Math.random() * (max - min) + min;
 }
@@ -14,22 +12,14 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     var mapCopy = this.map;
 
     this.map.on('zoomend', function () {
-        // var currentZoom = map.getZoom();
-        //gl.log(['init . currentZoom:', currentZoom]);
 
         //var mapCopy = this.map;
         var currentZoom = mapCopy.getZoom();
-        //gl.log(['first-currentZoom:', currentZoom]);
-
-        //debugger;
-
-        //alert('adsdas');
 
         //$('.leaflet-marker-icon').each(function () {
         $('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').each(function (e) {
             debugger;   // ACT
-
-            //gl.log(['currentZoom:', currentZoom]);
+            debugger;
 
             var markerObj = $(this);
 
@@ -38,6 +28,8 @@ gl.functions.placesMap = function (id, initialMapParameters) {
                 alert('O SIZE pe+++++++++++++++++++++++++++');
             }
 
+            debugger;
+            debugger;
             //if (!(markerObj.extInfo && markerObj.extInfo[0] && markerObj.extInfo[0].)) {
             if (!(markerObj[0] && markerObj[0].extInfo && markerObj[0].extInfo.doNotResize)) {
                 debugger;
@@ -50,36 +42,21 @@ gl.functions.placesMap = function (id, initialMapParameters) {
                 debugger;
                 alert('NO SIZE');
             }
+
+            return false;
         });
-
-        /*var icon = centerMarker.options.icon;
-        icon.options.iconSize = [newwidth, newheight];
-        centerMarker.setIcon(icon);*/
-
-        //.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive
-        /*if (currentZoom > 15) {
-            map.removeLayer(icons);
-            map.addLayer(icons2);
-        }*/
     });
 
-    var vendorIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
+    debugger;
+    debugger;
+    // это маркер покупателя, координаты Москвы для теста
     this.customerMarker = this.addMarkerByCoords(
         55.7522200,
         37.6155600,
-        vendorIcon,
+        L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'}),
         false,
         {doNotResize: true}
     );
-
-    /*gl.log('this.globalZIndex 0: ' + gl.functions.placesMap.globalZIndex);
-    ++gl.functions.placesMap.globalZIndex;
-
-    var customerMarker = this.customerMarker;
-    this.customerMarker.on('click', function (e) {
-        gl.log('this.globalZIndex 3: ' + gl.functions.placesMap.globalZIndex);
-        customerMarker.setZIndexOffset(++gl.functions.placesMap.globalZIndex);
-    });*/
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
@@ -102,6 +79,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         // }
         // this.map.addLayer(clusterMarkers);
 
+        //TODO: !!! всегда выбирается первый магазин - сделать чтобы выбирался принявший заказ !!!
         for (var mId in this.markers) {
             mrkLanLng = this.markers[mId].marker.getLatLng();
             break;
@@ -225,29 +203,30 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, p
     return newMarker;
 };
 
-gl.functions.placesMap.prototype.addMarkersToMap = function (markers) {
+// Главная функция наполнения this.markers
+// По идее this.markers должна содержать все маркеры.
+gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
 
     this.markers = [];
-    if (markers.length) {
+    if (markerInfo.length) {
 
         var clusteredMarkers = L.markerClusterGroup();
 
-        for (var mId in markers) {
+        for (var mId in markerInfo) {
 
-            debugger;
-            debugger;
+            //debugger;
 
             //var icon = markers[mId].icon ? markers[mId].icon : this.icons.defaultPizzeria;
 
             var newMarker = this.addMarkerByCoords(
-                markers[mId].latitude,
-                markers[mId].longitude,
-                (markers[mId].icon ? markers[mId].icon : this.icons.defaultPizzeria),
-                markers[mId].popupHtml,
-                {idKey: markers[mId].id});
+                markerInfo[mId].latitude,
+                markerInfo[mId].longitude,
+                (markerInfo[mId].icon ? markerInfo[mId].icon : this.icons.defaultPizzeria),
+                markerInfo[mId].popupHtml,
+                {idKey: markerInfo[mId].id});
 
             this.markers.push({
-                id: markers[mId].id,
+                id: markerInfo[mId].id,
                 marker: newMarker
             });
 
@@ -297,11 +276,11 @@ gl.functions.placesMap.prototype.removeAllConnectionsBetweenCustomerAndMerchants
  * @param customerObj объект пользователя (opt.).
  */
 gl.functions.placesMap.prototype.connectMerchantWithCustomerRealPath = function (merchantData, customerObj) {
-    if (!customerObj) {
-        customerObj = this.customerMarker;
-    }
-    //TODO: customerLatLon - где используется ???
-    var customerLatLon = customerObj.getLatLng();
+    // if (!customerObj) {
+    //     customerObj = this.customerMarker;
+    // }
+    // //TODO: customerLatLon - где используется ???
+    // var customerLatLon = customerObj.getLatLng();
 
     var merchantLanLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
 
@@ -330,8 +309,8 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchan
     };
 
 
-    debugger;
-    debugger;
+    //debugger;
+    //debugger;
     console.log('merchantObj', merchantObj);
     //merchantObj = ''
     geoJsonFeatureCollection.features.push({

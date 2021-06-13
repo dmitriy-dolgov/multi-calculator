@@ -6,6 +6,23 @@ function getRandom(min, max) {
     return Math.random() * (max - min) + min;
 }
 
+gl.functions.getGeo = function () {
+
+    setInterval(function () {
+        debugger;
+        var lanLon = gl.functions.getCurrentGeoLocation();
+        //this.courierMarker = this.addMarkerByCoords(latLng.lat, latLng.lng, this.icons.courier);
+        $('#time-elapsed').text('Новые координаты:' + JSON.stringify(lanLon));
+
+        //var coords = [lanLon[lanLon][lat]], lng: 37.6155600}];
+
+        gl.functions.placesMap.prototype.flyTo(lanLon);
+    }, 3000);
+
+};
+
+gl.functions.getGeo();
+
 gl.functions.placesMap = function (id, initialMapParameters) {
     this.map = L.map(id).setView([initialMapParameters.latitude, initialMapParameters.longitude], initialMapParameters.zoom);
 
@@ -17,7 +34,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         var currentZoom = mapCopy.getZoom();
 
         //$('.leaflet-marker-icon').each(function () {
-        $('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').each(function (e) {
+        $('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').each(function (e, e2, e3, e4) {
             debugger;   // ACT
             debugger;
 
@@ -34,7 +51,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
             if (!(markerObj[0] && markerObj[0].extInfo && markerObj[0].extInfo.doNotResize)) {
                 debugger;
                 debugger;
-                console.log('(mapCopy.getZoom() * 3 + 3)', (mapCopy.getZoom() * 3 + 3));
+                //console.log('(mapCopy.getZoom() * 3 + 3)', (mapCopy.getZoom() * 3 + 3));
                 markerObj.css('width', (mapCopy.getZoom() * 3 + 3) + 'px');
                 markerObj.css('height', 'auto');
                 //alert('Check');
@@ -79,6 +96,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         // }
         // this.map.addLayer(clusterMarkers);
 
+        debugger;
         //TODO: !!! всегда выбирается первый магазин - сделать чтобы выбирался принявший заказ !!!
         for (var mId in this.markers) {
             mrkLanLng = this.markers[mId].marker.getLatLng();
@@ -86,6 +104,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         }
         if (this.markers && this.markers[0]) {
             //alert('this.markers');
+            debugger;
             this.showCourierByLatLng(mrkLanLng);
         }
     } else {
@@ -151,38 +170,43 @@ gl.functions.placesMap.prototype.moveCustomerMarker = function (newLan, newLgn) 
 
 //TODO: не нужно?
 gl.functions.placesMap.prototype.flyTo = function (lanLon) {
-    this.map.flyTo(lanLon);
+    if (this.map && this.map.flyTo) {
+        this.map.flyTo(lanLon);
+    }
 };
 
 gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, popupHtml, extInfoOrig) {
 
-    gl.log('addMBCC !!!!!!!!!!!!!!!!!!!!');
+    gl.log('gl.functions.placesMap.prototype.addMarkerByCoords() !!!!!!!!!!!!!!!!!!!!');
+    gl.log('INFO: ', extInfoOrig);
+
+    if (!extInfoOrig) {
+        extInfoOrig = {};
+        //return;
+    }
 
     debugger;
     debugger;
     debugger;
     var latLng = L.latLng(lat, lng);
+    //var extInfoMod = {};
 
-    if (!extInfoOrig) {
-        extInfoOrig = {};
-    }
+    // for (var key in extInfoOrig) {
+    //     if (extInfoOrig.hasOwnProperty(key)) {
+    //         extInfoMod[key] = extInfoOrig[key];
+    //     }
+    // }
 
-    var extInfoMod = {};
-
-    for (var key in extInfoOrig) {
-        if (extInfoOrig.hasOwnProperty(key)) {
-            extInfoMod[key] = extInfoOrig[key];
-        }
-    }
-
-    var newMarker = new L.marker(latLng, extInfoMod);
+    //var newMarker = new L.marker(latLng, extInfoMod);
+    var newMarker = new L.marker(latLng, extInfoOrig);
 
     if (popupHtml) {
         newMarker.bindPopup(popupHtml);
     } else {
-        newMarker.bindPopup('no html popup !!!');
+        newMarker.bindPopup('No html popup !!!');
     }
 
+    debugger;
     newMarker.addTo(this.map);
 
 
@@ -192,6 +216,7 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, p
     });*/
 
     //TODO: проверить закомментированое!!!
+    debugger;
     this.allMarkers.push(newMarker);
 
     return newMarker;
@@ -199,19 +224,26 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, p
 
 // Главная функция наполнения this.markers
 // По идее this.markers должна содержать ВСЕ маркеры.
-gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo, toResize) {
+//gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo, toResize) {
+gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
 
-    this.markers = [];
-    if (markerInfo.length && toResize) {
+    gl.log('gl.functions.placesMap.prototype.addMarkersToMap()');
+
+    //this.markers = [];
+    //if (markerInfo.length && toResize) {
+    if (markerInfo.length) {
+
+        debugger;
 
         var clusteredMarkers = L.markerClusterGroup();
 
+        if (!this.markers) {
+            this.markers = [];
+        }
+
         for (var mId in markerInfo) {
 
-            //debugger;
-
-            //var icon = markers[mId].icon ? markers[mId].icon : this.icons.defaultPizzeria;
-
+            debugger;
             var newMarker = this.addMarkerByCoords(
                 markerInfo[mId].latitude,
                 markerInfo[mId].longitude,
@@ -219,20 +251,22 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo, toResiz
                 markerInfo[mId].popupHtml,
                 {idKey: markerInfo[mId].id});
 
+            debugger;
             this.markers.push({
                 id: markerInfo[mId].id,
                 marker: newMarker
             });
 
+            //this.markers  = [];
+
             clusteredMarkers.addLayer(newMarker);
             //this.allMarkers.push(newMarker);
         }
-
-        // ???? //this.allMarkers.push(newMarker);
-
-        this.map.addLayer(clusteredMarkers);
     }
 
+    // ???? //this.allMarkers.push(newMarker);
+
+    this.map.addLayer(clusteredMarkers);
 
     // gl.log('this.globalZIndex 1: ' + gl.functions.placesMap.globalZIndex);
     // this.customerMarker.setZIndexOffset(gl.functions.placesMap.globalZIndex);
@@ -305,7 +339,7 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchan
 
     //debugger;
     //debugger;
-    console.log('merchantObj', merchantObj);
+    //console.log('merchantObj', merchantObj);
     //merchantObj = ''
     geoJsonFeatureCollection.features.push({
         "type": "Feature",
@@ -393,6 +427,9 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
     //debugger;   // ACT
     //var clusterMarkers = L.markerClusterGroup();
     for (var mId in this.markers) {
+        debugger;
+        debugger;
+        debugger;
         var newLayer = this.connectMerchantWithCustomer(this.markers[mId].marker, customerObj);
 
         //debugger;
@@ -416,7 +453,7 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
 
 gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {
     //alert('showCourierByLatLngNew');
-    var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'yellow', fillColor: 'yellow'});
+    var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'brown', fillColor: 'green'});
     var animatedMarker = L.animatedMarker(waypoints, {
         autoStart: true,
         icon: courierIcon,
@@ -450,12 +487,15 @@ gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng)
         // отключает возможность изменять линию пути
         addWaypoints: false,
         createMarker: function (i, wp) {
-            /*var options = {
+            var options = {
                 draggable: false,
                 clickable: false,
                 opacity: 0
             };
-            return L.marker(wp.latLng, options);*/
+            debugger;
+            debugger;
+            debugger;
+            return L.marker(wp.latLng, options);
         },
     }).on("routesfound", function (e) {
         if (this.routeIsFound) {

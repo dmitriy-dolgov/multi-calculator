@@ -83,7 +83,7 @@ $jsStrings = [
     'Phone:' => Yii::t('app', 'Phone:'),
     'Your comment:' => Yii::t('app', 'Your comment:'),
     'Order ID:' => Yii::t('app', 'Order ID:'),
-    'Unknown error. Please try again later or refer to administrator.'=> Yii::t('app', 'Unknown error. Please try again later or refer to administrator.'),
+    'Unknown error. Please try again later or refer to administrator.' => Yii::t('app', 'Unknown error. Please try again later or refer to administrator.'),
 
     'currency' => Internationalization::getCurrencySign(),
     'cant_add_so_many_of_component' => Yii::t('app', 'So much does not fit on pizza!'),
@@ -162,7 +162,6 @@ $this->registerJsFile(Url::to(['/js/vendor/order-form/placesMap.js', 'ver' => '0
 $this->registerJsFile(Url::to(['/js/vendor/order-form/geo.js', 'ver' => '1.5']), ['depends' => ['frontend\assets\VendorAsset'], 'appendTimestamp' => YII_DEBUG]);
 
 
-
 $cityList = (new \common\models\Geo())->getCityList();
 
 /*$cityListSelect = [];
@@ -179,17 +178,19 @@ foreach ($cityList as $cityId => $cityData) {
 <div id="elems-container" style="display: none">
     <div class="order-data-container-wrp">
         <div class="order-data-container your-data">
-            <div class="title"><?= Html::encode(Yii::t('app', 'Your data')) ?></div>
+            <div class="title"><?= Html::encode(Yii::t('app', 'Your data')) ?>
+                <div id="time-elapsed"></div>
+            </div>
             <div class="order-data-data">
                 <!--<button class="correct-geolocation" onclick="gl.functions.correctGeolocation();return false;"><?php /*= Yii::t('app', 'Скорректировать геолокацию') */ ?></button>-->
                 <label class="preview-element-yd">
                     <div class="label"><?= Html::encode(Yii::t('app', 'Your city:')) ?></div>
                     Москва
                     <!--<select class="select-deliver_city_id" name="ShopOrderForm[deliver_city_id]">
-                        <?php /*foreach ($cityList as $cityId => $cityData): */?>
-                            <option value="<?/*= $cityId */?>" data-lat="<?/*= $cityData['coords']['lat'] */?>"
-                                    data-lon="<?/*= $cityData['coords']['lon'] */?>"><?/*= Html::encode($cityData['name']) */?></option>
-                        <?php /*endforeach; */?>
+                        <?php /*foreach ($cityList as $cityId => $cityData): */ ?>
+                            <option value="<? /*= $cityId */ ?>" data-lat="<? /*= $cityData['coords']['lat'] */ ?>"
+                                    data-lon="<? /*= $cityData['coords']['lon'] */ ?>"><? /*= Html::encode($cityData['name']) */ ?></option>
+                        <?php /*endforeach; */ ?>
                     </select>-->
                     <?php /*Select2::widget([
                     'name' => 'ShopOrderForm[deliver_city_id]',

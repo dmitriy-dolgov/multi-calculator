@@ -18285,12 +18285,12 @@ module.exports = L.Routing = {
 				return new GeocoderElement(wp, i, nWps, plan);
 			},
 			createMarker: function(i, wp) {
-				var options = {
+				/*var options = {
 						draggable: this.draggableWaypoints
 					},
 				    marker = L.marker(wp.latLng, options);
 
-				return marker;
+				return marker;*/
 			},
 			geocodersClassName: ''
 		},

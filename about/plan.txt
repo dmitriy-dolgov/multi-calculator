@@ -7,7 +7,7 @@ http://uid2018.hosting1.b-leader.ru/vendor/order/2_e72d17a3
 
 ++++++++
 
-this.customerMarker - маркер положения пользователя
+this.customerMarker - маркер положения покупателя
 this.markers - маркеры пиццерий
 gl.data.worldMap = new gl.functions.placesMap(placesMapId, initialMapParameters);
 

@@ -88,15 +88,15 @@ gl.functions.getCurrentGeoLocation = function () {
     try {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
-                //coords.lat = position.coords.latitude;
-                //coords.lng = position.coords.longitude;
-                // if (gl.data.worldMap) {
+                coords.lat = position.coords.latitude;
+                coords.lng = position.coords.longitude;
+                // /*if (gl.data.worldMap) {
                 //     if (gl.data.worldMap.courierMarker) {
                 //         gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker);
                 //     }
-                // }
+                // }*/
 
-                consoe.log('coords: ' + coords);
+                console.log('coords: ' + coords);
 
                 gl.functions.placesMap.prototype.flyTo(coords);
             })

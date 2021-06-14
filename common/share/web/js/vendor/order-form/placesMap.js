@@ -17,7 +17,7 @@ gl.functions.getGeo = function () {
         //var coords = [lanLon[lanLon][lat]], lng: 37.6155600}];
 
         gl.functions.placesMap.prototype.flyTo(lanLon);
-    }, 3000);
+    }, 5000);
 
 };
 
@@ -72,8 +72,8 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     this.customerMarker = this.addMarkerByCoords(
         //initialMapParameters.latitude,
         //initialMapParameters.longitude,
-        //55.7522200,
-        //37.6155600,
+        55.7522200,
+        37.6155600,
         L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'}),
         false,
         {doNotResize: true}
@@ -192,6 +192,9 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, p
     debugger;
     debugger;
     debugger;
+    console.log("lat:", lat);
+    console.log("lng:", lng);
+    //var latLng = L.latLng(lat, lng);
     var latLng = L.latLng(lat, lng);
     //var extInfoMod = {};
 
@@ -200,6 +203,8 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, p
     //         extInfoMod[key] = extInfoOrig[key];
     //     }
     // }
+
+    console.log('alert(latLng)', latLng);
 
     //var newMarker = new L.marker(latLng, extInfoMod);
     var newMarker = new L.marker(latLng, extInfoOrig);
@@ -212,7 +217,6 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, p
 
     debugger;
     newMarker.addTo(this.map);
-
 
     /*newMarker.on('click', function (e) {
         gl.log('gl.functions.placesMap.globalZIndex 5: ' + gl.functions.placesMap.globalZIndex);
@@ -472,6 +476,9 @@ gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {
     });
 
     gl.data.worldMap.map.addLayer(animatedMarker);
+
+    gl.data.worldMap.removeAllConnectionsBetweenCustomerAndMerchants();
+    //gl.data.worldMap.connectMerchantWithCustomerRealPath(merchantData);
 };
 
 gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng) {

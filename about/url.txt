@@ -5,3 +5,5 @@ https://пицца24.ru.com/
 pizza-admin.local/worker?workerUid=orders
 
 12324.рф/worker?workerUid=orders
+https://пицца24.ru.com/
+

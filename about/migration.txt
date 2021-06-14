@@ -282,5 +282,5 @@ CREATE TABLE `geopoint` (
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
+php ./yii migrate/create create_customer_virtual_table --fields="user_id:integer:foreignKey('user')"
 

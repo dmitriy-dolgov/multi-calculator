@@ -81,20 +81,28 @@ gl.functions.getCurrentGeoLocation = function () {
     var coords = {lat: 55.7522200, lng: 37.6155600};     // Москва
 
     // Убрать (закомментить) в рабочем режиме
-    return coords;
+    //return coords;
 
     //@55.097572,33.2094561,12.25
     //@55.7522200,37.6155600
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            coords.lat = position.coords.latitude;
-            coords.lng = position.coords.longitude;
-            // if (gl.data.worldMap) {
-            //     if (gl.data.worldMap.courierMarker) {
-            //         gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker);
-            //     }
-            // }
-        });
+    try {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                //coords.lat = position.coords.latitude;
+                //coords.lng = position.coords.longitude;
+                // if (gl.data.worldMap) {
+                //     if (gl.data.worldMap.courierMarker) {
+                //         gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker);
+                //     }
+                // }
+
+                consoe.log('coords: ' + coords);
+
+                gl.functions.placesMap.prototype.flyTo(coords);
+            })
+        }
+    } catch (e) {
+        console.log('navigator.geolocation');
     }
 
     return coords;

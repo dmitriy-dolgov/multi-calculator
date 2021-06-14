@@ -66,10 +66,14 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
     debugger;
     debugger;
+
+    // [initialMapParameters.latitude, initialMapParameters.longitude
     // это маркер покупателя, координаты Москвы для теста
     this.customerMarker = this.addMarkerByCoords(
-        55.7522200,
-        37.6155600,
+        //initialMapParameters.latitude,
+        //initialMapParameters.longitude,
+        //55.7522200,
+        //37.6155600,
         L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'}),
         false,
         {doNotResize: true}

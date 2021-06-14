@@ -50,7 +50,8 @@ class ArchiveController extends Controller
 
             $command = 'mysqldump --user=' . Yii::$app->db->username
                 . ' --password=' . Yii::$app->db->password
-                . " --host=localhost $dbName > $sqlFilePath";
+                //. " --host=localhost $dbName > $sqlFilePath";
+                . " --host=127.0.0.1 $dbName > $sqlFilePath";
 
             exec($command);
 

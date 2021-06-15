@@ -237,6 +237,8 @@ order_price:decimal(8,2),order_price_discount:decimal(8,2)"
 
 php ./yii migrate/create create_user_virtual_table --fields="user_id:integer:foreignKey('user')"
 
+php ./yii migrate/create create_customer_virtual_table --fields="user_id:integer:foreignKey('user')"
+
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -283,4 +285,6 @@ CREATE TABLE `geopoint` (
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 php ./yii migrate/create create_customer_virtual_table --fields="user_id:integer:foreignKey('user')"
+
+
 

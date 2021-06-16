@@ -4,7 +4,7 @@ namespace backend\modules\admin\controllers;
 
 use Yii;
 use common\models\db\CustomerVirtual;
-use common\models\db\CustomerVirtualQuery;
+use common\models\db\CustomerVirtualSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,7 +35,7 @@ class CustomerVirtualController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CustomerVirtualQuery();
+        $searchModel = new CustomerVirtualSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

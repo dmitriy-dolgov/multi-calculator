@@ -4,13 +4,12 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\db\UserVirtual */
-/* @var $allUsers common\models\db\User */
 
-$this->title = Yii::t('app', 'Обновить виртуального продавца: {name}', [
-    'name' => $model->user->username,
+$this->title = Yii::t('app', 'Update User Virtual: {name}', [
+    'name' => $model->id,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Виртуальный продавец'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->user->username, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'User Virtuals'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="user-virtual-update">
@@ -19,7 +18,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
-        'allUsers' => $allUsers,
     ]) ?>
 
 </div>

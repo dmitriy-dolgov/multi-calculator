@@ -195,7 +195,12 @@ CSS
                                     [
                                         'label' => Yii::t('app', 'Виртуальные продавцы'),
                                         'url' => '/admin/user-virtual',
-                                        'icon' => 'history',
+                                        'icon' => 'home',
+                                    ],
+                                    [
+                                        'label' => Yii::t('app', 'Виртуальные покупатели'),
+                                        'url' => ['/admin/customer-virtual'],
+                                        'icon' => 'money',
                                     ],
                                 ],
                             ]

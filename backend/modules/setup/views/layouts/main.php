@@ -135,8 +135,12 @@ use yii\helpers\Html;
                                 //'template' => '<a><i class="fa fa-handshake-o"></i><span>{label}</span><span class="fa fa-chevron-down"></span></a>',
                                 'items' => [
                                     [
-                                        'label' => Yii::t('app', 'Виртуальные пользователи'),
+                                        'label' => Yii::t('app', 'Виртуальные продавцы'),
                                         'url' => ['/setup/user-virtual'],
+                                    ],
+                                    [
+                                        'label' => Yii::t('app', 'Виртуальные покупатели'),
+                                        'url' => ['/admin/customer-virtual'],
                                     ],
                                 ],
                             ],

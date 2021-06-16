@@ -2,16 +2,14 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use common\models\db\UserVirtual;
 
 /* @var $this yii\web\View */
-/* @var $model UserVirtual */
+/* @var $model common\models\db\UserVirtual */
 
-$this->title = $model->user->username;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Виртуальные пользователи'), 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'User Virtuals'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
-
 ?>
 <div class="user-virtual-view">
 
@@ -32,13 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            [
-                'label' => Yii::t('app', 'Данные владельца'),
-                'value' => function (UserVirtual $userVirtualModel) {
-                    $user = $userVirtualModel->user;
-                    return $user->username;
-                }
-            ],
+            'user_id',
         ],
     ]) ?>
 

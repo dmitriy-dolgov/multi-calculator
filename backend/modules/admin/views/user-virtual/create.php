@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\db\UserVirtual */
 
-$this->title = Yii::t('app', 'Create User Virtual');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'User Virtuals'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Создать виртуалього заказчика');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Виртуальные закачики'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-virtual-create">

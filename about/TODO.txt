@@ -447,3 +447,7 @@ TODO:
      оплатил, пицца взяла, поехал курьер,
      время и путь до клиента,
      вот что меня интересует
+
+109) Важность: 3 (рассмотреть на нужность использования this.markers)
+      var allMarkersGroup = new L.(this.markers);
+      this.allMarkers => this.this.markers

@@ -280,8 +280,9 @@ gl.functions.composeOrder = function () {
                 token: '3b0831fece6038806811a6eaef5843755d0ae9a4',
                 type: 'ADDRESS',
                 onSelect: function (suggestion) {
-                    //console.log(suggestion);
-                    //console.log("geo_lat: " + suggestion.data.geo_lat);
+                    console.log(suggestion);
+                    console.log("geo_lat: ", uggestion.data.geo_lat);
+                    console.log("geo_lon: ", uggestion.data.geo_lon);
                     gl.data.worldMap.moveCustomerMarker(suggestion.data.geo_lat, suggestion.data.geo_lon);
                     gl.data.worldMap.connectAllMerchantsWithCustomer();
                 }
@@ -416,7 +417,7 @@ gl.functions.fillOrderInfo = function (result, formData) {
         //var courierLatLng = L.latLng();
         //var courierLatLng = L.latLng(companyLatLng.lat, companyLatLng.lng
         var marchLn = L.latLng(merchantData.lat, merchantData.lng);
-        //gl.data.worldMap.showCourierByLatLng(merchantData);
+        gl.data.worldMap.showCourierByLatLng(merchantData);
         gl.data.worldMap.showCourierByLatLng(marchLn);*/
 };
 
@@ -435,6 +436,7 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
 
         //gl.data.setupAudio.play();
 
+        debugger;
         //TODO: Здесь надо убрать все соединяющие линии и установить связь обратную от пиццерии к пользователю.
         gl.data.worldMap.removeAllConnectionsBetweenCustomerAndMerchants();
         gl.data.worldMap.connectMerchantWithCustomerRealPath(merchantData);

@@ -478,7 +478,7 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
     console.log('courierData:', courierData);
     console.log('merchantData:', merchantData);
     //return;
-    var result = false;
+    var $result = false;
 
     var container = $('.orders-container .elem');
     //var container = $('.orders-container [data-order-id="' + orderId + '"]');
@@ -500,32 +500,32 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         //TODO: проверка на ошибки, их обработка
         $.get('/site/current-user-info', function (data) {
 
+            if (data && (data['status'] == 'success')) {
+
+                //TODO: перевод и конструктирование html
+                var html = '<h3>Заказ принят курьером и в пути.</h3>'
+                    + '<hr>'
+                    + '<div class="courier-name">' + data['name'] + '</div>'
+                    + '<div class="courier-age">' + data['age'] + '</div>'
+                    + '<div class="courier-time-arrive">' + data['time-arrive'] + '</div>';
+                    // + '<div class="courier-time-left">' + data['time-time-left'] + '</div>'
+                    + '<hr>';
+                    // + '<h5 class="order-hint">Следите за продвижением курьера на карте.</h5>'
+                    // + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
+                    // + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
+                    // + '<div class="info-message">ID заказа: ' + gl.escapeHtml(orderId) + '</div>'
+                    // + '<div class="info-message">Курьер: ' + gl.escapeHtml(courierData.name) + '</div>'
+                    // + '<div class="info-message red order-hint-2">Ожидайте прибытия курьера.</div>';
+
+                elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
+                $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
+
+            } else {
+                alert('Error: ' + data);
+            }
+
         });
-        }
-
-            //TODO: перевод и конструктирование html
-            var html = '<h3>Заказ принят курьером и в пути.</h3>'
-                + '<hr>'
-                + '<div class="courier-name">' + data['name'] + '</div>'
-                + '<div class="courier-age">' + data['age'] + '</div>'
-                + '<div class="courier-time-arrive">' + data['time-arrive'] + '</div>'
-                // + '<div class="courier-time-left">' + data['time-time-left'] + '</div>'
-                + '<hr>'
-                + '<h5 class="order-hint">Следите за продвижением курьера на карте.</h5>'
-                + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
-                + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
-                + '<div class="info-message">ID заказа: ' + gl.escapeHtml(orderId) + '</div>'
-                + '<div class="info-message">Курьер: ' + gl.escapeHtml(courierData.name) + '</div>'
-                + '<div class="info-message red order-hint-2">Ожидайте прибытия курьера.</div>';
-            elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
-
-            $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
-
-            result = true;
-
     }
-
-    return result;
 };
 
 gl.functions.setUpPaneOnOrderCourierArrived = function (orderId, merchantData, courierData) {

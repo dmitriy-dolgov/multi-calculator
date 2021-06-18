@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use backend\sse\NewOrderHandlingBackend;
+use common\helpers\DateTimeHelper;
 use common\models\db\Component;
 use common\models\db\ComponentSet;
 use common\models\db\CoWorker;
@@ -43,12 +44,33 @@ class SiteController extends Controller
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        $result = [
-            //'status' => 'success',
-            'status' => 'wrong',
+        $data = ['status' => ['no_status']];
+
+        if (Yii::$app->user->isGuest) {
+            return [
+                'status_message' => 'User is not logged.',
+            ];
+        }
+
+        //$age = DateTimeHelper::getAgeByBirthday();
+
+        if (Yii::$app->user->profile->username) {
+            return [
+                'username' => Yii::$app->user->profile->username,
+                'username_photo' => 'No username',
+            ];
+        }
+
+        $data = [
+            //'status' => 'wrong',
+            // Произвольный текст, может содержать описание ошибки и т.п.
+            'status_message' => '',
+            'name' => null,
+            'age' => null,
+            'delivery_time' => '14:30',
         ];
 
-        $userName = $result;
+        return $data;
     }
 
     public function actionSignalToParent($result)

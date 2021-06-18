@@ -9,7 +9,7 @@ function getRandom(min, max) {
 gl.functions.getGeo = function () {
 
     setInterval(function () {
-        debugger;
+        //debugger;
         var lanLon = gl.functions.getCurrentGeoLocation();
         //this.courierMarker = this.addMarkerByCoords(latLng.lat, latLng.lng, this.icons.courier);
         $('#time-elapsed').text('Новые координаты:' + JSON.stringify(lanLon));
@@ -17,7 +17,7 @@ gl.functions.getGeo = function () {
         //var coords = [lanLon[lanLon][lat]], lng: 37.6155600}];
 
         gl.functions.placesMap.prototype.flyTo(lanLon);
-    }, 5000);
+    }, 4000);
 
 };
 
@@ -121,7 +121,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 };
 
 
-gl.functions.placesMap.prototype.allMarkers = [];
+//gl.functions.placesMap.prototype.allMarkers = [];
 gl.functions.placesMap.prototype.allMovingMarkers = [];
 gl.functions.placesMap.prototype.allPolylines = [];
 gl.functions.placesMap.prototype.merchantsLayers = [];
@@ -226,7 +226,7 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, p
 
     //TODO: проверить закомментированое!!!
     debugger;
-    this.allMarkers.push(newMarker);
+    //this.allMarkers.push(newMarker);
 
     return newMarker;
 };
@@ -280,9 +280,9 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
     // gl.log('this.globalZIndex 1: ' + gl.functions.placesMap.globalZIndex);
     // this.customerMarker.setZIndexOffset(gl.functions.placesMap.globalZIndex);
 
-    var allMarkersGroup = new L.(this.allMarkers);
     //var allMarkersGroup = new L.(this.allMarkers);
-    //this.map.fitBounds(allMarkersGroup.getBounds());  // добавит ли this.connectAllMerchantsWithCustomer() к ширине ???
+    var markersGroup = new L.(this.markers);   // uneccessary allMarkersGroup
+    //this.map.fitBounds(markersGroup.getBounds());  // добавит ли this.connectAllMerchantsWithCustomer() к ширине ???
 
     this.connectAllMerchantsWithCustomer();
 

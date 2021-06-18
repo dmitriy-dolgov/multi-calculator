@@ -38,6 +38,19 @@ class SiteController extends Controller
         ];
     }
 
+    //TODO: в модель и сделать через форму (https://streletzcoder.ru/rabotaem-s-ajax-v-yii-2/)
+    public function actionCurrentUserInfo()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $result = [
+            //'status' => 'success',
+            'status' => 'wrong',
+        ];
+
+        $userName = $result;
+    }
+
     public function actionSignalToParent($result)
     {
         if ($result == 'logged') {

@@ -29,7 +29,7 @@ gl.functions.composeOrder = function () {
         + '<div class="title">' + gl.data['ingredients'] + '</div>';
     elems['#order-form .components-selected-details'].find('.added-component').each(function () {
         var dataContainer = $(this).find('.data-container');
-        //var elem_index = dataContainer.data('elem_index');
+        //var elem_index = dataContainer.data('elm_index');
         var name = dataContainer.data('name');
         var short_name = dataContainer.data('short_name');
         var image = dataContainer.data('image');
@@ -75,7 +75,8 @@ gl.functions.composeOrder = function () {
         zoom: 11
     };
 
-    html += '<div class="order-data-container select-providers" style="display: none">'
+    html += '<div>oj89279</div>'
+        + '= "order-data-container select-providers"'
         + elems['#elems-container'].find('.providers-handling-wrp').html();
     //+ '<div class="places-map" id="' + placesMapId + '"></div>';
     //+ '<fieldset><legend>' + gl.data['Pizzerias'] + '</legend>';
@@ -413,12 +414,12 @@ gl.functions.fillOrderInfo = function (result, formData) {
     //     alert('ShopOrderForm[id]: ' + ShopOrderForm[id]);
     // }
     //gl.functions.placesMap.prototype.connectAPizzeriaWithCustomer(formData.id);  //function (merchantId) {
-        /*debugger;
-        //var courierLatLng = L.latLng();
-        //var courierLatLng = L.latLng(companyLatLng.lat, companyLatLng.lng
-        var marchLn = L.latLng(merchantData.lat, merchantData.lng);
-        gl.data.worldMap.showCourierByLatLng(merchantData);
-        gl.data.worldMap.showCourierByLatLng(marchLn);*/
+    /*debugger;
+    //var courierLatLng = L.latLng();
+    //var courierLatLng = L.latLng(companyLatLng.lat, companyLatLng.lng
+    var marchLn = L.latLng(merchantData.lat, merchantData.lng);
+    gl.data.worldMap.showCourierByLatLng(merchantData);
+    gl.data.worldMap.showCourierByLatLng(marchLn);*/
 };
 
 // Устанавливает необходимые данные когда продавец взял заказ в обработку (начал готовить)
@@ -450,7 +451,6 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
 
         //TODO: перевод
         var html = '<h3>Заказ взят в обработку.</h3>'
-            + '<h5 class="order-hint">Пицца в процессе приготовления.</h5>'
             + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
             + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
             + '<div class="info-message">ID заказа: ' + gl.escapeHtml(orderId) + '</div>'
@@ -497,206 +497,221 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
             return (className.match(/(^|\s)blinking-background-\S+/g) || []).join(' ');
         }).addClass('blinking-background-order-accepted-by-courier');
 
-        //TODO: перевод
-        var html = '<h3>Заказ принят курьером и в пути.</h3>'
-            + '<h5 class="order-hint">Следите за продвижением курьера на карте.</h5>'
-            + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
-            + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
-            + '<div class="info-message">ID заказа: ' + gl.escapeHtml(orderId) + '</div>'
-            + '<div class="info-message">Курьер: ' + gl.escapeHtml(courierData.name) + '</div>'
-            + '<div class="info-message red order-hint-2">Ожидайте прибытия курьера.</div>';
-        elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
+        //TODO: проверка на ошибки, их обработка
+        $.get('/site/current-user-info', function (data) {
+            //TODO: перевод и конструктирование html
+            var html = '<h3>Заказ принят курьером и в пути.</h3>'
+                + '<hr>',
+                + '<div class="courier-name"></div>',
+                + '<div class="courier-age"></div>',
+                + '<div class="courier-time-arrive"></div>',
+                + '<div class="courier-time-left"></div>',
+                + '<div class="">Следите за передвижением курьера на карте.</div>',
+                + '<hr>'
+                + '<h2>Курьер: <span class="courier-name"></span></h2>'
+                + '<hr>'
+                + '<h5 class="order-hint">Следите за продвижением курьера на карте.</h5>'
+                + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
+                + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
+                + '<div class="info-message">ID заказа: ' + gl.escapeHtml(orderId) + '</div>'
+                + '<div class="info-message">Курьер: ' + gl.escapeHtml(courierData.name) + '</div>'
+                + '<div class="info-message red order-hint-2">Ожидайте прибытия курьера.</div>';
+            elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
 
-        $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
+            $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
+
+            debugger;
+
+            result = true;
+        );
+
+    }
+        return result;
+    }
+
+    gl.functions.setUpPaneOnOrderCourierArrived = function (orderId, merchantData, courierData) {
+        var result = false;
 
         debugger;
+        var container = $('.orders-container .elem');
+        if (container.length) {
+            var orderInfoJson = container.data('order-info');
+            var orderInfoObj = orderInfoJson;
+            orderInfoObj.orderStatus = 'finished';
+            container.data('order-info', orderInfoObj);
 
-        result = true;
-    }
+            $('.modal-backdrop').removeClass(function (index, className) {
+                return (className.match(/(^|\s)blinking-background-\S+/g) || []).join(' ');
+            }).addClass('blinking-background-order-courier-arrived');
 
-    return result;
-};
+            //TODO: перевод
+            var html = '<h3 class="red">Курьер прибыл!</h3>'
+                + '<h5 class="order-hint">Пожалуйста, встретьте курьера.</h5>'
+                + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
+                + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
+                + '<div class="info-message">ID заказа: ' + gl.escapeHtml(orderId) + '</div>'
+                + '<div class="info-message">Курьер: ' + gl.escapeHtml(courierData.name) + '</div>'
+                + '<div class="info-message red order-hint-2">Принимайте заказ.</div>'
+                + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
+                + '<h5 class="order-hint">Пожалуйста, встретьте курьера.</h5>'
+            '<h3 class="red">Данные курльера</h3>'
+            elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
 
-gl.functions.setUpPaneOnOrderCourierArrived = function (orderId, merchantData, courierData) {
-    var result = false;
+            $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
 
-    debugger;
-    var container = $('.orders-container .elem');
-    if (container.length) {
-        var orderInfoJson = container.data('order-info');
-        var orderInfoObj = orderInfoJson;
-        orderInfoObj.orderStatus = 'finished';
-        container.data('order-info', orderInfoObj);
+            result = true;
+        }
 
-        $('.modal-backdrop').removeClass(function (index, className) {
-            return (className.match(/(^|\s)blinking-background-\S+/g) || []).join(' ');
-        }).addClass('blinking-background-order-courier-arrived');
-
-        //TODO: перевод
-        var html = '<h3 class="red">Курьер прибыл!</h3>'
-            + '<h5 class="order-hint">Пожалуйста, встретьте курьера.</h5>'
-            + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
-            + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
-            + '<div class="info-message">ID заказа: ' + gl.escapeHtml(orderId) + '</div>'
-            + '<div class="info-message">Курьер: ' + gl.escapeHtml(courierData.name) + '</div>'
-            + '<div class="info-message red order-hint-2">Принимайте заказ.</div>';
-        elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
-
-        $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
-
-        result = true;
-    }
-
-    return result;
-};
+        return result;
+    };
 
 // Завершение (успешное) заказа.
-gl.functions.setUpPaneOnOrderSuccessfullyFinished = function (orderId, merchantData, courierData) {
-    var result = false;
+    gl.functions.setUpPaneOnOrderSuccessfullyFinished = function (orderId, merchantData, courierData) {
+        var result = false;
 
-    var container = $('.orders-container .elem');
-    if (container.length) {
-        var orderInfoJson = container.data('order-info');
-        var orderInfoObj = orderInfoJson;
-        orderInfoObj.orderStatus = 'finished';
-        container.data('order-info', orderInfoObj);
+        var container = $('.orders-container .elem');
+        if (container.length) {
+            var orderInfoJson = container.data('order-info');
+            var orderInfoObj = orderInfoJson;
+            orderInfoObj.orderStatus = 'finished';
+            container.data('order-info', orderInfoObj);
 
-        //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content');
-        $('.modal-backdrop').removeClass(function (index, className) {
-            return (className.match(/(^|\s)blinking-background-\S+/g) || []).join(' ');
-        });
+            //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content');
+            $('.modal-backdrop').removeClass(function (index, className) {
+                return (className.match(/(^|\s)blinking-background-\S+/g) || []).join(' ');
+            });
 
-        //TODO: перевод
-        var html = '<h3>Заказ успешно завершен.</h3>'
-            + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
-            + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
-            + '<div class="info-message">ID заказа: ' + gl.escapeHtml(orderId) + '</div>'
-            + '<div class="info-message">Курьер: ' + gl.escapeHtml(courierData.name) + '</div>'
-            + '<div class="info-message red order-hint-2"><strong>СПАСИБО ЗА ПОКУПКУ!</strong></div>';
-        elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
+            //TODO: перевод
+            var html = '<h3>Заказ успешно завершен.</h3>'
+                + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
+                + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
+                + '<div class="info-message">ID заказа: ' + gl.escapeHtml(orderId) + '</div>'
+                + '<div class="info-message">Курьер: ' + gl.escapeHtml(courierData.name) + '</div>'
+                + '<div class="info-message red order-hint-2"><strong>СПАСИБО ЗА ПОКУПКУ!</strong></div>';
+            elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
 
-        $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
-        //elems['#order-form-submit'].find('.order-data-container.info-panel').removeClass().addClass('order-data-container info-panel');
-        gl.data.worldMap.hideCourier();
+            $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
+            //elems['#order-form-submit'].find('.order-data-container.info-panel').removeClass().addClass('order-data-container info-panel');
+            gl.data.worldMap.hideCourier();
 
-        result = true;
-    }
+            result = true;
+        }
 
-    return result;
-};
+        return result;
+    };
 
 
-gl.orderFormHistory.qaz = function () {
+    gl.orderFormHistory.qaz = function () {
 
-    //if (!gl.orderFormHistory.qaz.was) {
-    //gl.orderFormHistory.cleanStore();
-    //gl.orderFormHistory.qaz.was = true;
-    //}
+        //if (!gl.orderFormHistory.qaz.was) {
+        //gl.orderFormHistory.cleanStore();
+        //gl.orderFormHistory.qaz.was = true;
+        //}
 
-    //$('.load-latest').toggle();
-    //$('.load-latest').hide();
-    //$('.restore-ls').hide();
-    //$('.capt-price').toggle('hidden');
-    //$('.capt-price').hide();
-    //$(this).fadeOut();
-    //$('.capt-price').show();    //toggle('hidden');
-    $('.capt-price').removeClass('hidden');
-    $('.restore-ls').hide();
+        //$('.load-latest').toggle();
+        //$('.load-latest').hide();
+        //$('.restore-ls').hide();
+        //$('.capt-price').toggle('hidden');
+        //$('.capt-price').hide();
+        //$(this).fadeOut();
+        //$('.capt-price').show();    //toggle('hidden');
+        $('.capt-price').removeClass('hidden');
+        $('.restore-ls').hide();
 
-    gl.orderFormHistory.restoreFromStore();
-};
+        gl.orderFormHistory.restoreFromStore();
+    };
 
-gl.orderFormHistory.qaz2 = function (data) {
-    //alert('!orderFormState 8888888888');
-    $('.capt-price').removeClass('hidden');
-    $('.restore-ls').hide();
+    gl.orderFormHistory.qaz2 = function (data) {
+        //alert('!orderFormState 8888888888');
+        $('.capt-price').removeClass('hidden');
+        $('.restore-ls').hide();
 
-    //debugger;
-    //gl.orderFormHistory.cleanStore();
-    gl.orderFormHistory.restoreFromStoreData(data);
-};
+        //debugger;
+        //gl.orderFormHistory.cleanStore();
+        gl.orderFormHistory.restoreFromStoreData(data);
+    };
 
 //if (gl.orderFormHistory.ifSomethingInStore) {
 
-/*if (!window.qwe) {
+    /*if (!window.qwe) {
 
-    window.qwe = true;
-    console.log('toggle123+++++++++))))');
+        window.qwe = true;
+        console.log('toggle123+++++++++))))');
 
-    if (show == 'open') {
-        $('.load-latest').toggle();
-        gl.orderFormHistory.restoreFromStore();
-    }
-    //gl.orderFormHistory.restoreFromStore();
-    //$('.load-latest').addClass('hidden');
-}*/
+        if (show == 'open') {
+            $('.load-latest').toggle();
+            gl.orderFormHistory.restoreFromStore();
+        }
+        //gl.orderFormHistory.restoreFromStore();
+        //$('.load-latest').addClass('hidden');
+    }*/
 
 //} else {
-eval(gl.data.initialJSCode);
+    eval(gl.data.initialJSCode);
 //}
 
-gl.functions.orderCalculatePrice();
+    gl.functions.orderCalculatePrice();
 
 
-gl.functions.setupAudio = function () {
+    gl.functions.setupAudio = function () {
 
-    //var audioElement = document.createElement('audio');
-    //audioElement.setAttribute('src', '/sound/33244__ljudman__dingding.wav');
+        //var audioElement = document.createElement('audio');
+        //audioElement.setAttribute('src', '/sound/33244__ljudman__dingding.wav');
 
-    var audioElement = document.getElementById("myaudio");
+        var audioElement = document.getElementById("myaudio");
 
-    /*var volume = .1;
-    audioElement.addEventListener('ended', function() {
-        volume -= .003;
-        if (volume < 0) {
-            return;
-        }
-        gl.log('volume 4: ' + volume);
-        //$(audioElement).prop('volume', volume);
-        audioElement.volume = volume;
-        audioElement.setAttribute('volume', volume);
-        audioElement.play();
-    }, false);*/
-
-    return {
-        play: function () {
+        /*var volume = .1;
+        audioElement.addEventListener('ended', function() {
+            volume -= .003;
+            if (volume < 0) {
+                return;
+            }
+            gl.log('volume 4: ' + volume);
+            //$(audioElement).prop('volume', volume);
+            audioElement.volume = volume;
+            audioElement.setAttribute('volume', volume);
             audioElement.play();
-        },
-        volume: function (val) {
-            audioElement.volume = val / 10; //TODO: / 10 - непонятный глюк с непропорционально уменьшающимся звуком
-        }
+        }, false);*/
+
+        return {
+            play: function () {
+                audioElement.play();
+            },
+            volume: function (val) {
+                audioElement.volume = val / 10; //TODO: / 10 - непонятный глюк с непропорционально уменьшающимся звуком
+            }
+        };
+
+        /*audioElement.addEventListener("canplay",function(){
+            $("#length").text("Duration:" + audioElement.duration + " seconds");
+            $("#source").text("Source:" + audioElement.src);
+            $("#status").text("Status: Ready to play").css("color","green");
+        });*/
+
+        /*audioElement.addEventListener("timeupdate",function(){
+            $("#currentTime").text("Current second:" + audioElement.currentTime);
+        });*/
+
+        /*$('#play').click(function() {
+            audioElement.play();
+            //$("#status").text("Status: Playing");
+        });*/
+
+        /*$('#pause').click(function() {
+            audioElement.pause();
+            //$("#status").text("Status: Paused");
+        });*/
+
+        /*$('#restart').click(function() {
+            audioElement.currentTime = 0;
+        });*/
     };
 
-    /*audioElement.addEventListener("canplay",function(){
-        $("#length").text("Duration:" + audioElement.duration + " seconds");
-        $("#source").text("Source:" + audioElement.src);
-        $("#status").text("Status: Ready to play").css("color","green");
+    /*$('#popup-compose-form').on('hidden.bs.modal', function () {
+        globalRt = $('#popup-compose-form').toArray();
+        //globalRt = $('#popup-compose-form').contents();
+        //var rt = $('#popup-compose-form').contents();
+        console.log("globalRt: ", globalRt);
     });*/
 
-    /*audioElement.addEventListener("timeupdate",function(){
-        $("#currentTime").text("Current second:" + audioElement.currentTime);
-    });*/
-
-    /*$('#play').click(function() {
-        audioElement.play();
-        //$("#status").text("Status: Playing");
-    });*/
-
-    /*$('#pause').click(function() {
-        audioElement.pause();
-        //$("#status").text("Status: Paused");
-    });*/
-
-    /*$('#restart').click(function() {
-        audioElement.currentTime = 0;
-    });*/
-};
-
-/*$('#popup-compose-form').on('hidden.bs.modal', function () {
-    globalRt = $('#popup-compose-form').toArray();
-    //globalRt = $('#popup-compose-form').contents();
-    //var rt = $('#popup-compose-form').contents();
-    console.log("globalRt: ", globalRt);
-});*/
-
-gl.data.setupAudio = new gl.functions.setupAudio();
+    gl.data.setupAudio = new gl.functions.setupAudio();

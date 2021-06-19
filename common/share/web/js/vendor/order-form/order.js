@@ -75,9 +75,11 @@ gl.functions.composeOrder = function () {
         zoom: 11
     };
 
-    html += '<div>oj89279</div>'
-        + '= "order-data-container select-providers"'
-        + elems['#elems-container'].find('.providers-handling-wrp').html();
+    //return true;
+
+    //html += '<div>вывoj89279</div>'
+        //+ "order-data-container select-providers"
+    html += elems['#elems-container'].find('.providers-handling-wrp').html();
     //+ '<div class="places-map" id="' + placesMapId + '"></div>';
     //+ '<fieldset><legend>' + gl.data['Pizzerias'] + '</legend>';
     var firstCycle = true;
@@ -346,7 +348,7 @@ gl.functions.doOrder = function () {
 gl.functions.fillOrderInfo = function (result, formData) {
     var elem = elems['#order-form-submit'];
 
-    debugger;
+    //debugger;
     elem.find('#order-id').val(result.order_uid);
     elem.find('#order-info').val(JSON.stringify({
         result: result,
@@ -437,10 +439,10 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
 
         //gl.data.setupAudio.play();
 
-        debugger;
+        //debugger;
         //TODO: Здесь надо убрать все соединяющие линии и установить связь обратную от пиццерии к пользователю.
         gl.data.worldMap.removeAllConnectionsBetweenCustomerAndMerchants();
-        gl.data.worldMap.connectMerchantWithCustomerRealPath(merchantData);
+        //gl.data.worldMap.connectMerchantWithCustomerRealPath(merchantData);
 
         //TODO: здесь мигает окно "заказы" и если окно с текущим заказом открыто, то мигает и оно
         //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-accepted');
@@ -507,7 +509,7 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
                     + '<hr>'
                     + '<div class="courier-name">' + data['name'] + '</div>'
                     + '<div class="courier-age">' + data['age'] + '</div>'
-                    + '<div class="courier-time-arrive">' + data['time-arrive'] + '</div>';
+                    + '<div class="courier-time-arrive">' + data['time-arrive'] + '</div>'
                     // + '<div class="courier-time-left">' + data['time-time-left'] + '</div>'
                     + '<hr>';
                     // + '<h5 class="order-hint">Следите за продвижением курьера на карте.</h5>'
@@ -531,7 +533,7 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
 gl.functions.setUpPaneOnOrderCourierArrived = function (orderId, merchantData, courierData) {
     var result = false;
 
-    debugger;
+    //debugger;
     var container = $('.orders-container .elem');
     if (container.length) {
         var orderInfoJson = container.data('order-info');

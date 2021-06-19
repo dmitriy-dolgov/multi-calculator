@@ -16,21 +16,40 @@ use yii\helpers\Url;
 
 //use kartik\select2\Select2;
 
-$this->registerCssFile('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css', [
-    'integrity' => 'sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==',
-    'crossorigin' => '',
-]);
-$this->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css');
-$this->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.min.css');
+///if (\common\helpers\Web::isLocal()) {
+if (0) {
+    $this->registerCssFile('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css', [
+        'integrity' => 'sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==',
+        'crossorigin' => '',
+    ]);
+    $this->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css');
+    $this->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.min.css');
 
-$this->registerJsFile('https://unpkg.com/leaflet@1.6.0/dist/leaflet.js', [
-    'integrity' => 'sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==',
-    'crossorigin' => '',
-]);
-$this->registerJsFile('https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js');
+    $this->registerJsFile('https://unpkg.com/leaflet@1.6.0/dist/leaflet.js', [
+        'integrity' => 'sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==',
+        'crossorigin' => '',
+    ]);
+    $this->registerJsFile('https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js');
 
-$this->registerJsFile('https://unpkg.com/@tweenjs/tween.js@18.5.0/dist/tween.umd.js');
-$this->registerJsFile('/js/CanvasFlowmapLayer.js');
+    $this->registerJsFile('https://unpkg.com/@tweenjs/tween.js@18.5.0/dist/tween.umd.js');
+    $this->registerJsFile('/js/CanvasFlowmapLayer.js');
+} else {
+    $this->registerCssFile('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css', [
+        'integrity' => 'sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==',
+        'crossorigin' => '',
+    ]);
+    $this->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css');
+    $this->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.min.css');
+
+    $this->registerJsFile('https://unpkg.com/leaflet@1.6.0/dist/leaflet.js', [
+        'integrity' => 'sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==',
+        'crossorigin' => '',
+    ]);
+    $this->registerJsFile('https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js');
+
+    $this->registerJsFile('https://unpkg.com/@tweenjs/tween.js@18.5.0/dist/tween.umd.js');
+    $this->registerJsFile('/js/CanvasFlowmapLayer.js');
+}
 
 $activeUserProfiles = [];
 foreach ($activeUsers as $aUser) {

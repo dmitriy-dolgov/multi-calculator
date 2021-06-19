@@ -6,6 +6,12 @@ use Yii;
 
 class Web
 {
+
+    /**
+     * TODO: оптимизовать чтобы результат кешировался.
+     *
+     * @return bool
+     */
     public static function isLocal()
     {
         // Похоже это консоль

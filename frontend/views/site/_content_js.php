@@ -13,15 +13,28 @@ use common\helpers\Internationalization;
 use common\helpers\Js;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use common\helpers\Web;
+
+
+$this->registerCss(<<<CSS
+.naive {
+    width: 150px;
+    height: 100px;
+    background-color: red;
+}
+CSS
+);
 
 //use kartik\select2\Select2;
 
-///if (\common\helpers\Web::isLocal()) {
-if (0) {
-    $this->registerCssFile('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css', [
-        'integrity' => 'sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==',
-        'crossorigin' => '',
-    ]);
+//if (Web::isLocal()) {
+if(0) {
+    //https://unpkg.com/leaflet@1.6.0/dist/leaflet.css
+
+//    $this->rMarkerCluster.css'egisterCssFile('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css', [
+//        'integrity' => 'sha51map-placeholder2-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==',
+//        'crossorigin' => '',
+//    ]);
     $this->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css');
     $this->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.min.css');
 
@@ -120,7 +133,7 @@ $jsCode = "var gl = {data:{}};\n"
         'activeUserProfilesJs' => $activeUserProfiles,
         'initialJSCode' => $initialJSCode,
         'userGeoPosition' => $userGeoPosition,
-        'isWebLocal' => \common\helpers\Web::isLocal(),
+        'isWebLocal' => Web::isLocal(),
 
         'yii-params' => [
             'websocket' => [

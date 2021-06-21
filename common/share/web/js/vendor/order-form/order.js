@@ -65,7 +65,9 @@ gl.functions.composeOrder = function () {
         + '</div>';
     html += '</div>';
 
-    html += '<div class="map-placeholder"></div>';
+    //html += '<div class="map-placeholder"></div>';
+    //html += '<div class="naive"></div>';
+    html += '<div class="map-placeholder"></div><div class="naive"></div>';
 
     var placesMapId = 'places-map-' + this.serialNumber;
     var mapMarkers = [];
@@ -77,10 +79,10 @@ gl.functions.composeOrder = function () {
 
     //return true;
 
-    //html += '<div>вывoj89279</div>'
-        //+ "order-data-container select-providers"
-    html += elems['#elems-container'].find('.providers-handling-wrp').html();
+    html += '<div class="order-data-container select-providers" style="display:none">'
+        + elems['#elems-container'].find('.providers-handling-wrp').html();
     //+ '<div class="places-map" id="' + placesMapId + '"></div>';
+        + '</div>';
     //+ '<fieldset><legend>' + gl.data['Pizzerias'] + '</legend>';
     var firstCycle = true;
     for (var upId in userProfiles) {

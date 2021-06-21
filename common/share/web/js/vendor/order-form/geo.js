@@ -36,7 +36,7 @@ glIconUrl = glIconUrl[0];
 
 gl.functions.SelectProviders = {
     'select-all': function () {
-        $('.select-providers inpudragt[type="checkbox"]').prop('checked', true);
+        $('.select-providers input[type="checkbox"]').prop('checked', true);
     },
     'unselect-all': function () {
         $('.select-providers input[type="checkbox"]').prop('checked', false);

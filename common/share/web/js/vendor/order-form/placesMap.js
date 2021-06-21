@@ -60,11 +60,11 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     // [initialMapParameters.latitude, initialMapParameters.longitude
     // это маркер покупателя, координаты Москвы для теста
     this.customerMarker = this.addMarkerByCoords(
-        //initialMapParameters.latitude,
-        //initialMapParameters.longitude,
-        55.7522200,
-        37.6155600,
-        L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'}),
+        initialMapParameters.latitude,
+        initialMapParameters.longitude,
+        //55.7522200,
+        //37.6155600,
+        L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'yuellow'}),
         false,
         {doNotResize: true}
     );
@@ -487,8 +487,10 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
             debugger;
             console.log('waypoints:', waypoints);
 
+            alert('gl.functions.placesMap.prototype.showCourierByLatLng');
+
             //L.dist
-            var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'white', fillColor: 'red'});
+            var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
             var animatedMarker = L.animatedMarker(waypoints, {
                 autoStart: true,
                 icon: courierIcon,

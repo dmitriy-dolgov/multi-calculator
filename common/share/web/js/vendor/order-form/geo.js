@@ -42,11 +42,10 @@ gl.functions.SelectProviders = {
         $('.select-providers input[type="checkbox"]').prop('checked', false);
     },
     'nearest': function () {
-        alert('В разработке');
+        gl.debug('В разработке');
         return false;
     }
 };
-
 
 gl.functions.correctGeolocation = function () {
     //gl.log('correctGeolocation before');

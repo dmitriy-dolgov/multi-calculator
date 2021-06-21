@@ -67,7 +67,7 @@ gl.functions.composeOrder = function () {
 
     //html += '<div class="map-placeholder"></div>';
     //html += '<div class="naive"></div>';
-    html += '<div class="map-placeholder"></div><div class="naive"></div>';
+    html += '<div class="map-placeholder"></div><div class="map-placeholder-adjustent" style="display:none"></div>';
 
     var placesMapId = 'places-map-' + this.serialNumber;
     var mapMarkers = [];
@@ -200,7 +200,7 @@ gl.functions.composeOrder = function () {
         elem.fadeOut(200, function () {
             $('#frm-confirmed-order').fadeIn();
         });*/
-        ;
+
         //gl.functions.storage.handleAddress(
         //gl.functions.handlers.handleAddress(
         //debugger;

@@ -55,9 +55,22 @@ if (!gl.map) {
     gl.map = {};
 }
 
+//TODO: (status -1), convert `messagesObj` to array type every time
+gl.getObject('debug').msg = function (messageObjs) {
 
-gl.config.debug = true;
+    if (!gl.getObject('php.imitation').is_array(messageObjs)) {
+        return false;
+    }
 
+    for (var v in messageObjs) {
+        var aVal = messageObjs[v];
+        if (!gl.config.debug) {
+            alert(aVal.toString());
+        } else {
+            gl.log(aVal.toString());
+        }
+    }
+};
 
 //PHP functions in Javascript
 gl.getObject('php.imitation').is_array = function (inputArray) {

@@ -37,7 +37,7 @@ gl.functions.deleteComponentFromSet = function(setId, componentId, name) {
     }
     
     return false;
-}
+};
 
 gl.functions.addComponentToSet = function(setId, componentId) {
     $.post('/admin/component-set/add-component-to-set', {
@@ -52,7 +52,9 @@ gl.functions.addComponentToSet = function(setId, componentId) {
                 alert({$jsStrings["Couldn't add component to set."]});
             }
         }).fail(function(xhr, status, error) {
-            alert('Error: ' + error);
+            //alert('Error: ' + status.toSource());
+            //console.debug('Error: ', status.xhr(), error.status(), );
+            gl.debug([xhr, status, error]);
         });
 }
 JS

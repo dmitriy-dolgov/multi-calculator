@@ -54,8 +54,8 @@ gl.functions.correctGeolocation = function () {
             //gl.log('correctGeolocation IN FUNCTION');
             //var lat = 55.7522200;   //position.coords.latitude;
             //var lng = 37.6155600;   //position.coords.longitude;
-            var lat = 55.7522200;
-            var lng = 37.6155600;
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
 
             if (gl.data.worldMap) {
                 gl.data.worldMap.flyTo([lat, lng]);

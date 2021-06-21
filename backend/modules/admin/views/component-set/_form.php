@@ -30,7 +30,7 @@ gl.functions.deleteComponentFromSet = function(setId, componentId, name) {
                 alert({$jsStrings["Couldn't remove component from set."]});
             }
         }).fail(function(xhr, status, error) {
-            alert('Error: ' + error);
+            alert('Error: 33' + error);
         });
         
         return true;
@@ -52,7 +52,7 @@ gl.functions.addComponentToSet = function(setId, componentId) {
                 alert({$jsStrings["Couldn't add component to set."]});
             }
         }).fail(function(xhr, status, error) {
-            //alert('Error: ' + status.toSource());
+            //alert('Error: 55' + status.toSource());
             //console.debug('Error: ', status.xhr(), error.status(), );
             gl.debug([xhr, status, error]);
         });

@@ -67,7 +67,11 @@ gl.functions.composeOrder = function () {
 
     //html += '<div class="map-placeholder"></div>';
     //html += '<div class="naive"></div>';
-    html += '<div class="map-placeholder"></div><div class="map-placeholder-adjustent" style="display:none"></div>';
+    //html += '<div class="map-placeholder"></div><div class="map-placeholder-adjustent" style="display:none"></div>';
+    html += '<div class="map-placeholder"></div><div class="map-placeholder-adjustent">' +
+        'Скорость: 5 км/чаc<br>' +
+        'Времени осталось: 3 часа<br>' +
+        '</div>';
 
     var placesMapId = 'places-map-' + this.serialNumber;
     var mapMarkers = [];
@@ -441,10 +445,13 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
 
         //gl.data.setupAudio.play();
 
-        //debugger;
+        debugger;
+        debugger;
+        debugger;
+        alert('gl.functions.setUpPaneOnOrderAccepted');
         //TODO: Здесь надо убрать все соединяющие линии и установить связь обратную от пиццерии к пользователю.
         gl.data.worldMap.removeAllConnectionsBetweenCustomerAndMerchants();
-        //gl.data.worldMap.connectMerchantWithCustomerRealPath(merchantData);
+        gl.data.worldMap.connectMerchantWithCustomerRealPath(merchantData);
 
         //TODO: здесь мигает окно "заказы" и если окно с текущим заказом открыто, то мигает и оно
         //$('#popup-compose-form .modal-content').removeClass().addClass('modal-content blinking-border-order-accepted');
@@ -525,7 +532,7 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
                 $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
 
             } else {
-                alert('Error: ' + data);
+                alert('Error: 528' + data);
             }
 
         });

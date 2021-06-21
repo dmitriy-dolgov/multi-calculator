@@ -147,7 +147,7 @@ gl.log(['$obj33_2: ', $obj33]);*/
 //TODO: усовершенствовать - добавить отсылку писем и т. д.
 gl.assert = function (value, msg) {
     if (!value) {
-        msg = 'Error: ' + (msg ? msg : 'Unknown');
+        msg = 'Error: 0' + (msg ? msg : 'Unknown');
         if (gl.config.debug) {
             alert(msg);
             gl.log(msg);

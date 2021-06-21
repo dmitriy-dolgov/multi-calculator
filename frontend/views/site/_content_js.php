@@ -22,6 +22,18 @@ $this->registerCss(<<<CSS
     height: 100px;
     background-color: red;
 }
+.map-placeholder-adjustent {
+    background-color: yellow;
+    width: 50%;
+    height: 100px;
+    position: relative;
+    top: -200px;
+    left: 15px;
+    /*display: none;*/
+    display: block;
+    z-index: 99999;
+    border: 1px solid black;
+}
 CSS
 );
 

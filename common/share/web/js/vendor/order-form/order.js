@@ -434,8 +434,15 @@ gl.functions.fillOrderInfo = function (result, formData) {
 gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
     var result = false;
 
+
+    alert('before gl.data.worldMapю.setUpPaneOnOrderAccepted()');
+
+
     var container = $('.orders-container .elem[data-order-id="' + orderId + '"]');
     if (container.length) {
+
+        alert('after gl.data.worldMapю.setUpPaneOnOrderAccepted()');
+
         var orderInfoJson = container.data('order-info');
         gl.log(['orderInfoJson', orderInfoJson]);
         var orderInfoObj = orderInfoJson;
@@ -448,7 +455,7 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
         debugger;
         debugger;
         debugger;
-        alert('gl.functions.setUpPaneOnOrderAccepted');
+        alert('before connectMerchantWithCustomerRealPath()');
         //TODO: Здесь надо убрать все соединяющие линии и установить связь обратную от пиццерии к пользователю.
         gl.data.worldMap.removeAllConnectionsBetweenCustomerAndMerchants();
         gl.data.worldMap.connectMerchantWithCustomerRealPath(merchantData);

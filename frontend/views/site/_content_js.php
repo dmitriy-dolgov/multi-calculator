@@ -20,17 +20,18 @@ $this->registerCss(<<<CSS
 .naive {
     width: 150px;
     height: 100px;
-    background-color: red;
+    background-color: #ffbe04;
 }
 .map-placeholder-adjustent {
-    background-color: yellow;
+    /*background-color:#00aeef;*/
+    background-color:rgba(255, 190, 4, .8);
     width: 50%;
     height: 100px;
     position: relative;
     top: -200px;
     left: 15px;
-    /*display: none;*/
-    display: block;
+    display: none;
+    /*display: block;*/
     z-index: 99999;
     border: 1px solid black;
 }
@@ -40,7 +41,7 @@ CSS
 //use kartik\select2\Select2;
 
 //if (Web::isLocal()) {
-if(0) {
+if (0) {
     //https://unpkg.com/leaflet@1.6.0/dist/leaflet.css
 
 //    $this->rMarkerCluster.css'egisterCssFile('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css', [

@@ -333,18 +333,37 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
             customerObj = this.customerMarker;
         }
 
+        alert('3 deb');
         debugger;
         debugger;
-        debugger;
+
+        var merchantLanLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
+
+        L.Routing.control({
+            waypoints: [
+                //L.latLng(merchantLanLng.lat, merchantLanLng.lng);
+                //L.latLng(customerObj.lat, customerObj.lng)
+                L.latLng(merchantLanLng.lat, merchantLanLng.lng),
+                L.latLng(customerObj._latlng.lat, customerObj._latlng.lng)
+            ]
+        }).addTo(this.map);
 
         //TODO: customerLatLon - где используется ???
         //var customerLatLon = customerObj.getLatLng();
 
-        var merchantLanLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
+        //var merchantLanLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
+
+        //var merchantLNObrj = L.latLng(merchantData.lat, merchantData.lng);
+        //var merchantLanLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
+        //var merchantLanLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
 
         debugger;
+        debugger;
+        debugger;
 
-        this.showCourierByLatLng(merchantLanLng);
+        //this.showCourierByLatLng(merchantLanLng);
+        this.showCourierByLatLng(L.latLng(merchantData.lat, merchantData.lng));
+
     };
 
     /**
@@ -481,21 +500,36 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
 
 
         /**
-         * TODO: удалить если НЕ будет исполязоваться.
+         * TODO: удалить если НЕ будет использоваться.
          *
          * Нахождение кратчайшего пути.
          *
          * Новая (тестовая версия). С прежней.
          * gl.functions.placesMap.prototype.showCourierByLatLng
          *
-         * @param waypoints
+         * // @param waypoints
+         * @param merchantLanLng
          */
-        gl.functions.placesMap.prototype.showCourierByLatLng = function (waypoints) {
-            alert('showCourierByLatLngNew }}}}}}}}}}}}}}}}}}}');
-            debugger;
-            console.log('waypoints:', waypoints);
+        gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLanLng) {
+            /*alert('showCourierByLatLngNew }}}}}}}}}}}}}}}}}}}');
+            debugger;*/
+            //console.log('waypoints:', waypoints);
+            console.log('merchantLanLng:', merchantLanLng);
 
-            alert('gl.functions.placesMap.prototype.showCourierByLatLng');
+            debugger;   // stop here
+            debugger;
+            debugger;
+
+            L.Routing.control({
+                waypoints: [
+                    L.latLng(merchantLanLng.lat, merchantLanLng.lng),
+                    L.latLng(waypoints.lat, waypoints.lng)
+                ]
+            }).addTo(gl.data.worldMap.map);
+
+            //alert('gl.functions.placesMap.prototype.showCourierByLatLng');
+
+            //L.latLng(57.74, 11.94);
 
             //L.dist
             var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
@@ -515,9 +549,9 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
 
             gl.data.worldMap.map.addLayer(animatedMarker);
 
-            alert('gl.functions.placesMap.prototype.showCourierByLatLng()');
-            gl.data.worldMap.removeAllConnectionsBetweenCustomerAndMerchants();
-            gl.data.worldMap.connectMerchantWithCustomerRealPath(merchantData);
+            //alert('gl.functions.placesMap.prototype.showCourierByLatLng()');
+            //gl.data.worldMap.removeAllConnectionsBetweenCustomerAndMerchants();
+            //gl.data.worldMap.connectMerchantWithCustomerRealPath(merchantData);
         };
 
         /**

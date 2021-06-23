@@ -5,5 +5,7 @@ http://pizza-admin.local/worker?workerUid=courier
 
 
 https://12324.рф/worker?workerUid=orders
+https://12324.рф/demo
+https://12324.рф
 
 пицца24.ru.com

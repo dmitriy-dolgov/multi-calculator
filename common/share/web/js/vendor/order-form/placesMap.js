@@ -64,7 +64,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         initialMapParameters.longitude,
         //55.7522200,
         //37.6155600,
-        L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'yuellow'}),
+        L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'yellow'}),
         false,
         {doNotResize: true}
     );
@@ -522,16 +522,18 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
             debugger;*/
             //console.log('waypoints:', waypoints);
 
+            debugger;   // stop here
+            debugger;
+            debugger;
+
             if (!customerLanLng) {
-                //customerLanLng = this.customerMarker;
-                customerLanLng = gl.getObject('map.coordinates').string2array(customerLanLng.company_lat_long);
+                customerLanLng = this.customerMarker._latlng;
+                //customerLanLng = gl.getObject('map.coordinates').string2array(customerLanLng.company_lat_long);
             }
 
             console.log('merchantLanLng:', merchantLanLng);
 
             debugger;   // stop here
-            debugger;
-            debugger;
 
             L.Routing.control({
                 waypoints: [
@@ -540,7 +542,7 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
                     //L.latLng(waypoints.lat, waypoints.lng)
                     customerLanLng
                 ]
-            }).addTo(gl.data.worldMap.map);
+            }).addTo(gl.data.worldMap.map).getWaypoints();
 
             //alert('gl.functions.placesMap.prototype.showCourierByLatLng');
 

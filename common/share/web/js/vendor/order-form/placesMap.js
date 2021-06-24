@@ -517,10 +517,16 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
          * // @param waypoints
          * @param merchantLanLng
          */
-        gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLanLng) {
+        gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLanLng, customerLanLng) {
             /*alert('showCourierByLatLngNew }}}}}}}}}}}}}}}}}}}');
             debugger;*/
             //console.log('waypoints:', waypoints);
+
+            if (!customerLanLng) {
+                //customerLanLng = this.customerMarker;
+                customerLanLng = gl.getObject('map.coordinates').string2array(customerLanLng.company_lat_long);
+            }
+
             console.log('merchantLanLng:', merchantLanLng);
 
             debugger;   // stop here
@@ -531,7 +537,8 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
                 waypoints: [
                     //L.latLng(merchantLanLng.lat, merchantLanLng.lng),
                     merchantLanLng,
-                    L.latLng(waypoints.lat, waypoints.lng)
+                    //L.latLng(waypoints.lat, waypoints.lng)
+                    customerLanLng
                 ]
             }).addTo(gl.data.worldMap.map);
 

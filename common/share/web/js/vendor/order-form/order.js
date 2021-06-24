@@ -290,8 +290,8 @@ gl.functions.composeOrder = function () {
                 type: 'ADDRESS',
                 onSelect: function (suggestion) {
                     console.log(suggestion);
-                    console.log("geo_lat: ", uggestion.data.geo_lat);
-                    console.log("geo_lon: ", uggestion.data.geo_lon);
+                    console.log("geo_lat: ", suggestion.data.geo_lat);
+                    console.log("geo_lon: ", suggestion.data.geo_lon);
                     gl.data.worldMap.moveCustomerMarker(suggestion.data.geo_lat, suggestion.data.geo_lon);
                     gl.data.worldMap.connectAllMerchantsWithCustomer();
                 }
@@ -435,13 +435,13 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
     var result = false;
 
 
-    alert('before gl.data.worldMapю.setUpPaneOnOrderAccepted()');
+    //alert('before gl.data.worldMapю.setUpPaneOnOrderAccepted()');
 
 
     var container = $('.orders-container .elem[data-order-id="' + orderId + '"]');
     if (container.length) {
 
-        alert('after gl.data.worldMapю.setUpPaneOnOrderAccepted()');
+        //alert('after gl.data.worldMapю.setUpPaneOnOrderAccepted()');
 
         var orderInfoJson = container.data('order-info');
         gl.log(['orderInfoJson', orderInfoJson]);

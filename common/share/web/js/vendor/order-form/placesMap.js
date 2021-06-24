@@ -313,7 +313,7 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
         //     this.merchantsLayers = null;
         // }
 
-        alert('gl.functions.placesMap.prototype.removeAllConnectionsBetweenCustomerAndMerchants');
+        //alert('gl.functions.placesMap.prototype.removeAllConnectionsBetweenCustomerAndMerchants');
         for (var i in this.merchantsLayers) {
             this.map.removeLayer(this.merchantsLayers[i]);
         }
@@ -339,14 +339,19 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
 
         var merchantLanLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
 
+        debugger;
         L.Routing.control({
+            ////TODO: merchantLanLng, _latlng ??
             waypoints: [
                 //L.latLng(merchantLanLng.lat, merchantLanLng.lng);
                 //L.latLng(customerObj.lat, customerObj.lng)
-                L.latLng(merchantLanLng.lat, merchantLanLng.lng),
-                L.latLng(customerObj._latlng.lat, customerObj._latlng.lng)
+                //L.latLng(merchantLanLng.lat, merchantLanLng.lng),
+                merchantLanLng,
+                //L.latLng(customerObj._latlng.lat, customerObj._latlng.lng)
+                customerObj._latlng
             ]
         }).addTo(this.map);
+        debugger;
 
         //TODO: customerLatLon - где используется ???
         //var customerLatLon = customerObj.getLatLng();
@@ -362,7 +367,9 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
         debugger;
 
         //this.showCourierByLatLng(merchantLanLng);
-        this.showCourierByLatLng(L.latLng(merchantData.lat, merchantData.lng));
+        //this.showCourierByLatLng(L.latLng(merchantData.lat, merchantData.lng));
+        this.showCourierByLatLng(merchantLanLng);
+
 
     };
 
@@ -522,7 +529,8 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
 
             L.Routing.control({
                 waypoints: [
-                    L.latLng(merchantLanLng.lat, merchantLanLng.lng),
+                    //L.latLng(merchantLanLng.lat, merchantLanLng.lng),
+                    merchantLanLng,
                     L.latLng(waypoints.lat, waypoints.lng)
                 ]
             }).addTo(gl.data.worldMap.map);

@@ -64,3 +64,6 @@ frontend/web/dist
 
 /backend/web/img
 /frontend/web/img
+
+/backend/web/external
+/frontend/web/external

@@ -86,7 +86,7 @@ gl.functions.composeOrder = function () {
     html += '<div class="order-data-container select-providers" style="display:none">'
         + elems['#elems-container'].find('.providers-handling-wrp').html();
     //+ '<div class="places-map" id="' + placesMapId + '"></div>';
-        + '</div>';
+    +'</div>';
     //+ '<fieldset><legend>' + gl.data['Pizzerias'] + '</legend>';
     var firstCycle = true;
     for (var upId in userProfiles) {
@@ -455,7 +455,7 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
         debugger;
         debugger;
         debugger;
-        alert('before connectMerchantWithCustomerRealPath()');
+        //alert('before connectMerchantWithCustomerRealPath()');
         //TODO: Здесь надо убрать все соединяющие линии и установить связь обратную от пиццерии к пользователю.
         gl.data.worldMap.removeAllConnectionsBetweenCustomerAndMerchants();
         gl.data.worldMap.connectMerchantWithCustomerRealPath(merchantData);
@@ -518,6 +518,8 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
         //TODO: проверка на ошибки, их обработка
         $.get('/site/current-user-info', function (data) {
 
+            debugger;
+            debugger;
             if (data && (data['status'] == 'success')) {
 
                 //TODO: перевод и конструктирование html
@@ -528,18 +530,22 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
                     + '<div class="courier-time-arrive">' + data['time-arrive'] + '</div>'
                     // + '<div class="courier-time-left">' + data['time-time-left'] + '</div>'
                     + '<hr>';
-                    // + '<h5 class="order-hint">Следите за продвижением курьера на карте.</h5>'
-                    // + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
-                    // + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
-                    // + '<div class="info-message">ID заказа: ' + gl.escapeHtml(orderId) + '</div>'
-                    // + '<div class="info-message">Курьер: ' + gl.escapeHtml(courierData.name) + '</div>'
-                    // + '<div class="info-message red order-hint-2">Ожидайте прибытия курьера.</div>';
+                // + '<h5 class="order-hint">Следите за продвижением курьера на карте.</h5>'
+                // + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
+                // + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
+                // + '<div class="info-message">ID заказа: ' + gl.escapeHtml(orderId) + '</div>'
+                // + '<div class="info-message">Курьер: ' + gl.escapeHtml(courierData.name) + '</div>'
+                // + '<div class="info-message red order-hint-2">Ожидайте прибытия курьера.</div>';
 
                 elems['#order-form-submit'].find('.order-data-container.info-panel').html(html);
                 $('#popup-compose-form').animate({scrollTop: 0}, 'slow');
 
             } else {
-                alert('Error: 528' + data);
+                debugger;
+                debugger;
+                gl.log(['data 528:', data]);
+                alert('Error: 528');
+                alert(data);
             }
 
         });

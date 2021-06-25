@@ -74,7 +74,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         maxZoom: 18
     }).addTo(this.map);
 
-    //var mrkLanLng = L.latLng(initialMapParameters.latitude, initialMapParameters.longitude);
+    //var mrkLatLng = L.latLng(initialMapParameters.latitude, initialMapParameters.longitude);
 
     if (this.markers) {
         //alert('if (this.markers) {');
@@ -93,14 +93,14 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         debugger;
         //TODO: !!! всегда выбирается первый магазин - сделать чтобы выбирался принявший заказ !!!
         for (var mId in this.markers) {
-            mrkLanLng = this.markers[mId].marker.getLatLng();
+            mrkLatLng = this.markers[mId].marker.getLatLng();
             break;
         }
         // TODO:
         // if (this.markers && this.markers[0]) {
         //     //alert('this.markers');
         //     debugger;
-        //     this.showCourierByLatLng(mrkLanLng);
+        //     this.showCourierByLatLng(mrkLatLng);
         // }
     } else {
         //TODO: удалить закомментированное если нигде не используется.
@@ -337,16 +337,16 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
         debugger;
         debugger;
 
-        var merchantLanLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
+        var merchantLatLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
 
         debugger;
         L.Routing.control({
-            ////TODO: merchantLanLng, _latlng ??
+            ////TODO: merchantLatLng, _latlng ??
             waypoints: [
-                //L.latLng(merchantLanLng.lat, merchantLanLng.lng);
+                //L.latLng(merchantLatLng.lat, merchantLatLng.lng);
                 //L.latLng(customerObj.lat, customerObj.lng)
-                //L.latLng(merchantLanLng.lat, merchantLanLng.lng),
-                merchantLanLng,
+                //L.latLng(merchantLatLng.lat, merchantLatLng.lng),
+                merchantLatLng,
                 //L.latLng(customerObj._latlng.lat, customerObj._latlng.lng)
                 customerObj._latlng
             ]
@@ -356,19 +356,19 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
         //TODO: customerLatLon - где используется ???
         //var customerLatLon = customerObj.getLatLng();
 
-        //var merchantLanLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
+        //var merchantLatLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
 
         //var merchantLNObrj = L.latLng(merchantData.lat, merchantData.lng);
-        //var merchantLanLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
-        //var merchantLanLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
+        //var merchantLatLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
+        //var merchantLatLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
 
         debugger;
         debugger;
         debugger;
 
-        //this.showCourierByLatLng(merchantLanLng);
+        //this.showCourierByLatLng(merchantLatLng);
         //this.showCourierByLatLng(L.latLng(merchantData.lat, merchantData.lng));
-        this.showCourierByLatLng(merchantLanLng);
+        this.showCourierByLatLng(merchantLatLng);
 
 
     };
@@ -515,9 +515,9 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
          * gl.functions.placesMap.prototype.showCourierByLatLng
          *
          * // @param waypoints
-         * @param merchantLanLng
+         * @param merchantLatLng
          */
-        gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLanLng, customerLanLng) {
+        gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng, customerLatLng) {
             /*alert('showCourierByLatLngNew }}}}}}}}}}}}}}}}}}}');
             debugger;*/
             //console.log('waypoints:', waypoints);
@@ -526,21 +526,21 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
             debugger;
             debugger;
 
-            if (!customerLanLng) {
-                customerLanLng = this.customerMarker._latlng;
-                //customerLanLng = gl.getObject('map.coordinates').string2array(customerLanLng.company_lat_long);
+            if (!customerLatLng) {
+                customerLatLng = this.customerMarker._latlng;
+                //customerLatLng = gl.getObject('map.coordinates').string2array(customerLatLng.company_lat_long);
             }
 
-            console.log('merchantLanLng:', merchantLanLng);
+            console.log('merchantLatLng:', merchantLatLng);
 
             debugger;   // stop here
 
             var $sodem = L.Routing.control({
                 waypoints: [
-                    //L.latLng(merchantLanLng.lat, merchantLanLng.lng),
-                    merchantLanLng,
+                    //L.latLng(merchantLatLng.lat, merchantLatLng.lng),
+                    merchantLatLng,
                     //L.latLng(waypoints.lat, waypoints.lng)
-                    customerLanLng
+                    customerLatLng
                 ]
             }).addTo(gl.data.worldMap.map); //.getWaypoints();
 

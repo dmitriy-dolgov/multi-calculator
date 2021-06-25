@@ -535,14 +535,19 @@ gl.functions.placesMap.prototype.addMarkersToMap = function (markerInfo) {
 
             debugger;   // stop here
 
-            L.Routing.control({
+            var $sodem = L.Routing.control({
                 waypoints: [
                     //L.latLng(merchantLanLng.lat, merchantLanLng.lng),
                     merchantLanLng,
                     //L.latLng(waypoints.lat, waypoints.lng)
                     customerLanLng
                 ]
-            }).addTo(gl.data.worldMap.map).getWaypoints();
+            }).addTo(gl.data.worldMap.map); //.getWaypoints();
+
+            debugger;
+            debugger;
+            debugger;
+            var waypoints = $sodem.waypoints;   //.getWaypoints();
 
             //alert('gl.functions.placesMap.prototype.showCourierByLatLng');
 

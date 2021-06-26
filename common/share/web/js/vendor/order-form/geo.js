@@ -80,7 +80,7 @@ gl.functions.getCurrentGeoLocation = function () {
 
     // Начало - хардкод
     var coords = {lat: 55.012687, lng: 36.461324};      // Малоярославец Калужская область, Россия
-    console.log('coords: ', coords);
+    //console.log('coords: ', coords);
     gl.functions.placesMap.prototype.flyTo(coords);
     return coords;
     // Конец - хардкод
@@ -101,7 +101,7 @@ gl.functions.getCurrentGeoLocation = function () {
                 //     }
                 // }*/
 
-                console.log('coords: ' + coords);
+                //console.log('coords: ' + coords);
 
                 gl.functions.placesMap.prototype.flyTo(coords);
             })

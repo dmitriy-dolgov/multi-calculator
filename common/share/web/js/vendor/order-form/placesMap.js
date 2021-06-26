@@ -57,7 +57,8 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         });
     });
 
-    //debugger;   // stop for markrer
+    alert('initialMapParameters.latitude' + initialMapParameters.latitude);
+    debugger;   // stop for markrer
     // [initialMapParameters.latitude, initialMapParameters.longitude
     // это маркер покупателя, координаты Москвы для теста
     this.customerMarker = this.addMarkerByCoords(
@@ -336,7 +337,7 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomerRealPath = function 
 
     alert('3 deb');
     debugger;
-    debugger;
+    //debugger;
 
     var merchantLatLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
 
@@ -369,7 +370,7 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomerRealPath = function 
 
     //this.showCourierByLatLng(merchantLatLng);
     //this.showCourierByLatLng(L.latLng(merchantData.lat, merchantData.lng));
-    this.'showCourierByLatLng'(merchantLatLng);
+    this.showCourierByLatLng(merchantLatLng);
 
 
 };
@@ -577,26 +578,25 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
         //L.latLng(57.74, 11.94);
 
         //L.dist
-        debugger;
+        alert('var courierIcon = L.icon.pulse({ic');
         debugger; // courierIcon
-        var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
+        var courierIcon = L.icon.pulseL.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
         var animatedMarker = L.animatedMarker(waypoints, {
             autoStart: true,
             icon: courierIcon,
 
             onEnd: function () {
-                alert('onEnd');
+                alert('onEnd ++++++++++++++++++++!!!!!');
                 debugger;
                 animatedMarker.setIcon(gl.functions.placesMap.prototype.icons.courierStand);
                 //animatedMarker.setIcon(this.icons.courierStand);
             },
 
-            //distance: 500, // meters
             distance: 500,   // meters
             interval: 1000   // milliseconds
         });
 
-        debugger;
+        debugger; //BUG is here
 
         gl.data.worldMap.map.addLayer(animatedMarker);
         debugger;

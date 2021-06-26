@@ -3,14 +3,10 @@
 namespace frontend\controllers;
 
 use backend\sse\NewOrderHandlingBackend;
-use common\helpers\DateTimeHelper;
 use common\models\db\Component;
 use common\models\db\ComponentSet;
-use common\models\db\CoWorker;
-use common\models\db\ShopOrder;
 use common\models\db\User;
 use common\models\shop_order\ShopOrderAcceptorders;
-use common\models\shop_order\ShopOrderMaker;
 use frontend\models\ShopOrderForm;
 use frontend\sse\CustomerWaitResponseOrderHandling;
 use Symfony\Component\CssSelector\Exception\InternalErrorException;
@@ -39,15 +35,26 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionCourierOfMerchantInfo()
+    {
+        //site/courier-of-merchant-info
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $data = ['status' => ['no_status']];
+
+        return $data;
+    }
+
     //TODO: в модель и сделать через форму (https://streletzcoder.ru/rabotaem-s-ajax-v-yii-2/)
     public function actionCurrentUserInfo()
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        $data = ['status' => ['no_status']];
+        $data = ['status' => 'no_status'];
 
         if (Yii::$app->user->isGuest) {
             return [
+                'status' => 'no_logged',
                 'status_message' => 'User is not logged.',
             ];
         }
@@ -56,8 +63,9 @@ class SiteController extends Controller
 
         if (Yii::$app->user->profile->username) {
             return [
+                'status' => 'success',
                 'username' => Yii::$app->user->profile->username,
-                'username_photo' => 'No username',
+                'username_photo' => 'No username photo',
             ];
         }
 
@@ -65,7 +73,7 @@ class SiteController extends Controller
             //'status' => 'wrong',
             // Произвольный текст, может содержать описание ошибки и т.п.
             'status_message' => '',
-            'name' => null,
+            'name' => 'test',  null,
             'age' => null,
             'delivery_time' => '14:30',
         ];

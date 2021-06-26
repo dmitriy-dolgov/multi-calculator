@@ -74,10 +74,16 @@ gl.functions.correctGeolocation = function () {
  * @returns {{lng: number, lat: number}}
  */
 gl.functions.getCurrentGeoLocation = function () {
-    //var coords = {lat: 55.107540130615, lng: 33.267589569092};     // Сафоново?
-
     //dateandtime.info/ru/citycoordinates.php?id=524901
-    var coords = {lat: 55.7522200, lng: 37.6155600};     // Москва
+    // var coords = {lat: 55.107540130615, lng: 33.267589569092};     // Сафоново?
+    //var coords = {lat: 55.7522200, lng: 37.6155600};    // Москва ?
+
+    // Начало - хардкод
+    var coords = {lat: 55.012687, lng: 36.461324};      // Малоярославец Калужская область, Россия
+    console.log('coords: ', coords);
+    gl.functions.placesMap.prototype.flyTo(coords);
+    return coords;
+    // Конец - хардкод
 
     // Убрать (закомментить) в рабочем режиме
     //return coords;

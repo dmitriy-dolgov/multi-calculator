@@ -57,7 +57,6 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         });
     });
 
-    alert('initialMapParameters.latitude' + initialMapParameters.latitude);
     debugger;   // stop for markrer
     // [initialMapParameters.latitude, initialMapParameters.longitude
     // это маркер покупателя, координаты Москвы для теста
@@ -342,7 +341,7 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomerRealPath = function 
     var merchantLatLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
 
     //debugger;
-    L.Routing.control({
+    $tmpV = L.Routing.control({
         ////TODO: merchantLatLng, _latlng ??
         waypoints: [
             //L.latLng(merchantLatLng.lat, merchantLatLng.lng);
@@ -352,8 +351,9 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomerRealPath = function 
             //L.latLng(customerObj._latlng.lat, customerObj._latlng.lng)
             customerObj._latlng
         ]
-    }).addTo(this.map);
-    //debugger;
+    });
+    debugger;
+    $tmpV.addTo(this.map);
 
     //TODO: customerLatLon - где используется ???
     //var customerLatLon = customerObj.getLatLng();
@@ -366,7 +366,7 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomerRealPath = function 
 
     //debugger;
     //debugger;
-    debugger;
+    //debugger;
 
     //this.showCourierByLatLng(merchantLatLng);
     //this.showCourierByLatLng(L.latLng(merchantData.lat, merchantData.lng));
@@ -531,11 +531,15 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
         if (!customerLatLng) {
 
             //Тест
-            customerLatLng = {
+            /*customerLatLng = {
                 'lat': '55.7522200',
                 'lon': '36.461324',
                 'lng': '36.461324'
-            };
+            };*/
+
+            customerLatLng = L.latLng(55.7522200, 36.461324);
+
+            merchantLatLng = L.latLng(merchantLatLng.lat, merchantLatLng.lng);
 
             // customerLatLng = this.customerMarker._latlng;
             // if (!customerLatLng) {
@@ -569,8 +573,7 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
         });     //.addTo(gl.data.worldMap.map); //.getWaypoints();
 
         debugger;
-        debugger;
-        debugger;
+
         var waypoints = $rConrol.getWaypoints();
         debugger;
         //alert('gl.functions.placesMap.prototype.showCourierByLatLng');
@@ -578,10 +581,13 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
         //L.latLng(57.74, 11.94);
 
         //L.dist
-        alert('var courierIcon = L.icon.pulse({ic');
+        //alert('var courierIcon = L.icon.pulse({ic');
         debugger; // courierIcon
-        var courierIcon = L.icon.pulseL.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
-        var animatedMarker = L.animatedMarker(waypoints, {
+        var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
+
+
+        //var animatedMarker = L.animatedMarker(waypoints, {
+        var animatedMarker = L.animatedMarker(L.latLng(57.74, 11.94), {
             autoStart: true,
             icon: courierIcon,
 

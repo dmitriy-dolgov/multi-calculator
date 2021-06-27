@@ -528,6 +528,8 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
         debugger;
         debugger;
 
+        //merchantLatLng = L.latLng(merchantLatLng.lat, merchantLatLng.lng);
+
         if (!customerLatLng) {
 
             //Тест
@@ -537,9 +539,8 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
                 'lng': '36.461324'
             };*/
 
-            customerLatLng = L.latLng(55.7522200, 36.461324);
-
-            merchantLatLng = L.latLng(merchantLatLng.lat, merchantLatLng.lng);
+            debugger;
+            customerLatLng = L.latLng(52.7522200, 37.461324);
 
             // customerLatLng = this.customerMarker._latlng;
             // if (!customerLatLng) {
@@ -558,6 +559,8 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
             // }
         }
 
+        //merchantLatLng = L.latLng(merchantLatLng.lat, merchantLatLng.lng);
+
         console.log('merchantLatLng:', merchantLatLng);
         console.log('customerLatLng:', customerLatLng);
 
@@ -572,7 +575,7 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
             ]
         });     //.addTo(gl.data.worldMap.map); //.getWaypoints();
 
-        debugger;
+        debugger;   //!!!!!!!!!! getWaypoints()
 
         var waypoints = $rConrol.getWaypoints();
         debugger;
@@ -585,9 +588,12 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
         debugger; // courierIcon
         var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
 
+        // var animatedMarker = L.animatedMarker(line.getLatLngs(), {
+        //     icon: myIcon
+        // });
 
-        //var animatedMarker = L.animatedMarker(waypoints, {
-        var animatedMarker = L.animatedMarker(L.latLng(57.74, 11.94), {
+        var animatedMarker = L.animatedMarker(waypoints, {
+        //var animatedMarker = L.animatedMarker(L.latLng(57.74, 11.94), {
             autoStart: true,
             icon: courierIcon,
 

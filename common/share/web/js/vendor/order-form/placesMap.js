@@ -334,7 +334,7 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomerRealPath = function 
         customerObj = this.customerMarker;
     }
 
-    alert('3 deb');
+    //alert('3 deb');
     debugger;
     //debugger;
 

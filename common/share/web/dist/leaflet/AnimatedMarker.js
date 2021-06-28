@@ -47,6 +47,16 @@ L.AnimatedMarker = L.Marker.extend({
   },
 
   onAdd: function (map) {
+    debugger; //  onAdd() ~~~~~~~~~~~~~!!!!
+    debugger;
+    if (!map) {
+      alert("!!!!!!!!map");
+      return;
+    }
+
+    debugger;
+    debugger;
+
     L.Marker.prototype.onAdd.call(this, map);
 
     // Start animating when added to the map

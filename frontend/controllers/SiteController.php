@@ -73,7 +73,7 @@ class SiteController extends Controller
             //'status' => 'wrong',
             // Произвольный текст, может содержать описание ошибки и т.п.
             'status_message' => '',
-            'name' => 'test',  null,
+            'name' => 'test', null,
             'age' => null,
             'delivery_time' => '14:30',
         ];

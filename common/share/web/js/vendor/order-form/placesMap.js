@@ -70,8 +70,8 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         {doNotResize: true}
     );
 
-    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© 1 - OpenStreetMap contributors',   //'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
         maxZoom: 18
     }).addTo(this.map);
 
@@ -338,18 +338,21 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomerRealPath = function 
     debugger;
     //debugger;
 
+    alert('000000000000000000000000000000');
     var merchantLatLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
 
-    //debugger;
+    debugger;
     $tmpV = L.Routing.control({
         ////TODO: merchantLatLng, _latlng ??
         waypoints: [
+            L.latLng(55.92443935216234, 37.7047479250041),
+            L.latLng(56.92443935216234, 38.7047479250041)
             //L.latLng(merchantLatLng.lat, merchantLatLng.lng);
             //L.latLng(customerObj.lat, customerObj.lng)
             //L.latLng(merchantLatLng.lat, merchantLatLng.lng),
-            merchantLatLng,
+            //merchantLatLng,
             //L.latLng(customerObj._latlng.lat, customerObj._latlng.lng)
-            customerObj._latlng
+            //customerObj._latlng
         ]
     });
     debugger;
@@ -525,12 +528,32 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
         //console.log('waypoints:', waypoints);
 
         debugger;   // stop here
-        debugger;
-        debugger;
-
         //merchantLatLng = L.latLng(merchantLatLng.lat, merchantLatLng.lng);
 
         if (!customerLatLng) {
+
+            debugger;
+            var line = L.line([[55.580748, 36.8251138], [54.580748, 35.8251138]]);
+            customerLatLng = L.animatedMarker(line.getLatLngs(), {
+                distance: 300,  // meters
+                interval: 2000, // milliseconds
+            });
+
+            return;
+
+            //var line = L.polyline([[40.68510, -73.94136],[40.68576, -73.94149],[40.68649, -73.94165]]),
+                //animatedMarker = L.animatedMarker(line.getLatLngs());
+
+            //map.addLayer(animatedMarker);
+
+            //(gl.data.worldMap.map);
+            /*gl.data.worldMap.map.addLayer(customerLatLng);
+
+            var animatedMarker = L.animatedMarker(line.getLatLngs(), {
+                distance: 300,  // meters
+                interval: 2000, // milliseconds
+            });*/
+
 
             //Тест
             /*customerLatLng = {
@@ -539,8 +562,9 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
                 'lng': '36.461324'
             };*/
 
-            debugger;
-            customerLatLng = L.latLng(52.7522200, 37.461324);
+            // debugger;
+            // customerLatLng = L.latLng(52.7522200, 37.461324);
+            // debugger;
 
             // customerLatLng = this.customerMarker._latlng;
             // if (!customerLatLng) {
@@ -564,34 +588,39 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
         console.log('merchantLatLng:', merchantLatLng);
         console.log('customerLatLng:', customerLatLng);
 
+        alert('55555555555555555555555555555');
         debugger;   // stop here
+
 
         var $rConrol = L.Routing.control({
             waypoints: [
+                L.latLng(55.92443935216234, 37.7047479250041),
+                L.latLng(56.92443935216234, 38.7047479250041)
                 //L.latLng(merchantLatLng.lat, merchantLatLng.lng),
-                merchantLatLng,
                 //L.latLng(waypoints.lat, waypoints.lng)
-                customerLatLng
+                //merchantLatLng,
+                //customerLatLng
             ]
         });     //.addTo(gl.data.worldMap.map); //.getWaypoints();
 
         debugger;   //!!!!!!!!!! getWaypoints()
 
-        var waypoints = $rConrol.getWaypoints();
+        //var waypoints = $rConrol.getWaypoints();
+        var waypoints = $rConrol.waypoints;
         debugger;
         //alert('gl.functions.placesMap.prototype.showCourierByLatLng');
 
         //L.latLng(57.74, 11.94);
 
         //L.dist
-        //alert('var courierIcon = L.icon.pulse({ic');
+        //alert('var cocdfgdurierIcon = L.icon.pulse({ic');
         debugger; // courierIcon
         var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
 
         // var animatedMarker = L.animatedMarker(line.getLatLngs(), {
         //     icon: myIcon
         // });
-
+        debugger;
         var animatedMarker = L.animatedMarker(waypoints, {
         //var animatedMarker = L.animatedMarker(L.latLng(57.74, 11.94), {
             autoStart: true,
@@ -605,7 +634,7 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
             },
 
             distance: 500,   // meters
-            interval: 1000   // milliseconds
+            interval: 10000   // milliseconds
         });
 
         debugger; //BUG is here
@@ -617,10 +646,4 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
         //gl.data.worldMap.removeAllConnectionsBetweenCustomerAndMerchants();
         //gl.data.worldMap.connectMerchantWithCustomerRealPath(merchantData);
     };
-
-    /**
-     * Нахождение кратчайшего пути.
-     * @param merchantLatLng
-     */
-
 };

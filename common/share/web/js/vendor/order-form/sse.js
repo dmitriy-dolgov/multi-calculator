@@ -49,7 +49,6 @@ gl.functions.sse.startListen_OrderStatusAcceptance = function () {
 
         debugger;
         debugger;
-        debugger;
         if (gl.functions.setUpPaneOnOrderAccepted(data.orderUid, data.data.merchantData)) {
             gl.log("setUpPaneOnOrderAccepted() - true");
             //gl.functions.sse.se.removeEventListener('merchant-order-accept', $.noop, false);

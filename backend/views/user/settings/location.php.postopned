@@ -29,8 +29,8 @@ $this->registerJsFile('https://unpkg.com/leaflet@1.6.0/dist/leaflet.js', [
 $this->registerJs(<<<JS
 
 var map = L.map('place-map').setView([38.487, -75.641], 8);
-	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    	attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    	attribution: '© 1 - OpenStreetMap contributors',   //'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
     	maxZoom: 18
 	}).addTo(map);
 	newMarkerGroup = new L.LayerGroup();

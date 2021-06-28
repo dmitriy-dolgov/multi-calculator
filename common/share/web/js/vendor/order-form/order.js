@@ -453,8 +453,6 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
         //gl.data.setupAudio.play();
 
         debugger;
-        debugger;
-        debugger;
         //alert('before connectMerchantWithCustomerRealPath()');
         //TODO: Здесь надо убрать все соединяющие линии и установить связь обратную от пиццерии к пользователю.
         gl.data.worldMap.removeAllConnectionsBetweenCustomerAndMerchants();

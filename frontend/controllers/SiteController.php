@@ -40,22 +40,60 @@ class SiteController extends Controller
         //site/courier-of-merchant-info
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $data = ['status' => ['no_status']];
+        $data = ['status' => ['not_status']];
 
         return $data;
     }
 
-    //TODO: в модель и сделать через форму (https://streletzcoder.ru/rabotaem-s-ajax-v-yii-2/)
-    public function actionCurrentUserInfo()
+    //
+
+    /**
+     * TODO: в модель и сделать через форму (https://streletzcoder.ru/rabotaem-s-ajax-v-yii-2/)
+     *
+     * @param bool $notLoggedUsersToo возвращать ли инфу для незалогированных пользователей
+     * (если имеется такая в других источниках, например в сессии).
+     *
+     * @return array
+     */
+    public function actionActualUserInfo($notLoggedUsersToo = true)
     {
+        //site/current-user-info
+
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        $data = ['status' => 'no_status'];
+        $data = ['status' => 'not_status'];
 
-        if (Yii::$app->user->isGuest) {
+        if ($notLoggedUsersToo) {
+            if (Yii::$app->user->isGuest) {
+                //TODO: иформация для НЕ залогиненых пользователей
+                $data['status_message'] = 'Guest test info';
+            } else {
+                $data['username'] = Yii::$app->user->username ?? Yii::$app->user->name;
+            }
+
+            $data['status'] = 'success';
+        } else {
+            if (Yii::$app->user->isGuest) {
+                $data['status'] = 'not_logged';
+                $data['status_message'] = Yii::t('app', 'User must be logged.');
+            } else {
+                $data['status'] = 'success';
+                $data['status_message'] = Yii::t('app', 'User is not logged.');
+            }
+        }/* else {
+            if (!Yii::$app->user->isGuest) {
+                $data['status'] = 'not_logged';
+                $data['username'] = Yii::$app->user->profile->username;
+                $data['username_photo'] = Yii::t('app', 'No username photo');
+            }
+        };*/
+
+        return $data;
+
+        if ($notLogged && Yii::$app->user->isGuest) {
             return [
-                'status' => 'no_logged',
-                'status_message' => 'User is not logged.',
+                'status' => 'not_logged',
+                'status_message' => Yii::t('app', 'User is not logged.'),
             ];
         }
 
@@ -73,7 +111,7 @@ class SiteController extends Controller
             //'status' => 'wrong',
             // Произвольный текст, может содержать описание ошибки и т.п.
             'status_message' => '',
-            'name' => 'test', null,
+            'name' => 'testName',
             'age' => null,
             'delivery_time' => '14:30',
         ];

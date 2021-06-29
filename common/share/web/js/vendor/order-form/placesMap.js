@@ -530,19 +530,60 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
         debugger;   // stop here
         //merchantLatLng = L.latLng(merchantLatLng.lat, merchantLatLng.lng);
 
-        if (!customerLatLng) {
+        //if (!customerLatLng) {
+        if (1) {
+
+            /*debugger;
+            customerLatLng = this.customerMarker._latlng;
 
             debugger;
-            var line = L.line([[55.580748, 36.8251138], [54.580748, 35.8251138]]);
+            //var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
+            var line = L.polyline([
+                [
+                    merchantLatLng.lat,     //55.580748,
+                    merchantLatLng.lng      //36.8251138
+                ],
+                [
+                    customerLatLng.lat,
+                    customerLatLng.lng
+                ]
+            ]);*/
+
+            var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
+            var line = L.polyline([[40.68510, -73.94136],[40.68576, -73.94149],[40.68649, -73.94165]]),
+                animatedMarker = L.animatedMarker(line.getLatLngs(),{
+                    autoStart: true,
+                    icon: courierIcon,
+                    onEnd: function () {
+                        alert('onEnd ++++++++++++++++++++!!!!!');
+                        debugger;
+                        animatedMarker.setIcon(gl.functions.placesMap.prototype.icons.courierStand)
+                        //animatedMarker.setIcon(this.icons.courierStand);
+                    },
+                    distance: 500,   // meters
+                    interval: 10000   // milliseconds
+                });
+
+            return;
+
+            debugger;
             customerLatLng = L.animatedMarker(line.getLatLngs(), {
-                distance: 300,  // meters
-                interval: 2000, // milliseconds
+                autoStart: true,
+                icon: courierIcon,
+                onEnd: function () {
+                    alert('onEnd ++++++++++++++++++++!!!!!');
+                    debugger;
+                    animatedMarker.setIcon(gl.functions.placesMap.prototype.icons.courierStand)
+                    //animatedMarker.setIcon(this.icons.courierStand);
+                },
+                distance: 500,   // meters
+                interval: 10000   // milliseconds
             });
 
             return;
 
             //var line = L.polyline([[40.68510, -73.94136],[40.68576, -73.94149],[40.68649, -73.94165]]),
-                //animatedMarker = L.animatedMarker(line.getLatLngs());
+            //animatedMarker = L.animatedMarker(line.getLatLngs());
 
             //map.addLayer(animatedMarker);
 
@@ -594,8 +635,8 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
 
         var $rConrol = L.Routing.control({
             waypoints: [
-                L.latLng(55.92443935216234, 37.7047479250041),
-                L.latLng(56.92443935216234, 38.7047479250041)
+                //L.latLng(55.92443935216234, 37.7047479250041),
+                //L.latLng(56.92443935216234, 38.7047479250041)
                 //L.latLng(merchantLatLng.lat, merchantLatLng.lng),
                 //L.latLng(waypoints.lat, waypoints.lng)
                 //merchantLatLng,
@@ -622,7 +663,7 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
         // });
         debugger;
         var animatedMarker = L.animatedMarker(waypoints, {
-        //var animatedMarker = L.animatedMarker(L.latLng(57.74, 11.94), {
+            //var animatedMarker = L.animatedMarker(L.latLng(57.74, 11.94), {
             autoStart: true,
             icon: courierIcon,
 

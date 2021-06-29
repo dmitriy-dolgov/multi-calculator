@@ -57,66 +57,13 @@ class SiteController extends Controller
      */
     public function actionActualUserInfo($notLoggedUsersToo = true)
     {
-        //site/current-user-info
+        //site/actual-user-info
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        $data = ['status' => 'not_status'];
+        $userInfo = User::instance()->getActualUserInfo();
 
-        if ($notLoggedUsersToo) {
-            if (Yii::$app->user->isGuest) {
-                //TODO: иформация для НЕ залогиненых пользователей
-                $data['status_message'] = 'Guest test info';
-            } else {
-                $data['username'] = Yii::$app->user->username ?? Yii::$app->user->name;
-            }
-
-            $data['status'] = 'success';
-        } else {
-            if (Yii::$app->user->isGuest) {
-                $data['status'] = 'not_logged';
-                $data['status_message'] = Yii::t('app', 'User must be logged.');
-            } else {
-                $data['status'] = 'success';
-                $data['status_message'] = Yii::t('app', 'User is not logged.');
-            }
-        }/* else {
-            if (!Yii::$app->user->isGuest) {
-                $data['status'] = 'not_logged';
-                $data['username'] = Yii::$app->user->profile->username;
-                $data['username_photo'] = Yii::t('app', 'No username photo');
-            }
-        };*/
-
-        return $data;
-
-        if ($notLogged && Yii::$app->user->isGuest) {
-            return [
-                'status' => 'not_logged',
-                'status_message' => Yii::t('app', 'User is not logged.'),
-            ];
-        }
-
-        //$age = DateTimeHelper::getAgeByBirthday();
-
-        if (Yii::$app->user->profile->username) {
-            return [
-                'status' => 'success',
-                'username' => Yii::$app->user->profile->username,
-                'username_photo' => 'No username photo',
-            ];
-        }
-
-        $data = [
-            //'status' => 'wrong',
-            // Произвольный текст, может содержать описание ошибки и т.п.
-            'status_message' => '',
-            'name' => 'testName',
-            'age' => null,
-            'delivery_time' => '14:30',
-        ];
-
-        return $data;
+        return $userInfo;
     }
 
     public function actionSignalToParent($result)

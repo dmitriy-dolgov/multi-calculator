@@ -25,25 +25,23 @@ class UserRepository extends Model
                 //TODO: иформация для НЕ залогиненых пользователей
                 $userInfo['status_message'] = 'Guest test info';
             } else {
-                $userInfo['username'] = Yii::$app->user->username ?? Yii::$app->user->name;
+                $userInfo['name'] = Yii::$app->user->name;
+                if (Yii::$app->user->profile->username) {
+                    $userInfo['username'] = Yii::$app->user->profile->username ?? false;
+                }
             }
 
             $userInfo['status'] = 'success';
         } else {
             if (Yii::$app->user->isGuest) {
                 $userInfo['status'] = 'not_logged';
-                $userInfo['status_message'] = Yii::t('app', 'User must be logged.');
+                $userInfo['status_message'] = Yii::t('app', 'User must be logged in.');
             } else {
                 $userInfo['status'] = 'success';
                 $userInfo['status_message'] = Yii::t('app', 'User is not logged.');
+                $userInfo['username'] = Yii::$app->user->username ?? Yii::$app->user->name;
             }
-        }/* else {
-            if (!Yii::$app->user->isGuest) {
-                $userInfo['status'] = 'not_logged';
-                $userInfo['username'] = Yii::$app->user->profile->username;
-                $userInfo['username_photo'] = Yii::t('app', 'No username photo');
-            }
-        };*/
+        }
 
         return $userInfo;
     }

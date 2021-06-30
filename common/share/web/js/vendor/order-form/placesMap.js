@@ -60,56 +60,61 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     debugger;   // stop for markrer
     // [initialMapParameters.latitude, initialMapParameters.longitude
     // это маркер покупателя, координаты Москвы для теста
-    this.customerMarker = this.addMarkerByCoords(
+    this.customerMarker = addMarkerByCoords()
+    {
         initialMapParameters.latitude,
-        initialMapParameters.longitude,
-        //55.7522200,
-        //37.6155600,
-        L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'yellow'}),
-        false,
-        {doNotResize: true}
+            initialMapParameters.longitude,
+            //55.7522200,
+            //37.6155600,
+            L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'yellow'}),
+            false,
+            {doNotResize: true}
     );
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© 1 - OpenStreetMap contributors',   //'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-        maxZoom: 18
-    }).addTo(this.map);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© 1 - OpenStreetMap contributors',   //'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+    maxZoom: 18
+}).addTo(this.map);
 
-    //var mrkLatLng = L.latLng(initialMapParameters.latitude, initialMapParameters.longitude);
+//var mrkLatLng = L.latLng(initialMapParameters.latitude, initialMapParameters.longitude);
 
-    if (this.markers) {
-        //alert('if (this.markers) {');
-        // debugger;
-        // debugger;
-        // //var clusterMarkers = L.markerClusterGroup();
-        // for (var mId in this.markers) {
-        //     var clustMarker = L.marker([  ////const clustMarker = L.marker([
-        //         this.markers[mId].marker.getLat(),
-        //         this.markers[mId].marker.getLng(),
-        //     ]);
-        //     clusterMarkers.addLayer(clustMarker);
-        // }
-        // this.map.addLayer(clusterMarkers);
+if (this.markers) {
+    //alert('if (this.markers) {');
+    // debugger;
+    // debugger;
+    // //var clusterMarkers = L.markerClusterGroup();
+    // for (var mId in this.markers) {
+    //     var clustMarker = L.marker([  ////const clustMarker = L.marker([
+    //         this.markers[mId].marker.getLat(),
+    //         this.markers[mId].marker.getLng(),
+    //     ]);
+    //     clusterMarkers.addLayer(clustMarker);
+    // }
+    // this.map.addLayer(clusterMarkers);
 
-        debugger;
-        //TODO: !!! всегда выбирается первый магазин - сделать чтобы выбирался принявший заказ !!!
-        for (var mId in this.markers) {
-            mrkLatLng = this.markers[mId].marker.getLatLng();
-            break;
-        }
-        // TODO:
-        // if (this.markers && this.markers[0]) {
-        //     //alert('this.markers');
-        //     debugger;
-        //     this.showCourierByLatLng(mrkLatLng);
-        // }
-    } else {
-        //TODO: удалить закомментированное если нигде не используется.
-        //alert('if (this.markers) { - ELSE');
-        //gl.log(['HERE === this.markers:', this.markers]);
-        //console.log('HERE === this.markers:', this.markers);
+    debugger;
+    //TODO: !!! всегда выбирается первый магазин - сделать чтобы выбирался принявший заказ !!!
+    for (var mId in this.markers) {
+        mrkLatLng = this.markers[mId].marker.getLatLng();
+        break;
     }
-};
+    // TODO:
+    // if (this.markers && this.markers[0]) {
+    //     //alert('this.markers');
+    //     debugger;
+    //     this.showCourierByLatLng(mrkLatLng);
+    // }
+} else {
+    //TODO: удалить закомментированное если нигде не используется.
+
+    alert('TODO: удалить закомментированное если нигде не используется.');
+
+    //alert('if (this.markers) { - ELSE');
+    //gl.log(['HERE === this.markers:', this.markers]);
+    //console.log('HERE === this.markers:', this.markers);
+}
+)
+;
 
 
 //gl.functions.placesMap.prototype.allMarkers = [];
@@ -326,6 +331,8 @@ gl.functions.placesMap.prototype.removeAllConnectionsBetweenCustomerAndMerchants
  * Анимация (если есть) идет от торговой точки до покупателя.
  * Если пользователь не указан - берется пользователь по умолчанию.
  *
+ *  TODO: merchantData => merchantObj
+ *
  * @param merchantData данные точки продавца.
  * @param customerObj объект пользователя (opt.).
  */
@@ -334,19 +341,21 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomerRealPath = function 
         customerObj = this.customerMarker;
     }
 
-    //alert('3 deb');
-    debugger;
-    //debugger;
-
-    alert('000000000000000000000000000000');
     var merchantLatLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
+    var customLatLng = gl.getObject('map.coordinates').string2array(customerObj.company_lat_long);
 
-    debugger;
+    debugger;   //waypoints
+    
     $tmpV = L.Routing.control({
         ////TODO: merchantLatLng, _latlng ??
         waypoints: [
-            L.latLng(55.92443935216234, 37.7047479250041),
-            L.latLng(56.92443935216234, 38.7047479250041)
+            // test values
+            //L.latLng(55.92443935216234, 37.7047479250041),
+            //L.latLng(56.92443935216234, 38.7047479250041)
+
+            L.latLng(merchantLatLng),
+            L.latLng(customLatLng)
+
             //L.latLng(merchantLatLng.lat, merchantLatLng.lng);
             //L.latLng(customerObj.lat, customerObj.lng)
             //L.latLng(merchantLatLng.lat, merchantLatLng.lng),
@@ -355,6 +364,7 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomerRealPath = function 
             //customerObj._latlng
         ]
     });
+
     debugger;
     $tmpV.addTo(this.map);
 
@@ -370,7 +380,6 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomerRealPath = function 
     //debugger;
     //debugger;
     //debugger;
-
     //this.showCourierByLatLng(merchantLatLng);
     //this.showCourierByLatLng(L.latLng(merchantData.lat, merchantData.lng));
     this.showCourierByLatLng(merchantLatLng);
@@ -388,7 +397,12 @@ gl.functions.placesMap.prototype.connectMerchantWithCustomerRealPath = function 
  */
 gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchantObj, customerObj) {
 
+    debugger
+    ('connectMerchantWithCustomer[]');
+
     if (!customerObj) {
+        //customerObj = this.customerMarker;
+        //customerObj = this.customerMarker['_lnglat'];
         customerObj = this.customerMarker;
     }
 
@@ -549,9 +563,12 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
                 ]
             ]);*/
 
+            alter('var courierIcon');
+            debugger;   // var courierIcon
+
             var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
-            var line = L.polyline([[40.68510, -73.94136],[40.68576, -73.94149],[40.68649, -73.94165]]),
-                animatedMarker = L.animatedMarker(line.getLatLngs(),{
+            var line = L.polyline([[40.68510, -73.94136], [40.68576, -73.94149], [40.68649, -73.94165]]),
+                animatedMarker = L.animatedMarker(line.getLatLngs(), {
                     autoStart: true,
                     icon: courierIcon,
                     onEnd: function () {
@@ -564,23 +581,10 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
                     interval: 10000   // milliseconds
                 });
 
-            return;
-
             debugger;
-            customerLatLng = L.animatedMarker(line.getLatLngs(), {
-                autoStart: true,
-                icon: courierIcon,
-                onEnd: function () {
-                    alert('onEnd ++++++++++++++++++++!!!!!');
-                    debugger;
-                    animatedMarker.setIcon(gl.functions.placesMap.prototype.icons.courierStand)
-                    //animatedMarker.setIcon(this.icons.courierStand);
-                },
-                distance: 500,   // meters
-                interval: 10000   // milliseconds
-            });
 
             return;
+
 
             //var line = L.polyline([[40.68510, -73.94136],[40.68576, -73.94149],[40.68649, -73.94165]]),
             //animatedMarker = L.animatedMarker(line.getLatLngs());
@@ -624,15 +628,6 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
             // }
         }
 
-        //merchantLatLng = L.latLng(merchantLatLng.lat, merchantLatLng.lng);
-
-        console.log('merchantLatLng:', merchantLatLng);
-        console.log('customerLatLng:', customerLatLng);
-
-        alert('55555555555555555555555555555');
-        debugger;   // stop here
-
-
         var $rConrol = L.Routing.control({
             waypoints: [
                 //L.latLng(55.92443935216234, 37.7047479250041),
@@ -644,47 +639,5 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
             ]
         });     //.addTo(gl.data.worldMap.map); //.getWaypoints();
 
-        debugger;   //!!!!!!!!!! getWaypoints()
-
-        //var waypoints = $rConrol.getWaypoints();
-        var waypoints = $rConrol.waypoints;
-        debugger;
-        //alert('gl.functions.placesMap.prototype.showCourierByLatLng');
-
-        //L.latLng(57.74, 11.94);
-
-        //L.dist
-        //alert('var cocdfgdurierIcon = L.icon.pulse({ic');
-        debugger; // courierIcon
-        var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
-
-        // var animatedMarker = L.animatedMarker(line.getLatLngs(), {
-        //     icon: myIcon
-        // });
-        debugger;
-        var animatedMarker = L.animatedMarker(waypoints, {
-            //var animatedMarker = L.animatedMarker(L.latLng(57.74, 11.94), {
-            autoStart: true,
-            icon: courierIcon,
-
-            onEnd: function () {
-                alert('onEnd ++++++++++++++++++++!!!!!');
-                debugger;
-                animatedMarker.setIcon(gl.functions.placesMap.prototype.icons.courierStand);
-                //animatedMarker.setIcon(this.icons.courierStand);
-            },
-
-            distance: 500,   // meters
-            interval: 10000   // milliseconds
-        });
-
-        debugger; //BUG is here
-
-        gl.data.worldMap.map.addLayer(animatedMarker);
-        debugger;
-
-        //alert('gl.functions.placesMap.prototype.showCourierByLatLng()');
-        //gl.data.worldMap.removeAllConnectionsBetweenCustomerAndMerchants();
-        //gl.data.worldMap.connectMerchantWithCustomerRealPath(merchantData);
     };
 };

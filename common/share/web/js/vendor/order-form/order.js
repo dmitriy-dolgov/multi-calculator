@@ -466,7 +466,7 @@ gl.functions.setUpPaneOnOrderAccepted = function (orderId, merchantData) {
         }).addClass('blinking-background-order-accepted');
 
         //TODO: перевод
-        var html = '<h3>Заказ взят в обработку.</h3>'
+        var html = '<h3>Заказ принят в обработку.</h3>'
             + '<div class="info-message">Пиццерия: ' + gl.escapeHtml(merchantData.name) + '</div>'
             + '<div class="info-message">Адрес: ' + gl.escapeHtml(merchantData.address) + '</div>'
             + '<div class="info-message">ID заказа: ' + gl.escapeHtml(orderId) + '</div>'
@@ -543,7 +543,7 @@ gl.functions.setUpPaneOnOrderAcceptedByCourier = function (orderId, merchantData
                 debugger;
                 gl.log(['data 528:', data]);
                 alert('Error: 528');
-                alert(data);
+                //console.log('Error: 528', data);
             }
 
         });

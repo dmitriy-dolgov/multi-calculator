@@ -35,6 +35,10 @@ class Vendor
 
     public function getUrlToOrder()
     {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+
         $url = Url::to(['/vendor/order/' . Yii::$app->user->identity->getOrderUid()], true);
 
         return $url;

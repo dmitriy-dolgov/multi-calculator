@@ -6,6 +6,14 @@ function getRandom(min, max) {
     return Math.random() * (max - min) + min;
 }
 
+//TODO: не нужно?
+//gl.functions.placesMap.prototype.flyTo = function (lanLon) {
+gl.getObject('functions.placesMap').prototype.flyTo = function (lanLon) {
+    if (this.map && this.map.flyTo) {
+        this.map.flyTo(lanLon);
+    }
+};
+
 gl.functions.getGeo = function () {
 
     setInterval(function () {
@@ -18,7 +26,6 @@ gl.functions.getGeo = function () {
 
         gl.functions.placesMap.prototype.flyTo(lanLon);
     }, 4000);
-
 };
 
 gl.functions.getGeo();
@@ -31,7 +38,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     this.map.on('zoomend', function () {
 
         //var mapCopy = this.map;
-        var currentZoom = mapCopy.getZoom();
+        //var currentZoom = mapCopy.getZoom();
 
         //$('.leaflet-marker-icon').each(function () {
         $('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').each(function (e, e2, e3, e4) {
@@ -116,7 +123,6 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         //gl.log(['HERE === this.markers:', this.markers]);
         //console.log('HERE === this.markers:', this.markers);
     }
-    ;
 
 
     //gl.functions.placesMap.prototype.allMarkers = [];
@@ -172,11 +178,11 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     };
 
     //TODO: не нужно?
-    gl.functions.placesMap.prototype.flyTo = function (lanLon) {
-        if (this.map && this.map.flyTo) {
-            this.map.flyTo(lanLon);
-        }
-    };
+    // gl.functions.placesMap.prototype.flyTo = function (lanLon) {
+    //     if (this.map && this.map.flyTo) {
+    //         this.map.flyTo(lanLon);
+    //     }
+    // };
 
     gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, popupHtml, extInfoOrig) {
 
@@ -574,7 +580,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
                         autoStart: true,
                         icon: courierIcon,
                         onEnd: function () {
-                            alert('onEnd ++++++++++++++++++++!!!!!');
+                            alert('onEnd pulse ++++++++++++++++++++!!!!!');
                             debugger;
                             animatedMarker.setIcon(gl.functions.placesMap.prototype.icons.courierStand)
                             //animatedMarker.setIcon(this.icons.courierStand);

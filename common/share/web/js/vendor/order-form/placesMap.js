@@ -7,12 +7,12 @@ function getRandom(min, max) {
 }
 
 //TODO: не нужно?
-//gl.functions.placesMap.prototype.flyTo = function (lanLon) {
-gl.getObject('functions.placesMap').prototype.flyTo = function (lanLon) {
-    if (this.map && this.map.flyTo) {
-        this.map.flyTo(lanLon);
-    }
-};
+// gl.functions.placesMap.prototype.flyTo = function (lanLon) {
+// //gl.getObject('functions.placesMap').prototype.flyTo = function (lanLon) {
+//     if (this.map && this.map.flyTo) {
+//         this.map.flyTo(lanLon);
+//     }
+// };
 
 gl.functions.getGeo = function () {
 
@@ -24,7 +24,8 @@ gl.functions.getGeo = function () {
 
         //var coords = [lanLon[lanLon][lat]], lng: 37.6155600}];
 
-        gl.functions.placesMap.prototype.flyTo(lanLon);
+        //gl.data.worldMap.flyTo([lat, lng]);
+        //gl.functions.placesMap.prototype.flyTo(lanLon);
     }, 4000);
 };
 
@@ -68,25 +69,25 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     // [initialMapParameters.latitude, initialMapParameters.longitude
     // это маркер покупателя, координаты Москвы для теста
     //
-    this.customerMarker = addMarkerByCoords()
-    {
+    this.customerMarker = function addMarkerByCoords() {
         debugger;
 
         initialMapParameters.latitude,
             initialMapParameters.longitude,
             //55.7522200,
             //37.6155600,
-            L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'yellow'}),
+            L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'white'}),
             false,
             {doNotResize: true}
-    }
+    };
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© 1 - OpenStreetMap contributors',   //'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
         maxZoom: 18
     }).addTo(this.map);
 
-//var mrkLatLng = L.latLng(initialMapParameters.latitude, initialMapParameters.longitude);
+    debugger;
+    //var mrkLatLng = L.latLng(initialMapParameters.latitude, initialMapParameters.longitude);
 
     if (this.markers) {
         //alert('if (this.markers) {');
@@ -117,7 +118,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     } else {
         //TODO: удалить закомментированное если нигде не используется.
 
-        alert('TODO: удалить закомментированное если нигде не используется.');
+        alert(' if (this.markers) ');
 
         //alert('if (this.markers) { - ELSE');
         //gl.log(['HERE === this.markers:', this.markers]);
@@ -396,23 +397,23 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     };
 
     /**
-     * Соединить покупателя с точкой продажи.
+     * Соединить покупателя с текущей точкой продажи.
      * Анимация идет от покупателя к торговой точке.
-     * Если пользователь не указан - берется пользователь по умолчанию.
+     * //Если пользователь не указан - берется пользователь по умолчанию.
      *
      * @param merchantObj объект продавца.
-     * @param customerObj объект пользователя (opt.).
+     * //@param customerObj объект пользователя (opt.).
      */
-    gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchantObj, customerObj) {
+    gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchantObj) {
 
-        debugger
-        ('connectMerchantWithCustomer[]');
+        debugger;
+        //('connectMerchantWithCustomer[]');
 
-        if (!customerObj) {
-            //customerObj = this.customerMarker;
-            //customerObj = this.customerMarker['_lnglat'];
-            customerObj = this.customerMarker;
-        }
+        var customerObj = this.customerMarker;
+        //gl.data.worldMap
+
+        debugger;   // the cat
+        debugger;
 
         var customerLatLon = customerObj.getLatLng();
         var merchantLatLng = merchantObj.getLatLng();
@@ -512,7 +513,8 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         //debugger;   // ACT
         //var clusterMarkers = L.markerClusterGroup();
         for (var mId in this.markers) {
-            var newLayer = this.connectMerchantWithCustomer(this.markers[mId].marker, customerObj);
+            //var newLayer = this.connectMerchantWithCustomer(this.markers[mId].marker, customerObj);
+            var newLayer = this.connectMerchantWithCustomer(this.markers[mId].marker);
 
             //debugger;
             //debugger;
@@ -549,7 +551,16 @@ gl.functions.placesMap = function (id, initialMapParameters) {
             debugger;*/
             //console.log('waypoints:', waypoints);
 
+            // this.customerMarker
+            // merchantLatLng = gl.data.worldMap
+            // merchantLatLng
+            // gl.functions.placesMap
+
             debugger;   // stop here
+
+            merchantLatLng = gl.data.worldMap.markers[0];
+
+            customerLatLng = gl.data.worldMap.markers[count(gl.data.worldMap.markers) - 1];
             //merchantLatLng = L.latLng(merchantLatLng.lat, merchantLatLng.lng);
 
             //if (!customerLatLng) {

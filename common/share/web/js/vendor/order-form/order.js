@@ -300,6 +300,15 @@ gl.functions.composeOrder = function () {
             gl.data.worldMap = new gl.functions.placesMap(placesMapId, initialMapParameters);
             gl.data.worldMap.addMarkersToMap(mapMarkers);
 
+
+            gl.functions.placesMap.prototype.flyTo = function (lanLon) {
+                //gl.getObject('functions.placesMap').prototype.flyTo = function (lanLon) {
+                if (this.map && this.map.flyTo) {
+                    this.map.flyTo(lanLon);
+                }
+            };
+
+
             $('.input-deliver_city').val(userGeoPosition.name_ru);
 
             var citySelect = $('.select-deliver_city_id');

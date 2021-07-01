@@ -92,8 +92,14 @@ gl.php.imitation.empty = function (emptyValue) {
 };
 
 gl.getObject('map.coordinates').string2array = function (str) {
-    //TODO: проверять правильность, убирать пробелы и т.п.
-    var stringArr = str.split(';');
+
+    var stringArr = [];
+
+    if (str) {
+        //TODO: проверять правильность, убирать пробелы и т.п.
+        stringArr.push(str.split(';'));
+    }
+
     return {
         lat: stringArr[0],
         lng: stringArr[1]

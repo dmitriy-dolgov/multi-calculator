@@ -409,14 +409,15 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         debugger;
         //('connectMerchantWithCustomer[]');
 
-        var customerObj = this.customerMarker;
+        //var customerObj = this.customerMarker;
         //gl.data.worldMap
 
         debugger;   // the cat
         debugger;
 
-        var customerLatLon = customerObj.getLatLng();
         var merchantLatLng = merchantObj.getLatLng();
+        var customerLatLon = gl.data.worldMap.markers[gl.data.worldMap.markers.length - 1].marker._latlng;
+
         var geoJsonFeatureCollection = {
             type: 'FeatureCollection',
             features: []
@@ -444,6 +445,10 @@ gl.functions.placesMap = function (id, initialMapParameters) {
             }
         });
 
+        debugger;
+        debugger;
+        debugger;
+        debugger;
         var newLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
             originAndDestinationFieldIds: {
                 originUniqueIdField: 'origin_id',
@@ -559,7 +564,6 @@ gl.functions.placesMap = function (id, initialMapParameters) {
             debugger;   // stop here
 
             merchantLatLng = gl.data.worldMap.markers[0];
-
             customerLatLng = gl.data.worldMap.markers[count(gl.data.worldMap.markers) - 1];
             //merchantLatLng = L.latLng(merchantLatLng.lat, merchantLatLng.lng);
 

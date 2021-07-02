@@ -125,7 +125,6 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         //console.log('HERE === this.markers:', this.markers);
     }
 
-
     //gl.functions.placesMap.prototype.allMarkers = [];
     gl.functions.placesMap.prototype.allMovingMarkers = [];
     gl.functions.placesMap.prototype.allPolylines = [];
@@ -275,47 +274,10 @@ gl.functions.placesMap = function (id, initialMapParameters) {
         }
 
         // ???? //this.allMarkers.push(newMarker);
-
         this.map.addLayer(clusteredMarkers);
-
-        // gl.log('this.globalZIndex 1: ' + gl.functions.placesMap.globalZIndex);
-        // this.customerMarker.setZIndexOffset(gl.functions.placesMap.globalZIndex);
-
-        //var allMarkersGroup = new L.(this.allMarkers);
-        //var markersGroup = new L(this.markers);   // uneccessary allMarkersGroup
-        //this.map.fitBounds(markersGroup.getBounds());  // добавит ли this.connectAllMerchantsWithCustomer() к ширине ???
-        //    var markersGroup = new L(this.markers);   // uneccessary allMarkersGroup
-        //    this.map.fitBounds(markersGroup.getBounds());  // добавит ли this.connectAllMerchantsWithCustomer() к ширине ???
 
         this.connectAllMerchantsWithCustomer();
 
-        /*var markersGroup = new L(this.markers);
-        L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.'),*/
-
-        /*var markersGroup = new L(this.markers);
-        this.map.fitBounds(markersGroup.getBounds());*/
-
-        //this.map.fitBounds(allMarkersGroup.getBounds());
-        //this.map.fitBounds(this.markers.getBounds());
-
-        //TODO: Вынести это в общее место
-        //STAY here !!!!!!!!!
-        // if (this.markers) {
-        // {
-        //     var lGgroup = [];
-        //     for (var key in this.markers) {
-        //         var mrkElem = this.markers[key];
-        //         lGgroup.push();
-        //     }
-        //         //var markersGroup = new L(this.markers)
-        //         this.markers[key] = '';
-        //     }
-        //     this.map.fitBounds(lGgroup.getBounds());
-        //     var lGgroup = L.layerGroup(this.markers);
-        //
-        //     var lGgroup = L.layerGroup(this.markers);
-        //     this.map.fitBounds(lGgroup.getBounds());
-        // }
     };
 
     /**
@@ -426,11 +388,6 @@ gl.functions.placesMap = function (id, initialMapParameters) {
             features: []
         };
 
-
-        //debugger;
-        //debugger;
-        //console.log('merchantObj', merchantObj);
-        //merchantObj = ''
         geoJsonFeatureCollection.features.push({
             "type": "Feature",
             "geometry": {
@@ -514,31 +471,11 @@ gl.functions.placesMap = function (id, initialMapParameters) {
             customerObj = this.customerMarker;
         }
 
-        //alert('connectAllMerchantsWithCustomer for');
-        //debugger;   // ACT
-        //var clusterMarkers = L.markerClusterGroup();
         for (var mId in this.markers) {
-            //var newLayer = this.connectMerchantWithCustomer(this.markers[mId].marker, customerObj);
             var newLayer = this.connectMerchantWithCustomer(this.markers[mId].marker);
 
-            //debugger;
-            //debugger;
-            // var clustMarker = L.marker([  ////const clustMarker = L.marker([
-            //     this.markers[mId].marker.getLatLng().lat,
-            //     this.markers[mId].marker.getLatLng().lng
-            //     //getRandom(37, 39),
-            //     //getRandom(-9.5, -6.5)
-            // ]);
-            //clusterMarkers.addLayer(this.markers[mId].marker);
-
             this.merchantsLayers.push(newLayer);
-            //clusterMarkers.addLayer(newLayer);
-            //this.merchantsLayers.push(newLayer);
-
-            //clusterMarkers.addLayer(L.marker(newLayer));
         }
-        //this.map.addLayer(clusterMarkers);
-
 
         /**
          * TODO: удалить если НЕ будет использоваться.
@@ -563,115 +500,51 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
             debugger;   // stop here
 
-            //TODO [0] - кострыль, сдедать нормально
+            //TODO [0] - кострыль, сделать нормально
             if (!merchantLatLng) {
                 merchantLatLng = gl.data.worldMap.markers[0];
             } else {
-            if (!customerLatLng) {
                 customerLatLng = gl.data.worldMap.markers[1];
-            } } e;
-// gl.data.worldMap.markers[0]
-//             merchantLatLng = gl.data.worldMap.markers[0];
-//             customerLatLng = gl.data.worldMap.markers[1];
-//             //merchantLatLng = gl.data.worldMap.markers[0];
-
-
-
-            //if (!customerLatLng) {
-            if (1) {
-
-                /*debugger;
-                customerLatLng = this.customerMarker._latlng;
-
-                debugger;
-                //var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
-                var line = L.polyline([
-                    [
-                        merchantLatLng.lat,     //55.580748,
-                        merchantLatLng.lng      //36.8251138
-                    ],
-                    [
-                        customerLatLng.lat,
-                        customerLatLng.lng
-
-                ]);*/
-
-                alter('var courierIcon');
-                debugger;   // var courierIcon
-
-                var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
-                var line = L.polyline([[40.68510, -73.94136], [40.68576, -73.94149], [40.68649, -73.94165]]),
-                    animatedMarker = L.animatedMarker(line.getLatLngs(), {
-                        autoStart: true,
-                        icon: courierIcon,
-                        onEnd: function () {
-                            alert('onEnd pulse ++++++++++++++++++++!!!!!');
-                            debugger;
-                            animatedMarker.setIcon(gl.functions.placesMap.prototype.icons.courierStand)
-                            //animatedMarker.setIcon(this.icons.courierStand);
-                        },
-                        distance: 500,   // meters
-                        interval: 10000   // milliseconds
-                    });
-
-                debugger;
-
-                return;
-
-
-                //var line = L.polyline([[40.68510, -73.94136],[40.68576, -73.94149],[40.68649, -73.94165]]),
-                //animatedMarker = L.animatedMarker(line.getLatLngs());
-
-                //map.addLayer(animatedMarker);
-
-                //(gl.data.worldMap.map);
-                /*gl.data.worldMap.map.addLayer(customerLatLng);
-
-                var animatedMarker = L.animatedMarker(line.getLatLngs(), {
-                    distance: 300,  // meters
-                    interval: 2000, // milliseconds
-                });*/
-
-
-                //Тест
-                /*customerLatLng = {
-                    'lat': '55.7522200',
-                    'lon': '36.461324',
-                    'lng': '36.461324'
-                };*/
-
-                // debugger;
-                // customerLatLng = L.latLng(52.7522200, 37.461324);
-                // debugger;
-
-                // customerLatLng = this.customerMarker._latlng;
-                // if (!customerLatLng) {
-                //     debugger;
-                //     debugger;
-                //     alert('customerLatLng');
-                //     debugger;
-                //     debugger;
-                //
-                //     //Тест
-                //     customerLatLng = {
-                //         'lat': '55.7522200',
-                //         'lon': '36.461324',
-                //         'lng': '36.461324'
-                //     };  //gl.getObject('map.coordinates').string2array(customerLatLng.company_lat_long);
-                // }
             }
-
-            var $rConrol = L.Routing.control({
-                waypoints: [
-                    //L.latLng(55.92443935216234, 37.7047479250041),
-                    //L.latLng(56.92443935216234, 38.7047479250041)
-                    //L.latLng(merchantLatLng.lat, merchantLatLng.lng),
-                    //L.latLng(waypoints.lat, waypoints.lng)
-                    //merchantLatLng,
-                    //customerLatLng
-                ]
-            });     //.addTo(gl.data.worldMap.map); //.getWaypoints();
-
         };
+
+        if (1) {
+            debugger;
+            /*debugger;
+            customerLatLng = this.customerMarker._latlng;
+
+            debugger;
+            //var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
+            var line = L.polyline([
+                [
+                    merchantLatLng.lat,     //55.580748,
+                    merchantLatLng.lng      //36.8251138
+                ],
+                [
+                    customerLatLng.lat,
+                    customerLatLng.lng
+
+            ]);*/
+
+            alter('var courierIcon');
+            debugger;   // var courierIcon
+
+            var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
+            var line = L.polyline([[40.68510, -73.94136], [40.68576, -73.94149], [40.68649, -73.94165]]),
+                animatedMarker = L.animatedMarker(line.getLatLngs(), {
+                    autoStart: true,
+                    icon: courierIcon,
+                    onEnd: function () {
+                        alert('onEnd pulse ++++++++++++++++++++!!!!!');
+                        debugger;
+                        animatedMarker.setIcon(gl.functions.placesMap.prototype.icons.courierStand)
+                        //animatedMarker.setIcon(this.icons.courierStand);
+                    },
+                    distance: 500,   // meters
+                    interval: 10000   // milliseconds
+                });
+
+            debugger;
+        }
     };
 };

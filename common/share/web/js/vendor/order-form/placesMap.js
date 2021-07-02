@@ -70,10 +70,10 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     // [initialMapParameters.latitude, initialMapParameters.longitude
     // это маркер покупателя, координаты Москвы для теста
     this.customerMarker = this.addMarkerByCoords(
-        //initialMapParameters.latitude,
-        //initialMapParameters.longitude,
-        55.7522200,
-        37.6155600,
+        initialMapParameters.latitude,
+        initialMapParameters.longitude,
+        //55.7522200,
+        //37.6155600,
         L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'}),
         false,
         {doNotResize: true}
@@ -461,7 +461,7 @@ gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (cus
 
 gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {
     //alert('showCourierByLatLngNew');
-    var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'brown', fillColor: 'green'});
+    var courierIcon = L.icon.pulse({iconSize: [11, 11], color: 'brown', fillColor: 'green', class: 'pulse-courier'});
     var animatedMarker = L.animatedMarker(waypoints, {
         autoStart: true,
         icon: courierIcon,
@@ -471,7 +471,7 @@ gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {
             //animatedMarker.setIcon(this.icons.courierStand);
         },
 
-        distance: 30000, // meters
+        distance: 3000, // meters
         interval: 100   // milliseconds
     });
 

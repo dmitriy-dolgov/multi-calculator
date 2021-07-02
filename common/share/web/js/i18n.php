@@ -113,6 +113,9 @@ $this->registerCss(<<<CSS
     filter: drop-shadow(3px 3px 2px #222);
     z-index: 999999;
 }
+.pulse-courier {
+    z-index: 999999;
+}
 CSS
 );
 

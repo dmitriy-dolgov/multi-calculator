@@ -81,7 +81,13 @@ gl.functions.getCurrentGeoLocation = function () {
     // Начало - хардкод
     var coords = {lat: 55.012687, lng: 36.461324};      // Малоярославец Калужская область, Россия
     //console.log('coords: ', coords);
-    gl.functions.placesMap.prototype.flyTo(coords);
+    //gl.functions.placesMap.prototype.flyTo(coords);
+
+
+    //gl.functions.placesMap.flyTo(coords);
+
+
+    //gl.getObject('functions.places.Map').prototype.flyTo(coords);
     return coords;
     // Конец - хардкод
 

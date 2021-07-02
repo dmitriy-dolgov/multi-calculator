@@ -350,10 +350,15 @@ gl.functions.placesMap = function (id, initialMapParameters) {
             customerObj = this.customerMarker;
         }
 
+        debugger;   //waypoints
         var merchantLatLng = gl.getObject('map.coordinates').string2array(merchantData.company_lat_long);
         var customLatLng = gl.getObject('map.coordinates').string2array(customerObj.company_lat_long);
+        debugger;
+        debugger;
 
-        debugger;   //waypoints
+        merchantLatLng = L.latLng(merchantLatLng.lat, merchantLatLng.lng);
+        customLatLng = L.latLng(customLatLng.lat, customLatLng.lng);
+        debugger;
 
         $tmpV = L.Routing.control({
             ////TODO: merchantLatLng, _latlng ??
@@ -362,8 +367,10 @@ gl.functions.placesMap = function (id, initialMapParameters) {
                 //L.latLng(55.92443935216234, 37.7047479250041),
                 //L.latLng(56.92443935216234, 38.7047479250041)
 
-                L.latLng(merchantLatLng),
-                L.latLng(customLatLng)
+                //L.latLng(merchantLatLng),
+                //L.latLng(customLatLng)
+                merchantLatLng,
+                customLatLng
 
                 //L.latLng(merchantLatLng.lat, merchantLatLng.lng);
                 //L.latLng(customerObj.lat, customerObj.lng)
@@ -406,14 +413,10 @@ gl.functions.placesMap = function (id, initialMapParameters) {
      */
     gl.functions.placesMap.prototype.connectMerchantWithCustomer = function (merchantObj) {
 
-        debugger;
-        //('connectMerchantWithCustomer[]');
-
         //var customerObj = this.customerMarker;
         //gl.data.worldMap
 
         debugger;   // the cat
-        debugger;
 
         var merchantLatLng = merchantObj.getLatLng();
         var customerLatLon = gl.data.worldMap.markers[gl.data.worldMap.markers.length - 1].marker._latlng;
@@ -445,9 +448,6 @@ gl.functions.placesMap = function (id, initialMapParameters) {
             }
         });
 
-        debugger;
-        debugger;
-        debugger;
         debugger;
         var newLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
             originAndDestinationFieldIds: {
@@ -563,9 +563,19 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
             debugger;   // stop here
 
-            merchantLatLng = gl.data.worldMap.markers[0];
-            customerLatLng = gl.data.worldMap.markers[count(gl.data.worldMap.markers) - 1];
-            //merchantLatLng = L.latLng(merchantLatLng.lat, merchantLatLng.lng);
+            //TODO [0] - кострыль, сдедать нормально
+            if (!merchantLatLng) {
+                merchantLatLng = gl.data.worldMap.markers[0];
+            } else {
+            if (!customerLatLng) {
+                customerLatLng = gl.data.worldMap.markers[1];
+            } } e;
+// gl.data.worldMap.markers[0]
+//             merchantLatLng = gl.data.worldMap.markers[0];
+//             customerLatLng = gl.data.worldMap.markers[1];
+//             //merchantLatLng = gl.data.worldMap.markers[0];
+
+
 
             //if (!customerLatLng) {
             if (1) {

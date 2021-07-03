@@ -75,6 +75,45 @@ gl.functions.correctGeolocation = function () {
  * @returns {{lng: number, lat: number}}
  */
 gl.functions.getCurrentGeoLocation = function () {
+    var coords = {lat: 55.107540130615, lng: 33.267589569092};     // Сафоново?
+
+    //dateandtime.info/ru/citycoordinates.php?id=524901
+    //var coords = {lat: 55.7522200, lng: 37.6155600};     // Москва
+
+    // Убрать (закомментить) в рабочем режиме
+    //return coords;
+
+    //@55.097572,33.2094561,12.25
+    //@55.7522200,37.6155600
+    try {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                coords.lat = position.coords.latitude;
+                coords.lng = position.coords.longitude;
+                // /*if (gl.data.worldMap) {
+                //     if (gl.data.worldMap.courierMarker) {
+                //         gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker);
+                //     }
+                // }*/
+
+                console.log('coords: ' + coords);
+
+                gl.functions.placesMap.prototype.flyTo(coords);
+            })
+        }
+    } catch (e) {
+        console.log('navigator.geolocation');
+    }
+
+    return coords;
+};
+
+/**
+ * Текущее местоположение курьера.
+ *
+ * @returns {{lng: number, lat: number}}
+ */
+gl.functions.getCurrentGeoLocationOld = function () {
     //dateandtime.info/ru/citycoordinates.php?id=524901
     //var coords = {lat: 55.7522200, lng: 37.6155600};     // Москва
     var coords = {lat: 55.107540130615, lng: 33.267589569092};     // Сафоново
@@ -105,26 +144,28 @@ gl.functions.getCurrentGeoLocation = function () {
                     //alert('navigator.geolocation.getCurrentPosition');
                     debugger;
 
-                    if (empty(pos.coords)) {
+                    /*if (pos.coords) {
                         var crd = pos.coords;
+                        alert('pos.coords: ' + pos.coords);
 
                         console.log('Ваше текущее местоположение:');
                         console.log(`Широта: ${crd.latitude}`);
                         console.log(`Долгота: ${crd.longitude}`);
                         console.log(`Плюс-минус ${crd.accuracy} метров.`);
                     } else {
+                        alert('!!!!!pos.coords: ' + pos.coords);
                         coords.lat = position.coords.latitude;
                         coords.lng = position.coords.longitude;
-                        // /*if (gl.data.worldMap) {
+                        // /!*if (gl.data.worldMap) {
                         //     if (gl.data.worldMap.courierMarker) {
                         //         gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker);
                         //     }
-                        // }*/
+                        // }*!/
 
                         console.log('coords: ' + coords);
 
                         gl.functions.placesMap.prototype.flyTo(coords);
-                    }
+                    }*/
                 }, function (err) {
                     //alert('err');
                     debugger;

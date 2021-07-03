@@ -77,9 +77,9 @@ gl.functions.correctGeolocation = function () {
 gl.functions.getCurrentGeoLocation = function () {
     //dateandtime.info/ru/citycoordinates.php?id=524901
     //var coords = {lat: 55.7522200, lng: 37.6155600};     // Москва
-    //var coords = {lat: 55.107540130615, lng: 33.267589569092};     // Сафоново
+    var coords = {lat: 55.107540130615, lng: 33.267589569092};     // Сафоново
     //var coords = {lat: 59.9386, lng: 30.3141};     // СПБ
-    var coords = {lat: 56.4364999, lng: 37.00252594};   // Москва - север (Руслана положение)
+    //var coords = {lat: 56.4364999, lng: 37.00252594};   // Москва - север (Руслана положение)
 
 
     // Убрать (закомментить) в рабочем режиме
@@ -105,7 +105,7 @@ gl.functions.getCurrentGeoLocation = function () {
                     //alert('navigator.geolocation.getCurrentPosition');
                     debugger;
 
-                    if (1) {
+                    if (pos.coords) {
                         var crd = pos.coords;
 
                         console.log('Ваше текущее местоположение:');

@@ -181,8 +181,8 @@ gl.functions.placesMap.prototype.flyTo = function (lanLon) {
 
 gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, popupHtml, extInfoOrig) {
 
-    gl.log('gl.functions.placesMap.prototype.addMarkerByCoords() !!!!!!!!!!!!!!!!!!!!');
-    gl.log('INFO: ', extInfoOrig);
+    //gl.log('gl.functions.placesMap.prototype.addMarkerByCoords() !!!!!!!!!!!!!!!!!!!!');
+    //gl.log('INFO: ', extInfoOrig);
 
     if (!extInfoOrig) {
         extInfoOrig = {};

@@ -105,7 +105,7 @@ gl.functions.getCurrentGeoLocation = function () {
                     //alert('navigator.geolocation.getCurrentPosition');
                     debugger;
 
-                    if (pos.coords) {
+                    if (empty(pos.coords)) {
                         var crd = pos.coords;
 
                         console.log('Ваше текущее местоположение:');

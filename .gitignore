@@ -56,11 +56,16 @@ phpunit.phar
 
 
 # symlinks:
-/backend/web/js
-/backend/web/js.old
+backend/web/js
+backend/web/js.old
 backend/web/dist
-frontend/web/js
-frontend/web/dist
+backend/web/img
+backend/web/js
+backend/web/external
 
-/backend/web/img
-/frontend/web/img
+frontend/web/js
+frontend/web/js.old
+frontend/web/dist
+frontend/web/img
+frontend/web/js
+frontend/web/external

@@ -2,6 +2,7 @@ http://pizza-admin.local/worker?workerUid=orders
 http://pizza-admin.local/worker?workerUid=cook
 http://pizza-admin.local/worker?workerUid=courier
 
+http://pizza-customer.local
 
 http://pizza-admin.local/demo
 

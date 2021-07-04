@@ -7,3 +7,6 @@
 - /web/external
 - /web/js
 - /web/img
+
+- /web/sound - TODO: надо сделать
+- /web/video - TODO: надо сделать

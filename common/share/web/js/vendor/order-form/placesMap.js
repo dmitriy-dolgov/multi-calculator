@@ -471,7 +471,7 @@ gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {
             //animatedMarker.setIcon(this.icons.courierStand);
         },
 
-        distance: 3000, // meters
+        distance: 30000, // meters
         interval: 100   // milliseconds
     });
 

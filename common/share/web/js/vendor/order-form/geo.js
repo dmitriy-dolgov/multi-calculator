@@ -140,32 +140,41 @@ gl.functions.getCurrentGeoLocationOld = function () {
         if (navigator.geolocation) {
             //alert('navigator.geolocation');
             debugger;
-            navigator.geolocation.getCurrentPosition(function (pos) {
+            navigator.geolocation.getCurrentPosition(function (position) {
                     //alert('navigator.geolocation.getCurrentPosition');
                     debugger;
 
-                    /*if (pos.coords) {
-                        var crd = pos.coords;
-                        alert('pos.coords: ' + pos.coords);
+                    if (position) {
 
-                        console.log('Ваше текущее местоположение:');
-                        console.log(`Широта: ${crd.latitude}`);
-                        console.log(`Долгота: ${crd.longitude}`);
-                        console.log(`Плюс-минус ${crd.accuracy} метров.`);
+                        if (position.coords) {
+                            var crd = position.coords;
+                            //alert('pos.coords: ' + pos.coords);
+
+                            coords.lat = position.coords.latitude;
+                            coords.lng = position.coords.longitude;
+
+                            console.log('Ваше текущее местоположение:');
+                            console.log(`Широта: ${crd.lat}`);
+                            console.log(`Долгота: ${crd.lng}`);
+                            console.log(`Плюс-минус ${crd.accuracy} метров.`);
+
+                            gl.functions.placesMap.prototype.flyTo(coords);
+                        } else {
+                            alert('NO position.coords');
+
+                            // /*if (gl.data.worldMap) {
+                            //     if (gl.data.worldMap.courierMarker) {
+                            //         gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker);
+                            //     }
+                            // }*/
+
+                            //console.log('coords: ' + coords);
+                        }
+
                     } else {
-                        alert('!!!!!pos.coords: ' + pos.coords);
-                        coords.lat = position.coords.latitude;
-                        coords.lng = position.coords.longitude;
-                        // /!*if (gl.data.worldMap) {
-                        //     if (gl.data.worldMap.courierMarker) {
-                        //         gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker);
-                        //     }
-                        // }*!/
+                        alert('NO position');
+                    }
 
-                        console.log('coords: ' + coords);
-
-                        gl.functions.placesMap.prototype.flyTo(coords);
-                    }*/
                 }, function (err) {
                     //alert('err');
                     debugger;
@@ -174,7 +183,8 @@ gl.functions.getCurrentGeoLocationOld = function () {
             );
 
         } else {
-            //alert('NONONO navigator.geolocation NONONO');
+            //TODO: убрать после теста
+            alert('NONONO navigator.geolocation NONONO');
             debugger;
         }
     } catch (e) {

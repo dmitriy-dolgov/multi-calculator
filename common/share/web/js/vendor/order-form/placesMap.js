@@ -192,8 +192,8 @@ gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, p
     debugger;
     debugger;
     debugger;
-    console.log("lat:", lat);
-    console.log("lng:", lng);
+    //console.log("lat:", lat);
+    //console.log("lng:", lng);
     //var latLng = L.latLng(lat, lng);
     var latLng = L.latLng(lat, lng);
     //var extInfoMod = {};

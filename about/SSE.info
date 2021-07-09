@@ -1,0 +1,8 @@
+Информация о SSE функциях.
+
+POST
+	https://xn--24-6kc5a8a5ba.ru.com/make-order/start-order-accept
+
+makeOrder/startOrderAccept
+MakeOrderController::startOrderAccept()
+

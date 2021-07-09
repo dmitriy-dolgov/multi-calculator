@@ -5,11 +5,8 @@ namespace frontend\controllers;
 use backend\sse\NewOrderHandlingBackend;
 use common\models\db\Component;
 use common\models\db\ComponentSet;
-use common\models\db\CoWorker;
-use common\models\db\ShopOrder;
 use common\models\db\User;
 use common\models\shop_order\ShopOrderAcceptorders;
-use common\models\shop_order\ShopOrderMaker;
 use frontend\models\ShopOrderForm;
 use frontend\sse\CustomerWaitResponseOrderHandling;
 use Symfony\Component\CssSelector\Exception\InternalErrorException;
@@ -31,11 +28,24 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            /*'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],*/
         ];
+    }
+
+    public function actionTotalPlan($code)
+    {
+        // /site/total-plan?code=9098
+
+        if ($code !== '9098') {
+            throw new \yii\web\NotFoundHttpException();
+        }
+
+        $headers = Yii::$app->response->headers;
+        $headers->set('Content-Type', 'text/markdown');
+        $headers->add('charset', 'utf-8');
+
+        $path = Yii::getAlias('@root') . '/about/environment_or_install.notes.md';
+
+        return Yii::$app->response->sendFile($path);
     }
 
     public function actionSignalToParent($result)

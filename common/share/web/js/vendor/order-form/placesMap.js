@@ -66,32 +66,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
     });
 
     debugger;   // stop for markrer
-    // [initialMapParameters.latitude, initialMapParameters.longitude
-    // это маркер покупателя, координаты Москвы для теста
-    //
-    this.customerMarker = function addMarkerByCoords() {
-        debugger;
 
-        initialMapParameters.latitude,
-            initialMapParameters.longitude,
-            //55.7522200,
-            //37.6155600,
-            L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'white'}),
-            false,
-            {doNotResize: true}
-    };
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© 1 - OpenStreetMap contributors',   //'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-        this.customerMarker = this.addMarkerByCoords(
-            initialMapParameters.latitude,
-            initialMapParameters.longitude,
-            //55.7522200,
-            //37.6155600,
-            L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'}),
-            false,
-            {doNotResize: true}
-        );
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
@@ -588,5 +563,27 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
         debugger;
     }
+
+    //gl.functions.placesMap.prototype.
+    // [initialMapParameters.latitude, initialMapParameters.longitude
+    // это маркер покупателя, координаты Москвы для теста
+    //
+    // [initialMapParameters.latitude, initialMapParameters.longitude
+    // это маркер покупателя, координаты Москвы для теста
+    //this.customerMarker = gl.functions.placesMap.prototype.addMarkerByCoords(
+    gl.functions.placesMap.prototype.customerMarker = gl.functions.placesMap.prototype.addMarkerByCoords(
+        initialMapParameters.latitude,
+        initialMapParameters.longitude,
+        //55.7522200,
+        //37.6155600,
+        L.icon.pulse({
+            iconSize: [15, 15],
+            color: 'black',
+            fillColor: 'red'
+        }),
+        false,
+        {
+            doNotResize: true
+        }
+    );
 }
-};

@@ -111,6 +111,10 @@ $this->registerCss(<<<CSS
 .map-marker-icon {
     border-radius: 50%;
     filter: drop-shadow(3px 3px 2px #222);
+    z-index: 999999;
+}
+.pulse-courier {
+    z-index: 999999;
 }
 CSS
 );

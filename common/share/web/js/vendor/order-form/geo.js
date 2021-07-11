@@ -82,10 +82,7 @@ gl.functions.getCurrentGeoLocation = function () {
     var coords = {lat: 55.012687, lng: 36.461324};      // Малоярославец Калужская область, Россия
     //console.log('coords: ', coords);
     //gl.functions.placesMap.prototype.flyTo(coords);
-
-
     //gl.functions.placesMap.flyTo(coords);
-
 
     //gl.getObject('functions.places.Map').prototype.flyTo(coords);
     return coords;
@@ -114,6 +111,94 @@ gl.functions.getCurrentGeoLocation = function () {
         }
     } catch (e) {
         console.log('navigator.geolocation');
+    }
+
+    return coords;
+};
+
+/**
+ * Текущее местоположение курьера.
+ *
+ * @returns {{lng: number, lat: number}}
+ */
+gl.functions.getCurrentGeoLocationOld = function () {
+    //dateandtime.info/ru/citycoordinates.php?id=524901
+    //var coords = {lat: 55.7522200, lng: 37.6155600};     // Москва
+    var coords = {lat: 55.107540130615, lng: 33.267589569092};     // Сафоново
+    //var coords = {lat: 59.9386, lng: 30.3141};     // СПБ
+    //var coords = {lat: 56.4364999, lng: 37.00252594};   // Москва - север (Руслана положение)
+
+
+    // Убрать (закомментить) в рабочем режиме
+    //return coords;
+
+    debugger;
+
+    //@55.097572,33.2094561,12.25
+    //@55.7522200,37.6155600
+
+    var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+    };
+
+    try {
+        debugger;
+        if (navigator.geolocation) {
+            //alert('navigator.geolocation');
+            debugger;
+            navigator.geolocation.getCurrentPosition(function (position) {
+                    //alert('navigator.geolocation.getCurrentPosition');
+                    debugger;
+
+                    if (position) {
+
+                        if (position.coords) {
+                            var crd = position.coords;
+                            //alert('pos.coords: ' + pos.coords);
+
+                            coords.lat = position.coords.latitude;
+                            coords.lng = position.coords.longitude;
+
+                            console.log('Ваше текущее местоположение:');
+                            console.log(`Широта: ${crd.lat}`);
+                            console.log(`Долгота: ${crd.lng}`);
+                            console.log(`Плюс-минус ${crd.accuracy} метров.`);
+
+                            gl.functions.placesMap.prototype.flyTo(coords);
+                        } else {
+                            alert('NO position.coords');
+
+                            // /*if (gl.data.worldMap) {
+                            //     if (gl.data.worldMap.courierMarker) {
+                            //         gl.data.worldMap.map.removeLayer(gl.data.worldMap.courierMarker);
+                            //     }
+                            // }*/
+
+                            //console.log('coords: ' + coords);
+                        }
+
+                    } else {
+                        alert('NO position');
+                    }
+
+                }, function (err) {
+                    //alert('err');
+                    debugger;
+                    console.warn(`ERROR(${err.code}): ${err.message}`);
+                }, options
+            );
+
+        } else {
+            //TODO: убрать после теста
+            alert('NONONO navigator.geolocation NONONO');
+            debugger;
+        }
+    } catch (e) {
+        console.log('navigator.geolocation');
+        debugger;
+        //alert('NONONO (catch)');
     }
 
     return coords;

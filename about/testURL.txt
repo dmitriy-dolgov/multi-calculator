@@ -2,11 +2,36 @@ http://pizza-admin.local/worker?workerUid=orders
 http://pizza-admin.local/worker?workerUid=cook
 http://pizza-admin.local/worker?workerUid=courier
 
-http://pizza-admin.local/worker?workerUid=orders
+http://pizza-customer.local
 
+http://pizza-admin.local/demo
 
 https://12324.рф/worker?workerUid=orders
 https://12324.рф/demo
 https://12324.рф
 
-пицца24.ru.com
+https://пицца24.ru.com
+https://12324.рф/demo
+
+
+pizza-admin.local/demo/
+
+
+IP Руслана:
+Широта: 56.4364999
+Долгота: 37.00252594
+Плюс-минус 3000 метров
+LD:это север Москвы, похоже
+
+
+Широта: 56.4364999
+Долгота: 37.00252594
+
+
+//-------------->>>>
+
+https://12324.рф/worker?workerUid=orders
+https://пицца24.ru.com
+
+
+

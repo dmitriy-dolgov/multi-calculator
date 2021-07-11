@@ -28,10 +28,6 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            /*'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],*/
         ];
     }
 
@@ -44,8 +40,6 @@ class SiteController extends Controller
 
         return $data;
     }
-
-    //
 
     /**
      * TODO: в модель и сделать через форму (https://streletzcoder.ru/rabotaem-s-ajax-v-yii-2/)
@@ -64,6 +58,23 @@ class SiteController extends Controller
         $userInfo = User::instance()->getActualUserInfo();
 
         return $userInfo;
+    }
+
+    public function actionTotalPlan($code)
+    {
+        // /site/total-plan?code=9098
+
+        if ($code !== '9098') {
+            throw new \yii\web\NotFoundHttpException();
+        }
+
+        $headers = Yii::$app->response->headers;
+        $headers->set('Content-Type', 'text/markdown');
+        $headers->add('charset', 'utf-8');
+
+        $path = Yii::getAlias('@root') . '/about/environment_or_install.notes.md';
+
+        return Yii::$app->response->sendFile($path);
     }
 
     public function actionSignalToParent($result)

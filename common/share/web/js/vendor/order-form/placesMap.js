@@ -83,6 +83,18 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© 1 - OpenStreetMap contributors',   //'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+        this.customerMarker = this.addMarkerByCoords(
+            initialMapParameters.latitude,
+            initialMapParameters.longitude,
+            //55.7522200,
+            //37.6155600,
+            L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'}),
+            false,
+            {doNotResize: true}
+        );
+
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
         maxZoom: 18
     }).addTo(this.map);
 
@@ -186,6 +198,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
     gl.functions.placesMap.prototype.addMarkerByCoords = function (lat, lng, icon, popupHtml, extInfoOrig) {
 
+
         gl.log('gl.functions.placesMap.prototype.addMarkerByCoords() !!!!!!!!!!!!!!!!!!!!');
         gl.log('INFO: ', extInfoOrig);
 
@@ -193,6 +206,21 @@ gl.functions.placesMap = function (id, initialMapParameters) {
             extInfoOrig = {};
             //return;
         }
+
+        debugger;
+        debugger;
+        debugger;
+        //console.log("lat:", lat);
+        //console.log("lng:", lng);
+        //var latLng = L.latLng(lat, lng);
+        var latLng = L.latLng(lat, lng);
+        //var extInfoMod = {};
+
+        // for (var key in extInfoOrig) {
+        //     if (extInfoOrig.hasOwnProperty(key)) {
+        //         extInfoMod[key] = extInfoOrig[key];
+        //     }
+        // }
 
         // debugger;
         // debugger;
@@ -466,6 +494,19 @@ gl.functions.placesMap = function (id, initialMapParameters) {
      * @param customerObj координаты пользователя (opt.).
      */
     gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (customerObj) {
+        //gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {
+        //alert('showCourierByLatLngNew');
+
+        var courierIcon = L.icon.pulse({
+            iconSize: [11, 11],
+            color: 'brown',
+            fillColor: 'green',
+            class: 'pulse-courier'
+        });
+        var animatedMarker = L.animatedMarker(waypoints, {
+            autoStart: true,
+            icon: courierIcon
+        });
 
         if (!customerObj) {
             customerObj = this.customerMarker;
@@ -476,75 +517,76 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
             this.merchantsLayers.push(newLayer);
         }
+    };
 
-        /**
-         * TODO: удалить если НЕ будет использоваться.
-         *
-         * Нахождение кратчайшего пути.
-         *
-         * Новая (тестовая версия). С прежней.
-         * gl.functions.placesMap.prototype.showCourierByLatLng
-         *
-         * // @param waypoints
-         * @param merchantLatLng
-         */
-        gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng, customerLatLng) {
-            /*alert('showCourierByLatLngNew }}}}}}}}}}}}}}}}}}}');
-            debugger;*/
-            //console.log('waypoints:', waypoints);
+    /**
+     * TODO: удалить если НЕ будет использоваться.
+     *
+     * Нахождение кратчайшего пути.
+     *
+     * Новая (тестовая версия). С прежней.
+     * gl.functions.placesMap.prototype.showCourierByLatLng
+     *
+     * // @param waypoints
+     * @param merchantLatLng
+     */
+    gl.functions.placesMap.prototype.showCourierByLatLng = function (merchantLatLng, customerLatLng) {
+        /*alert('showCourierByLatLngNew }}}}}}}}}}}}}}}}}}}');
+        debugger;*/
+        //console.log('waypoints:', waypoints);
 
-            // this.customerMarker
-            // merchantLatLng = gl.data.worldMap
-            // merchantLatLng
-            // gl.functions.placesMap
+        // this.customerMarker
+        // merchantLatLng = gl.data.worldMap
+        // merchantLatLng
+        // gl.functions.placesMap
 
-            debugger;   // stop here
+        debugger;   // stop here
 
-            //TODO [0] - кострыль, сделать нормально
-            if (!merchantLatLng) {
-                merchantLatLng = gl.data.worldMap.markers[0];
-            } else {
-                customerLatLng = gl.data.worldMap.markers[1];
-            }
-        };
-
-        if (1) {
-            debugger;
-            /*debugger;
-            customerLatLng = this.customerMarker._latlng;
-
-            debugger;
-            //var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
-            var line = L.polyline([
-                [
-                    merchantLatLng.lat,     //55.580748,
-                    merchantLatLng.lng      //36.8251138
-                ],
-                [
-                    customerLatLng.lat,
-                    customerLatLng.lng
-
-            ]);*/
-
-            alter('var courierIcon');
-            debugger;   // var courierIcon
-
-            var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
-            var line = L.polyline([[40.68510, -73.94136], [40.68576, -73.94149], [40.68649, -73.94165]]),
-                animatedMarker = L.animatedMarker(line.getLatLngs(), {
-                    autoStart: true,
-                    icon: courierIcon,
-                    onEnd: function () {
-                        alert('onEnd pulse ++++++++++++++++++++!!!!!');
-                        debugger;
-                        animatedMarker.setIcon(gl.functions.placesMap.prototype.icons.courierStand)
-                        //animatedMarker.setIcon(this.icons.courierStand);
-                    },
-                    distance: 500,   // meters
-                    interval: 10000   // milliseconds
-                });
-
-            debugger;
+        //TODO [0] - кострыль, сделать нормально
+        if (!merchantLatLng) {
+            merchantLatLng = gl.data.worldMap.markers[0];
+        } else {
+            customerLatLng = gl.data.worldMap.markers[1];
         }
     };
+
+    if (1) {
+        debugger;
+        /*debugger;
+        customerLatLng = this.customerMarker._latlng;
+
+        debugger;
+        //var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
+        var line = L.polyline([
+            [
+                merchantLatLng.lat,     //55.580748,
+                merchantLatLng.lng      //36.8251138
+            ],
+            [
+                customerLatLng.lat,
+                customerLatLng.lng
+
+        ]);*/
+
+        alter('var courierIcon');
+        debugger;   // var courierIcon
+
+        var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});
+        var line = L.polyline([[40.68510, -73.94136], [40.68576, -73.94149], [40.68649, -73.94165]]),
+            animatedMarker = L.animatedMarker(line.getLatLngs(), {
+                autoStart: true,
+                icon: courierIcon,
+                onEnd: function () {
+                    alert('onEnd pulse ++++++++++++++++++++!!!!!');
+                    debugger;
+                    animatedMarker.setIcon(gl.functions.placesMap.prototype.icons.courierStand)
+                    //animatedMarker.setIcon(this.icons.courierStand);
+                },
+                distance: 500,   // meters
+                interval: 10000   // milliseconds
+            });
+
+        debugger;
+    }
+}
 };

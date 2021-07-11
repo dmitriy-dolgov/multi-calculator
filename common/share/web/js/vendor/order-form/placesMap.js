@@ -34,6 +34,8 @@ gl.functions.getGeo();
 gl.functions.placesMap = function (id, initialMapParameters) {
     this.map = L.map(id).setView([initialMapParameters.latitude, initialMapParameters.longitude], initialMapParameters.zoom);
 
+    globalMapp = this.map;
+
     var mapCopy = this.map;
 
     this.map.on('zoomend', function () {
@@ -223,8 +225,12 @@ gl.functions.placesMap = function (id, initialMapParameters) {
             newMarker.bindPopup('No html popup !!!');
         }
 
+        //alert('this.map: ' + this.map);
+        gl.log(['this.map: ', globalMapp]);
+
         //debugger;
-        newMarker.addTo(this.map);
+        //newMarker.addTo(this.map);
+        newMarker.addTo(globalMapp);
 
         /*newMarker.on('click', function (e) {
             gl.log('gl.functions.placesMap.globalZIndex 5: ' + gl.functions.placesMap.globalZIndex);
@@ -237,6 +243,10 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
         return newMarker;
     };
+
+    /*gl.functions.placesMap.prototype. = function(id, ) {
+
+    };*/
 
     // Главная функция наполнения this.markers
     // По идее this.markers должна содержать ВСЕ маркеры.
@@ -543,7 +553,7 @@ gl.functions.placesMap = function (id, initialMapParameters) {
 
         ]);*/
 
-        alter('var courierIcon');
+        //alert('var courierIcon');
         debugger;   // var courierIcon
 
         var courierIcon = L.icon.pulse({iconSize: [15, 15], color: 'black', fillColor: 'red'});

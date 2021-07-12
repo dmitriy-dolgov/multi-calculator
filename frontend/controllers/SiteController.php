@@ -62,7 +62,7 @@ class SiteController extends Controller
 
     public function actionTotalPlan($code)
     {
-        // /site/total-plan?code=9098
+        //pizza-customer.local/site/total-plan?code=9098
 
         if ($code !== '9098') {
             throw new \yii\web\NotFoundHttpException();

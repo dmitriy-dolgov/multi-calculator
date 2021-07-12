@@ -1,0 +1,25 @@
+Ориентировчная информация о сделанном и что планируется сделать.
+На данный момент (12 июля 2021года) информация не систематизирована,
+и может дать понимание в целом. Это база для понимания процесса,
+на основе которой можно составлять конретные задачи по разрабоке.
+
+Ниже - информация о файлах, которые могуть понять процесс разработки.
+Много фалов в этой (about) директории представляют не представляют особой ценности,
+но могут оказаться полезными для тех кто из создал.
+
+conventional_words_and_designations.info - условности рабочего языка для лучшего взаимопонимания.
+correspondence.txt
+URGENT/for_courier.about
+TODO.txt
+ruslan's plan
+events.text
+both-sides.jpeg
+db-tables-meaning.txt - (возможно, устарел)
+environment_or_install.notes.md - (возможно, устарел)
+events.text
+fias-integration.txt
+pizza.plan.txt
+Ruslans_links.txt
+symlinks.txt
+Пицца TODO.pdf
+common_info.readme

@@ -1,14 +1,28 @@
-http://pizza-admin.local/worker?workerUid=orders
-http://pizza-admin.local/worker?workerUid=cook
-http://pizza-admin.local/worker?workerUid=courier
-
-http://pizza-customer.local
-
+>>>>>>>>>> TEST BACK (local) start
+http://pizza-admin.local
 http://pizza-admin.local/demo
+http://pizza-admin.local/setup
+http://pizza-admin.local/admin                  // только админам
+http://pizza-admin/worker?workerUid=orders      // временая заглушка для работы
+<<<<<<<<<< TEST BACK (local) finish
 
-https://12324.рф/worker?workerUid=orders
+>>>>>>>>>> TEST FRONT (local) start
+http://pizza-admin.local
+<<<<<<<<<< TEST FRONT (local) finish
+
+
+>>>>>>>>>> TEST BACK (remote) start
+https://12324.рф/
 https://12324.рф/demo
+https://12324.рф/setup
+https://12324.рф/worker?workerUid=orders      // временая заглушка для работы
+<<<<<<<<<< TEST BACK (remote) finish
+
+>>>>>>>>>> TEST FRONT (remote) start
 https://12324.рф
+<<<<<<<<<< TEST FRONT (remote) finish
+
+
 
 https://пицца24.ru.com
 https://12324.рф/demo

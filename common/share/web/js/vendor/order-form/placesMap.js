@@ -478,9 +478,9 @@ gl.functions.placesMap = function (id, initialMapParameters) {
      *
      * @param customerObj координаты пользователя (opt.).
      */
-    gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (customerObj) {
+    //gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function (customerObj) {
+    gl.functions.placesMap.prototype.connectAllMerchantsWithCustomer = function () {
         //gl.functions.placesMap.prototype.showCourierByLatLngNew = function (waypoints) {
-        //alert('showCourierByLatLngNew');
 
         var courierIcon = L.icon.pulse({
             iconSize: [11, 11],
@@ -488,14 +488,14 @@ gl.functions.placesMap = function (id, initialMapParameters) {
             fillColor: 'green',
             class: 'pulse-courier'
         });
-        var animatedMarker = L.animatedMarker(waypoints, {
-            autoStart: true,
-            icon: courierIcon
-        });
+        // var animatedMarker = L.animatedMarker(waypoints, {
+        //     autoStart: true,
+        //     icon: courierIcon
+        // });
 
-        if (!customerObj) {
-            customerObj = this.customerMarker;
-        }
+        // if (!customerObj) {
+        //     customerObj = this.customerMarker;
+        // }
 
         for (var mId in this.markers) {
             var newLayer = this.connectMerchantWithCustomer(this.markers[mId].marker);

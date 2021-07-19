@@ -1,9 +1,9 @@
 >>>>>>>>>> TEST BACK (local) start
 http://pizza-admin.local
-http://pizza-admin.local/demo
+http://pizza-admin/worker?workerUid=orders
 http://pizza-admin.local/setup
 http://pizza-admin.local/admin                  // только админам
-http://pizza-admin/worker?workerUid=orders      // временая заглушка для работы
+http://pizza-admin/worker?workerUid=orders      // временная заглушка для работы
 <<<<<<<<<< TEST BACK (local) finish
 
 >>>>>>>>>> TEST FRONT (local) start
@@ -20,6 +20,11 @@ https://12324.рф/worker?workerUid=orders      // временая заглуш
 
 >>>>>>>>>> TEST FRONT (remote) start
 https://12324.рф
+// демонстрация с двумя переключающимися сайтамамаи,
+    http://pizza-admin.local/demo и
+        +
+    https://12324.рф/worker?workerUid=orders
+
 <<<<<<<<<< TEST FRONT (remote) finish
 
 

@@ -44,7 +44,7 @@ phpunit.phar
 
 
 
-# ladlens
+#>> Ladlen's
 
 /temporary_moved
 
@@ -54,21 +54,21 @@ phpunit.phar
 
 /frontend/web/.htaccess
 
+assets
 
-# symlinks:
-backend/web/js
-backend/web/js.old
-backend/web/dist
-backend/web/img
-backend/web/js
-backend/web/external
+#>>> symlinks:
 
-frontend/web/js
-frontend/web/js.old
-frontend/web/dist
+/frontend/web/common/*
+/backend/web/common/*
 
-/backend/web/img
-/frontend/web/img
+#/frontend/web/common/css
+#/frontend/web/common/js
+#/frontend/web/common/img
 
-/backend/web/external
-/frontend/web/external
+#/backend/web/common/css
+#/backend/web/common/js
+#/backend/web/common/img
+
+#<<< :symlinks
+
+#<< Ladlen's

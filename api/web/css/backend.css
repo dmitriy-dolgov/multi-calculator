@@ -1,0 +1,190 @@
+@charset "UTF-8";
+@media screen and (max-width: 1200px) {
+  .col-md-55, .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+    float: none !important;
+  }
+}
+@font-face {
+  font-family: "icomoon";
+  src: url("fonts/icomoon.eot?mkt4j6");
+  src: url("fonts/icomoon.eot?mkt4j6#iefix") format("embedded-opentype"), url("fonts/icomoon.ttf?mkt4j6") format("truetype"), url("fonts/icomoon.woff?mkt4j6") format("woff"), url("fonts/icomoon.svg?mkt4j6#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+[class^=icon-], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icomoon" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-arrow-right-circle:before {
+  content: "";
+}
+
+.icon-arrow-left-circle:before {
+  content: "";
+}
+
+.icon-arrow-down-circle:before {
+  content: "";
+}
+
+.icon-arrow-up-circle:before {
+  content: "";
+}
+
+.icon-handshake-o:before {
+  content: "";
+}
+
+.icon-office:before {
+  content: "";
+}
+
+.icon-cogs:before {
+  content: "";
+}
+
+.icon-question:before {
+  content: "";
+}
+
+.icon-enter:before {
+  content: "";
+}
+
+.icon-exit:before {
+  content: "";
+}
+
+.icon-mail2:before {
+  content: "";
+}
+
+.icon-home3:before {
+  content: "";
+}
+
+.icon-cart:before {
+  content: "";
+}
+
+.icon-wrench:before {
+  content: "";
+}
+
+.icon-hammer:before {
+  content: "";
+}
+
+body {
+  background-color: #FFF;
+}
+
+.container.body .right_col {
+  padding-bottom: 20px !important;
+}
+
+.main_container {
+  background-color: #2a3f54;
+}
+
+.profile_pic .profile-img-icon {
+  font-size: 45px;
+  margin: 10px 0 0 15px;
+}
+
+.nav .profile-img-icon {
+  font-size: 25px;
+  position: relative;
+  top: 3px;
+  padding-right: 8px;
+  left: 0;
+}
+
+.field-component-disabled .bootstrap-switch-handle-off {
+  background: #337ab7 !important;
+  color: white !important;
+}
+.field-component-disabled .bootstrap-switch-handle-on {
+  background: #eeeeee !important;
+  color: black !important;
+}
+
+.list-image-prev {
+  max-width: 40px;
+  max-height: 40px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+.list-image-prev:last-child {
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+.site_title {
+  display: flex;
+  padding-left: 5px;
+  align-items: center;
+}
+.site_title .logo {
+  width: 45px;
+  height: 45px;
+  background-image: url(/img/pizza-logo-white.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  display: inline-block;
+  border: none;
+  margin-right: 6px;
+}
+
+.nav-sm .navbar.nav_title .site_title .logo {
+  width: 50px;
+  height: 50px;
+}
+
+#sidebar-menu {
+  margin-top: 20px;
+}
+
+.menu_section h3 {
+  padding-left: 23px !important;
+}
+
+.kv-grid-toolbar .dropdown-menu {
+  left: auto !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) !important;
+}
+
+.kv-expand-header-cell, .kv-expand-icon-cell {
+  font-size: 1.7em;
+}
+
+.pane-mobile-switcher {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  height: 100%;
+}
+.pane-mobile-switcher .switch-elem {
+  height: 30px;
+  width: 25%;
+  cursor: pointer;
+}
+.pane-mobile-switcher .switch-elem.selected {
+  border: 2px inset black;
+}
+
+/*# sourceMappingURL=api.css.map */

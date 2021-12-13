@@ -1,0 +1,99 @@
+<?php
+
+use Da\User\Helper\TimezoneHelper;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+/**
+ * @var yii\web\View $this
+ * @var yii\widgets\ActiveForm $form
+ * @var \Da\User\Model\Profile $model
+ * @var TimezoneHelper $timezoneHelper
+ */
+
+$this->title = Yii::t('usuario', 'Profile settings');
+$this->params['breadcrumbs'][] = $this->title;
+$timezoneHelper = $model->make(TimezoneHelper::class);
+
+$this->registerCssFile('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css', [
+    'integrity' => 'sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==',
+    'crossorigin' => '',
+]);
+
+$this->registerJsFile('https://unpkg.com/leaflet@1.6.0/dist/leaflet.js', [
+    'integrity' => 'sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==',
+    'crossorigin' => '',
+]);
+
+$this->registerJs(<<<JS
+
+var map = L.map('place-map').setView([38.487, -75.641], 8);
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    	attribution: '© 1 - OpenStreetMap contributors',   //'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+    	maxZoom: 18
+	}).addTo(map);
+	newMarkerGroup = new L.LayerGroup();
+	map.on('click', addMarker);
+
+	function addMarker(e) {
+        // Add marker to map at click location; add popup window
+        var newMarker = new L.marker(e.latlng).addTo(map);
+    }
+JS
+);
+
+?>
+
+<div class="clearfix"></div>
+
+<?= $this->render('/shared/_alert', ['module' => Yii::$app->getModule('user')]) ?>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
+            </div>
+            <div class="panel-body">
+                <?php $form = ActiveForm::begin(
+                    [
+                        'id' => $model->formName(),
+                        'options' => ['class' => 'form-horizontal'],
+                        'fieldConfig' => [
+                            'template' => "{label}\n<div class=\"col-lg-9\">{input}</div>\n<div class=\"col-lg-offset-3 col-lg-9\">{error}\n{hint}</div>",
+                            'labelOptions' => ['class' => 'col-lg-3 control-label'],
+                        ],
+                        'enableAjaxValidation' => true,
+                        'enableClientValidation' => true,
+                        'validateOnBlur' => true,
+                    ]
+                ); ?>
+
+                <?= $form->field($model, 'location') ?>
+
+                <div class="form-group field-profile-map">
+                    <?php /*<label class="col-lg-3 control-label" for="profile-location"></label>*/ ?>
+                    <div class="col-lg-offset-3 col-lg-9 col-md-12">
+                        <div id="place-map" style="height:20vw"></div>
+                    </div>
+                    <div class="col-sm-offset-3 col-lg-9">
+                        <div class="help-block"></div>
+                    </div>
+                </div>
+
+
+                <?= $form->field($model, 'bio')->textarea() ?>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-9">
+                        <?= Html::submitButton(Yii::t('usuario', 'Save'), ['class' => 'btn btn-block btn-success']) ?>
+                        <br>
+                    </div>
+                </div>
+
+                <?php ActiveForm::end(); ?>
+            </div>
+        </div>
+    </div>
+</div>

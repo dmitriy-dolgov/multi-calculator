@@ -1,0 +1,71 @@
+@charset "UTF-8";
+#tp {
+  /* Верхнее окно (основная страница)*/
+  /* Подокно во фрейме */
+}
+#tp .frame {
+  height: 100vh;
+  min-width: 0%;
+}
+#tp #vendor {
+  width: 0%;
+  float: left;
+  -webkit-transition: width 0.5s;
+  transition: width 0.5s;
+}
+#tp #customer {
+  width: 100%;
+  float: right;
+  -webkit-transition: width 0.5s;
+  transition: width 0.5s;
+}
+#tp.switched #vendor {
+  width: 100% !important;
+}
+#tp.switched #customer {
+  width: 0% !important;
+}
+#tp #handle-head {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+}
+#tp .body {
+  /*width: 100%;*/
+  /*height: calc(100vh - 40px);*/
+  height: 100vh;
+}
+#tp .switch {
+  position: fixed;
+  top: -40px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: yellow;
+  cursor: pointer;
+}
+#tp #handle-head-left {
+  left: -40px;
+  opacity: 1;
+  /*filter: drop-shadow(10px 10px 5px black);*/
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+#tp #handle-head-right {
+  right: -40px;
+  opacity: 0;
+  /*filter: drop-shadow(10px 10px 5px black);*/
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+#tp.switched #handle-head-left {
+  opacity: 0;
+}
+#tp.switched #handle-head-right {
+  opacity: 1;
+}
+
+/*# sourceMappingURL=wrapper.css.map */

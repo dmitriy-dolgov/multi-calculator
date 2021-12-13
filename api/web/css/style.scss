@@ -1,0 +1,146 @@
+@import "site";
+@import "setup";
+@import "gentelella";
+@import "mixins";
+@import "welcome";
+@import "fonts";
+@import "main";
+
+
+.site-index {
+  display: flex;
+}
+
+.component {
+  width: 15vw;
+  height: 17vw;
+  float: left;
+  padding: 1vw;
+
+  .img-wrap {
+    width: 11vw;
+    height: 11vw;
+    @include background-contain;
+  }
+
+  .price-discount {
+    text-decoration: line-through;
+  }
+
+  .component-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+
+    .short-name {
+
+    }
+  }
+}
+
+.sidebar {
+  /*width: 30vw;*/
+
+  .resulting-panel {
+    border: 1px outset black;
+    width: 30vw;
+    height: 30vw;
+  }
+
+  .total-price {
+    width: 100%;
+    display: inline;
+    font-weight: bold;
+  }
+
+  .components-selected {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    .added-component {
+      margin-right: .5vw;
+
+      .image {
+        width: 4vw;
+        height: 4vw;
+        @include background-contain;
+      }
+    }
+  }
+
+  .components-selected-details {
+    width: 100%;
+
+    .added-component {
+      display: flex;
+
+      & > * {
+        display: inline-block;
+      }
+
+      .image {
+        width: 5vw;
+        height: 5vw;
+        @include background-contain;
+        margin-right: 1vw;
+      }
+
+      .button-delete {
+        margin-left: auto;
+        width: 3vw;
+        height: 3vw;
+        @include background-contain;
+        background-image: url(/img/close-btn.png);
+      }
+    }
+  }
+}
+
+.nav-separator {
+  width: 9px;
+
+  &:before {
+    content: "";
+    background-color: #AAA;
+    width: 1px;
+    height: 25px;
+    display: inline-block;
+    position: absolute;
+    left: 8px;
+    top: 16px;
+  }
+
+}
+
+.pg-simple {
+  .wrap {
+    height: 100%;
+  }
+
+  .navbar {
+    position: relative;
+  }
+
+  .footer {
+    display: inline-block;
+    width: 100%;
+    margin-top: 4em;
+  }
+}
+
+.main-background {
+  background-color: rgba(0, 0, 0, .7);
+  padding: 65px 15px 20px;
+  min-height: 100%;
+  border-radius: 5px;
+}
+
+.site-about {
+  min-height: 100%;
+}
+
+.main-caption {
+  margin-top: 0 !important;
+}
